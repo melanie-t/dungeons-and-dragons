@@ -3,6 +3,7 @@
 //!
 
 #include "Item.h"
+#include <iostream>
 
 //! default constructor
 Item::Item()
@@ -19,6 +20,14 @@ Item::Item(string type_name, vector<Enhancement> influences)
 	// enhances a character statistic valid for this item type
 	type = type_name;
 	influence = influences;
+
+	if (!this->validateItem())
+	{
+		//Probably have a popup window for this later on.
+		//When GUI is implemented
+		std::cout << "Invalid Item!!" << std::endl; 
+	}
+	//If the item is valid, we don't do anything.
 }
 
 //! method to get the type of the item
@@ -39,7 +48,7 @@ vector<Enhancement> Item::getInfluences()
 //! @return : true if the enhancement list is valid according to the rules, false if not
 bool Item::validateItem()
 {
-	// ***todo***
+	// ***todo*** done.
 
 	//Not sure if needed: HEEEEELP
 	for (int i = 0; i != influence.size(); ++i)
@@ -49,7 +58,7 @@ bool Item::validateItem()
 			return false;
 		}
 	}
-	//Reeeeal shit.
+	//Actual checking
 	if (type == "Helmet")
 	{
 		for (int i = 0; i != influence.size(); ++i)
