@@ -41,7 +41,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestItem);//most important
 void TestItem::testValidItem(void)
 {
 	// ***todo*** create a valid item
-	Item* item = new Item("Helmet", );
+	//Item* item = new Item("Helmet", );
 	// ***todo*** test that calling validateItem() returns true
 }
 

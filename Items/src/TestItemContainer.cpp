@@ -15,7 +15,7 @@
 #include <cppunit/CompilerOutputter.h>
 #include <cppunit/XmlOutputter.h>
 #include "ItemContainer.h"
-using namespace CppUnit;
+//using namespace CppUnit;
 using namespace std;
 
 //! Test Class for the ItemContainer class

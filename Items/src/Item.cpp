@@ -53,7 +53,7 @@ bool Item::validateItem()
 	//Not sure if needed: HEEEEELP
 	for (int i = 0; i != influence.size(); ++i)
 	{
-		if (influence[i].getBonus != 1 || influence[i].getBonus != 5)
+		if (influence[i].getBonus() != 1 || influence[i].getBonus() != 5)
 		{
 			return false;
 		}
