@@ -69,11 +69,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Dice.h" />
     <ClInclude Include="src\Enhancement.h" />
     <ClInclude Include="src\Item.h" />
     <ClInclude Include="src\ItemContainer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Dice.cpp" />
     <ClCompile Include="src\Enhancement.cpp" />
     <ClCompile Include="src\Item.cpp" />
     <ClCompile Include="src\ItemContainer.cpp" />

@@ -24,6 +24,9 @@
     <ClInclude Include="src\Enhancement.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Dice.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Enhancement.cpp">
@@ -42,6 +45,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\TestItemContainer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Dice.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
