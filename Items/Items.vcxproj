@@ -46,11 +46,11 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\Dylan\Documents\Visual Studio 2013\Projects\comp345\cppunit\include\cppunit;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>\cppunit\include\cppunit;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\Dylan\Documents\Visual Studio 2013\Projects\comp345\cppunit\lib;C:\Users\Dylan\Documents\Visual Studio 2013\Projects\comp345\cppunit;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\cppunit\lib;$(SolutionDir)$\cppunit;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>cppunitd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -77,6 +77,7 @@
     <ClCompile Include="src\Enhancement.cpp" />
     <ClCompile Include="src\Item.cpp" />
     <ClCompile Include="src\ItemContainer.cpp" />
+    <ClCompile Include="src\ItemDriver.cpp" />
     <ClCompile Include="src\RunApp.cpp" />
     <ClCompile Include="src\TestItem.cpp" />
     <ClCompile Include="src\TestItemContainer.cpp" />
