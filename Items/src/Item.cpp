@@ -25,7 +25,7 @@ Item::Item(string type_name, vector<Enhancement> influences)
 	{
 		//Probably have a popup window for this later on.
 		//When GUI is implemented
-		std::cout << "Invalid Item!!" << std::endl; 
+		std::cout << "[WARNING] Invalid Item." << std::endl; 
 	}
 	//If the item is valid, we don't do anything.
 }
@@ -48,12 +48,9 @@ vector<Enhancement> Item::getInfluences()
 //! @return : true if the enhancement list is valid according to the rules, false if not
 bool Item::validateItem()
 {
-	// ***todo*** done.
-
-	//Not sure if needed: HEEEEELP
 	for (int i = 0; i != influence.size(); ++i)
 	{
-		if (influence[i].getBonus() != 1 || influence[i].getBonus() != 5)
+		if (influence[i].getBonus() != 1 && influence[i].getBonus() != 5)
 		{
 			return false;
 		}
@@ -200,6 +197,7 @@ bool Item::validateItem()
 	}
 	else //Unknown Item type.
 	{
+		std::cout << "Unknown Item Type." << std::endl;
 		return false;
 	}
 	return true;
