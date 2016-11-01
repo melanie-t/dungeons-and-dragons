@@ -8,7 +8,7 @@
 class Map {
 public:
 	//Constructor
-	Map(const int length, const int width);
+	Map(const int id, const int length, const int width, const std::string name);
 	bool validatePath();
 	void fillCell(int x, int y, char obj);
 	bool isOccupied(int x, int y);
@@ -28,6 +28,8 @@ private:
 	char** map;
 	int row;
 	int column;
+	int ID;
+	std::string name;
 	int** mapSearch;
 	bool recursiveSearch(int posx, int posy, int endposx, int endposy);
 };

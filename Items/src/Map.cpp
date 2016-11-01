@@ -14,11 +14,13 @@ However, the map needs a path between the begin cell and end cell.
 #include "Map.h"
 #include <vector>
 	//Constructor method for the map.
-	Map::Map(const int length, const int width)
+	Map::Map(const int id, const int length, const int width, const std::string name)
 	{
+		this->ID = id;
 		//width = row, length = column
-		row = width;
-		column = length;
+		this->row = width;
+		this->column = length;
+		this->name = name;
 		//Creating an array that will serve as our map.
 		map = new char*[width];
 		for (int i = 0; i < length; ++i)
