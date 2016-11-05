@@ -13,6 +13,7 @@ However, the map needs a path between the begin cell and end cell.
 #include "Map.h"
 #include <vector>
 #include "Character.h"
+#include "Door.h"
 using namespace std;
 
 	//Default Constructor
@@ -70,15 +71,20 @@ using namespace std;
 		//check if there's a start point and end point
 		for (int i = 0; i < row; ++i) {
 			for (int j = 0; j < column; ++j) {
-				if (map[i][j].getObjectType() == "S") {
-					startpoint = true;
-					startx = i;
-					starty = j;
-				}
-				if (map[i][j].getObjectType() == "E") {
-					endpoint = true;
-					endx = i;
-					endy = j;
+				if (map[i][j].getObjectType() == DOOR)
+				{
+					Door door = static_cast<Door&> (map[i][j]);
+
+					if (door.getStart()) { //start
+						startpoint = true;
+						startx = i;
+						starty = j;
+					}
+					if (!door.getStart()) { // end
+						endpoint = true;
+						endx = i;
+						endy = j;
+					}
 				}
 			}
 		}

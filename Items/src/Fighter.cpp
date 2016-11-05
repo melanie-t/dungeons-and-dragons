@@ -7,16 +7,9 @@ using std::cout;
 using std::endl;
 
 //! Constructor: Passes values to each ability score
-Fighter::Fighter(int level, int str, int dex, int con, int intel, int wis, int cha)
+Fighter::Fighter(int level, int str, int dex, int con, int intel, int wis, int cha):
+													Character(level, str, dex, con, intel, wis, cha)
 {
-	setLevel(level);
-	setSTR(str);
-	setDEX(dex);
-	setCON(con);
-	setINTEL(intel);
-	setWIS(wis);
-	setCHA(cha);
-	secondaryStatCalc();
 }
 
 //! Default constructor: Assigns values for level 1

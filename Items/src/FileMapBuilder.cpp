@@ -11,6 +11,17 @@
 #include "Enemy.h"
 using namespace std;
 
+FileMapBuilder::FileMapBuilder() : FileMapBuilder(nullptr)
+{
+}
+FileMapBuilder::FileMapBuilder(Character* character)
+{
+	this->character = character;
+}
+FileMapBuilder::~FileMapBuilder()
+{
+	delete character;
+}
 void FileMapBuilder::loadMap(int id)
 {
 	//Fill every empty tile with grass.
@@ -63,6 +74,7 @@ void FileMapBuilder::loadMap(int id)
 					{
 						Door door = Door();
 						int x, y, mapid;
+						bool start;
 
 						xml.IntoElem();
 						while (xml.FindElem())
@@ -81,8 +93,13 @@ void FileMapBuilder::loadMap(int id)
 							{
 								y = atoi(xml.GetData().c_str());
 							}
+							else if (doorTag == "start")
+							{
+								start = (atoi(xml.GetData().c_str()) == 1);
+							}
 						}
 						door.setDestinationID(mapid);
+						door.setStart(start);
 						map->fillCell(x, y, door);
 						xml.OutOfElem();
 					}
@@ -139,7 +156,7 @@ void FileMapBuilder::loadMap(int id)
 					{
 						xml.IntoElem();
 						int x, y;
-						Item item = Item::randommize(1); // temp get character level somehow
+						Item item = Item::randommize(character->getLevel());
 						while (xml.FindElem())
 						{
 							if (xml.GetTagName() == "x")
@@ -162,7 +179,7 @@ void FileMapBuilder::loadMap(int id)
 					while (xml.FindElem())
 					{
 						xml.IntoElem();
-						Enemy enemy;
+						Enemy enemy = Enemy::randomize(1); //////////////////////////////////////////
 						int x, y;
 						//now in each enemy tage
 						while (xml.FindElem())

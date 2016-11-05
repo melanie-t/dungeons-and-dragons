@@ -63,6 +63,7 @@ void SavedMapBuilder::loadMap(int id)
 					{
 						Door door = Door();
 						int x, y, mapid;
+						bool start;
 
 						xml.IntoElem();
 						while (xml.FindElem())
@@ -81,8 +82,13 @@ void SavedMapBuilder::loadMap(int id)
 							{
 								y = atoi(xml.GetData().c_str());
 							}
+							else if (doorTag == "start")
+							{
+								start = (atoi(xml.GetData().c_str()) == 1);
+							}
 						}
 						door.setDestinationID(mapid);
+						door.setStart(start);
 						map->fillCell(x, y, door);
 						xml.OutOfElem();
 					}
