@@ -5,3 +5,4 @@
 #define ITEM "item"
 #define DOOR "door"
 #define GRASS "grass"
+#define ENEMY "enemy"

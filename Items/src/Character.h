@@ -31,7 +31,7 @@
 #include "GameObject.h"
 
 //! Class that implements a character 
-class Character : public GameObject
+class Character
 {
 public:
 	Character();

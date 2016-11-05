@@ -11,25 +11,12 @@ using std::cout;
 using std::endl;
 
 //! Default constructor: initializes level to 1 and generates new character with 0 stats
-Character::Character() : Character(1, 0, 0, 0, 0, 0, 0)
+Character::Character() : Character(1, 0, 0, 0, 0, 0, 0) //hi, this is just cleaner. So I changed it - Dylan.
 {
-
-	/*level = 1;
-	abilityScores[0] = 0;
-	abilityScores[1] = 0;
-	abilityScores[2] = 0;
-	abilityScores[3] = 0;
-	abilityScores[4] = 0;
-	abilityScores[5] = 0;
-
-	armorClass = 0;
-	attackBonus = 0;
-	damageBonus = 0;
-	currentHitPoints = 10;*/
 }
 
 //! Constructor: passes values to each ability score and set hit points to 10
-Character::Character(int lvl, int str, int dex, int con, int intel, int wis, int cha) : GameObject(CHARACTER)
+Character::Character(int lvl, int str, int dex, int con, int intel, int wis, int cha)
 {
 	level = lvl;
 	abilityScores[0] = str;

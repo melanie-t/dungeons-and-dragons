@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "FileMapBuilder.h"
+#include "SavedMapBuilder.h"
 #include "Door.h"
 #include "Markup.h"
 #include "WaterTexture.h"
@@ -11,7 +11,7 @@
 #include "Enemy.h"
 using namespace std;
 
-void FileMapBuilder::loadMap(int id)
+void SavedMapBuilder::loadMap(int id)
 {
 	//Fill every empty tile with grass.
 	//Is there a way to avoid a n^2 function?
@@ -139,7 +139,7 @@ void FileMapBuilder::loadMap(int id)
 					{
 						xml.IntoElem();
 						int x, y;
-						Item item = Item::randommize(1); // temp get character level somehow
+						Item item;
 						while (xml.FindElem())
 						{
 							if (xml.GetTagName() == "x")
