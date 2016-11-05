@@ -26,6 +26,7 @@ public:
 	std::string getName(){ return this->name; }
 	int getNumRows(){ return this->row; }
 	int getNumCol(){ return this->column; }
+	GameObject** getMap(){ return this->map; }
 
 	//setters
 	void setID(int id){ this->ID = id; }

@@ -3,8 +3,7 @@
 class WaterTexture : public GameObject
 {
 public:
-	WaterTexture()
+	WaterTexture() : GameObject(WATER)
 	{
-		GameObject(WATER);
 	}
 };

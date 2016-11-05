@@ -1,11 +1,9 @@
 #include "Door.h"
 
-Door::Door()
+Door::Door() : Door(0)
 {
-	Door(0);
 }
-Door::Door(int destinationID)
+Door::Door(int destinationID) : GameObject(DOOR)
 {
-	GameObject(DOOR);
 	this->destinationID = destinationID;
 }

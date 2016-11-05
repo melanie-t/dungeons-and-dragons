@@ -7,18 +7,15 @@
 #include <iostream>
 
 //! default constructor
-Item::Item()
+Item::Item() : Item("ring", vector<Enhancement>())
 {
-	GameObject(ITEM);
-	type = "";
 }
 
 //! constructor that receives an item type as a string and a vector containing the enhancements that this item gives
 //! @param type_name : string representing the type of item
 //! @param influences : vector containing all the characteristics influenced by the item
-Item::Item(string type_name, vector<Enhancement> influences)
+Item::Item(string type_name, vector<Enhancement> influences) : GameObject(ITEM)
 {
-	GameObject(ITEM);
 	// ***todo***: this constructor should verify that an new item of a certain type only 
 	// enhances a character statistic valid for this item type
 	type = type_name;
@@ -235,7 +232,11 @@ Item Item::randommize(int lvl)
 		type = TYPE_WEAPON; break;
 	}
 
-createBonus: //For goto statement, later, we check if the item is valid
+	// For now, randomly generated items will not have enhancements.
+	// Because this will take a while to do.
+
+	vector<Enhancement> enh;
+//createBonus: //For goto statement, later, we check if the item is valid
 	//if it's not, we start this process over again.
 	//Horrible way to do it, but only one I can think of right now.
 	//do while loop might work. Have to think about it.
@@ -245,7 +246,7 @@ createBonus: //For goto statement, later, we check if the item is valid
 	// generate a random number t
 	// there's a 50/50 chance of getting an enhancement
 	// for that type
-	vector<Enhancement> enh;
+	/*vector<Enhancement> enh;
 	for (int i = 0; i != 9; i++)
 	{
 		int t = rand();
@@ -288,12 +289,12 @@ createBonus: //For goto statement, later, we check if the item is valid
 			enh.push_back(enhancement);
 		}
 		//Else do nothing, don't add enhancement.
-	}
+	}*/
 	Item item(type, enh);
 
 	if (!item.validateItem())
 	{
-		goto createBonus;
+		//goto createBonus;
 	}
 	else
 	{

@@ -4,3 +4,4 @@
 #define CHARACTER "character"
 #define ITEM "item"
 #define DOOR "door"
+#define GRASS "grass"

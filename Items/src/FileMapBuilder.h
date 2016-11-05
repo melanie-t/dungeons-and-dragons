@@ -1,6 +1,6 @@
 #include "MapBuilder.h"
 
-class FileMapBuilder : MapBuilder
+class FileMapBuilder : public MapBuilder
 {
 public:
 	virtual void loadMap(int id);

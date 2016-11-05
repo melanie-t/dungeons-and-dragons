@@ -7,10 +7,23 @@
 #include "TreeTexture.h"
 #include "BrickTexture.h"
 #include "Item.h"
+#include "GrassTexture.h"
 using namespace std;
 
 void FileMapBuilder::loadMap(int id)
 {
+	//Fill every empty tile with grass.
+	//Is there a way to avoid a n^2 function?
+	//I don't think we can avoid interating through everything.
+	Map*map = new Map(id);
+	for (int i = 0; i != map->getNumRows(); i++)
+	{
+		for (int k = 0; k != map->getNumCol(); k++)
+		{
+			map->fillCell(i, k, GrassTexture());
+		}
+	}
+
 	char di[20];
 	sprintf_s(di, 20, "%d.xml", id);
 
@@ -26,8 +39,6 @@ void FileMapBuilder::loadMap(int id)
 		}
 		else
 		{
-			Map* map = new Map(id);
-
 			xml.IntoElem();
 			while (xml.FindElem())
 			{
@@ -74,6 +85,7 @@ void FileMapBuilder::loadMap(int id)
 						map->fillCell(x, y, door);
 						xml.OutOfElem();
 					}
+					xml.OutOfElem();
 				}
 				else if (s == "walls")
 				{
@@ -121,27 +133,30 @@ void FileMapBuilder::loadMap(int id)
 				}
 				else if (s == "items")
 				{
-					cout << "items" << endl;
 					xml.IntoElem();
-					int x, y;
-					Item item = Item::randommize(1); // temp get character level.
 					while (xml.FindElem())
 					{
-						if (xml.GetTagName() == "x")
+						xml.IntoElem();
+						int x, y;
+						Item item = Item::randommize(1); // temp get character level somehow
+						while (xml.FindElem())
 						{
-							x = atoi(xml.GetData().c_str());
+							if (xml.GetTagName() == "x")
+							{
+								x = atoi(xml.GetData().c_str());
+							}
+							else if (xml.GetTagName() == "y")
+							{
+								y = atoi(xml.GetData().c_str());
+							}
 						}
-						else if (xml.GetTagName() == "y")
-						{
-							y = atoi(xml.GetData().c_str());
-						}
+						xml.OutOfElem();
+						map->fillCell(x, y, item);
 					}
-					map->fillCell(x, y, item);
 					xml.OutOfElem();
 				}
 				else if (s == "enemies")
 				{
-					cout << "hi yall" << endl;
 					xml.IntoElem();
 					while (xml.FindElem())
 					{
@@ -150,13 +165,14 @@ void FileMapBuilder::loadMap(int id)
 						//now in each enemy tage
 						while (xml.FindElem())
 						{
-							std::cout << xml.GetTagName() << endl;
+							//std::cout << xml.GetTagName() << endl;
 						}
 						xml.OutOfElem();
 					}
 					xml.OutOfElem();
 				}
 			}
+			this->m_Map = map;
 		}
 	}
 	else

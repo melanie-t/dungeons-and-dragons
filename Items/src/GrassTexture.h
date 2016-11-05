@@ -1,9 +1,9 @@
 #include "GameObject.h"
 
-class GrassTexture : GameObject
+class GrassTexture : public GameObject
 {
-	GrassTexture()
+public:
+	GrassTexture() : GameObject(GRASS)
 	{
-		GameObject(GRASS);
 	}
 };

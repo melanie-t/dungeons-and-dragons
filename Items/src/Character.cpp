@@ -11,9 +11,8 @@ using std::cout;
 using std::endl;
 
 //! Default constructor: initializes level to 1 and generates new character with 0 stats
-Character::Character()
+Character::Character() : Character(1, 0, 0, 0, 0, 0, 0)
 {
-	Character(1, 0, 0, 0, 0, 0, 0);
 
 	/*level = 1;
 	abilityScores[0] = 0;
@@ -30,9 +29,8 @@ Character::Character()
 }
 
 //! Constructor: passes values to each ability score and set hit points to 10
-Character::Character(int lvl, int str, int dex, int con, int intel, int wis, int cha)
+Character::Character(int lvl, int str, int dex, int con, int intel, int wis, int cha) : GameObject(CHARACTER)
 {
-	GameObject(CHARACTER);
 	level = lvl;
 	abilityScores[0] = str;
 	abilityScores[1] = dex;

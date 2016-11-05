@@ -3,8 +3,7 @@
 class TreeTexture : public GameObject
 { 
 public:
-	TreeTexture()
+	TreeTexture() : GameObject(TREE)
 	{
-		GameObject(TREE);
 	}
 };
