@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include "GameObject.h"
+#include "Character.h"
 
 #ifndef Map_H
 #define Map_H

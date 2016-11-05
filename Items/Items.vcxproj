@@ -92,11 +92,11 @@
     <ClInclude Include="src\WaterTexture.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="FileMapBuilder.cpp" />
     <ClCompile Include="src\Character.cpp" />
     <ClCompile Include="src\Door.cpp" />
     <ClCompile Include="src\Enhancement.cpp" />
     <ClCompile Include="src\Fighter.cpp" />
+    <ClCompile Include="src\FileMapBuilder.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="src\Item.cpp" />
     <ClCompile Include="src\ItemContainer.cpp" />

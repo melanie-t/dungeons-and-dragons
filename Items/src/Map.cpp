@@ -19,7 +19,7 @@ However, the map needs a path between the begin cell and end cell.
 		Map(0, 0, 0, "");
 	}
 	//Constructor method for the map.
-	Map::Map(const int id, const int length, const int width, const std::string name, Character* player = nullptr)
+	Map::Map(const int id, const int length, const int width, const std::string name, Character* player)
 	{
 		this->ID = id;
 		//width = row, length = column
