@@ -9,7 +9,5 @@ public:
 
 	void createNewMap(){ this->m_Map = new Map(); };
 
-	virtual void setNumRows() = 0;
-	virtual void setNumColumns() = 0;
-	virtual void buildObjects() = 0;
+	virtual void loadMap(int id) = 0;
 };

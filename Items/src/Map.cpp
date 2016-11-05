@@ -9,22 +9,29 @@ The map can also be a blank map,
 However, the map needs a path between the begin cell and end cell.
 
 */
-#include "stdafx.h"
 #include <iostream>
 #include "Map.h"
 #include <vector>
+#include "Character.h"
+	//Default Constructor
+	Map::Map()
+	{
+		Map(0, 0, 0, "");
+	}
 	//Constructor method for the map.
-	Map::Map(const int id, const int length, const int width, const std::string name)
+	Map::Map(const int id, const int length, const int width, const std::string name, Character* player = nullptr)
 	{
 		this->ID = id;
 		//width = row, length = column
 		this->row = width;
 		this->column = length;
 		this->name = name;
+		//Player on the map.
+		this->player = player;
 		//Creating an array that will serve as our map.
-		map = new char*[width];
+		map = new GameObject*[width];//= new char*[width];
 		for (int i = 0; i < length; ++i)
-			map[i] = new char[length];
+			map[i] = new GameObject[length];
 		//Creating an array in order to search it.
 		mapSearch = new int*[width];
 		for (int i = 0; i < length; ++i)
@@ -61,12 +68,12 @@ However, the map needs a path between the begin cell and end cell.
 		//check if there's a start point and end point
 		for (int i = 0; i < row; ++i) {
 			for (int j = 0; j < column; ++j) {
-				if (map[i][j] == 'S') {
+				if (map[i][j].getObjectType() == "S") {
 					startpoint = true;
 					startx = i;
 					starty = j;
 				}
-				if (map[i][j] == 'E') {
+				if (map[i][j].getObjectType() == "E") {
 					endpoint = true;
 					endx = i;
 					endy = j;
@@ -81,11 +88,11 @@ However, the map needs a path between the begin cell and end cell.
 			return false;
 		}
 	}
-	void Map::fillCell(int x, int y, char obj) {
+	void Map::fillCell(int x, int y, GameObject obj) {
 		map[x][y] = obj;
 	}
 	bool Map::isOccupied(int x, int y) {
-		if (map[x][y] == ' ') {
+		if (&map[x][y] == nullptr) {
 			return false;
 		}
 		else
@@ -93,7 +100,10 @@ However, the map needs a path between the begin cell and end cell.
 	}
 	bool Map::recursiveSearch(int posx, int posy, int endposx, int endposy) {
 		//Current position is the end position.
-		if (map[posx][posy] == map[endposx][endposy]) {
+		GameObject cur = map[posx][posy];
+		GameObject end = map[endposx][endposy];
+		///Need to double check. Should work, I think. compares address.
+		if (&cur == &end) { 
 			return true;
 		}
 		//find a way to keep track of where ive already visited.
@@ -103,7 +113,7 @@ However, the map needs a path between the begin cell and end cell.
 		else if (posx < 0 || posy < 0 || posx > row || posy > column) {
 			return false;
 		}
-		else if (map[posx][posy] != ' ') {
+		else if (&map[posx][posy] == nullptr) {
 			return false;
 		}
 		//Recursion to check down,up,left,right

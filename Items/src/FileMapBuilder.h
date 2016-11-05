@@ -1,9 +1,7 @@
 #include "MapBuilder.h"
 
-class SavedMapBuilder : MapBuilder
+class FileMapBuilder : MapBuilder
 {
 public:
-	virtual void setNumRows();
-	virtual void setNumColumns();
-	virtual void buildObjects();
+	virtual void loadMap(int id);
 };

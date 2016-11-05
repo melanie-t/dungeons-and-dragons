@@ -33,3 +33,15 @@ int Enhancement::getBonus()
 {
 	return bonus;
 }
+
+//setter for Type
+void Enhancement::setType(string type)
+{
+	this->type = type;
+}
+
+//setter for bonus
+void Enhancement::setBonus(int bonus)
+{
+	this->bonus = bonus;
+}
