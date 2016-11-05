@@ -13,13 +13,15 @@ However, the map needs a path between the begin cell and end cell.
 #include "Map.h"
 #include <vector>
 #include "Character.h"
+using namespace std;
+
 	//Default Constructor
 	Map::Map()
 	{
 		Map(0, 0, 0, "");
 	}
 	//Constructor method for the map.
-	Map::Map(const int id, const int length, const int width, const std::string name, Character* player)
+	Map::Map(const int id, const int length, const int width, const string name, Character* player)
 	{
 		this->ID = id;
 		//width = row, length = column
@@ -43,9 +45,9 @@ However, the map needs a path between the begin cell and end cell.
 		{
 			for (int j = 0; j < width; i++)
 			{
-				std::cout << map[i][j];
+				cout << map[i][j];
 			}
-			std::cout << std::endl;
+			cout << endl;
 		}
 	}
 	//Method to set an element in the array (in order to create the map)
@@ -89,6 +91,13 @@ However, the map needs a path between the begin cell and end cell.
 		}
 	}
 	void Map::fillCell(int x, int y, GameObject obj) {
+
+		if (x > row || y > column)
+		{
+			cout << "invalid position" << endl;
+			return;
+		}
+
 		map[x][y] = obj;
 	}
 	bool Map::isOccupied(int x, int y) {

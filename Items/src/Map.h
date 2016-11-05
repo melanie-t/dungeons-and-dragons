@@ -10,7 +10,7 @@
 class Map {
 public:
 	//Constructor
-	Map(const int id, const int length, const int width, const std::string name, Character* player = nullptr);
+	Map(const int id, const int length = 20, const int width = 20, const std::string name = "", Character* player = nullptr);
 	Map();
 
 	//Methods
@@ -19,6 +19,7 @@ public:
 	bool isOccupied(int x, int y);
 	void printMap(char** map, int length, int width);
 	void setElement(char** map, int row, int column, char element);
+	void createMapSize(int x, int y);
 
 	//Getters
 	int getID(){ return this->ID; }

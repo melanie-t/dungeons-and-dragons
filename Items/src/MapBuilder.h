@@ -1,4 +1,5 @@
 #include "Map.h"
+#include "Character.h"
 
 class MapBuilder
 {
