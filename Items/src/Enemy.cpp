@@ -1,12 +1,12 @@
 #include "Enemy.h"
 
-Enemy::Enemy() : Enemy(1, 9, 9, 9, 9, 9, 9), GameObject(ENEMY)
+Enemy::Enemy() : Enemy(1, 9, 9, 9, 9, 9, 9)
 {
 
 }
 
 Enemy::Enemy(int lvl, int str, int dex, int con, int intel, int wis, int cha) : 
-			Character(lvl, str, dex, con, intel, wis, cha)
+		Character(lvl, str, dex, con, intel, wis, cha), GameObject(ENEMY)
 {
 }
 

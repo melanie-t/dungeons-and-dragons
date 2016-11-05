@@ -16,11 +16,11 @@ FileMapBuilder::FileMapBuilder() : FileMapBuilder(nullptr)
 }
 FileMapBuilder::FileMapBuilder(Character* character)
 {
-	this->character = character;
+	this->player = character;
 }
 FileMapBuilder::~FileMapBuilder()
 {
-	delete character;
+	delete player;
 }
 void FileMapBuilder::loadMap(int id)
 {
@@ -156,7 +156,7 @@ void FileMapBuilder::loadMap(int id)
 					{
 						xml.IntoElem();
 						int x, y;
-						Item item = Item::randommize(character->getLevel());
+						Item item = Item::randommize(player->getLevel());
 						while (xml.FindElem())
 						{
 							if (xml.GetTagName() == "x")
@@ -179,7 +179,7 @@ void FileMapBuilder::loadMap(int id)
 					while (xml.FindElem())
 					{
 						xml.IntoElem();
-						Enemy enemy = Enemy::randomize(1); //////////////////////////////////////////
+						Enemy enemy = Enemy::randomize(player);
 						int x, y;
 						//now in each enemy tage
 						while (xml.FindElem())

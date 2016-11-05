@@ -7,7 +7,7 @@
 #include <iostream>
 
 //! default constructor
-Item::Item() : Item("ring", vector<Enhancement>())
+Item::Item() : Item("", vector<Enhancement>())
 {
 }
 
