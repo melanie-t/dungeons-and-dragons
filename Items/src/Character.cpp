@@ -39,7 +39,8 @@ bool Character::validateNewCharacter()
 	return true;
 }
 
-
+//! statGenerator function
+//! @brief generates random stats for the character
 void Character::statGenerator() {
 	srand(time(NULL));
 	abilityScores[0] = rand() % 16 + 3;
@@ -64,6 +65,9 @@ int Character::abilityModifier(int abilityScore)
 	return abilityMod;
 }
 
+//! secondaryStatCalc function
+//! @brief generates secondary stats based on
+//! primary stats.
 void Character::secondaryStatCalc() {
 	setHitPoints(10 + getLevel()*abilityModifier(getCON()));
 	setArmorClass(abilityModifier(getDEX()));
@@ -235,43 +239,55 @@ void Character::setCHA(int newCHA)
 	abilityScores[5] = newCHA;
 }
 
+//! armorEquipped function
+//! @return true if equipArmor=true, else false.
 bool Character::armorEquipped()
 {
-	if (equipArmor)
-		return true;
-	return false;
+	return equipArmor;
 }
+//! shieldEquipped function
+//! @return true if equipShield=true, else false.
 bool Character::shieldEquipped()
 {
 	if (equipShield)
 		return true;
 	return false;
 }
+//! weaponEquipped function
+//! @return true if equipWeapon=true, else false.
 bool Character::weaponEquipped()
 {
 	if (equipWeapon)
 		return true;
 	return false;
 }
+//! bootsEquipped function
+//! @return true if equipBoots=true, else false.
 bool Character::bootsEquipped()
 {
 	if (equipBoots)
 		return true;
 	return false;
 }
+
+//! ringEquipped function
+//! @return true if equipRing=true, else false.
 bool Character::ringEquipped()
 {
 	if (equipRing)
 		return true;
 	return false;
 }
+//! helmetEquipped function
+//! @return true if equipHelmet=true, else false.
 bool Character::helmetEquipped()
 {
 	if (equipHelmet)
 		return true;
 	return false;
 }
-
+//! displayStats function
+//! @brief displays the stats of the Character.
 void Character::displayStats()
 {
 	cout << "Level: " << getLevel()

@@ -1,3 +1,6 @@
+//! @file 
+//! @brief Header file for the Door class  
+//!
 #include "GameObject.h"
 
 class Door : public GameObject

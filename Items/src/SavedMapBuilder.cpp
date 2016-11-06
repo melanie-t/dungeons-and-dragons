@@ -1,3 +1,6 @@
+//! @file 
+//! @brief Implementation file for the SavedMapBuilder class  
+//!
 #include <iostream>
 #include <string>
 #include "SavedMapBuilder.h"
@@ -11,6 +14,9 @@
 #include "Enemy.h"
 using namespace std;
 
+//! loadMap function
+//! @brief loads and parse the xml file of map corresponding the unique id given
+//! @param id the id of the map given
 bool SavedMapBuilder::loadMap(int id)
 {
 	//Fill every empty tile with grass.

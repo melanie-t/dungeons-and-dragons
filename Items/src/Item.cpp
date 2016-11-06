@@ -16,8 +16,6 @@ Item::Item() : Item("", vector<Enhancement>())
 //! @param influences : vector containing all the characteristics influenced by the item
 Item::Item(string type_name, vector<Enhancement> influences) : GameObject(ITEM)
 {
-	// ***todo***: this constructor should verify that an new item of a certain type only 
-	// enhances a character statistic valid for this item type
 	type = type_name;
 	influence = influences;
 
@@ -30,6 +28,8 @@ Item::Item(string type_name, vector<Enhancement> influences) : GameObject(ITEM)
 	//If the item is valid, we don't do anything.
 }
 
+//! Destructor For the Item class
+//! Empties the enhacement container
 Item::~Item()
 {
 	while (!influence.empty()) {
@@ -210,23 +210,30 @@ bool Item::validateItem()
 	return true;
 }
 
-//The next two functions are helpers
-//used in the randomize function
-//below.They randomize the possibility
-//Of getting a certain type of enhancement
-//and the bonus amount of the enhancement
-//by the level of the player.
+//! function that randomly chooses
+//! if we should give an enhancement
+//! The chance of giving an enhancement
+//! is 1/(the level of the character)
+//! @param lvl level of player
 inline bool giveEnh(int lvl)
 {
 	return (rand() % lvl == 0);
 }
 
+//! function that randomly chooses
+//! the bonus amount for an enhancement (+1 or +5)
+//! The chance of giving a +5 enhancement
+//! is 1/(the level of the character)^2
+//! @param lvl level of player
 inline int givePlusFiveBonus(int lvl)
 {
 	if ((rand() % (lvl*lvl)) == 0) return 5;
 	else return 1;
 }
 
+//! function that creates a randomly generated item.
+//! The item is created according to the level of the character
+//! @param lvl the level of the character
 Item Item::randommize(int lvl)
 {
 	int r = rand() % 7 + 1; //Random number between 1 and 7 for choosing item type.
@@ -468,6 +475,7 @@ Item Item::randommize(int lvl)
 	}
 
 	Item item(type, enh);
+	item.levelRequirement = lvl;
 
 	return item;
 }

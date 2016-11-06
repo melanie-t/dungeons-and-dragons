@@ -1,3 +1,6 @@
+//! @file 
+//! @brief Implementation file for the FileMapBuilder class  
+//!
 #include <iostream>
 #include <string>
 #include "FileMapBuilder.h"
@@ -11,17 +14,26 @@
 #include "Enemy.h"
 using namespace std;
 
+//! Default Constructor
 FileMapBuilder::FileMapBuilder() : FileMapBuilder(nullptr)
 {
 }
-FileMapBuilder::FileMapBuilder(Character* character)
+//! constructor that receives a Character class as a parameter
+//! @param player the player of the map.
+FileMapBuilder::FileMapBuilder(Character* player)
 {
-	this->player = character;
+	this->player = player;
 }
+//! Destructor of the FileMapBUilder class
+//! @brief Deletes the player variable when the builder is deleted.
 FileMapBuilder::~FileMapBuilder()
 {
 	delete player;
 }
+//! loadMap function
+//! @brief loads and parse the xml file of map corresponding the unique id given
+//! then creates random Items and Enemies based on player, if the map has any.
+//! @param id the id of the map given
 bool FileMapBuilder::loadMap(int id)
 {
 	//Fill every empty tile with grass.

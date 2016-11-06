@@ -1,6 +1,9 @@
+//! @file 
+//! @brief Header file for the MapBuildDirector class  
+//!
 #include "MapBuilder.h"
 
-class MapBuildDirector //Temporary name
+class MapBuildDirector
 {
 public:
 	~MapBuildDirector(){ delete mapBuilder;  }

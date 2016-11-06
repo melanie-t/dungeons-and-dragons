@@ -1,4 +1,6 @@
-
+//! @file 
+//! @brief Header file for the Map class  
+//!
 #pragma once
 #include <iostream>
 #include <string>

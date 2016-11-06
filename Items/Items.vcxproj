@@ -99,7 +99,6 @@
     <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="src\Item.cpp" />
     <ClCompile Include="src\ItemContainer.cpp" />
-    <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Map.cpp" />
     <ClCompile Include="src\Markup.cpp" />
     <ClCompile Include="src\Enemy.cpp" />

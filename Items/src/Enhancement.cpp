@@ -34,13 +34,17 @@ int Enhancement::getBonus()
 	return bonus;
 }
 
-//setter for Type
+//! setType function
+// setter for the type field.
+//! @param type the type of enhancement this is.
 void Enhancement::setType(string type)
 {
 	this->type = type;
 }
 
-//setter for bonus
+//! setBonus function
+//! setter for the bonus field
+//! @param bonus the amount of bonus for this enhancement
 void Enhancement::setBonus(int bonus)
 {
 	this->bonus = bonus;
