@@ -6,7 +6,7 @@ public:
 	FileMapBuilder();
 	FileMapBuilder(Character* player);
 	~FileMapBuilder();
-	virtual void loadMap(int id);
+	virtual bool loadMap(int id);
 private:
 	Character* player;
 };

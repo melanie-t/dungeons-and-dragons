@@ -40,6 +40,11 @@ using namespace std;
 		for (int i = 0; i < length; ++i)
 			mapSearch[i] = new int[length];
 	}
+	//Destructor
+	Map::~Map()
+	{
+		delete player;
+	}
 	//Method to print the map array
 	void Map::printMap(char** map, int length, int width) {
 		for (int i = 0; i < length; i++)
@@ -107,7 +112,7 @@ using namespace std;
 		map[x][y] = obj;
 	}
 	bool Map::isOccupied(int x, int y) {
-		if (&map[x][y] == nullptr) {
+		if (map[x][y].getObjectType() == "") {
 			return false;
 		}
 		else

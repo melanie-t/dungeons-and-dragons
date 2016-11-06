@@ -13,6 +13,9 @@ public:
 	Map(const int id, const int length = 20, const int width = 20, const std::string name = "", Character* player = nullptr);
 	Map();
 
+	//Destructor
+	~Map();
+
 	//Methods
 	bool validatePath();
 	void fillCell(int x, int y, GameObject obj);

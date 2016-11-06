@@ -3,10 +3,12 @@
 class MapBuildDirector //Temporary name
 {
 public:
-	Map* getMap(){ mapBuilder->getMap(); }
+	~MapBuildDirector(){ delete mapBuilder;  }
 
+	Map* getMap();
+	
 	void setMapBuilder(MapBuilder* mapBuilder);
-	void constructMap();
+	Map* constructMap(int id);
 private:
 	MapBuilder* mapBuilder;
 

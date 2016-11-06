@@ -1,7 +1,7 @@
 #include "MapBuilder.h"
 
-class SavedMapBuilder : MapBuilder
+class SavedMapBuilder : public MapBuilder
 {
 public:
-	virtual void loadMap(int);
+	virtual bool loadMap(int);
 };

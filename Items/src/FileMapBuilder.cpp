@@ -22,19 +22,12 @@ FileMapBuilder::~FileMapBuilder()
 {
 	delete player;
 }
-void FileMapBuilder::loadMap(int id)
+bool FileMapBuilder::loadMap(int id)
 {
 	//Fill every empty tile with grass.
 	//Is there a way to avoid a n^2 function?
 	//I don't think we can avoid interating through everything.
 	Map*map = new Map(id);
-	for (int i = 0; i != map->getNumRows(); i++)
-	{
-		for (int k = 0; k != map->getNumCol(); k++)
-		{
-			map->fillCell(i, k, GrassTexture());
-		}
-	}
 
 	char di[20];
 	sprintf_s(di, 20, "%d.xml", id);
@@ -199,11 +192,27 @@ void FileMapBuilder::loadMap(int id)
 					xml.OutOfElem();
 				}
 			}
+
+			for (int i = 0; i != map->getNumRows(); i++)
+			{
+				for (int k = 0; k != map->getNumCol(); k++)
+				{
+					if (!map->isOccupied(i, k))
+					{
+						map->fillCell(i, k, GrassTexture());
+					}
+				}
+			}
+
 			this->m_Map = map;
+			return true;
 		}
+		return false;
 	}
 	else
 	{
 		cout << xml.GetError() << endl;
+		return false;
 	}
+	return false;
 }

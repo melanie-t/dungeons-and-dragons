@@ -6,3 +6,4 @@
 #define DOOR "door"
 #define GRASS "grass"
 #define ENEMY "enemy"
+#define PLAYER "player"
