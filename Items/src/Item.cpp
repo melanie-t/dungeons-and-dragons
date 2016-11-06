@@ -79,7 +79,7 @@ bool Item::validateItem()
 				influence[i].getType() == EN_CHARISMA ||
 				influence[i].getType() == EN_DEXTERITY ||
 				influence[i].getType() == EN_ATTACK_BONUS ||
-				influence[i].getType() == EN_DEF_BONUS)
+				influence[i].getType() == EN_DAMAGE_BONUS)
 			{
 				return false;
 			}
@@ -102,7 +102,7 @@ bool Item::validateItem()
 				influence[i].getType() == EN_CHARISMA ||
 				influence[i].getType() == EN_DEXTERITY ||
 				influence[i].getType() == EN_ATTACK_BONUS ||
-				influence[i].getType() == EN_DEF_BONUS ||
+				influence[i].getType() == EN_DAMAGE_BONUS ||
 				influence[i].getType() == EN_INTELLIGENCE)
 			{
 				return false;
@@ -123,7 +123,7 @@ bool Item::validateItem()
 			//Case sensitive FOR NOW.
 			if (influence[i].getType() == EN_DEXTERITY ||
 				influence[i].getType() == EN_ATTACK_BONUS ||
-				influence[i].getType() == EN_DEF_BONUS ||
+				influence[i].getType() == EN_DAMAGE_BONUS ||
 				influence[i].getType() == EN_INTELLIGENCE)
 			{
 				return false;
@@ -146,7 +146,7 @@ bool Item::validateItem()
 				influence[i].getType() == EN_CHARISMA ||
 				influence[i].getType() == EN_DEXTERITY ||
 				influence[i].getType() == EN_ATTACK_BONUS ||
-				influence[i].getType() == EN_DEF_BONUS ||
+				influence[i].getType() == EN_DAMAGE_BONUS ||
 				influence[i].getType() == EN_INTELLIGENCE ||
 				influence[i].getType() == EN_ARMOR_CLASS)
 			{
@@ -171,7 +171,7 @@ bool Item::validateItem()
 				influence[i].getType() == EN_WISDOM ||
 				influence[i].getType() == EN_CHARISMA ||
 				influence[i].getType() == EN_ATTACK_BONUS ||
-				influence[i].getType() == EN_DEF_BONUS ||
+				influence[i].getType() == EN_DAMAGE_BONUS ||
 				influence[i].getType() == EN_INTELLIGENCE)
 			{
 				return false;
@@ -210,6 +210,23 @@ bool Item::validateItem()
 	return true;
 }
 
+//The next two functions are helpers
+//used in the randomize function
+//below.They randomize the possibility
+//Of getting a certain type of enhancement
+//and the bonus amount of the enhancement
+//by the level of the player.
+inline bool giveEnh(int lvl)
+{
+	return (rand() % lvl == 0);
+}
+
+inline int givePlusFiveBonus(int lvl)
+{
+	if ((rand() % (lvl*lvl)) == 0) return 5;
+	else return 1;
+}
+
 Item Item::randommize(int lvl)
 {
 	int r = rand() % 7 + 1; //Random number between 1 and 7 for choosing item type.
@@ -236,68 +253,221 @@ Item Item::randommize(int lvl)
 	// Because this will take a while to do.
 
 	vector<Enhancement> enh;
-//createBonus: //For goto statement, later, we check if the item is valid
-	//if it's not, we start this process over again.
-	//Horrible way to do it, but only one I can think of right now.
-	//do while loop might work. Have to think about it.
-	
-	// For added enhancements, we interate through
-	// 9 numbers, 1 for each enhancement type.
-	// generate a random number t
-	// there's a 50/50 chance of getting an enhancement
-	// for that type
-	/*vector<Enhancement> enh;
-	for (int i = 0; i != 9; i++)
-	{
-		int t = rand();
-		if (t % 2 == 1)
-		{
-			Enhancement enhancement;
-			switch (i)
-			{
-			case 0: //strength
-				enhancement.setType(EN_STRENGTH); break;
-			case 1: //constitution
-				enhancement.setType(EN_CONSTITUTION); break;
-			case 2: //wisdom
-				enhancement.setType(EN_WISDOM); break;
-			case 3: //charisma
-				enhancement.setType(EN_CHARISMA); break;
-			case 4: //dexterity
-				enhancement.setType(EN_DEXTERITY); break;
-			case 5: //atk bonus
-				enhancement.setType(EN_ATTACK_BONUS); break;
-			case 6: //defence bonus
-				enhancement.setType(EN_DEF_BONUS); break;
-			case 7: //armor class
-				enhancement.setType(EN_ARMOR_CLASS); break;
-			case 8: //intelligence
-				enhancement.setType(EN_INTELLIGENCE); break;
-			}
 
-			int bon = rand(); //generate random number for determining bonus
-			
-			if (bon % 100 == 0) //if divisible by 100, therefore, 1/100 times roughly.
+	//50/50 chance of getting enhancement
+	bool addEnhance = (rand() % 2 == 1);
+
+	if (addEnhance)
+	{
+		//Add random enhancements that make sure
+		//That make the item is valid
+		if (type == TYPE_HELMET)
+		{
+			//3 is the number of types enhancements
+			//valid for helmet items
+			//If there's a better way of doing this,
+			//I can't think of it. May change in the future.
+			for (int i = 0; i != 3; i++)
 			{
-				enhancement.setBonus(5);
+				// Make the chance of giving this type of bonus
+				// and the probability of getting a +5 bonus 
+				// depend on the level requirement.
+				// Higher level are less lightly to get good
+				// enhancements.
+				bool bonusFive = (rand() % (lvl*lvl) == 0);
+
+				if (giveEnh(lvl))
+				{
+					switch (i)
+					{
+					case 0: //intel
+					{
+						Enhancement enhancement(EN_INTELLIGENCE, givePlusFiveBonus(lvl));
+						enh.push_back(enhancement);
+						break;
+					}
+					case 1: //wisdom
+					{
+						Enhancement enhancement(EN_WISDOM, givePlusFiveBonus(lvl));
+						enh.push_back(enhancement);
+						break;
+					}
+					case 2: //armor class
+					{
+						Enhancement enhancement(EN_ARMOR_CLASS, givePlusFiveBonus(lvl));
+						enh.push_back(enhancement);
+						break;
+					}
+					}
+				}
 			}
-			else
-			{
-				//We get a bonus of 1 most times.
-				enhancement.setBonus(1);
-			}
+		}
+		else if (type == TYPE_ARMOR || type == TYPE_SHIELD)
+		{
+			Enhancement enhancement(EN_ARMOR_CLASS, givePlusFiveBonus(lvl));
 			enh.push_back(enhancement);
 		}
-		//Else do nothing, don't add enhancement.
-	}*/
+		else if (type == TYPE_RING)
+		{
+			//3 is the number of types enhancements
+			//valid for helmet items
+			//If there's a better way of doing this,
+			//I can't think of it. May change in the future.
+			for (int i = 0; i != 5; i++)
+			{
+				// Make the chance of giving this type of bonus
+				// and the probability of getting a +5 bonus 
+				// depend on the level requirement.
+				// Higher level are less lightly to get good
+				// enhancements.
+				bool bonusFive = (rand() % (lvl*lvl) == 0);
+
+				if (giveEnh(lvl))
+				{
+					switch (i)
+					{
+					case 0: //strength
+					{
+						Enhancement enhancement(EN_STRENGTH, givePlusFiveBonus(lvl));
+						enh.push_back(enhancement);
+						break;
+					}
+					case 1: //wisdom
+					{
+						Enhancement enhancement(EN_WISDOM, givePlusFiveBonus(lvl));
+						enh.push_back(enhancement);
+						break;
+					}
+					case 2: //armor class
+					{
+						Enhancement enhancement(EN_ARMOR_CLASS, givePlusFiveBonus(lvl));
+						enh.push_back(enhancement);
+						break;
+					}
+					case 3: //cons
+					{
+						Enhancement enhancement(EN_CONSTITUTION, givePlusFiveBonus(lvl));
+						enh.push_back(enhancement);
+						break;
+					}
+					case 4: //charaisma
+					{
+						Enhancement enhancement(EN_CHARISMA, givePlusFiveBonus(lvl));
+						enh.push_back(enhancement);
+						break;
+					}
+					}
+				}
+			}
+		}
+		else if (type == TYPE_BELT)
+		{
+			//3 is the number of types enhancements
+			//valid for helmet items
+			//If there's a better way of doing this,
+			//I can't think of it. May change in the future.
+			for (int i = 0; i != 2; i++)
+			{
+				// Make the chance of giving this type of bonus
+				// and the probability of getting a +5 bonus 
+				// depend on the level requirement.
+				// Higher level are less lightly to get good
+				// enhancements.
+				bool bonusFive = (rand() % (lvl*lvl) == 0);
+
+				if (giveEnh(lvl))
+				{
+					switch (i)
+					{
+					case 0: //strength
+					{
+						Enhancement enhancement(EN_STRENGTH, givePlusFiveBonus(lvl));
+						enh.push_back(enhancement); 
+						break;
+					}
+					case 1: //cons
+					{
+						Enhancement enhancement(EN_CONSTITUTION, givePlusFiveBonus(lvl));
+						enh.push_back(enhancement); 
+						break;
+					}
+					}
+				}
+			}
+		}
+		else if (type == TYPE_BOOTS)
+		{
+			//3 is the number of types enhancements
+			//valid for helmet items
+			//If there's a better way of doing this,
+			//I can't think of it. May change in the future.
+			for (int i = 0; i != 2; i++)
+			{
+				// Make the chance of giving this type of bonus
+				// and the probability of getting a +5 bonus 
+				// depend on the level requirement.
+				// Higher level are less lightly to get good
+				// enhancements.
+				bool bonusFive = (rand() % (lvl*lvl) == 0);
+
+				if (giveEnh(lvl))
+				{
+					switch (i)
+					{
+					case 0: //armor class
+					{
+						Enhancement enhancement(EN_ARMOR_CLASS, givePlusFiveBonus(lvl));
+						enh.push_back(enhancement);
+						break;
+					}
+					case 1: //dexterity
+					{
+						Enhancement enhancement(EN_DEXTERITY, givePlusFiveBonus(lvl));
+						enh.push_back(enhancement);
+						break;
+					}
+					}
+				}
+			}
+		}
+		else if (type == TYPE_WEAPON)
+		{
+			//3 is the number of types enhancements
+			//valid for helmet items
+			//If there's a better way of doing this,
+			//I can't think of it. May change in the future.
+			for (int i = 0; i != 2; i++)
+			{
+				// Make the chance of giving this type of bonus
+				// and the probability of getting a +5 bonus 
+				// depend on the level requirement.
+				// Higher level are less lightly to get good
+				// enhancements.
+				bool bonusFive = (rand() % (lvl*lvl) == 0);
+
+				if (giveEnh(lvl))
+				{
+					switch (i)
+					{
+					case 0: //atk bon
+					{
+						Enhancement enhancement(EN_ATTACK_BONUS, givePlusFiveBonus(lvl));
+						enh.push_back(enhancement);
+						break;
+					}
+					case 1: //damage bonus
+					{
+						Enhancement enhancement(EN_DAMAGE_BONUS, givePlusFiveBonus(lvl));
+						enh.push_back(enhancement);
+						break;
+					}
+					}
+				}
+			}
+		}
+	}
+
 	Item item(type, enh);
 
-	if (!item.validateItem())
-	{
-		//goto createBonus;
-	}
-	else
-	{
-		return item;
-	}
+	return item;
 }

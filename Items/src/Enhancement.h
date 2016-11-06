@@ -36,7 +36,7 @@ private:
 #define EN_CHARISMA "charisma"
 #define EN_DEXTERITY "dexterity"
 #define EN_ATTACK_BONUS "attack bonus"
-#define EN_DEF_BONUS "defence bonus"
+#define EN_DAMAGE_BONUS "damage bonus"
 #define EN_ARMOR_CLASS "armor class"
 #define EN_INTELLIGENCE "intelligence"
 
