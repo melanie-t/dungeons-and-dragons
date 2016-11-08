@@ -125,9 +125,6 @@
     <ClCompile Include="src\MapBuildDirector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\RunApp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\TestFileMapBuilder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -135,6 +132,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\TestMapBuilderDirector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="maincpp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

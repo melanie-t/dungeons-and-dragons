@@ -91,6 +91,7 @@
     <ClInclude Include="src\WaterTexture.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="maincpp.cpp" />
     <ClCompile Include="src\Character.cpp" />
     <ClCompile Include="src\Door.cpp" />
     <ClCompile Include="src\Enhancement.cpp" />
@@ -102,7 +103,6 @@
     <ClCompile Include="src\Map.cpp" />
     <ClCompile Include="src\Markup.cpp" />
     <ClCompile Include="src\Enemy.cpp" />
-    <ClCompile Include="src\RunApp.cpp" />
     <ClCompile Include="src\SavedMapBuilder.cpp" />
     <ClCompile Include="src\MapBuildDirector.cpp" />
     <ClCompile Include="src\TestFileMapBuilder.cpp" />

@@ -4,20 +4,32 @@
 
 #include "Item.h"
 #include "GameObject.h"
+#include "Markup.h"
 #include <iostream>
 
 //! default constructor
-Item::Item() : Item("", vector<Enhancement>())
+Item::Item() : Item(0, "", vector<Enhancement>())
+{
+}
+
+
+//! constructor that receives an item type as a string and a vector containing the enhancements that this item gives
+//! this constructor sets the item id to 0. eg. not caring.
+//! @param type_name : string representing the type of item
+//! @param influences : vector containing all the characteristics influenced by the item
+Item::Item(string type_name, vector<Enhancement> influences) : Item(0, type_name, influences)
 {
 }
 
 //! constructor that receives an item type as a string and a vector containing the enhancements that this item gives
+//! @param id : id of the item.
 //! @param type_name : string representing the type of item
 //! @param influences : vector containing all the characteristics influenced by the item
-Item::Item(string type_name, vector<Enhancement> influences) : GameObject(ITEM)
+Item::Item(int id, string type_name, vector<Enhancement> influences) : GameObject(ITEM)
 {
-	type = type_name;
-	influence = influences;
+	this->id = id;
+	this->type = type_name;
+	this->influence = influences;
 
 	if (!this->validateItem())
 	{
@@ -208,6 +220,37 @@ bool Item::validateItem()
 		return false;
 	}
 	return true;
+}
+
+//! saveItem function
+//! @brief saves the item class as a xml file using Cmarkup
+bool Item::saveItem()
+{
+	//Hopefully this shit worksssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+	CMarkup xml;
+
+	//xml.SetDoc("<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n");
+	xml.AddElem("item");
+	xml.IntoElem();
+	xml.AddElem("id", id);
+	xml.AddElem("type", this->type);
+	xml.AddElem("enhancements");
+	xml.IntoElem();
+	for (int i = 0; i != influence.size(); i++)
+	{
+		xml.AddElem("enhancement");
+		xml.IntoElem();
+		xml.AddElem("type", influence[i].getType());
+		xml.AddElem("bonus", influence[i].getBonus());
+		xml.OutOfElem();
+	}
+	xml.OutOfElem();
+
+	char di[20];
+	sprintf_s(di, 20, "items/%d.xml", id);
+	xml.Save(string(di));
+	return true;
+
 }
 
 //! function that randomly chooses
@@ -475,7 +518,77 @@ Item Item::randommize(int lvl)
 	}
 
 	Item item(type, enh);
-	item.levelRequirement = lvl;
+	//item.levelRequirement = lvl;
 
 	return item;
+}
+
+static Item load(int id)
+{
+	char di[20];
+	sprintf_s(di, 20, "Items/%d.xml", id);
+	CMarkup xml;
+	if (xml.Load(string(di)))
+	{
+		xml.FindElem();
+		if (xml.GetTagName() != "item")
+		{
+			cout << "This file is not a item." << endl;
+			cout << xml.GetTagName() << endl;
+		}
+		else
+		{
+			xml.IntoElem();
+			vector<Enhancement> enhancements;
+			int id;
+			string type;
+
+			while (xml.FindElem())
+			{
+				string s = xml.GetTagName();
+				if (s == "id")
+				{
+					id = atoi(xml.GetData().c_str());
+				}
+				else if (s == "type")
+				{
+					type = xml.GetData();
+				}
+				else if (s == "enhancements")
+				{
+					xml.IntoElem();
+					while (xml.FindElem())
+					{
+						xml.IntoElem();
+						while (xml.FindElem())
+						{
+							string enh_type;
+							int bonus;
+							string tag = xml.GetTagName();
+							if (tag == "type")
+							{
+								enh_type = xml.GetData();
+							}
+							else if (tag == "bonus")
+							{
+								bonus = atoi(xml.GetData().c_str());
+							}
+							Enhancement enh(enh_type, bonus);
+							enhancements.push_back(enh);
+						}
+					}
+				}
+				xml.OutOfElem();
+				return Item(id, type, enhancements);
+			}
+
+			xml.OutOfElem();
+		}
+		return Item(); //return empty item.
+	}
+	else
+	{
+		cout << xml.GetError() << endl;
+		return Item(); //return empty item.
+	}
 }

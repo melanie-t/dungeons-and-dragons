@@ -1,6 +1,10 @@
 //! @file 
 //! @brief Header file for the Item class  
 //!
+//! Libraries used: 
+//! CMarkup, chosen due to ease of use to parse xml files
+//! And it's extremely light, does not require, it's simply
+//! .cpp/.h file that you add to the project(Markup.cpp + Markup.h), no .lib or .dll files.
 #ifndef Item_h
 #define Item_h
 
@@ -17,7 +21,8 @@ public:
 	// Default constructor
 	Item();
 	// Constructor
-	Item(string type,vector<Enhancement> influences);
+	Item(int id, string type,vector<Enhancement> influences);
+	Item(string type, vector<Enhancement> influences);
 	//Destructor
 	~Item();
 	// method to get the type of the item
@@ -27,12 +32,17 @@ public:
 	//method to validate an item
 	bool validateItem();
 	//levelRequirement
-	int getLevelRequirements(){ return levelRequirement; }
+	//int getLevelRequirements(){ return levelRequirement; }
+	//save item to file
+	bool saveItem();
 	//Creates Random Item based on level
 	static Item randommize(int lvl);
+	//Creates Item Class from File Load
+	static Item load(int id);
 private:
+	int id;
 	string type;
-	int levelRequirement;
+	//int levelRequirement;
 	vector<Enhancement> influence;
 };
 

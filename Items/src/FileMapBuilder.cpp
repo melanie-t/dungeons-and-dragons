@@ -42,7 +42,7 @@ bool FileMapBuilder::loadMap(int id)
 	Map*map = new Map(id);
 
 	char di[20];
-	sprintf_s(di, 20, "%d.xml", id);
+	sprintf_s(di, 20, "maps/%d.xml", id);
 
 	CMarkup xml;
 	if (xml.Load(string(di)))
