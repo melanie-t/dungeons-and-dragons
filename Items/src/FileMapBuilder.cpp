@@ -77,7 +77,7 @@ bool FileMapBuilder::loadMap(int id)
 					xml.IntoElem();
 					while (xml.FindElem())
 					{
-						Door door = Door();
+						Door* door = new Door();
 						int x, y, mapid;
 						bool start;
 
@@ -103,8 +103,8 @@ bool FileMapBuilder::loadMap(int id)
 								start = (atoi(xml.GetData().c_str()) == 1);
 							}
 						}
-						door.setDestinationID(mapid);
-						door.setStart(start);
+						door->setDestinationID(mapid);
+						door->setStart(start);
 						map->fillCell(x, y, door);
 						xml.OutOfElem();
 					}
@@ -118,7 +118,7 @@ bool FileMapBuilder::loadMap(int id)
 						xml.IntoElem();
 						string type;
 						int x, y;
-						GameObject wall;
+						GameObject* wall;
 						while (xml.FindElem())
 						{
 							if (xml.GetTagName() == "type")
@@ -138,15 +138,15 @@ bool FileMapBuilder::loadMap(int id)
 						//Set proper subclass based on type of wall.
 						if (type == "water")
 						{
-							wall = WaterTexture();
+							wall = new WaterTexture();
 						}
 						else if (type == "tree")
 						{
-							wall = TreeTexture();
+							wall = new TreeTexture();
 						}
 						else if (type == "brick")
 						{
-							wall = BrickTexture();
+							wall = new BrickTexture();
 						}
 
 						map->fillCell(x, y, wall);
@@ -161,7 +161,7 @@ bool FileMapBuilder::loadMap(int id)
 					{
 						xml.IntoElem();
 						int x, y;
-						Item item = Item::randommize(player->getLevel());
+						Item* item = &Item::randommize(player->getLevel());
 						while (xml.FindElem())
 						{
 							if (xml.GetTagName() == "x")
@@ -184,7 +184,7 @@ bool FileMapBuilder::loadMap(int id)
 					while (xml.FindElem())
 					{
 						xml.IntoElem();
-						Enemy enemy = Enemy::randomize(player);
+						Enemy* enemy = &Enemy::randomize(player);
 						int x, y;
 						//now in each enemy tage
 						while (xml.FindElem())
@@ -211,7 +211,7 @@ bool FileMapBuilder::loadMap(int id)
 				{
 					if (!map->isOccupied(i, k))
 					{
-						map->fillCell(i, k, GrassTexture());
+						map->fillCell(i, k, new GrassTexture());
 					}
 				}
 			}

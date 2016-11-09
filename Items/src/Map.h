@@ -20,18 +20,19 @@ public:
 
 	//Methods
 	bool validatePath();
-	void fillCell(int x, int y, GameObject obj);
+	void fillCell(int x, int y, GameObject* obj);
 	bool isOccupied(int x, int y);
 	void printMap(char** map, int length, int width);
 	void setElement(char** map, int row, int column, char element);
 	void createMapSize(int x, int y);
+	void saveMap();
 
 	//Getters
 	int getID(){ return this->ID; }
 	std::string getName(){ return this->name; }
 	int getNumRows(){ return this->row; }
 	int getNumCol(){ return this->column; }
-	GameObject** getMap(){ return this->map; }
+	(GameObject*)** getMap(){ return this->map; }
 
 	//setters
 	void setID(int id){ this->ID = id; }
@@ -41,7 +42,7 @@ public:
 private:
 	//Member variables;
 	//grass, tree, water, brick.
-	GameObject** map;
+	GameObject*** map;
 	int row;
 	int column;
 	int ID;
