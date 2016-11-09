@@ -29,13 +29,15 @@
 #define CHARACTER_H
 
 #include "GameObject.h"
+#include <string>
+using namespace std;
 
 //! Class that implements a character 
 class Character
 {
 public:
 	Character();
-	Character(int level, int str, int dex, int con, int intel, int wis, int cha);
+	Character(int level, int str, int dex, int con, int intel, int wis, int cha, string name = "");
 
 	bool validateNewCharacter();
 	void statGenerator();
@@ -74,9 +76,9 @@ public:
 	bool helmetEquipped();
 
 	void displayStats();
-	void saveCharacter(int id);
+	void saveCharacter();
 
-	static Character loadCharacer(int id);
+	static Character loadCharacer(string name);
 
 private:
 	int abilityScores[6];
@@ -91,7 +93,18 @@ private:
 	bool equipBoots;
 	bool equipRing;
 	bool equipHelmet;
+	string name;
 
+};
+
+enum AbilityModifiers
+{
+	STRENGTH,
+	DEXTERITY,
+	CONSTITUTION,
+	INTELLIGENCE,
+	WISDOM,
+	CHARISMA,
 };
 
 #endif

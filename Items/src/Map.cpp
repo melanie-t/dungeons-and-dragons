@@ -104,6 +104,11 @@ bool Map::validatePath()
 		for (int j = 0; j < column; ++j) {
 			if (map[i][j]->getObjectType() == DOOR)
 			{
+				if (i != 0 && j != 0 && i != row - 1 && j != column - 1)
+				{
+					//The door is not at the egde of the map.
+					return false;
+				}
 				Door* door = static_cast<Door*> (map[i][j]);
 
 				if (door->getStart()) { //start
@@ -160,8 +165,10 @@ bool Map::recursiveSearch(int posx, int posy, int endposx, int endposy)
 	//Current position is the end position.
 	GameObject* cur = map[posx][posy];
 	GameObject* end = map[endposx][endposy];
-	///Need to double check. Should work, I think. compares address.
-	if (&cur == &end) {
+	
+	//cur and end point to the same reference,
+	//therefore, they're the same object.
+	if (cur == end) {
 		return true;
 	}
 	//find a way to keep track of where ive already visited.
@@ -181,8 +188,14 @@ bool Map::recursiveSearch(int posx, int posy, int endposx, int endposy)
 	}
 }
 
-void Map::saveMap()
+bool Map::saveMap()
 {
+	if (validatePath == false)
+	{
+		//Invalid Map.
+		return false;
+	}
+
 	CMarkup xml;
 	xml.AddElem("map");
 	xml.IntoElem();
@@ -299,5 +312,6 @@ void Map::saveMap()
 	char di[20];
 	sprintf_s(di, 20, "maps/%d.xml", ID);
 	xml.Save(string(di));
+	return true;
 }
 

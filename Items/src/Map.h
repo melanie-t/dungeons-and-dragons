@@ -25,7 +25,7 @@ public:
 	void printMap(char** map, int length, int width);
 	void setElement(char** map, int row, int column, char element);
 	void createMapSize(int x, int y);
-	void saveMap();
+	bool saveMap();
 
 	//Getters
 	int getID(){ return this->ID; }

@@ -16,15 +16,16 @@ Character::Character() : Character(1, 0, 0, 0, 0, 0, 0) //hi, this is just clean
 }
 
 //! Constructor: passes values to each ability score and set hit points to 10
-Character::Character(int lvl, int str, int dex, int con, int intel, int wis, int cha)
+Character::Character(int lvl, int str, int dex, int con, int intel, int wis, int cha, string name)
 {
+	this->name = name;
 	level = lvl;
-	abilityScores[0] = str;
-	abilityScores[1] = dex;
-	abilityScores[2] = con;
-	abilityScores[3] = intel;
-	abilityScores[4] = wis;
-	abilityScores[5] = cha;
+	abilityScores[AbilityModifiers::STRENGTH] = str;
+	abilityScores[AbilityModifiers::DEXTERITY] = dex;
+	abilityScores[AbilityModifiers::CONSTITUTION] = con;
+	abilityScores[AbilityModifiers::INTELLIGENCE] = intel;
+	abilityScores[AbilityModifiers::WISDOM] = wis;
+	abilityScores[AbilityModifiers::CHARISMA] = cha;
 
 	secondaryStatCalc();
 }
@@ -43,12 +44,12 @@ bool Character::validateNewCharacter()
 //! @brief generates random stats for the character
 void Character::statGenerator() {
 	srand(time(NULL));
-	abilityScores[0] = rand() % 16 + 3;
-	abilityScores[1] = rand() % 16 + 3;
-	abilityScores[2] = rand() % 16 + 3;
-	abilityScores[3] = rand() % 16 + 3;
-	abilityScores[4] = rand() % 16 + 3;
-	abilityScores[5] = rand() % 16 + 3;
+	abilityScores[AbilityModifiers::STRENGTH] = rand() % 16 + 3;
+	abilityScores[AbilityModifiers::DEXTERITY] = rand() % 16 + 3;
+	abilityScores[AbilityModifiers::CONSTITUTION] = rand() % 16 + 3;
+	abilityScores[AbilityModifiers::INTELLIGENCE] = rand() % 16 + 3;
+	abilityScores[AbilityModifiers::WISDOM] = rand() % 16 + 3;
+	abilityScores[AbilityModifiers::CHARISMA] = rand() % 16 + 3;
 	secondaryStatCalc();
 }
 
@@ -159,84 +160,84 @@ void Character::setDamageBonus(int newDamageBonus)
 //! @return int: value of STR
 int Character::getSTR()
 {
-	return abilityScores[0];
+	return abilityScores[AbilityModifiers::STRENGTH];
 }
 
 //! Implementation of a setter method for STR
 //! @param newSTR: value of STR
 void Character::setSTR(int newSTR)
 {
-	abilityScores[0] = newSTR;
+	abilityScores[AbilityModifiers::STRENGTH] = newSTR;
 }
 
 //! Implementation of a getter method for DEX
 //! @return int: value of DEX	
 int Character::getDEX()
 {
-	return abilityScores[1];
+	return abilityScores[AbilityModifiers::DEXTERITY];
 }
 
 //! Implementation of a setter method for DEX
 //! @param newDEX: value of DEX	
 void Character::setDEX(int newDEX)
 {
-	abilityScores[1] = newDEX;
+	abilityScores[AbilityModifiers::DEXTERITY] = newDEX;
 }
 
 //! Implementation of a getter method for CON
 //! @return int: value of CON
 int Character::getCON()
 {
-	return abilityScores[2];
+	return abilityScores[AbilityModifiers::CONSTITUTION];
 }
 
 //! Implementation of a setter method for CON
 //! @param newCON: value of CON
 void Character::setCON(int newCON)
 {
-	abilityScores[2] = newCON;
+	abilityScores[AbilityModifiers::CONSTITUTION] = newCON;
 }
 
 //! Implementation of a getter method for INTEL
 //! @return int: value of INTEL
 int Character::getINTEL()
 {
-	return abilityScores[3];
+	return abilityScores[AbilityModifiers::INTELLIGENCE];
 }
 
 //! Implementation of a setter method for INTEL
 //! @param newINTEL: value of INTEL
 void Character::setINTEL(int newINTEL)
 {
-	abilityScores[3] = newINTEL;
+	abilityScores[AbilityModifiers::INTELLIGENCE] = newINTEL;
 }
 
 //! Implementation of a getter method for WIS
 //! @return int: value of WIS
 int Character::getWIS()
 {
-	return abilityScores[4];
+	return abilityScores[AbilityModifiers::WISDOM];
 }
 
 //! Implementation of a setter method for WIS
 //! @param newWIS: value of WIS
 void Character::setWIS(int newWIS)
 {
-	abilityScores[4] = newWIS;
+	abilityScores[AbilityModifiers::WISDOM] = newWIS;
 }
 
 //! Implementation of a getter method for CHA
 //! @return int: value of CHA
 int Character::getCHA()
 {
-	return abilityScores[5];
+	return abilityScores[AbilityModifiers::CHARISMA];
 }
 
 //! Implementation of a setter method for CHA
 //! @return newCHA: value of CHA
 void Character::setCHA(int newCHA)
 {
-	abilityScores[5] = newCHA;
+	abilityScores[AbilityModifiers::CHARISMA] = newCHA;
 }
 
 //! armorEquipped function
@@ -305,7 +306,7 @@ void Character::displayStats()
 		<< "\n" << endl;
 }
 
-void Character::saveCharacter(int id)
+void Character::saveCharacter()
 {
 	CMarkup xml;
 	xml.AddElem("character");
@@ -316,15 +317,15 @@ void Character::saveCharacter(int id)
 	xml.AddElem("constitution", getCON());
 	xml.AddElem("intelligence", getINTEL());
 	xml.AddElem("wisdom", getWIS());
-	char di[20];
-	sprintf_s(di, 20, "Character/%d.xml", id);
+	char di[40];
+	sprintf_s(di, 40, "Character/%s.xml", name);
 	xml.Save(string(di));
 }
 
-Character Character::loadCharacer(int id)
+Character Character::loadCharacer(string name)
 {
-	char di[20];
-	sprintf_s(di, 20, "Character/%d.xml", id);
+	char di[40];
+	sprintf_s(di, 40, "Character/%d.xml", name);
 	CMarkup xml;
 	if (xml.Load(string(di)))
 	{
