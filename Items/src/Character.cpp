@@ -6,9 +6,9 @@
 #include <iostream> /* cin, cout */
 #include <stdlib.h> /* srand, rand */
 #include <time.h> /* time */
+#include "Markup.h"
 
-using std::cout;
-using std::endl;
+using namespace std;
 
 //! Default constructor: initializes level to 1 and generates new character with 0 stats
 Character::Character() : Character(1, 0, 0, 0, 0, 0, 0) //hi, this is just cleaner. So I changed it - Dylan.
@@ -303,6 +303,77 @@ void Character::displayStats()
 		<< "\nAttack Bonus: " << getAttackBonus()
 		<< "\nDamage Bonus: " << getDamageBonus()
 		<< "\n" << endl;
+}
+
+void Character::saveCharacter(int id)
+{
+	CMarkup xml;
+	xml.AddElem("character");
+	xml.IntoElem();
+	xml.AddElem("level", level);
+	xml.AddElem("strength", getSTR());
+	xml.AddElem("dexterity", getDEX());
+	xml.AddElem("constitution", getCON());
+	xml.AddElem("intelligence", getINTEL());
+	xml.AddElem("wisdom", getWIS());
+	char di[20];
+	sprintf_s(di, 20, "Character/%d.xml", id);
+	xml.Save(string(di));
+}
+
+Character Character::loadCharacer(int id)
+{
+	char di[20];
+	sprintf_s(di, 20, "Character/%d.xml", id);
+	CMarkup xml;
+	if (xml.Load(string(di)))
+	{
+		xml.FindElem();
+		if (xml.GetTagName() != "character")
+		{
+			cout << "This file is not a character." << endl;
+			cout << xml.GetTagName() << endl;
+		}
+		else
+		{
+			xml.IntoElem();
+			int level, str, dex, con, intel, wis, cha;
+			while (xml.FindElem())
+			{
+				string tag = xml.GetTagName();
+				if (tag == "level")
+				{
+					level = atoi(xml.GetData().c_str());
+				}
+				else if (tag == "strength")
+				{
+					str = atoi(xml.GetData().c_str());
+				}
+				else if (tag == "dexterity")
+				{
+					dex = atoi(xml.GetData().c_str());
+				}
+				else if (tag == "constitution")
+				{
+					con = atoi(xml.GetData().c_str());
+				}
+				else if (tag == "intelligence")
+				{
+					intel = atoi(xml.GetData().c_str());
+				}
+				else if (tag == "wisdom")
+				{
+					wis = atoi(xml.GetData().c_str());
+				}
+				else if (tag == "charisma")
+				{
+					cha = atoi(xml.GetData().c_str());
+				}
+			}
+			return Character(level, str, dex, con, intel, wis, cha);
+		}
+	}
+	return Character(); //Empty
 }
 
 

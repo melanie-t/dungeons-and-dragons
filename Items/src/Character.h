@@ -74,6 +74,9 @@ public:
 	bool helmetEquipped();
 
 	void displayStats();
+	void saveCharacter(int id);
+
+	static Character loadCharacer(int id);
 
 private:
 	int abilityScores[6];
