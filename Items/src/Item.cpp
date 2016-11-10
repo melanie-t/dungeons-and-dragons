@@ -30,14 +30,6 @@ Item::Item(int id, string type_name, vector<Enhancement> influences) : GameObjec
 	this->id = id;
 	this->type = type_name;
 	this->influence = influences;
-
-	if (!this->validateItem())
-	{
-		//Probably have a popup window for this later on.
-		//When GUI is implemented
-		std::cout << "[WARNING] Invalid Item." << std::endl; 
-	}
-	//If the item is valid, we don't do anything.
 }
 
 //! Destructor For the Item class

@@ -20,7 +20,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -87,6 +87,8 @@
     <ClInclude Include="src\MapBuildDirector.h" />
     <ClInclude Include="src\MapBuilder.h" />
     <ClInclude Include="src\Markup.h" />
+    <ClInclude Include="src\Observable.h" />
+    <ClInclude Include="src\Observer.h" />
     <ClInclude Include="src\SavedMapBuilder.h" />
     <ClInclude Include="src\ObjectTypes.h" />
     <ClInclude Include="src\TileMap.h" />
@@ -107,11 +109,10 @@
     <ClCompile Include="src\Map.cpp" />
     <ClCompile Include="src\Markup.cpp" />
     <ClCompile Include="src\Enemy.cpp" />
+    <ClCompile Include="src\Observable.cpp" />
+    <ClCompile Include="src\Observer.cpp" />
     <ClCompile Include="src\SavedMapBuilder.cpp" />
     <ClCompile Include="src\MapBuildDirector.cpp" />
-    <ClCompile Include="src\TestFileMapBuilder.cpp" />
-    <ClCompile Include="src\TestMapBuilderDirector.cpp" />
-    <ClCompile Include="src\TestSavedMapBuilder.cpp" />
     <ClCompile Include="src\TileMap.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
