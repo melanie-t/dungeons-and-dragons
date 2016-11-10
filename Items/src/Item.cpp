@@ -601,4 +601,6 @@ int Item::getItemType() {
 		return 6;
 	else if (itemType.compare("weapon"))
 		return 7;
+	else
+		return 0;
 }
