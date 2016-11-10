@@ -86,7 +86,7 @@ public:
 	string statString();
 	string classtoString();
 	void saveCharacter();
-	static Character loadCharacer(string name);
+	static Character* loadCharacer(string name);
 
 	//string retrieveGender();
 	void retrieveName();

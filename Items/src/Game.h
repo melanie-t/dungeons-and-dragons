@@ -1,6 +1,7 @@
 #include <SFML\Graphics.hpp>
 #include "TileMap.h"
 #include <iostream>
+#include <vector>
 
 class Game{
 private:
@@ -13,6 +14,7 @@ private:
 	sf::Text currentPosition;
 	sf::RectangleShape textBox;
 	TileMap map;
+	std::vector<sf::Sprite> enemies;
 
 	//Checks if the map is valid
 	bool validMap();

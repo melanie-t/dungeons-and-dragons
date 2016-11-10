@@ -5,11 +5,6 @@ Game::Game(unsigned int tileWidth, unsigned int tileHeight, std::vector<int> lev
 	this->width = tileWidth;
 	this->height = tileHeight;
 	this->level = level;
-
-	for (int i = 0; i != level.size(); i++)
-	{
-		std::cout << level[i] << " ";
-	}
 }
 
 Game::~Game(){
@@ -120,6 +115,10 @@ void Game::update(sf::Event evt){
 					break;
 				else if (level[currentPos - width] == 2) //2 is tree
 					break;
+				else if (level[currentPos - width] == 6) // end
+				{
+					window->close();
+				}
 				player.move(0, -32);
 				currentPos -= width;
 			}

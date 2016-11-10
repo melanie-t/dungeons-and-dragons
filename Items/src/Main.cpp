@@ -158,15 +158,35 @@ Main function.
 */
 int main()
 {
-	Character* charater = new Character(1, 1, 1, 1, 1, 1, 13, "james");
-	charater->saveCharacter();
+	string name;
+	std::cout << "Enter Character Name: " << endl;
+	cin >> name;
+	Character* charater = Character::loadCharacer(name);
+
+	cout << "Choose a map id from the list below:" << endl; 
+
+	int id = 1;
+	CMarkup xml;
+	char di[20];
+	sprintf_s(di, 20, "maps/%d.xml", id);
+
+	while (xml.Load(di))
+	{
+		cout << id << endl;
+		id++;
+		sprintf_s(di, 20, "maps/%d.xml", id);
+	}
+
+	int chosenMap;
+	cin >> chosenMap;
+
 	FileMapBuilder builder(charater);
-	builder.loadMap(1);
+	builder.loadMap(chosenMap);
 	Map* map = builder.getMap();
 	vector<int> out = map->outputMap();
 
 	std::thread consoleThread(consoleInput);
-	Game* game = new Game(16, 8, out);
+	Game* game = new Game(map->getNumRows(), map->getNumCol(), out);
 
 	try{
 		game->go();
