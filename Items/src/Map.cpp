@@ -203,6 +203,17 @@ vector<int> Map::outputMap()
 			{
 				output.push_back(2); // idk what these are supposed to push.
 			}
+			else if (map[i][j]->getObjectType() == DOOR)
+			{
+				if (static_cast<Door*>(map[i][j])->getStart())
+				{
+					output.push_back(7);
+				}
+				else
+				{
+					output.push_back(6); // idk what these are supposed to push.
+				}
+			}
 			else
 			{
 				output.push_back(0); //idk what these are supposed to be, (get grass graphics)

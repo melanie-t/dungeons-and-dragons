@@ -425,7 +425,7 @@ void Character::saveCharacter()
 	xml.Save("characters/" + name + ".xml");
 }
 
-Character Character::loadCharacer(string name)
+Character* Character::loadCharacer(string name)
 {
 	CMarkup xml;
 	if (xml.Load("characters/" + name + ".xml"))
@@ -472,10 +472,10 @@ Character Character::loadCharacer(string name)
 					cha = atoi(xml.GetData().c_str());
 				}
 			}
-			return Character(level, str, dex, con, intel, wis, cha);
+			return new Character(level, str, dex, con, intel, wis, cha);
 		}
 	}
-	return Character(); //Empty
+	return nullptr; //Empty
 }
 
 ////retrieve the gender of the character and return it

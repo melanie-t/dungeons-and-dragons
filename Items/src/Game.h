@@ -1,6 +1,7 @@
 #include <SFML\Graphics.hpp>
 #include "TileMap.h"
 #include <iostream>
+#include <vector>
 
 class Game{
 private:
@@ -13,6 +14,12 @@ private:
 	sf::Text currentPosition;
 	sf::RectangleShape textBox;
 	TileMap map;
+	std::vector<sf::Sprite> enemies;
+
+	//Checks if the map is valid
+	bool validMap();
+	bool validate(int start, int end);
+	std::vector<int> positionChecked;
 
 	//Initializes the game
 	bool init();
@@ -28,7 +35,7 @@ private:
 
 	//Draw onto the game
 	void render();
-	
+
 	//Processes Inputs
 	void processInput();
 
@@ -46,7 +53,7 @@ private:
 	std::vector<int> level;
 
 public:
-	Game(unsigned int tileWidth, unsigned int tileHeight, std::vector<int>& level);
+	Game(unsigned int tileWidth, unsigned int tileHeight, std::vector<int> level);
 	~Game();
 	//Method to start the game
 	void go();
