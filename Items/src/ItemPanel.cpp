@@ -11,7 +11,7 @@ int main()
 	//Inventory creation
 
 	sf::Texture texture;
-	if (!texture.loadFromFile("Sprites/Items.png"))
+	if (!texture.loadFromFile("res/Items.png"))
 	{
 		return 1;
 	}
