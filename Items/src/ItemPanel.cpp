@@ -17,17 +17,17 @@ void ItemPanel::createInventories()
 
 	//Character Equipment Inventory Creation
 	sf::Texture emptySlots;
-	emptySlots.loadFromFile("res/EmptySlots.png");
+	emptySlots.loadFromFile("Sprites/EmptySlots.png");
 
 	sf::Texture equipped;
-	equipped.loadFromFile("res/Equipped.png");
+	equipped.loadFromFile("Sprites/Equipped.png");
 	
 	sf::Texture dummy;
 	//dummy.create(257, 431);
-	dummy.loadFromFile("res/Dummy.jpg");
+	dummy.loadFromFile("Sprites/Dummy.jpg");
 
 	sf::Texture numbers;
-	numbers.loadFromFile("res/Numbers.png");
+	numbers.loadFromFile("Sprites/Numbers.png");
 	
 	Sprite one(numbers);
 	one.setTextureRect(IntRect(0, 0, 19, 25));
@@ -96,7 +96,7 @@ void ItemPanel::createInventories()
 
 	//Inventory Creation
 	sf::Texture items;
-	items.loadFromFile("res/Items.png");
+	items.loadFromFile("Sprites/Items.png");
 
 	Sprite armor(items);
 	armor.setTextureRect(IntRect(0, 0, 70, 70));
