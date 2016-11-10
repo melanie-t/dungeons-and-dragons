@@ -269,7 +269,7 @@ void ItemPanel::createInventories()
 			window.draw(eight);
 			window.display();
 			
-			equipWindow.setPosition(sf::Vector2i(440, 300));
+			//equipWindow.setPosition(sf::Vector2i(440, 300));
 			equipWindow.clear();
 			equipWindow.draw(blankCharacter);
 			equipWindow.draw(armorEquip);
