@@ -17,18 +17,17 @@ void ItemPanel::createInventories()
 
 	//Character Equipment Inventory Creation
 	sf::Texture emptySlots;
-
-	emptySlots.loadFromFile("Sprites/EmptySlots.png");
+	emptySlots.loadFromFile("res/EmptySlots.png");
 
 	sf::Texture equipped;
-	equipped.loadFromFile("Sprites/Equipped.png");
+	equipped.loadFromFile("res/Equipped.png");
 	
 	sf::Texture dummy;
-	dummy.create(257, 431);
-	dummy.loadFromFile("Sprites/Dummy.jpg");
+	//dummy.create(257, 431);
+	dummy.loadFromFile("res/Dummy.jpg");
 
 	sf::Texture numbers;
-	numbers.loadFromFile("Sprites/Numbers.png");
+	numbers.loadFromFile("res/Numbers.png");
 	
 	Sprite one(numbers);
 	one.setTextureRect(IntRect(0, 0, 19, 25));
@@ -97,44 +96,36 @@ void ItemPanel::createInventories()
 
 	//Inventory Creation
 	sf::Texture items;
-	items.loadFromFile("Sprites/Items.png");
+	items.loadFromFile("res/Items.png");
 
-	Sprite armor;
-	armor.setTexture(items);
+	Sprite armor(items);
 	armor.setTextureRect(IntRect(0, 0, 70, 70));
 
-	Sprite belt;
-	belt.setTexture(items);
+	Sprite belt(items);
 	belt.setTextureRect(IntRect(70, 0, 70, 70));
 	belt.setPosition(70, 0);
 
-	Sprite helmet;
-	helmet.setTexture(items);
+	Sprite helmet(items);
 	helmet.setTextureRect(IntRect(140, 0, 70, 70));
 	helmet.setPosition(140, 0);
 
-	Sprite ring;
-	ring.setTexture(items);
+	Sprite ring(items);
 	ring.setTextureRect(IntRect(210, 0, 70, 70));
 	ring.setPosition(210, 0);
 
-	Sprite shield;
-	shield.setTexture(items);
+	Sprite shield(items);
 	shield.setTextureRect(IntRect(280, 0, 70, 70));
 	shield.setPosition(0, 70);
 
-	Sprite boots;
-	boots.setTexture(items);
+	Sprite boots(items);
 	boots.setTextureRect(IntRect(350, 0, 70, 70));
 	boots.setPosition(70, 70);
 
-	Sprite sword;
-	sword.setTexture(items);
+	Sprite sword(items);
 	sword.setTextureRect(IntRect(420, 0, 70, 70));
 	sword.setPosition(140, 70);
 
-	Sprite empty;
-	empty.setTexture(items);
+	Sprite empty(items);
 	empty.setTextureRect(IntRect(490, 0, 70, 70));
 	empty.setPosition(210, 70);
 
@@ -278,7 +269,7 @@ void ItemPanel::createInventories()
 			window.draw(eight);
 			window.display();
 			
-			equipWindow.setPosition(sf::Vector2i(440, 300));
+			//equipWindow.setPosition(sf::Vector2i(440, 300));
 			equipWindow.clear();
 			equipWindow.draw(blankCharacter);
 			equipWindow.draw(armorEquip);

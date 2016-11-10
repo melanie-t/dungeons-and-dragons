@@ -39,8 +39,11 @@ public:
 	static Item* randommize(int lvl);
 	//Creates Item Class from File Load
 	static Item load(int id);
+	//Returns an integer for the type. Used by Chest.h to check which type it is
+	int getItemType();
 private:
 	int id;
+	int itemType;
 	string type;
 	//int levelRequirement;
 	vector<Enhancement> influence;
