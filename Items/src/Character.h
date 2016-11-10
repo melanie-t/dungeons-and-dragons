@@ -75,7 +75,7 @@ public:
 	void setCharClass(int classOfChar);
 
 	bool gameover = false;
-	bool armorEquipped();
+	bool armorEquipped(ItemContainer g);
 	bool shieldEquipped();
 	bool weaponEquipped();
 	bool bootsEquipped();
