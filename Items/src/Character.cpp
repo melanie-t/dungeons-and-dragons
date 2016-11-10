@@ -317,17 +317,16 @@ void Character::saveCharacter()
 	xml.AddElem("constitution", getCON());
 	xml.AddElem("intelligence", getINTEL());
 	xml.AddElem("wisdom", getWIS());
-	char di[40];
-	sprintf_s(di, 40, "Character/%s.xml", name);
-	xml.Save(string(di));
+	xml.AddElem("charisma", getCHA());
+	//char di[20];
+	//sprintf_s(di, 20, "characters/%s.xml", name.c_str());
+	xml.Save("characters/" + name + ".xml");
 }
 
 Character Character::loadCharacer(string name)
 {
-	char di[40];
-	sprintf_s(di, 40, "Character/%d.xml", name);
 	CMarkup xml;
-	if (xml.Load(string(di)))
+	if (xml.Load("characters/" + name + ".xml"))
 	{
 		xml.FindElem();
 		if (xml.GetTagName() != "character")

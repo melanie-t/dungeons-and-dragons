@@ -188,9 +188,33 @@ bool Map::recursiveSearch(int posx, int posy, int endposx, int endposy)
 	}
 }
 
+vector<int> Map::outputMap()
+{
+	vector<int> output;
+	for (int i = 0; i != this->column; i++)
+	{
+		for (int j = 0; j != this->row; j++)
+		{
+			if (map[i][j]->getObjectType() == WATER)
+			{
+				output.push_back(1); // idk what these are supposed to push.
+			}
+			else if (map[i][j]->getObjectType() == TREE)
+			{
+				output.push_back(2); // idk what these are supposed to push.
+			}
+			else
+			{
+				output.push_back(0); //idk what these are supposed to be, (get grass graphics)
+			}
+		}
+	}
+	return output;
+}
+
 bool Map::saveMap()
 {
-	if (validatePath == false)
+	if (validatePath() == false)
 	{
 		//Invalid Map.
 		return false;
