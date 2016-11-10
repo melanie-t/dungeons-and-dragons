@@ -17,14 +17,13 @@ void ItemPanel::createInventories()
 
 	//Character Equipment Inventory Creation
 	sf::Texture emptySlots;
-
 	emptySlots.loadFromFile("Sprites/EmptySlots.png");
 
 	sf::Texture equipped;
 	equipped.loadFromFile("Sprites/Equipped.png");
 	
 	sf::Texture dummy;
-	dummy.create(257, 431);
+	//dummy.create(257, 431);
 	dummy.loadFromFile("Sprites/Dummy.jpg");
 
 	sf::Texture numbers;
@@ -99,42 +98,34 @@ void ItemPanel::createInventories()
 	sf::Texture items;
 	items.loadFromFile("Sprites/Items.png");
 
-	Sprite armor;
-	armor.setTexture(items);
+	Sprite armor(items);
 	armor.setTextureRect(IntRect(0, 0, 70, 70));
 
-	Sprite belt;
-	belt.setTexture(items);
+	Sprite belt(items);
 	belt.setTextureRect(IntRect(70, 0, 70, 70));
 	belt.setPosition(70, 0);
 
-	Sprite helmet;
-	helmet.setTexture(items);
+	Sprite helmet(items);
 	helmet.setTextureRect(IntRect(140, 0, 70, 70));
 	helmet.setPosition(140, 0);
 
-	Sprite ring;
-	ring.setTexture(items);
+	Sprite ring(items);
 	ring.setTextureRect(IntRect(210, 0, 70, 70));
 	ring.setPosition(210, 0);
 
-	Sprite shield;
-	shield.setTexture(items);
+	Sprite shield(items);
 	shield.setTextureRect(IntRect(280, 0, 70, 70));
 	shield.setPosition(0, 70);
 
-	Sprite boots;
-	boots.setTexture(items);
+	Sprite boots(items);
 	boots.setTextureRect(IntRect(350, 0, 70, 70));
 	boots.setPosition(70, 70);
 
-	Sprite sword;
-	sword.setTexture(items);
+	Sprite sword(items);
 	sword.setTextureRect(IntRect(420, 0, 70, 70));
 	sword.setPosition(140, 70);
 
-	Sprite empty;
-	empty.setTexture(items);
+	Sprite empty(items);
 	empty.setTextureRect(IntRect(490, 0, 70, 70));
 	empty.setPosition(210, 70);
 
