@@ -472,7 +472,7 @@ Character* Character::loadCharacer(string name)
 					cha = atoi(xml.GetData().c_str());
 				}
 			}
-			return new Character(level, str, dex, con, intel, wis, cha);
+			return new Character(level, str, dex, con, intel, wis, cha, name);
 		}
 	}
 	return nullptr; //Empty

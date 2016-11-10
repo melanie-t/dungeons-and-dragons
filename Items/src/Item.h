@@ -36,7 +36,7 @@ public:
 	//save item to file
 	bool saveItem();
 	//Creates Random Item based on level
-	static Item randommize(int lvl);
+	static Item* randommize(int lvl);
 	//Creates Item Class from File Load
 	static Item load(int id);
 private:

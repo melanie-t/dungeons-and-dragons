@@ -24,20 +24,19 @@ using namespace std;
 //! Sets everything to 0, or empty string.
 Map::Map()
 {
-	Map(0, 0, 0, "");
+	Map(0, 0, 0, nullptr);
 }
 //! Constructor method for the map.
 //! @param is the id of the map
 //! @param length the length of the map
 //! @param width the width of the map
 //! @param name the name of the map
-Map::Map(const int id, const int length, const int width, const string name, Character* player)
+Map::Map(const int id, const int length, const int width, Character* player)
 {
 	this->ID = id;
 	//width = row, length = column
 	this->row = width;
 	this->column = length;
-	this->name = name;
 	//Player on the map.
 	this->player = player;
 	//Creating an array that will serve as our map.
@@ -213,6 +212,15 @@ vector<int> Map::outputMap()
 				{
 					output.push_back(6); // idk what these are supposed to push.
 				}
+			}
+			else if (map[i][j]->getObjectType() == ITEM)
+			{
+				output.push_back(9);
+			}
+			else if (map[i][j]->getObjectType() == ENEMY)
+			{
+				std::cout << "enemy" << endl;
+				output.push_back(10);
 			}
 			else
 			{

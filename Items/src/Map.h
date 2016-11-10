@@ -13,7 +13,7 @@
 class Map {
 public:
 	//Constructor
-	Map(const int id, const int length = 20, const int width = 20, const std::string name = "", Character* player = nullptr);
+	Map(const int id, const int length = 20, const int width = 20, Character* player = nullptr);
 	Map();
 
 	//Destructor
@@ -35,6 +35,7 @@ public:
 	int getNumRows(){ return this->row; }
 	int getNumCol(){ return this->column; }
 	(GameObject*)** getMap(){ return this->map; }
+	Character* getPlayer(){ return this->player; }
 
 	//setters
 	void setID(int id){ this->ID = id; }

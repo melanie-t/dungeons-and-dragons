@@ -161,7 +161,8 @@ int main()
 	string name;
 	std::cout << "Enter Character Name: " << endl;
 	cin >> name;
-	Character* charater = Character::loadCharacer(name);
+	Character* character = Character::loadCharacer(name);
+	character->setName(name);
 
 	cout << "Choose a map id from the list below:" << endl; 
 
@@ -180,13 +181,12 @@ int main()
 	int chosenMap;
 	cin >> chosenMap;
 
-	FileMapBuilder builder(charater);
+	FileMapBuilder builder(character);
 	builder.loadMap(chosenMap);
 	Map* map = builder.getMap();
-	vector<int> out = map->outputMap();
 
 	std::thread consoleThread(consoleInput);
-	Game* game = new Game(map->getNumRows(), map->getNumCol(), out);
+	Game* game = new Game(map->getNumRows(), map->getNumCol(), map);
 
 	try{
 		game->go();

@@ -1,5 +1,6 @@
 #include <SFML\Graphics.hpp>
 #include "TileMap.h"
+#include "Map.h"
 #include <iostream>
 #include <vector>
 
@@ -52,8 +53,9 @@ private:
 	int height;
 	std::vector<int> level;
 
+	Map* m_map;
 public:
-	Game(unsigned int tileWidth, unsigned int tileHeight, std::vector<int> level);
+	Game(unsigned int tileWidth, unsigned int tileHeight, Map* map);
 	~Game();
 	//Method to start the game
 	void go();

@@ -269,7 +269,7 @@ inline int givePlusFiveBonus(int lvl)
 //! function that creates a randomly generated item.
 //! The item is created according to the level of the character
 //! @param lvl the level of the character
-Item Item::randommize(int lvl)
+Item* Item::randommize(int lvl)
 {
 	int r = rand() % 7 + 1; //Random number between 1 and 7 for choosing item type.
 	string type;
@@ -509,10 +509,10 @@ Item Item::randommize(int lvl)
 		}
 	}
 
-	Item item(type, enh);
+	//Item item(type, enh);
 	//item.levelRequirement = lvl;
 
-	return item;
+	return new Item(type, enh);
 }
 
 static Item load(int id)

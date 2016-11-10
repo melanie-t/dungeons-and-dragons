@@ -27,7 +27,7 @@ Enemy::Enemy(int lvl, int str, int dex, int con, int intel, int wis, int cha) :
 //! created a random enemy based of the player, 
 //! all stats are within +/-5 the stats of the player
 //! @param player player of map or campaign
-Enemy Enemy::randomize(Character* player)
+Enemy* Enemy::randomize(Character* player)
 {
 	//For each stat, the enemy will within a range of +/- 5  of that.
 	//The lvl will be the same.
@@ -39,5 +39,5 @@ Enemy Enemy::randomize(Character* player)
 	int wis = (rand() % 10 - 5) + player->getWIS();
 	int cha = (rand() % 10 - 5) + player->getCHA();
 
-	return Enemy(player->getLevel(), str, dex,con,intel,wis,cha);
+	return new Enemy(player->getLevel(), str, dex,con,intel,wis,cha);
 }

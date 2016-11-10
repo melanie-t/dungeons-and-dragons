@@ -39,7 +39,7 @@ bool FileMapBuilder::loadMap(int id)
 	//Fill every empty tile with grass.
 	//Is there a way to avoid a n^2 function?
 	//I don't think we can avoid interating through everything.
-	Map*map = new Map(id);
+	Map*map = new Map(id, 20, 20, player);
 
 	char di[20];
 	sprintf_s(di, 20, "maps/%d.xml", id);
@@ -162,7 +162,7 @@ bool FileMapBuilder::loadMap(int id)
 					{
 						xml.IntoElem();
 						int x, y;
-						Item* item = &Item::randommize(player->getLevel());
+						Item* item = Item::randommize(player->getLevel());
 						while (xml.FindElem())
 						{
 							if (xml.GetTagName() == "x")
@@ -185,7 +185,7 @@ bool FileMapBuilder::loadMap(int id)
 					while (xml.FindElem())
 					{
 						xml.IntoElem();
-						Enemy* enemy = &Enemy::randomize(player);
+						Enemy* enemy = Enemy::randomize(player);
 						int x, y;
 						//now in each enemy tage
 						while (xml.FindElem())

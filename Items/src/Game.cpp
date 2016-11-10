@@ -1,10 +1,12 @@
 #include "Game.h"
+#include "Map.h"
 #include <SFML\Graphics.hpp>
 
-Game::Game(unsigned int tileWidth, unsigned int tileHeight, std::vector<int> level){
+Game::Game(unsigned int tileWidth, unsigned int tileHeight, Map* map){
 	this->width = tileWidth;
 	this->height = tileHeight;
-	this->level = level;
+	this->level = map->outputMap();
+	this->m_map = map;
 }
 
 Game::~Game(){
@@ -117,6 +119,7 @@ void Game::update(sf::Event evt){
 					break;
 				else if (level[currentPos - width] == 6) // end
 				{
+					m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
 					window->close();
 				}
 				player.move(0, -32);
@@ -138,6 +141,11 @@ void Game::update(sf::Event evt){
 					break;
 				else if (level[currentPos + width] == 2) //2 is tree
 					break;
+				else if (level[currentPos - width] == 6) // end
+				{
+					m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
+					window->close();
+				}
 				player.move(0, +32);
 				currentPos += width;
 			}
@@ -158,6 +166,11 @@ void Game::update(sf::Event evt){
 					break;
 				else if (level[currentPos - 1] == 2) //2 is tree
 					break;
+				else if (level[currentPos - width] == 6) // end
+				{
+					m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
+					window->close();
+				}
 				player.move(-32, 0);
 				currentPos--;
 			}
@@ -177,6 +190,11 @@ void Game::update(sf::Event evt){
 					break;
 				else if (level[currentPos + 1] == 2) //2 is tree
 					break;
+				else if (level[currentPos - width] == 6) // end
+				{
+					m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
+					window->close();
+				}
 				player.move(+32, 0);
 				currentPos++;
 			}
@@ -218,12 +236,10 @@ void Game::createText(){
 	text.setFont(font);
 	currentPosition.setFont(font);
 
-	std::string heroName = "Donald J. Trump";
-	int health = 100;
-	int mana = 25;
+	std::string heroName = m_map->getPlayer()->getName();
 
 	//Initializes the text
-	text.setString(heroName + "\nHealth: " + std::to_string(health) + "\nMana: " + std::to_string(mana) + "\n");
+	text.setString(m_map->getPlayer()->statString());
 	text.setCharacterSize(12);
 	text.setFillColor(sf::Color::Black);
 	text.setStyle(sf::Text::Bold);
@@ -244,12 +260,12 @@ void Game::createText(){
 
 void Game::render(){
 	//Draws everything onto the window
-	currentPosition.setString("Current position: " + std::to_string(currentPos));
+	//currentPosition.setString("Current position: " + std::to_string(currentPos));
 	window->draw(map);
 	window->draw(player);
 	window->draw(textBox);
 	window->draw(text);
-	window->draw(currentPosition);
+	//window->draw(currentPosition);
 }
 
 void Game::mainLoop(){
