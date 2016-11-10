@@ -12,12 +12,15 @@ using std::endl;
 Fighter::Fighter(int level, int str, int dex, int con, int intel, int wis, int cha):
 													Character(level, str, dex, con, intel, wis, cha)
 {
+	setCharClass(1);
 }
 
 //! Default constructor: Assigns values for level 1
 Fighter::Fighter()
 {
 	setLevel(1);
+	setName("Unknown");
+	setCharClass(1);
 	statGenerator();
 }
 
@@ -26,26 +29,8 @@ Fighter::Fighter()
 Fighter::Fighter(int level)
 {
 	setLevel(level);
+	setCharClass(1);
 	statGenerator();
-}
-
-//! displayStats function
-//! @brief displays the stats of the fighter.
-void Fighter::displayStats()
-{
-	cout << "Level: " << getLevel()
-		<< "\nClass: Fighter"
-		<< "\nHitpoints: " << getHitPoints()
-		<< "\nStrength: " << getSTR()
-		<< "\nDexterity: " << getDEX()
-		<< "\nConstitution: " << getCON()
-		<< "\nIntelligence: " << getINTEL()
-		<< "\nWisdom: " << getWIS()
-		<< "\nCharisma: " << getCHA()
-		<< "\nArmor Class: " << getArmorClass()
-		<< "\nAttack Bonus: " << getAttackBonus()
-		<< "\nDamage Bonus: " << getDamageBonus()
-		<< "\n" << endl;
 }
 
 //! validateNewFighter function
@@ -63,4 +48,5 @@ bool Fighter::validateNewFighter()
 		return false;
 	return true;
 }
+
 

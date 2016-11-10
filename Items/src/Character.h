@@ -25,26 +25,28 @@
 */
 
 #pragma once
-#ifndef CHARACTER_H
-#define CHARACTER_H
 
 #include "GameObject.h"
+#include "Observable.h"
 #include <string>
 using namespace std;
 
 //! Class that implements a character 
-class Character
+class Character : public Observable
 {
 public:
 	Character();
 	Character(int level, int str, int dex, int con, int intel, int wis, int cha, string name = "");
+
+	void notify();
+	void attach(Character* c);
+	void detach(Character* c);
 
 	bool validateNewCharacter();
 	void statGenerator();
 	int abilityModifier(int abilityScore);
 	void secondaryStatCalc();
 	void hit(int damage);
-
 	int getHitPoints();
 	void setHitPoints(int HP);
 	int getLevel();
@@ -67,7 +69,12 @@ public:
 	void setWIS(int WIS);
 	int getCHA();
 	void setCHA(int CHA);
+	string getName();
+	void setName(string newName);
+	int getCharClass();
+	void setCharClass(int classOfChar);
 
+	bool gameover = false;
 	bool armorEquipped();
 	bool shieldEquipped();
 	bool weaponEquipped();
@@ -76,9 +83,14 @@ public:
 	bool helmetEquipped();
 
 	void displayStats();
+	string statString();
+	string classtoString();
 	void saveCharacter();
-
 	static Character loadCharacer(string name);
+
+	//string retrieveGender();
+	void retrieveName();
+	void setExtraPoints();
 
 private:
 	int abilityScores[6];
@@ -87,6 +99,7 @@ private:
 	int armorClass;
 	int attackBonus;
 	int damageBonus;
+	int charClass;
 	bool equipArmor;
 	bool equipShield;
 	bool equipWeapon;
@@ -94,10 +107,11 @@ private:
 	bool equipRing;
 	bool equipHelmet;
 	string name;
-
+	//string gender
+	Character* List[10];
 };
 
-enum AbilityModifiers
+enum Ability
 {
 	STRENGTH,
 	DEXTERITY,
@@ -106,5 +120,3 @@ enum AbilityModifiers
 	WISDOM,
 	CHARISMA,
 };
-
-#endif
