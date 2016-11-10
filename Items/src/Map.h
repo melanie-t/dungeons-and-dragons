@@ -6,6 +6,7 @@
 #include <string>
 #include "GameObject.h"
 #include "Character.h"
+#include <vector>
 
 #ifndef Map_H
 #define Map_H
@@ -25,6 +26,7 @@ public:
 	void printMap(char** map, int length, int width);
 	void setElement(char** map, int row, int column, char element);
 	void createMapSize(int x, int y);
+	vector<int> outputMap();
 	bool saveMap();
 
 	//Getters
