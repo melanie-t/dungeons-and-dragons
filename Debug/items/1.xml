@@ -1,7 +1,7 @@
 <item>
 	<id>1</id>
-	<type>helmet</type>
-	<level>4</level>
+	<type>armor</type>
+	<level>1</level>
 	<enhancements>
 		<enhancement>
 			<type>strength</type>
