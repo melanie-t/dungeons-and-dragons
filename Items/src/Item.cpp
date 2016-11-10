@@ -584,3 +584,21 @@ static Item load(int id)
 		return Item(); //return empty item.
 	}
 }
+
+int Item::getItemType() {
+	string itemType = getType();
+	if (itemType.compare("armor"))
+		return 1;
+	else if (itemType.compare("belt"))
+		return 2;
+	else if (itemType.compare("helmet"))
+		return 3;
+	else if (itemType.compare("ring"))
+		return 4;
+	else if (itemType.compare("shield"))
+		return 5;
+	else if (itemType.compare("boots"))
+		return 6;
+	else if (itemType.compare("weapon"))
+		return 7;
+}
