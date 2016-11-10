@@ -1,0 +1,11 @@
+<item>
+	<id>1</id>
+	<type>helmet</type>
+	<level>4</level>
+	<enhancements>
+		<enhancement>
+			<type>strength</type>
+			<bonus>1</bonus>
+		</enhancement>
+	</enhancements>
+</item>

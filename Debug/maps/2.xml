@@ -1,0 +1,29 @@
+<map>
+<id>2</id>
+<rows>20</rows>
+<column>20</column>
+	<doors>
+		<door>
+			<mapid>2</mapid>
+			<x>2</x>
+			<y>5</y>
+			<start>0</start>
+		</door>
+		<door>
+			<mapid>2</mapid>
+			<x>2</x>
+			<y>6</y>
+			<start>1</start>
+		</door>
+	</doors>
+	<items>
+		<item>
+		<x>2</x>
+		<y>2</y>
+		</item>
+	<item>
+		<x>2</x>
+		<y>3</y>
+		</item>
+	</items>
+</map>
