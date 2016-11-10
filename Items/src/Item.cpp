@@ -587,19 +587,19 @@ static Item load(int id)
 
 int Item::getItemType() {
 	string itemType = getType();
-	if (itemType.compare("armor"))
+	if (itemType.compare("armor") == 0)
 		return 1;
-	else if (itemType.compare("belt"))
+	else if (itemType.compare("belt") == 0)
 		return 2;
-	else if (itemType.compare("helmet"))
+	else if (itemType.compare("helmet") == 0)
 		return 3;
-	else if (itemType.compare("ring"))
+	else if (itemType.compare("ring") == 0)
 		return 4;
-	else if (itemType.compare("shield"))
+	else if (itemType.compare("shield") == 0)
 		return 5;
-	else if (itemType.compare("boots"))
+	else if (itemType.compare("boots") == 0)
 		return 6;
-	else if (itemType.compare("weapon"))
+	else if (itemType.compare("weapon") == 0)
 		return 7;
 	else
 		return 0;
