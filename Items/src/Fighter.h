@@ -13,20 +13,14 @@
 */
 
 #pragma once
-#ifndef FIGHTER_H
-#define FIGHTER_H
 #include "Character.h"
 #include "GameObject.h"
 
-class Fighter: public Character, public GameObject {
+class Fighter: public Character/*, public GameObject*/ {
 public:
 	Fighter();
 	Fighter(int level);
 	Fighter(int level, int str, int dex, int con, int intel, int wis, int cha);
-
-	void displayStats();
 	bool validateNewFighter();
 };
-
-#endif
 

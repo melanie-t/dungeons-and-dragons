@@ -1,4 +1,6 @@
-//! @file 
+//Dylan, I changed the ENUM AbilityModifiers -> Ability
+
+//! @file Character.cpp 
 //! @brief Implementation file for the Character class  
 //!
 
@@ -6,6 +8,7 @@
 #include <iostream> /* cin, cout */
 #include <stdlib.h> /* srand, rand */
 #include <time.h> /* time */
+#include <sstream>
 #include "Markup.h"
 
 using namespace std;
@@ -20,14 +23,47 @@ Character::Character(int lvl, int str, int dex, int con, int intel, int wis, int
 {
 	this->name = name;
 	level = lvl;
-	abilityScores[AbilityModifiers::STRENGTH] = str;
-	abilityScores[AbilityModifiers::DEXTERITY] = dex;
-	abilityScores[AbilityModifiers::CONSTITUTION] = con;
-	abilityScores[AbilityModifiers::INTELLIGENCE] = intel;
-	abilityScores[AbilityModifiers::WISDOM] = wis;
-	abilityScores[AbilityModifiers::CHARISMA] = cha;
+	abilityScores[Ability::STRENGTH] = str;
+	abilityScores[Ability::DEXTERITY] = dex;
+	abilityScores[Ability::CONSTITUTION] = con;
+	abilityScores[Ability::INTELLIGENCE] = intel;
+	abilityScores[Ability::WISDOM] = wis;
+	abilityScores[Ability::CHARISMA] = cha;
 
 	secondaryStatCalc();
+}
+
+void Character::notify() {
+	displayStats();
+}
+
+void Character::attach(Character* player)
+{
+	bool condition = false;
+	int index = 0;
+	while (!condition)
+	{
+		if ((List[index]) == 0)
+		{
+			List[index] = 0;
+			condition = true;
+		}
+	}
+	List[index] = player;
+}
+
+void Character::detach(Character* player)
+{
+	bool condition = false;
+	int index2 = 0;
+	while (!condition)
+	{
+		if (player == (List[index2]))
+		{
+			List[index2] = 0;
+			condition = true;
+		}
+	}
 }
 
 //! Implementation of the verification of a newly created Character
@@ -44,12 +80,12 @@ bool Character::validateNewCharacter()
 //! @brief generates random stats for the character
 void Character::statGenerator() {
 	srand(time(NULL));
-	abilityScores[AbilityModifiers::STRENGTH] = rand() % 16 + 3;
-	abilityScores[AbilityModifiers::DEXTERITY] = rand() % 16 + 3;
-	abilityScores[AbilityModifiers::CONSTITUTION] = rand() % 16 + 3;
-	abilityScores[AbilityModifiers::INTELLIGENCE] = rand() % 16 + 3;
-	abilityScores[AbilityModifiers::WISDOM] = rand() % 16 + 3;
-	abilityScores[AbilityModifiers::CHARISMA] = rand() % 16 + 3;
+	abilityScores[Ability::STRENGTH] = rand() % 16 + 3;
+	abilityScores[Ability::DEXTERITY] = rand() % 16 + 3;
+	abilityScores[Ability::CONSTITUTION] = rand() % 16 + 3;
+	abilityScores[Ability::INTELLIGENCE] = rand() % 16 + 3;
+	abilityScores[Ability::WISDOM] = rand() % 16 + 3;
+	abilityScores[Ability::CHARISMA] = rand() % 16 + 3;
 	secondaryStatCalc();
 }
 
@@ -80,7 +116,20 @@ void Character::secondaryStatCalc() {
 //! @param damage: damage sustained by the character
 void Character::hit(int damage)
 {
-	currentHitPoints = currentHitPoints - damage;
+	if (currentHitPoints > damage)
+	{
+		currentHitPoints = currentHitPoints - damage;
+		cout << "\nYou got hit! (-" << damage << " HP)\n" << endl;
+		notify();
+	}
+
+	else
+	{
+		currentHitPoints = 0;
+		cout << "GAME OVER. Thanks for playing!" << endl;
+		gameover = true;
+	}
+
 }
 
 //! Implementation of a getter method for currentHitPoints
@@ -160,84 +209,107 @@ void Character::setDamageBonus(int newDamageBonus)
 //! @return int: value of STR
 int Character::getSTR()
 {
-	return abilityScores[AbilityModifiers::STRENGTH];
+	return abilityScores[Ability::STRENGTH];
 }
 
 //! Implementation of a setter method for STR
 //! @param newSTR: value of STR
 void Character::setSTR(int newSTR)
 {
-	abilityScores[AbilityModifiers::STRENGTH] = newSTR;
+	abilityScores[Ability::STRENGTH] = newSTR;
 }
 
 //! Implementation of a getter method for DEX
 //! @return int: value of DEX	
 int Character::getDEX()
 {
-	return abilityScores[AbilityModifiers::DEXTERITY];
+	return abilityScores[Ability::DEXTERITY];
 }
 
 //! Implementation of a setter method for DEX
 //! @param newDEX: value of DEX	
 void Character::setDEX(int newDEX)
 {
-	abilityScores[AbilityModifiers::DEXTERITY] = newDEX;
+	abilityScores[Ability::DEXTERITY] = newDEX;
 }
 
 //! Implementation of a getter method for CON
 //! @return int: value of CON
 int Character::getCON()
 {
-	return abilityScores[AbilityModifiers::CONSTITUTION];
+	return abilityScores[Ability::CONSTITUTION];
 }
 
 //! Implementation of a setter method for CON
 //! @param newCON: value of CON
 void Character::setCON(int newCON)
 {
-	abilityScores[AbilityModifiers::CONSTITUTION] = newCON;
+	abilityScores[Ability::CONSTITUTION] = newCON;
 }
 
 //! Implementation of a getter method for INTEL
 //! @return int: value of INTEL
 int Character::getINTEL()
 {
-	return abilityScores[AbilityModifiers::INTELLIGENCE];
+	return abilityScores[Ability::INTELLIGENCE];
 }
 
 //! Implementation of a setter method for INTEL
 //! @param newINTEL: value of INTEL
 void Character::setINTEL(int newINTEL)
 {
-	abilityScores[AbilityModifiers::INTELLIGENCE] = newINTEL;
+	abilityScores[Ability::INTELLIGENCE] = newINTEL;
 }
 
 //! Implementation of a getter method for WIS
 //! @return int: value of WIS
 int Character::getWIS()
 {
-	return abilityScores[AbilityModifiers::WISDOM];
+	return abilityScores[Ability::WISDOM];
 }
 
 //! Implementation of a setter method for WIS
 //! @param newWIS: value of WIS
 void Character::setWIS(int newWIS)
 {
-	abilityScores[AbilityModifiers::WISDOM] = newWIS;
+	abilityScores[Ability::WISDOM] = newWIS;
 }
 
 //! Implementation of a getter method for CHA
 //! @return int: value of CHA
 int Character::getCHA()
 {
-	return abilityScores[AbilityModifiers::CHARISMA];
+	return abilityScores[Ability::CHARISMA];
 }
 
 //! Implementation of a setter method for CHA
-//! @return newCHA: value of CHA
+//! @param newCHA: value of CHA
 void Character::setCHA(int newCHA)
 {
-	abilityScores[AbilityModifiers::CHARISMA] = newCHA;
+	abilityScores[Ability::CHARISMA] = newCHA;
+}
+
+//! Implementation of a getter method for name
+//! @return name: name of character
+string Character::getName()
+{
+	return name;
+}
+
+//! Implementation of a setter method for name
+//! @param newName: name of character
+void Character::setName(string newName) 
+{
+	name = newName;
+}
+
+int Character::getCharClass()
+{
+	return charClass;
+}
+void Character::setCharClass(int classOfChar)
+{
+	charClass = classOfChar;
 }
 
 //! armorEquipped function
@@ -291,8 +363,29 @@ bool Character::helmetEquipped()
 //! @brief displays the stats of the Character.
 void Character::displayStats()
 {
-	cout << "Level: " << getLevel()
-		<< "\nClass: N/A"
+	cout << "\n= Character STATS ="
+		<< "\nName: " << getName()
+		<< "\nLevel: " << getLevel()
+		<< "\nClass: " << classtoString()
+		<< "\nHitpoints: " << getHitPoints()
+		<< "\nStrength: " << getSTR()
+		<< "\nDexterity: " << getDEX()
+		<< "\nConstitution: " << getCON()
+		<< "\nIntelligence: " << getINTEL()
+		<< "\nWisdom: " << getWIS()
+		<< "\nCharisma: " << getCHA()
+		<< "\nArmor Class: " << getArmorClass()
+		<< "\nAttack Bonus: " << getAttackBonus()
+		<< "\nDamage Bonus: " << getDamageBonus()
+		<< endl;
+}
+
+string Character::statString()
+{
+	std::ostringstream out;
+	out << "Name: " << getName()
+		<< "\nLevel: " << getLevel()
+		<< "\nClass: " << classtoString()
 		<< "\nHitpoints: " << getHitPoints()
 		<< "\nStrength: " << getSTR()
 		<< "\nDexterity: " << getDEX()
@@ -304,6 +397,15 @@ void Character::displayStats()
 		<< "\nAttack Bonus: " << getAttackBonus()
 		<< "\nDamage Bonus: " << getDamageBonus()
 		<< "\n" << endl;
+	return out.str();
+}
+
+string Character::classtoString()
+{
+	switch (charClass) {
+	case 1: return "Fighter";
+	default: return "N/A";
+	}
 }
 
 void Character::saveCharacter()
@@ -377,4 +479,131 @@ Character Character::loadCharacer(string name)
 	return Character(); //Empty
 }
 
+////retrieve the gender of the character and return it
+//string Character::retrieveGender()
+//{
+//	//variables
+//	bool a = false;
+//
+//	//loops until we have an actual gender for the character
+//	while (a == false)
+//	{
+//
+//		//Display message and retrieve the user's input
+//		cout << "Please Enter your gender: \n";
+//		cout << "For a male character, please enter: Male, male, M or m\n";
+//		cout << "For a female character, please enter: Female, female, F or f\n";
+//		cin >> gender;
+//
+//		//if user is male then set gender as male and return it
+//		if (gender == "Male" || gender == "male" || gender == "M" || gender == "m")
+//		{
+//			gender = "male";
+//			a = true;
+//			return gender;
+//		}
+//
+//		//if user is female then set gender as female and return it
+//		else if (gender == "Female" || gender == "female" || gender == "F" || gender == "f")
+//		{
+//			gender = "female";
+//			a = true;
+//			return gender;
+//		}
+//
+//		//if no specific gender has been entered then display error and loop again
+//		else
+//		{
+//			cout << "Error\n";
+//			a = 0;
+//
+//		}
+//	}
+//	return "";
+//}
 
+void Character::retrieveName() {
+	string charName;
+
+	//retrieve the name and set it to the character
+	cout << "Please enter the name of your character: \n";
+	cin >> charName;
+	setName(charName);
+}
+
+//set the extraPoints stats
+void Character::setExtraPoints()
+{
+	int ExtraPoints = 2;
+	while (ExtraPoints != 0)
+	{
+		//Display message and retrieve the user's input
+		int choice;
+		cout << "\nYou have: " << ExtraPoints << " upgrade(s) available. What would you like to upgrade?\n";
+		cout << "1. STR (Strength)\n";
+		cout << "2. DEX (Dexterity)\n";
+		cout << "3. CON (Constitution)\n";
+		cout << "4. INT (Intelligence)\n";
+		cout << "5. WIS (Wisdom)\n";
+		cout << "6. CHA (Charisma)\n";
+		cin >> choice;
+
+		//if user whishes to improve strength
+		if (choice == 1)
+		{
+			setSTR(getSTR() + 1);
+			ExtraPoints--;
+			cout << "Strength: " << getSTR() << "\n";
+		}
+
+		//if user whishes to improve Dexterity
+		else if (choice == 2)
+		{
+			setDEX(getDEX() + 1);
+			ExtraPoints--;
+			cout << "Dexterity: " << getDEX() << "\n";
+
+		}
+
+		//if user whishes to improve Constitution
+		else if (choice == 3)
+		{
+			setCON(getCON() + 1);
+			ExtraPoints--;
+			cout << "Constitution: " << getCON() << "\n";
+		}
+
+		//if user whishes to improve Intelligence
+		else if (choice == 4)
+		{
+			setINTEL(getINTEL() + 1);
+			ExtraPoints--;
+			cout << "Intelligence: " << getINTEL() << "\n";
+		}
+
+		//if user whishes to improve Wisdom
+		else if (choice == 5)
+		{
+			setWIS(getWIS() + 1);
+			ExtraPoints--;
+			cout << "Wisdom: " << getWIS() << "\n";
+		}
+
+		//if user whishes to improve Luck
+		else if (choice == 6)
+		{
+			setCHA(getCHA() + 1);
+			ExtraPoints--;
+			cout << "Luck: " << getCHA() << "\n";
+		}
+
+		//if no specific bonus has been entered then display error and loop again
+		else
+		{
+			cout << "Error, invalid choice. Please try again.\n";
+		}
+
+		notify();
+	}
+
+}
