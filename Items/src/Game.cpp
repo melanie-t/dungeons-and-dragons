@@ -72,7 +72,7 @@ bool Game::validate(int start, int end){
 }
 
 bool Game::init(){
-	window = new sf::RenderWindow(sf::VideoMode(600, 512), "D&D 2.0");
+	window = new sf::RenderWindow(sf::VideoMode(600, 600), "D&D 2.0");
 	//Puts the window at the top left of the monitor screen
 	window->setPosition(sf::Vector2i(0, 0));
 	//Prevent multiple key presses
@@ -252,7 +252,7 @@ void Game::createText(){
 	currentPosition.setPosition(20, (height * 32 + 56));
 
 	//Initializes the box in which the text will be written in
-	textBox.setSize(sf::Vector2f(width * 32 - 20, 200));
+	textBox.setSize(sf::Vector2f(width * 32 - 20, 250));
 	textBox.setPosition(12, height * 32 + 5);
 	textBox.setOutlineColor(sf::Color::Green);
 	textBox.setOutlineThickness(3);
