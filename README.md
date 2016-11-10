@@ -12,3 +12,5 @@ remove one of those files from the project, then compile and run.
 5) MapBuilder, reads xml files. There should be an example .xml file with the Debug folder of the solution. Build the solution in 
 Visual Studios, but do not run through there.
 6) Go to debug folder and run dnd.exe for testing.
+
+just to show you what modifying a file doesaite
