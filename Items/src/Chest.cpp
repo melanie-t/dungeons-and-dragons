@@ -11,7 +11,7 @@ void Chest::displayChest(Item inputItem){
 
 	sf::RenderWindow chestPopup(sf::VideoMode(285, 274), "You opened a chest!");
 	sf::Texture goldChest;
-	goldChest.loadFromFile("Sprites/Chest.png");
+	goldChest.loadFromFile("res/Chest.png");
 	Sprite chest(goldChest);
 	sf::Texture item;
 
@@ -24,13 +24,13 @@ void Chest::displayChest(Item inputItem){
 				chestPopup.close();
 			}
 			switch (inputItem.getItemType()) {
-				case 1: item.loadFromFile("Sprites/armor2.png");
-				case 2: item.loadFromFile("Sprites/belt2.png");
-				case 3: item.loadFromFile("Sprites/helmet2.png");
-				case 4: item.loadFromFile("Sprites/ring2.png");
-				case 5: item.loadFromFile("Sprites/shield2.png");
-				case 6: item.loadFromFile("Sprites/boots2.png");
-				case 7: item.loadFromFile("Sprites/sword.png");
+				case 1: item.loadFromFile("res/armor2.png");
+				case 2: item.loadFromFile("res/belt2.png");
+				case 3: item.loadFromFile("res/helmet2.png");
+				case 4: item.loadFromFile("res/ring2.png");
+				case 5: item.loadFromFile("res/shield2.png");
+				case 6: item.loadFromFile("res/boots2.png");
+				case 7: item.loadFromFile("res/sword.png");
 			}
 			Sprite displayItem(item);
 			displayItem.setPosition(80, 100);
