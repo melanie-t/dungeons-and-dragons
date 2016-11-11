@@ -2,6 +2,7 @@
 #include "FileMapBuilder.h"
 #include "SavedMapBuilder.h"
 #include "Character.h"
+#include "Fighter.h"
 #include "Enemy.h"
 #include "Door.h"
 #include "Item.h"
@@ -100,7 +101,6 @@ int main()
 				gameRunning = false;
 			}
 			break;
-			//Move stuff
 		} // Start Game FIN
 		case 2: // Create/Edit map 
 		{
@@ -212,6 +212,7 @@ int main()
 						case 4: // exit + save, no break function
 						{
 							map->saveMap();
+							break;
 						}
 						case 5: //exit without saving.
 						{
@@ -220,24 +221,206 @@ int main()
 						}
 						default:
 							cout << "Unknown Command" << endl;
+							break;
 						}
 					}
 				}
 			}
+			break;
 		} // Map FIN
 		case 3: // Create/Edit Character
 		{
+			bool characteredit = true;
+			char save;
+			while (characteredit)
+			{
+				cout << "What would you like to do?"
+					<< "\n1. Create new character (Fighter)"
+					<< "\n2. Edit character"
+					<< "\n3. Exit to previous menu" << endl;
+				int charactercmd;
+				cin >> charactercmd;
 
+				switch (charactercmd)
+				{
+				case 1: // create new character
+				{
+					string name;
+					char decision;
+					cout << "Enter name of your character: " << endl;
+					cin >> name;
+					Fighter newFighter(name);
+					newFighter.notify();
+
+					//Ask if player wants to save this character
+					cout << "Do you want to save this Fighter (Y/N)?" << endl;
+					cin >> decision;
+					if (decision == 'Y' || decision == 'y')
+					{
+						newFighter.saveCharacter();
+						cout << "Fighter " << name << " saved. Returning to menu.\n" << endl;
+					}
+					break;
+				}
+				case 2: // edit character
+				{
+					string name;
+					int modifycmd;
+					bool change = false;
+					bool modifycontinue = true;
+
+					cout << "Enter the name of the Fighter you want to edit: " << endl;
+					cin >> name;
+					Fighter* fighterPointer;
+					fighterPointer = Fighter::loadFighter(name);
+
+					// Select modifying category
+					while (modifycontinue) {
+						fighterPointer->notify();
+						cout << "Which category do you wish to modify?"
+							<< "\n1. STR (Strength)"
+							<< "\n2. DEX (Dexterity)"
+							<< "\n3. CON (Constitution)"
+							<< "\n4. INT (Intelligence)"
+							<< "\n5. WIS (Wisdom)"
+							<< "\n6. CHA (Charisma)"
+							<< "\n7. Name" 
+							<< "\n8. Exit to previous menu" << endl;
+						cin >> modifycmd;
+						switch (modifycmd) {
+						case 1: //STR
+						{
+							int value;
+							cout << "Enter new STR value:" << endl;
+							cin >> value;
+							if (value >= 3 && value <= 18) {
+								fighterPointer->setSTR(value);
+								change = true;
+							}
+							else
+								cout << "~ Invalid input ~ Ability must be between 3 and 18."
+								<< " Please try again." << endl;
+							break;
+						}
+						case 2: //DEX
+						{
+							int value;
+							cout << "Enter new DEX value:" << endl;
+							cin >> value;
+							if (value >= 3 && value <= 18) {
+								fighterPointer->setDEX(value);
+								change = true;
+							}
+							else
+								cout << "~ Invalid input ~ Ability must be between 3 and 18."
+								<< " Please try again." << endl;
+							break;
+						}
+						case 3: //CON
+						{
+							int value;
+							cout << "Enter new CON value:" << endl;
+							cin >> value;
+							if (value >= 3 && value <= 18) {
+								fighterPointer->setCON(value);
+								change = true;
+							}
+							else
+								cout << "~ Invalid input ~ Ability must be between 3 and 18."
+								<< " Please try again." << endl;
+							break;
+						}
+						case 4: //INT
+						{
+							int value;
+							cout << "Enter new INT value:" << endl;
+							cin >> value;
+							if (value >= 3 && value <= 18) {
+								fighterPointer->setINTEL(value);
+								change = true;
+							}
+							else
+								cout << "~ Invalid input ~ Ability must be between 3 and 18."
+								<< " Please try again." << endl;
+							break;
+						} 
+						case 5: //WIS
+						{
+							int value;
+							cout << "Enter new WIS value:" << endl;
+							cin >> value;
+							if (value >= 3 && value <= 18) {
+								fighterPointer->setWIS(value);
+								change = true;
+							}
+							else
+								cout << "~ Invalid input ~ Ability must be between 3 and 18."
+								<< " Please try again." << endl;
+							break;
+						}
+						case 6: //CHA
+						{
+							int value;
+							cout << "Enter new CHA value:" << endl;
+							cin >> value;
+							if (value >= 3 && value <= 18) {
+								fighterPointer->setCHA(value);
+								change = true;
+							}
+							else
+								cout << "~ Invalid input ~ Ability must be between 3 and 18."
+								<< " Please try again." << endl;
+							break;
+						}
+						case 7: //Name
+						{
+							string name;
+							cout << "Enter new name:" << endl;
+							cin >> name;
+							fighterPointer->setName(name);
+							change = true;
+							break;
+						}
+						case 8: //Exit to previous menu
+						{
+							modifycontinue = false;
+							break;
+						}
+						} // end modify character switch
+					} //end modify ability while loop
+					
+					//Asks user to save stats if change has occured
+					if (change) {
+						cout << "Would you like to save your new stats (Y/N)?" << endl;
+						cin >> save;
+						if (save == 'Y' || save == 'y')
+						{
+							fighterPointer->saveCharacter();
+							cout << "New stats saved" << endl;
+						}
+					}
+					break;
+				}
+				case 3: // exit
+				{
+					characteredit = false;
+					break;
+				}
+				} // end character switch
+			} // end characteredit loop
+			break;
 		} // Character FIN
 
 		case 4: // Create/Edit Item
 		{
 
+			break;
 		} // Item FIN
 
 		case 5: // Exit
 		{
 			run = false;
+			break;
 		}
 		} // Switch Menu FIN
 	}
