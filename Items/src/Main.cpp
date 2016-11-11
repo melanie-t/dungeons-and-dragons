@@ -37,7 +37,7 @@ void consoleInput()
 		{
 			//Move stuff
 		} // Start Game FIN
-		
+
 		case 2: // Create/Edit map 
 		{
 			bool mapedit = true;
@@ -49,7 +49,7 @@ void consoleInput()
 				cout << "3. Exit Map Editor" << endl;
 				int map_cmd;
 				std::cin >> map_cmd;
-				Map* map;
+				Map* map = nullptr;
 				switch (map_cmd)
 				{
 				case 1: // Create Map
@@ -90,7 +90,8 @@ void consoleInput()
 					mapedit = false;
 					break;
 				} // Map Switch FIN
-				
+				} // End Switch Statement
+
 				if (map != nullptr)
 				{
 					bool changeMap = true;
@@ -148,23 +149,24 @@ void consoleInput()
 						}
 					} // End while loop
 				}
-			}
-			} // Map FIN
-			case 3: // Create/Edit Character
-			{
+			} // End while mapedit loop
+		} // Map FIN
 
-			} // Character FIN
-			
-			case 4: // Create/Edit Item
-			{
+		case 3: // Create/Edit Character
+		{
 
-			} // Item FIN
+		} // Character FIN
 
-			case 5: // Exit
-			{
-				run = false;
-			}
+		case 4: // Create/Edit Item
+		{
+
+		} // Item FIN
+
+		case 5: // Exit
+		{
+			run = false;
 		} // Switch Menu FIN
+	}
 	}
 }
 
