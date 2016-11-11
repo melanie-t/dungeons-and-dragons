@@ -1,6 +1,8 @@
 //! @file 
 //! @brief Header file for the MapBuildDirector class  
 //!
+#pragma once
+
 #include "MapBuilder.h"
 
 class MapBuildDirector

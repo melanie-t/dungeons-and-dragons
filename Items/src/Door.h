@@ -1,6 +1,8 @@
 //! @file 
 //! @brief Header file for the Door class  
 //!
+#pragma once
+
 #include "GameObject.h"
 
 class Door : public GameObject

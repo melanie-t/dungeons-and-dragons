@@ -1,4 +1,5 @@
 #pragma once
+
 #include "SFML\Graphics.hpp"
 #include <vector>
 class TileMap : public sf::Drawable, public sf::Transformable

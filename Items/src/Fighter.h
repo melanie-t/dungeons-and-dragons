@@ -12,7 +12,8 @@
 *	   display the stats of the character created, by using cout
 */
 
-#pragma once
+#pragma 
+
 #include "Character.h"
 #include "GameObject.h"
 

@@ -20,6 +20,8 @@
 //! CMarkup, chosen due to ease of use to parse xml files
 //! And it's extremely light, does not require, it's simply
 //! .cpp/.h file that you add to the project(Markup.cpp + Markup.h), no .lib or .dll files.
+#pragma once
+
 #include "MapBuilder.h"
 
 class FileMapBuilder : public MapBuilder

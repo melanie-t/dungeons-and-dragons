@@ -5,8 +5,7 @@
 //! CMarkup, chosen due to ease of use to parse xml files
 //! And it's extremely light, does not require, it's simply
 //! .cpp/.h file that you add to the project(Markup.cpp + Markup.h), no .lib or .dll files.
-#ifndef Item_h
-#define Item_h
+#pragma once
 
 #include <string>
 #include<vector>
@@ -57,5 +56,4 @@ private:
 #define TYPE_BELT "belt"
 #define TYPE_BOOTS "boots"
 #define TYPE_WEAPON "weapon"
-#endif
 

@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Observer.h"
 #include <list>
 using std::list;

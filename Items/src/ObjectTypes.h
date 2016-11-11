@@ -1,6 +1,8 @@
 //! @file 
 //! @brief Constants for GameObject Types
 //!
+#pragma once
+
 #define WATER "water"
 #define TREE "tree"
 #define BRICK "brick"

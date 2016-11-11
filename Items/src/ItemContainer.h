@@ -2,8 +2,7 @@
 //! @brief Header file for the ItemContainer class  
 //!
 
-#ifndef ItemContainer_h
-#define ItemContainer_h
+#pragma once
 
 #include <string>
 #include<vector>
@@ -27,5 +26,4 @@ public:
 private:
 	vector<Item> Items;
 };
-#endif
 

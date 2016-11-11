@@ -1,8 +1,7 @@
 //! @file 
 //! @brief Header file for the Enhancement class  
 //!
-#ifndef Enhancement_h
-#define Enhancement_h
+#pragma once
 
 #include <string>
 #include<vector>
@@ -39,6 +38,4 @@ private:
 #define EN_DAMAGE_BONUS "damage bonus"
 #define EN_ARMOR_CLASS "armor class"
 #define EN_INTELLIGENCE "intelligence"
-
-#endif
 

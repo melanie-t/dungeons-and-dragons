@@ -1,6 +1,8 @@
 //! @file 
 //! @brief Header file for the Enemy class  
 //!
+#pragma once
+
 #include "Character.h"
 
 //This is BAD. find a way to change it later.

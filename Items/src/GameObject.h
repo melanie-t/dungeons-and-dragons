@@ -1,8 +1,8 @@
 //! @file 
 //! @brief Header file for the GameObject class  
 //!
-#ifndef GAMEOBJECT_H
-#define GAMEOBJECT_H
+#pragma once
+
 #include <string>
 #include "ObjectTypes.h"
 
@@ -16,4 +16,3 @@ public:
 
 	std::string getObjectType(){ return this->objectType; }
 };
-#endif
