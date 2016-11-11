@@ -73,7 +73,8 @@ bool Game::validate(int start, int end){
 }
 
 bool Game::init(){
-	window = new sf::RenderWindow(sf::VideoMode(632, 600), "D&D 2.0");
+	// col and row and reversed.
+	window = new sf::RenderWindow(sf::VideoMode(m_map->getNumRows()*32, m_map->getNumCol()*32 + 250), "D&D 2.0"); //fix the w, h with size of map
 	//Puts the window at the top left of the monitor screen
 	window->setPosition(sf::Vector2i(0, 0));
 	//Prevent multiple key presses
@@ -90,7 +91,7 @@ void Game::processInput(){
 	while (window->pollEvent(evt)){
 		if (evt.type == sf::Event::Closed)
 		{
-			endGame();
+			window->close();
 		}
 		update(evt);
 	}
@@ -120,7 +121,7 @@ void Game::update(sf::Event evt){
 					break;
 				else if (level[currentPos - width] == 6) // end
 				{
-					m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
+					//YOU WIN!!!
 					endGame();
 				}
 				player.move(0, -32);
@@ -145,7 +146,7 @@ void Game::update(sf::Event evt){
 					break;
 				else if (level[currentPos + width] == 6) // end
 				{
-					m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
+					//m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
 					endGame();
 				}
 				player.move(0, +32);
@@ -170,7 +171,7 @@ void Game::update(sf::Event evt){
 					break;
 				else if (level[currentPos - 1] == 6) // end
 				{
-					m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
+					//m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
 					endGame(); // temp
 				}
 				player.move(-32, 0);
@@ -194,7 +195,7 @@ void Game::update(sf::Event evt){
 					break;
 				else if (level[currentPos + 1] == 6) // end
 				{
-					m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
+					//m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
 					endGame(); // temp.
 				}
 				player.move(+32, 0);
@@ -209,6 +210,23 @@ void Game::update(sf::Event evt){
 
 void Game::endGame()
 {
+	m_map->getPlayer()->levelUp();
+
+	text.setString(m_map->getPlayer()->statString());
+	text.setCharacterSize(12);
+	text.setFillColor(sf::Color::Black);
+	text.setStyle(sf::Text::Bold);
+	text.setPosition(20, (height * 32 + 8));
+
+	sf::Texture winner;
+	winner.loadFromFile("Win.png");
+	sf::Sprite win(winner);
+	win.setPosition(10, 10);
+	window->clear(sf::Color(255,255,255,255));
+	window->draw(text);
+	window->draw(win);
+	window->display();
+	sf::sleep(sf::milliseconds(7000)); // for now. have to change later to exit only when escape/enter
 	window->close();
 }
 
@@ -259,8 +277,8 @@ void Game::createText(){
 	currentPosition.setPosition(20, (height * 32 + 56));
 
 	//Initializes the box in which the text will be written in
-	textBox.setSize(sf::Vector2f(width * 32 - 20, 250));
-	textBox.setPosition(12, height * 32 + 5);
+	textBox.setSize(sf::Vector2f(150, 240));
+	textBox.setPosition(5, height * 32 + 5);
 	textBox.setOutlineColor(sf::Color::Green);
 	textBox.setOutlineThickness(3);
 }
@@ -268,6 +286,7 @@ void Game::createText(){
 void Game::render(){
 	//Draws everything onto the window
 	//currentPosition.setString("Current position: " + std::to_string((currentPos - 1) % width));
+	ItemPanel::createInventories();
 	window->draw(map);
 	window->draw(player);
 	window->draw(textBox);

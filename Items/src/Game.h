@@ -2,6 +2,7 @@
 
 #include <SFML\Graphics.hpp>
 #include "TileMap.h"
+#include "ItemPanel.h"
 #include "Map.h"
 #include <iostream>
 #include <vector>
@@ -47,6 +48,8 @@ private:
 
 	//Updates the game
 	void update(sf::Event evt);
+
+	void itemPanel();
 
 	//Ends the game
 	void endGame();

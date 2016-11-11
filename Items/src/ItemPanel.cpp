@@ -23,7 +23,6 @@ void ItemPanel::createInventories()
 	equipped.loadFromFile("res/Equipped.png");
 	
 	sf::Texture dummy;
-	//dummy.create(257, 431);
 	dummy.loadFromFile("res/Dummy.jpg");
 
 	sf::Texture numbers;

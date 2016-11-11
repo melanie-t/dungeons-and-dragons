@@ -96,6 +96,9 @@
     <ClInclude Include="src\Observer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\ItemPanel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Map.cpp">
@@ -150,6 +153,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Observable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ItemPanel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

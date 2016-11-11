@@ -28,6 +28,7 @@
 
 #include "GameObject.h"
 #include "Observable.h"
+#include "ItemContainer.h"
 #include <string>
 using namespace std;
 
@@ -73,6 +74,7 @@ public:
 	void setName(string newName);
 	int getCharClass();
 	void setCharClass(int classOfChar);
+	void levelUp();
 
 	bool gameover = false;
 	bool armorEquipped();
@@ -106,6 +108,7 @@ private:
 	bool equipBoots;
 	bool equipRing;
 	bool equipHelmet;
+	ItemContainer backpack;
 	string name;
 	//string gender
 	Character* List[10];
@@ -118,5 +121,5 @@ enum Ability
 	CONSTITUTION,
 	INTELLIGENCE,
 	WISDOM,
-	CHARISMA,
+	CHARISMA
 };

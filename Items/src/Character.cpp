@@ -307,9 +307,24 @@ int Character::getCharClass()
 {
 	return charClass;
 }
+
 void Character::setCharClass(int classOfChar)
 {
 	charClass = classOfChar;
+}
+
+//! Implementation of level up method.
+//! Occurs when we complete a map.
+//  GUYS! I'm using if-else shortcut: (condition) ? (if_true) : (if_false)
+void Character::levelUp()
+{
+	level = level + 1;
+	abilityScores[Ability::STRENGTH] < 18 ? setSTR(abilityScores[Ability::STRENGTH] + 1) : false;
+	abilityScores[Ability::DEXTERITY] < 18 ? setSTR(abilityScores[Ability::DEXTERITY] + 1) : false;
+	abilityScores[Ability::CONSTITUTION] < 18 ? setSTR(abilityScores[Ability::CONSTITUTION] + 1) : false;
+	abilityScores[Ability::INTELLIGENCE] < 18 ? setSTR(abilityScores[Ability::INTELLIGENCE] + 1) : false;
+	abilityScores[Ability::WISDOM] < 18 ? setSTR(abilityScores[Ability::WISDOM] + 1) : false;
+	abilityScores[Ability::CHARISMA] < 18 ? setSTR(abilityScores[Ability::CHARISMA] + 1) : false;
 }
 
 //! armorEquipped function
