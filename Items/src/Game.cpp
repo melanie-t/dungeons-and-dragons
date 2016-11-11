@@ -12,6 +12,7 @@ Game::Game(unsigned int tileWidth, unsigned int tileHeight, Map* map){
 Game::~Game(){
 	//Destroys the window
 	delete window;
+	delete m_map;
 }
 
 bool Game::validMap(){
@@ -120,7 +121,7 @@ void Game::update(sf::Event evt){
 				else if (level[currentPos - width] == 6) // end
 				{
 					m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
-					window->close();
+					endGame();
 				}
 				player.move(0, -32);
 				currentPos -= width;
@@ -145,7 +146,7 @@ void Game::update(sf::Event evt){
 				else if (level[currentPos + width] == 6) // end
 				{
 					m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
-					window->close();
+					endGame();
 				}
 				player.move(0, +32);
 				currentPos += width;
@@ -170,7 +171,7 @@ void Game::update(sf::Event evt){
 				else if (level[currentPos - 1] == 6) // end
 				{
 					m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
-					window->close();
+					endGame(); // temp
 				}
 				player.move(-32, 0);
 				currentPos--;
@@ -194,7 +195,7 @@ void Game::update(sf::Event evt){
 				else if (level[currentPos + 1] == 6) // end
 				{
 					m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
-					window->close();
+					endGame(); // temp.
 				}
 				player.move(+32, 0);
 				currentPos++;
@@ -204,6 +205,13 @@ void Game::update(sf::Event evt){
 	default:
 		break;
 	}
+}
+
+void Game::endGame()
+{
+	window->close();
+	delete m_map;
+	delete window;
 }
 
 void Game::loadTextures(){

@@ -46,6 +46,9 @@ private:
 	//Updates the game
 	void update(sf::Event evt);
 
+	//Ends the game
+	void endGame();
+
 	//Variables for player to move in the map
 	int currentPos;
 	int lastKey;
@@ -59,4 +62,5 @@ public:
 	~Game();
 	//Method to start the game
 	void go();
+	void goToNewMap(Map* map); // for the future.
 };
