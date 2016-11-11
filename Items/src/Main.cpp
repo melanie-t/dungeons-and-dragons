@@ -69,9 +69,18 @@ int main()
 			if (!gameRunning)
 			{
 				string name;
-				std::cout << "Enter Character Name: " << endl;
+				std::cout << "Choose a Fighter from the list below:"
+					<< "\nDylan" 
+					<< "\nJames"
+					<< "\nLisa"
+					<< "\nMaggie"
+					<< endl;
 				cin >> name;
-
+				if (name != "Dylan" && name != "James" && name != "Lisa" && name != "Maggie")
+				{
+					cout << "Invalid name entered. Playing as Dylan!" << endl;
+					name = "Dylan";
+				}
 				cout << "Choose a map id from the list below:" << endl;
 
 				int id = 1;

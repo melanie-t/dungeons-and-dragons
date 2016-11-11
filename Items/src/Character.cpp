@@ -399,7 +399,7 @@ string Character::statString()
 {
 	std::ostringstream out;
 	out << "\nName: " << getName()
-		<< "\nClass: " << classtoString()
+		<< "\nClass: Fighter" //<< classtoString()
 		<< "\nLVL: " << getLevel()
 		<< "\nHP : " << getHitPoints()
 		<< "\nSTR: " << getSTR()

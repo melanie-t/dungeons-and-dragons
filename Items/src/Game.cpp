@@ -226,7 +226,7 @@ void Game::endGame()
 	window->draw(text);
 	window->draw(win);
 	window->display();
-	sf::sleep(sf::milliseconds(7000)); // for now. have to change later to exit only when escape/enter
+	sf::sleep(sf::milliseconds(6000)); // for now. have to change later to exit only when escape/enter
 	window->close();
 }
 
