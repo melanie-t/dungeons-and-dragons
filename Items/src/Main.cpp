@@ -11,7 +11,6 @@
 #include <Windows.h>
 using namespace std;
 
-
 std::thread runGameThread;
 /**
 Console input thread.
@@ -413,36 +412,88 @@ int main()
 
 		case 4: // Create/Edit Item
 		{
-			//bool itemedit = true;
-			//while (itemedit)
-			//{
-			//	cout << "What would you like to do?"
-			//		<< "\n1. Create new item"
-			//		<< "\n2. Edit item"
-			//		<< "\n3. Exit to previous menu" << endl;
-			//	int itemcmd;
-			//	cin >> itemcmd;
+			bool itemedit = true;
+			while (itemedit)
+			{
+				cout << "What would you like to do?"
+					<< "\n1. Create new item"
+					<< "\n2. Edit item"
+					<< "\n3. Exit to previous menu" << endl;
+				int itemcmd;
+				cin >> itemcmd;
 
-			//	switch (itemcmd)
-			//	{
-			//	case 1: // create new item
-			//	{
-			//		int itemchoice;
-			//		cout << "What would you like to create?"
-			//			<< "\n1. Armor"
-			//			<< "\n2. Helmet"
-			//			<< "\n3. Exit to previous menu" << endl;
-			//		cin >> itemchoice;
-			//		switch (itemchoice)
-			//	case 1: 
-			//		{
-
-			//		}
-			//			break;
-			//	}
-			//	} //end item switch
-			//} //end item edit while loop
-			//break;
+				switch (itemcmd)
+				{
+				case 1: // create new item
+				{
+					vector<Enhancement> enhance;
+					int itemchoice;
+					
+					bool continueCreation = true;
+					while (continueCreation)
+					{
+						cout << "What would you like to create?"
+							<< "\n1. Helmet"
+							<< "\n2. Armor"
+							<< "\n3. Shield"
+							<< "\n4. Ring"
+							<< "\n5. Belt"
+							<< "\n6. Boots"
+							<< "\n7. Weapon"
+							<< "\n8. Exit to previous menu" << endl;
+						cin >> itemchoice;
+					
+						switch (itemchoice){
+						case 1: // Helmet
+						{
+							Item newItem = Item("Helmet", enhance);
+							break;
+						}
+						case 2: // Armor
+						{
+							break;
+						}
+						case 3: // Shield
+						{
+							break;
+						}
+						case 4: // Ring
+						{
+							break;
+						}
+						case 5: // Belt
+						{
+							break;
+						}
+						case 6: // Boots
+						{
+							break;
+						}
+						case 7: // Boots
+						{
+							break;
+						}
+						case 8: // Exit
+						{
+							continueCreation = false;
+							break;
+						}
+						} // end of itemChoice switch
+					} // while loop continue creation
+					break;
+				} // end case 1 (create item)
+				case 2: // edit  item
+				{
+					break;
+				}
+				case 3: // exit to main menu
+				{
+					itemedit = false;
+					break;
+				}
+				} //end item switch
+			} //end item edit while loop
+			break;
 		} // Item FIN
 
 		case 5: // Exit
