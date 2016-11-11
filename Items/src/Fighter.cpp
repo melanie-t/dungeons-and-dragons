@@ -26,9 +26,10 @@ Fighter::Fighter()
 
 //! Constructor for Fighter
 //! @param level level of fighter
-Fighter::Fighter(int level)
+Fighter::Fighter(string name)
 {
-	setLevel(level);
+	setName(name);
+	setLevel(1);
 	setCharClass(1);
 	statGenerator();
 }

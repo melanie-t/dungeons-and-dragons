@@ -17,10 +17,10 @@
 #include "Character.h"
 #include "GameObject.h"
 
-class Fighter: public Character/*, public GameObject*/ {
+class Fighter: public Character, public GameObject {
 public:
 	Fighter();
-	Fighter(int level);
+	Fighter(string name);
 	Fighter(int level, int str, int dex, int con, int intel, int wis, int cha);
 	bool validateNewFighter();
 };
