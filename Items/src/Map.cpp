@@ -219,7 +219,6 @@ vector<int> Map::outputMap()
 			}
 			else if (map[i][j]->getObjectType() == ENEMY)
 			{
-				std::cout << "enemy" << endl;
 				output.push_back(10);
 			}
 			else
