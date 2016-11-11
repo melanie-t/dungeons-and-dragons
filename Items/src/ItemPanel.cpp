@@ -11,6 +11,8 @@ using std::cout;
 
 //Need to split it up into a .h file
 
+//! createInventories function
+//! @brief creats the player's inventory gui.
 void ItemPanel::createInventories()
 {
 	sf::RenderWindow equipWindow(sf::VideoMode(257, 431), "Character Inventory");

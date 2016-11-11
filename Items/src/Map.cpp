@@ -187,6 +187,8 @@ bool Map::recursiveSearch(int posx, int posy, int endposx, int endposy)
 	}
 }
 
+//! outputMap function
+//! @brief outputs the map as a 1D array to be used for gui tiles.
 vector<int> Map::outputMap()
 {
 	vector<int> output;
@@ -230,6 +232,8 @@ vector<int> Map::outputMap()
 	return output;
 }
 
+//! saveMap function
+//! @brief Saves the map object into an xml file.
 bool Map::saveMap()
 {
 	if (validatePath() == false)

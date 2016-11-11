@@ -15,7 +15,7 @@ using namespace std;
 std::thread runGameThread;
 /**
 Console input thread.
-Take commands through the console. Temporary.
+Take commands through the console. Temp
 */
 void runGame(int chosenMap, string characterName)
 {
