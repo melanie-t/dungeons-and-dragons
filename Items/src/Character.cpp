@@ -136,7 +136,7 @@ void Character::hit(int damage)
 //! @return int: value of currentHitPoints
 int Character::getHitPoints()
 {
-	return currentHitPoints;
+	return (10 + getLevel()*abilityModifier(getCON()));
 }
 
 //! Implementation of a setter method for currentHitPoints
@@ -167,7 +167,7 @@ void Character::setLevel(int currentLevel)
 //! @return int: value of armorClass
 int Character::getArmorClass()
 {
-	return armorClass;
+	return (abilityModifier(getDEX()));
 }
 
 //! Implementation of a setter method for armorClass
@@ -181,7 +181,7 @@ void Character::setArmorClass(int newArmorClass)
 //! @return int: value of attackBonus
 int Character::getAttackBonus()
 {
-	return attackBonus;
+	return (getLevel()*(abilityModifier(getSTR()) + abilityModifier(getDEX())) / 5);
 }
 
 //! Implementation of a setter method for attackBonus
@@ -202,7 +202,7 @@ int Character::getDamageBonus()
 //! @param damageBonus: value of bonus damage dealt to monsters
 void Character::setDamageBonus(int newDamageBonus)
 {
-	damageBonus = newDamageBonus;
+	damageBonus = abilityModifier(getSTR());
 }
 
 //! Implementation of a getter method for STR
@@ -383,7 +383,7 @@ void Character::displayStats()
 string Character::statString()
 {
 	std::ostringstream out;
-	out << "Name: " << getName()
+	out << "\nName: " << getName()
 		<< "\nClass: " << classtoString()
 		<< "\nLVL: " << getLevel()
 		<< "\nHP : " << getHitPoints()
