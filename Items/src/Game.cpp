@@ -182,7 +182,7 @@ void Game::update(sf::Event evt){
 					break;
 				else if (level[currentPos + width] == 2) //2 is tree
 					break;
-				else if (level[currentPos - width] == 9) //9 is item/chest
+				else if (level[currentPos + width] == 9) //9 is item/chest
 				{
 					if (!openedChest) {
 						Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
@@ -216,7 +216,7 @@ void Game::update(sf::Event evt){
 					break;
 				else if (level[currentPos - 1] == 2) //2 is tree
 					break;
-				else if (level[currentPos - width] == 9) //9 is item/chest
+				else if (level[currentPos - 1] == 9) //9 is item/chest
 				{
 					if (!openedChest) {
 						Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
@@ -249,7 +249,7 @@ void Game::update(sf::Event evt){
 					break;
 				else if (level[currentPos + 1] == 2) //2 is tree
 					break;
-				else if (level[currentPos - width] == 9) //9 is item/chest
+				else if (level[currentPos +1] == 9) //9 is item/chest
 				{
 					if (!openedChest) {
 						Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
