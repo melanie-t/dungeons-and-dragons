@@ -72,7 +72,7 @@ bool Game::validate(int start, int end){
 }
 
 bool Game::init(){
-	window = new sf::RenderWindow(sf::VideoMode(600, 600), "D&D 2.0");
+	window = new sf::RenderWindow(sf::VideoMode(632, 600), "D&D 2.0");
 	//Puts the window at the top left of the monitor screen
 	window->setPosition(sf::Vector2i(0, 0));
 	//Prevent multiple key presses
@@ -132,6 +132,7 @@ void Game::update(sf::Event evt){
 			player.setTextureRect(sf::IntRect(0, 0, 20, 26));
 			if (lastKey != evt.key.code)
 			{
+				break;
 			}
 			else{
 				//Checks if space occupied or out of bounds
@@ -141,7 +142,7 @@ void Game::update(sf::Event evt){
 					break;
 				else if (level[currentPos + width] == 2) //2 is tree
 					break;
-				else if (level[currentPos - width] == 6) // end
+				else if (level[currentPos + width] == 6) // end
 				{
 					m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
 					window->close();
@@ -160,13 +161,13 @@ void Game::update(sf::Event evt){
 			}
 			else{
 				//Checks if space occupied or out of bounds
-				if ((currentPos - 1 < 0))
+				if ((currentPos) % width <= 0)
 					break;
 				else if (level[currentPos - 1] == 1) //1 is water
 					break;
 				else if (level[currentPos - 1] == 2) //2 is tree
 					break;
-				else if (level[currentPos - width] == 6) // end
+				else if (level[currentPos - 1] == 6) // end
 				{
 					m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
 					window->close();
@@ -184,13 +185,13 @@ void Game::update(sf::Event evt){
 			}
 			else{
 				//Checks if space occupied or out of bounds
-				if ((currentPos + 1 < 0))
+				if ((currentPos - 1) % width >= (width-2))
 					break;
 				else if (level[currentPos + 1] == 1) //1 is water
 					break;
 				else if (level[currentPos + 1] == 2) //2 is tree
 					break;
-				else if (level[currentPos - width] == 6) // end
+				else if (level[currentPos + 1] == 6) // end
 				{
 					m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
 					window->close();
@@ -260,12 +261,12 @@ void Game::createText(){
 
 void Game::render(){
 	//Draws everything onto the window
-	//currentPosition.setString("Current position: " + std::to_string(currentPos));
+	//currentPosition.setString("Current position: " + std::to_string((currentPos - 1) % width));
 	window->draw(map);
 	window->draw(player);
 	window->draw(textBox);
 	window->draw(text);
-	//window->draw(currentPosition);
+	window->draw(currentPosition);
 }
 
 void Game::mainLoop(){
