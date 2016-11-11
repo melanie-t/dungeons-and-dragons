@@ -82,9 +82,9 @@ int main()
 
 				while (xml.Load(di))
 				{
-				cout << id << endl;
-				id++;
-				sprintf_s(di, 20, "maps/%d.xml", id);
+					cout << id << endl;
+					id++;
+					sprintf_s(di, 20, "maps/%d.xml", id);
 				}
 
 				int chosenMap;
@@ -284,7 +284,7 @@ int main()
 							<< "\n4. INT (Intelligence)"
 							<< "\n5. WIS (Wisdom)"
 							<< "\n6. CHA (Charisma)"
-							<< "\n7. Name" 
+							<< "\n7. Name"
 							<< "\n8. Exit to previous menu" << endl;
 						cin >> modifycmd;
 						switch (modifycmd) {
@@ -343,7 +343,7 @@ int main()
 								cout << "~ Invalid input ~ Ability must be between 3 and 18."
 								<< " Please try again." << endl;
 							break;
-						} 
+						}
 						case 5: //WIS
 						{
 							int value;
@@ -388,7 +388,7 @@ int main()
 						}
 						} // end modify character switch
 					} //end modify ability while loop
-					
+
 					//Asks user to save stats if change has occured
 					if (change) {
 						cout << "Would you like to save your new stats (Y/N)?" << endl;
@@ -436,7 +436,7 @@ int main()
 					{
 						cout << "Enter the type of item you would like to create: ";
 						cin >> type;
-					}while(type != TYPE_HELMET && type != TYPE_RING || type != TYPE_BOOTS || type != TYPE_ARMOR || type != TYPE_SHIELD||
+					} while (type != TYPE_HELMET && type != TYPE_RING || type != TYPE_BOOTS || type != TYPE_ARMOR || type != TYPE_SHIELD ||
 						type != TYPE_BELT || type != TYPE_WEAPON);
 
 					int id = 1;
@@ -497,7 +497,7 @@ int main()
 							{
 								cout << "Enter the type of item you would like to create: ";
 								cin >> itemType;
-							} while (itemType != TYPE_HELMET && itemType != TYPE_RING || itemType != TYPE_BOOTS || itemType != TYPE_ARMOR 
+							} while (itemType != TYPE_HELMET && itemType != TYPE_RING || itemType != TYPE_BOOTS || itemType != TYPE_ARMOR
 								|| itemType != TYPE_SHIELD || itemType != TYPE_BELT || itemType != TYPE_WEAPON);
 							break;
 						}
@@ -510,7 +510,7 @@ int main()
 							{
 								cout << "Enter the type of enhancement you would like to add: ";
 								cin >> enhancement_type;
-							} while (enhancement_type != EN_STRENGTH && enhancement_type != EN_CONSTITUTION || enhancement_type != EN_WISDOM 
+							} while (enhancement_type != EN_STRENGTH && enhancement_type != EN_CONSTITUTION || enhancement_type != EN_WISDOM
 								|| enhancement_type != EN_CHARISMA
 								|| enhancement_type != EN_DEXTERITY || enhancement_type != EN_ATTACK_BONUS || enhancement_type != EN_DAMAGE_BONUS
 								|| enhancement_type != EN_ARMOR_CLASS || enhancement_type != EN_INTELLIGENCE);
@@ -552,9 +552,9 @@ int main()
 								break;
 							}
 						case 5: //exit don't save
-							{
-								editItem = false;
-							}
+						{
+							editItem = false;
+						}
 						}
 					}
 				}
