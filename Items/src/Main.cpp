@@ -37,6 +37,7 @@ void consoleInput()
 		{
 			//Move stuff
 		} // Start Game FIN
+		
 		case 2: // Create/Edit map 
 		{
 			bool mapedit = true;
@@ -101,20 +102,20 @@ void consoleInput()
 						cout << "3. Add Enemy" << endl;
 						cout << "4. Exit & Save" << endl;
 						cout << "5. Exit & Don't Save" << endl;
-					int editcmd;
-					cin >> editcmd;
+						int editcmd;
+						cin >> editcmd;
 
-					int x, y;
-					cout << "Enter x position: ";
-					cin >> x;
-					cout << "Enter y position: ";
-					cin >> y;
+						int x, y;
+						cout << "Enter x position: ";
+						cin >> x;
+						cout << "Enter y position: ";
+						cin >> y;
 
-					switch (editcmd)
-					{
-					case 1: //add door.
-					{
-						int mapid;
+						switch (editcmd)
+						{
+						case 1: //add door.
+						{
+							int mapid;
 							bool start;
 							cout << "Enter mapid that the door leads to: ";
 							cin >> mapid;
@@ -145,9 +146,7 @@ void consoleInput()
 						default:
 							cout << "Unknown Command" << endl;
 						}
-
-
-					}
+					} // End while loop
 				}
 			}
 			} // Map FIN
