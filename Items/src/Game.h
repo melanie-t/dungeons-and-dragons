@@ -49,8 +49,6 @@ private:
 	//Updates the game
 	void update(sf::Event evt);
 
-	void itemPanel();
-
 	//Ends the game
 	void endGame();
 
@@ -68,4 +66,5 @@ public:
 	//Method to start the game
 	void go();
 	void goToNewMap(Map* map); // for the future.
+	bool openedChest = false;
 };

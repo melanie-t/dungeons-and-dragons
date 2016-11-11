@@ -27,6 +27,7 @@ void runGame(int chosenMap, string characterName)
 	Map* map = builder.getMap();
 
 	Game* game = new Game(map->getNumRows(), map->getNumCol(), map);
+	ItemPanel::createInventories();
 
 	try{
 		game->go();
@@ -70,11 +71,8 @@ int main()
 			if (!gameRunning)
 			{
 				string name;
-				std::cout << "Choose a Fighter from the list below:"
-					<< "\nDylan" 
-					<< "\nJames"
-					<< "\nLisa"
-					<< "\nMaggie"
+				std::cout << "Choose a Fighter from the list."
+					<< "\nDylan, James, Lisa, Maggie: "
 					<< endl;
 				cin >> name;
 				if (name != "Dylan" && name != "James" && name != "Lisa" && name != "Maggie")

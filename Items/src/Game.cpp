@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "Map.h"
+#include "Chest.h"
 #include <SFML\Graphics.hpp>
 
 Game::Game(unsigned int tileWidth, unsigned int tileHeight, Map* map){
@@ -119,6 +120,15 @@ void Game::update(sf::Event evt){
 					break;
 				else if (level[currentPos - width] == 2) //2 is tree
 					break;
+				else if (level[currentPos - width] == 9) //9 is item/chest
+				{
+					if (!openedChest) {
+						Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
+						openedChest = true;
+					}
+					else
+						break;
+				}
 				else if (level[currentPos - width] == 6) // end
 				{
 					//YOU WIN!!!
@@ -144,6 +154,15 @@ void Game::update(sf::Event evt){
 					break;
 				else if (level[currentPos + width] == 2) //2 is tree
 					break;
+				else if (level[currentPos - width] == 9) //9 is item/chest
+				{
+					if (!openedChest) {
+						Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
+						openedChest = true;
+					}
+					else
+						break;
+				}
 				else if (level[currentPos + width] == 6) // end
 				{
 					//m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
@@ -169,6 +188,15 @@ void Game::update(sf::Event evt){
 					break;
 				else if (level[currentPos - 1] == 2) //2 is tree
 					break;
+				else if (level[currentPos - width] == 9) //9 is item/chest
+				{
+					if (!openedChest) {
+						Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
+						openedChest = true;
+					}
+					else
+						break;
+				}
 				else if (level[currentPos - 1] == 6) // end
 				{
 					//m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
@@ -193,6 +221,15 @@ void Game::update(sf::Event evt){
 					break;
 				else if (level[currentPos + 1] == 2) //2 is tree
 					break;
+				else if (level[currentPos - width] == 9) //9 is item/chest
+				{
+					if (!openedChest) {
+						Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
+						openedChest = true;
+					}
+					else
+						break;
+				}
 				else if (level[currentPos + 1] == 6) // end
 				{
 					//m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
@@ -286,7 +323,6 @@ void Game::createText(){
 void Game::render(){
 	//Draws everything onto the window
 	//currentPosition.setString("Current position: " + std::to_string((currentPos - 1) % width));
-	//ItemPanel::createInventories();
 	window->draw(map);
 	window->draw(player);
 	window->draw(textBox);

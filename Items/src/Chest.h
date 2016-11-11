@@ -10,5 +10,5 @@
 
 class Chest {
 public:
-	static void displayChest(Item inputItem);
+	static void displayChest(Item* inputItem);
 };
