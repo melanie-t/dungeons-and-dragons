@@ -105,7 +105,6 @@ bool FileMapBuilder::loadMap(int id)
 						}
 						door->setDestinationID(mapid);
 						door->setStart(start);
-						cout << door->getStart() << endl;
 						map->fillCell(x, y, door);
 						xml.OutOfElem();
 					}
