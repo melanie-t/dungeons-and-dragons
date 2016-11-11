@@ -611,11 +611,12 @@ void Item::addEnhancement(Enhancement enh)
 
 void Item::removeEnhancement(string type)
 {
-	for (int i = 0; i != influence.size(); i++)
+	for (int i = 0; i < influence.size(); i++)
 	{
 		if (influence[i].getType() == type)
 		{
 			influence.erase(influence.begin() + i);
+			cout << "\nEnhancement removed\n";
 		}
 	}
 }

@@ -426,7 +426,7 @@ int main()
 			while (itemedit)
 			{
 				cout << "Welcome to the item editor." << endl;
-				cout << "what would you liek to do?" << endl;
+				cout << "what would you like to do?" << endl;
 				cout << "1. create new item" << endl;
 				cout << "2. edit existing item" << endl;
 				cout << "3. exit editor" << endl;
@@ -443,10 +443,11 @@ int main()
 					string type;
 					do
 					{
-						cout << "Enter the type of item you would like to create: ";
+						cout << "Enter the type of item you would like to create. "
+							<< "\nhelmet, armor, shield, ring, belt, boots, weapon:  " << endl;
 						cin >> type;
-					} while (type != TYPE_HELMET && type != TYPE_RING || type != TYPE_BOOTS || type != TYPE_ARMOR || type != TYPE_SHIELD ||
-						type != TYPE_BELT || type != TYPE_WEAPON);
+					} while (type != TYPE_HELMET && type != TYPE_RING && type != TYPE_BOOTS && type != TYPE_ARMOR && type != TYPE_SHIELD &&
+						type != TYPE_BELT && type != TYPE_WEAPON);
 
 					int id = 1;
 					CMarkup xml;
@@ -504,25 +505,25 @@ int main()
 							string itemType;
 							do
 							{
-								cout << "Enter the type of item you would like to create: ";
+								cout << "Enter the type of item you would like to create. "
+									<< "\nhelmet, armor, shield, ring, belt, boots, weapon:  " << endl;
 								cin >> itemType;
-							} while (itemType != TYPE_HELMET && itemType != TYPE_RING || itemType != TYPE_BOOTS || itemType != TYPE_ARMOR
-								|| itemType != TYPE_SHIELD || itemType != TYPE_BELT || itemType != TYPE_WEAPON);
+							} while (itemType != TYPE_HELMET && itemType != TYPE_RING && itemType != TYPE_BOOTS && itemType != TYPE_ARMOR
+								&& itemType != TYPE_SHIELD && itemType != TYPE_BELT && itemType != TYPE_WEAPON);
 							break;
 						}
 						case 2: //add enhancement
 						{
 							string enhancement_type;
 							int bonus;
-
 							do
 							{
-								cout << "Enter the type of enhancement you would like to add: ";
+								cout << "Enter the type of enhancement you would like to add. "
+									<< "\nstrength, constitution, wisdom, charisma, dexterity, intelligence, attackbonus, damagebonus, armorclass: " << endl;
 								cin >> enhancement_type;
-							} while (enhancement_type != EN_STRENGTH && enhancement_type != EN_CONSTITUTION || enhancement_type != EN_WISDOM
-								|| enhancement_type != EN_CHARISMA
-								|| enhancement_type != EN_DEXTERITY || enhancement_type != EN_ATTACK_BONUS || enhancement_type != EN_DAMAGE_BONUS
-								|| enhancement_type != EN_ARMOR_CLASS || enhancement_type != EN_INTELLIGENCE);
+							} while (enhancement_type != EN_STRENGTH && enhancement_type != EN_CONSTITUTION && enhancement_type != EN_WISDOM
+								&& enhancement_type != EN_CHARISMA && enhancement_type != EN_DEXTERITY && enhancement_type != EN_ATTACK_BONUS 
+								&& enhancement_type != EN_DAMAGE_BONUS && enhancement_type != EN_ARMOR_CLASS && enhancement_type != EN_INTELLIGENCE);
 
 							do
 							{
@@ -540,12 +541,13 @@ int main()
 
 							do
 							{
-								cout << "Enter the type of enhancement you would like to remove: ";
+								cout << "Enter the type of enhancement you would like to remove: "
+									<< "\nstrength, constitution, wisdom, charisma, dexterity, intelligence, attackbonus, damagebonus, armorclass: " << endl;
 								cin >> enhancement_type;
-							} while (enhancement_type != EN_STRENGTH && enhancement_type != EN_CONSTITUTION || enhancement_type != EN_WISDOM
-								|| enhancement_type != EN_CHARISMA
-								|| enhancement_type != EN_DEXTERITY || enhancement_type != EN_ATTACK_BONUS || enhancement_type != EN_DAMAGE_BONUS
-								|| enhancement_type != EN_ARMOR_CLASS || enhancement_type != EN_INTELLIGENCE);
+							} while (enhancement_type != EN_STRENGTH && enhancement_type != EN_CONSTITUTION && enhancement_type != EN_WISDOM
+								&& enhancement_type != EN_CHARISMA
+								&& enhancement_type != EN_DEXTERITY && enhancement_type != EN_ATTACK_BONUS && enhancement_type != EN_DAMAGE_BONUS
+								&& enhancement_type != EN_ARMOR_CLASS && enhancement_type != EN_INTELLIGENCE);
 
 							item->removeEnhancement(enhancement_type);
 							break;
@@ -554,10 +556,19 @@ int main()
 							if (item->validateItem())
 							{
 								item->saveItem();
+								cout << "\nItem saved" << endl;
 							}
 							else
 							{
-								cout << "This item is invalid! Please edit it." << endl;
+								cout << "\nThis item is invalid! These are valid enhancements:" 
+									<< "\nHelmet (intelligence, wisdom, armorclass)"
+									<< "\nArmor (armorclass)"
+									<< "\nShield (armorclass)"
+									<< "\nRing (strength, constitution, wisdom, charisma, armorclass)"
+									<< "\nBelt (constitution, strength)"
+									<< "\nBoots (dexterity, armorclass)"
+									<< "\nWeapon (attackbonus, damagebonus)\n"
+									<< endl;
 								break;
 							}
 						case 5: //exit don't save
