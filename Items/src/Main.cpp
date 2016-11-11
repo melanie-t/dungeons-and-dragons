@@ -413,8 +413,36 @@ int main()
 
 		case 4: // Create/Edit Item
 		{
+			//bool itemedit = true;
+			//while (itemedit)
+			//{
+			//	cout << "What would you like to do?"
+			//		<< "\n1. Create new item"
+			//		<< "\n2. Edit item"
+			//		<< "\n3. Exit to previous menu" << endl;
+			//	int itemcmd;
+			//	cin >> itemcmd;
 
-			break;
+			//	switch (itemcmd)
+			//	{
+			//	case 1: // create new item
+			//	{
+			//		int itemchoice;
+			//		cout << "What would you like to create?"
+			//			<< "\n1. Armor"
+			//			<< "\n2. Helmet"
+			//			<< "\n3. Exit to previous menu" << endl;
+			//		cin >> itemchoice;
+			//		switch (itemchoice)
+			//	case 1: 
+			//		{
+
+			//		}
+			//			break;
+			//	}
+			//	} //end item switch
+			//} //end item edit while loop
+			//break;
 		} // Item FIN
 
 		case 5: // Exit

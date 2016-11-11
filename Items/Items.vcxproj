@@ -75,6 +75,7 @@
   <ItemGroup>
     <ClInclude Include="src\BrickTexture.h" />
     <ClInclude Include="src\Character.h" />
+    <ClInclude Include="src\Chest.h" />
     <ClInclude Include="src\Door.h" />
     <ClInclude Include="src\Enemy.h" />
     <ClInclude Include="src\Enhancement.h" />
@@ -100,6 +101,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Character.cpp" />
+    <ClCompile Include="src\Chest.cpp" />
     <ClCompile Include="src\Door.cpp" />
     <ClCompile Include="src\Enhancement.cpp" />
     <ClCompile Include="src\Fighter.cpp" />

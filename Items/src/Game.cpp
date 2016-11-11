@@ -286,7 +286,7 @@ void Game::createText(){
 void Game::render(){
 	//Draws everything onto the window
 	//currentPosition.setString("Current position: " + std::to_string((currentPos - 1) % width));
-	ItemPanel::createInventories();
+	//ItemPanel::createInventories();
 	window->draw(map);
 	window->draw(player);
 	window->draw(textBox);
