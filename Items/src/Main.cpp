@@ -11,6 +11,7 @@
 #include <Windows.h>
 using namespace std;
 
+
 std::thread runGameThread;
 /**
 Console input thread.
@@ -90,9 +91,9 @@ int main()
 
 				while (xml.Load(di))
 				{
-				cout << id << endl;
-				id++;
-				sprintf_s(di, 20, "maps/%d.xml", id);
+					cout << id << endl;
+					id++;
+					sprintf_s(di, 20, "maps/%d.xml", id);
 				}
 
 				int chosenMap;
@@ -166,7 +167,7 @@ int main()
 					mapedit = false;
 					break;
 				}
-				} // end switch
+				}
 
 				if (map != nullptr)
 				{
@@ -292,7 +293,7 @@ int main()
 							<< "\n4. INT (Intelligence)"
 							<< "\n5. WIS (Wisdom)"
 							<< "\n6. CHA (Charisma)"
-							<< "\n7. Name" 
+							<< "\n7. Name"
 							<< "\n8. Exit to previous menu" << endl;
 						cin >> modifycmd;
 						switch (modifycmd) {
@@ -351,7 +352,7 @@ int main()
 								cout << "~ Invalid input ~ Ability must be between 3 and 18."
 								<< " Please try again." << endl;
 							break;
-						} 
+						}
 						case 5: //WIS
 						{
 							int value;
@@ -396,7 +397,7 @@ int main()
 						}
 						} // end modify character switch
 					} //end modify ability while loop
-					
+
 					//Asks user to save stats if change has occured
 					if (change) {
 						cout << "Would you like to save your new stats (Y/N)?" << endl;
@@ -424,84 +425,150 @@ int main()
 			bool itemedit = true;
 			while (itemedit)
 			{
-				cout << "What would you like to do?"
-					<< "\n1. Create new item"
-					<< "\n2. Edit item"
-					<< "\n3. Exit to previous menu" << endl;
-				int itemcmd;
-				cin >> itemcmd;
+				cout << "Welcome to the item editor." << endl;
+				cout << "what would you liek to do?" << endl;
+				cout << "1. create new item" << endl;
+				cout << "2. edit existing item" << endl;
+				cout << "3. exit editor" << endl;
+				int item_cmd;
 
-				switch (itemcmd)
+				cin >> item_cmd;
+
+				Item* item = nullptr;
+
+				switch (item_cmd)
 				{
 				case 1: // create new item
 				{
-					vector<Enhancement> enhance;
-					int itemchoice;
-					
-					bool continueCreation = true;
-					while (continueCreation)
+					string type;
+					do
 					{
-						cout << "What would you like to create?"
-							<< "\n1. Helmet"
-							<< "\n2. Armor"
-							<< "\n3. Shield"
-							<< "\n4. Ring"
-							<< "\n5. Belt"
-							<< "\n6. Boots"
-							<< "\n7. Weapon"
-							<< "\n8. Exit to previous menu" << endl;
-						cin >> itemchoice;
-					
-						switch (itemchoice){
-						case 1: // Helmet
-						{
-							Item newItem = Item("Helmet", enhance);
-							break;
-						}
-						case 2: // Armor
-						{
-							break;
-						}
-						case 3: // Shield
-						{
-							break;
-						}
-						case 4: // Ring
-						{
-							break;
-						}
-						case 5: // Belt
-						{
-							break;
-						}
-						case 6: // Boots
-						{
-							break;
-						}
-						case 7: // Boots
-						{
-							break;
-						}
-						case 8: // Exit
-						{
-							continueCreation = false;
-							break;
-						}
-						} // end of itemChoice switch
-					} // while loop continue creation
-					break;
-				} // end case 1 (create item)
-				case 2: // edit  item
-				{
+						cout << "Enter the type of item you would like to create: ";
+						cin >> type;
+					} while (type != TYPE_HELMET && type != TYPE_RING || type != TYPE_BOOTS || type != TYPE_ARMOR || type != TYPE_SHIELD ||
+						type != TYPE_BELT || type != TYPE_WEAPON);
+
+					int id = 1;
+					CMarkup xml;
+					char di[20];
+					sprintf_s(di, 20, "maps/%d.xml", id);
+					while (xml.Load(string(di)))
+					{
+						id++;
+						sprintf_s(di, 20, "items/%d.xml", id);
+					}
+					cout << "Created new item with ID: " << id << endl;
+					item = new Item(id, type, vector<Enhancement>()); //without enhancements.
 					break;
 				}
-				case 3: // exit to main menu
+				case 2: //edit existing item
+				{
+					int id;
+					do
+					{
+						cout << "Enter the id of the item you would like to edit: ";
+						cin >> id;
+						item = Item::load(id);
+					} while (item == nullptr);
+					break;
+				}
+				case 3: //exit item editor
 				{
 					itemedit = false;
 					break;
 				}
-				} //end item switch
-			} //end item edit while loop
+				default:
+				{
+					cout << "Unknown command." << endl;
+				}
+				}
+
+				if (item != nullptr)
+				{
+					bool editItem = true;
+					while (editItem)
+					{
+						cout << "What would you like to do with the item?" << endl;
+						cout << "1. Change type" << endl;
+						cout << "2. Add enhancement" << endl;
+						cout << "3. Remove enhancement of certain type" << endl;
+						cout << "4. Exit and Save" << endl;
+						cout << "5. Exit and don't save" << endl;
+						int editItemCMD;
+						cin >> editItemCMD;
+
+						switch (editItemCMD)
+						{
+						case 1: //Change type 
+						{
+							string itemType;
+							do
+							{
+								cout << "Enter the type of item you would like to create: ";
+								cin >> itemType;
+							} while (itemType != TYPE_HELMET && itemType != TYPE_RING || itemType != TYPE_BOOTS || itemType != TYPE_ARMOR
+								|| itemType != TYPE_SHIELD || itemType != TYPE_BELT || itemType != TYPE_WEAPON);
+							break;
+						}
+						case 2: //add enhancement
+						{
+							string enhancement_type;
+							int bonus;
+
+							do
+							{
+								cout << "Enter the type of enhancement you would like to add: ";
+								cin >> enhancement_type;
+							} while (enhancement_type != EN_STRENGTH && enhancement_type != EN_CONSTITUTION || enhancement_type != EN_WISDOM
+								|| enhancement_type != EN_CHARISMA
+								|| enhancement_type != EN_DEXTERITY || enhancement_type != EN_ATTACK_BONUS || enhancement_type != EN_DAMAGE_BONUS
+								|| enhancement_type != EN_ARMOR_CLASS || enhancement_type != EN_INTELLIGENCE);
+
+							do
+							{
+								cout << "Enter the bonus of the enhancement you would like to add (1 or 5): ";
+								cin >> bonus;
+							} while (bonus != 1 && bonus != 5);
+
+							item->addEnhancement(Enhancement(enhancement_type, bonus));
+							break;
+						}
+						case 3: //Remove
+						{
+							string enhancement_type;
+							int bonus;
+
+							do
+							{
+								cout << "Enter the type of enhancement you would like to remove: ";
+								cin >> enhancement_type;
+							} while (enhancement_type != EN_STRENGTH && enhancement_type != EN_CONSTITUTION || enhancement_type != EN_WISDOM
+								|| enhancement_type != EN_CHARISMA
+								|| enhancement_type != EN_DEXTERITY || enhancement_type != EN_ATTACK_BONUS || enhancement_type != EN_DAMAGE_BONUS
+								|| enhancement_type != EN_ARMOR_CLASS || enhancement_type != EN_INTELLIGENCE);
+
+							item->removeEnhancement(enhancement_type);
+							break;
+						}
+						case 4: //exit and save 
+							if (item->validateItem())
+							{
+								item->saveItem();
+							}
+							else
+							{
+								cout << "This item is invalid! Please edit it." << endl;
+								break;
+							}
+						case 5: //exit don't save
+						{
+							editItem = false;
+						}
+						}
+					}
+				}
+			}
+
 			break;
 		} // Item FIN
 

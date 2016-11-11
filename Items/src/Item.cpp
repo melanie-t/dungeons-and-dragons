@@ -514,8 +514,7 @@ Item* Item::randommize(int lvl)
 
 	return new Item(type, enh);
 }
-
-static Item load(int id)
+Item* Item::load(int id)
 {
 	char di[20];
 	sprintf_s(di, 20, "Items/%d.xml", id);
@@ -571,17 +570,17 @@ static Item load(int id)
 					}
 				}
 				xml.OutOfElem();
-				return Item(id, type, enhancements);
+				return new Item(id, type, enhancements);
 			}
 
 			xml.OutOfElem();
 		}
-		return Item(); //return empty item.
+		return nullptr; //return null
 	}
 	else
 	{
 		cout << xml.GetError() << endl;
-		return Item(); //return empty item.
+		return nullptr; //return null
 	}
 }
 
@@ -603,4 +602,20 @@ int Item::getItemType() {
 		return 7;
 	else
 		return 0;
+}
+
+void Item::addEnhancement(Enhancement enh)
+{
+	influence.push_back(enh);
+}
+
+void Item::removeEnhancement(string type)
+{
+	for (int i = 0; i != influence.size(); i++)
+	{
+		if (influence[i].getType() == type)
+		{
+			influence.erase(influence.begin() + i);
+		}
+	}
 }
