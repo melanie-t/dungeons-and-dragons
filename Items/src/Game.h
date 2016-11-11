@@ -1,3 +1,7 @@
+//! @file Game.h
+//! @brief Header file for Game Class
+//!
+
 #pragma once
 
 #include <SFML\Graphics.hpp>

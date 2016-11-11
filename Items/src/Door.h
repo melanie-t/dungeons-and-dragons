@@ -1,6 +1,7 @@
-//! @file 
+//! @file Door.h
 //! @brief Header file for the Door class  
-//!
+//! Implements Door object, child of GameObject
+//! Methods to check if the Door we are on is the START or END of a map
 #pragma once
 
 #include "GameObject.h"

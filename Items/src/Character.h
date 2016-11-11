@@ -91,8 +91,7 @@ public:
 	static Character* loadCharacer(string name);
 
 	//string retrieveGender();
-	void retrieveName();
-	void setExtraPoints();
+	//void setExtraPoints();
 
 private:
 	int abilityScores[6];

@@ -1,4 +1,4 @@
-//! @file 
+//! @file Enhancement.h
 //! @brief Header file for the Enhancement class  
 //!
 #pragma once

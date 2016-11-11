@@ -1,5 +1,5 @@
 /*@file Chest.cpp
-*   @brief Implementation file for the Chest .cpp file
+* @brief Implementation file for the Chest .cpp file
 */
 
 #include "Chest.h"
@@ -7,6 +7,9 @@
 #include <SFML\Graphics.hpp>
 using sf::Sprite;
 
+//! displayChest function
+//! @brief Implementation of Chest GUI when Character encounters a chest on the Map
+//! @param inputItem : Item pointer for finding out what type of item it is
 void Chest::displayChest(Item* inputItem){
 
 	sf::RenderWindow chestPopup(sf::VideoMode(285, 274), "Hover to reveal item!");

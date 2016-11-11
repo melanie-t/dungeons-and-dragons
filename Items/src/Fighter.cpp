@@ -17,6 +17,14 @@ Fighter::Fighter(int level, int str, int dex, int con, int intel, int wis, int c
 }
 
 //! Constructor: For loading Fighters
+//! @param level level of Fighter
+//! @param str strength of Fighter
+//! @param dex dexterity of Fighter
+//! @param con constitution of Fighter
+//! @param intel intelligence of Fighter
+//! @param wis wisdom of Fighter
+//! @param cha charisma of Fighter
+//! @param name name of Fighter
 Fighter::Fighter(int level, int str, int dex, int con, int intel, int wis, int cha, string name)
 {
 	setCharClass(1);
@@ -30,7 +38,7 @@ Fighter::Fighter(int level, int str, int dex, int con, int intel, int wis, int c
 	setName(name);
 }
 
-//! Default constructor: Assigns values for level 1
+//! Default constructor: Assigns level as 1, 0 as all ability scores
 Fighter::Fighter()
 {
 	setLevel(1);
@@ -39,7 +47,7 @@ Fighter::Fighter()
 }
 
 //! Constructor for Fighter
-//! @param level level of fighter
+//! @param name name of fighter
 Fighter::Fighter(string name)
 {
 	setName(name);
@@ -64,6 +72,9 @@ bool Fighter::validateNewFighter()
 	return true;
 }
 
+//! loadFighter function
+//! @brief Loads previously saved Fighter from XML file
+//! @param name name of Fighter
 Fighter* Fighter::loadFighter(string name)
 {
 	CMarkup xml;

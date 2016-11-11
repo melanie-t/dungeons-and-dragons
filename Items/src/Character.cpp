@@ -19,6 +19,14 @@ Character::Character() : Character(1, 0, 0, 0, 0, 0, 0) //hi, this is just clean
 }
 
 //! Constructor: passes values to each ability score and set hit points to 10
+//! @param lvl level of Character
+//! @param str strength of Character
+//! @param dex dexterity of Character
+//! @param con constitution of Character
+//! @param intel intelligence of Character
+//! @param wis wisdom of Character
+//! @param cha charisma of Character
+//! @param name name of Character
 Character::Character(int lvl, int str, int dex, int con, int intel, int wis, int cha, string name)
 {
 	this->name = name;
@@ -33,10 +41,17 @@ Character::Character(int lvl, int str, int dex, int con, int intel, int wis, int
 	secondaryStatCalc();
 }
 
+//! notify function
+//! @brief implementation of notify from Observable class
+//! notifies the observer of any changes
 void Character::notify() {
 	displayStats();
 }
 
+//! attach function
+//! @brief implementation of attach from Observable class
+//! attaches observers to Character
+//! @param player pointer to a character object
 void Character::attach(Character* player)
 {
 	bool condition = false;
@@ -52,6 +67,10 @@ void Character::attach(Character* player)
 	List[index] = player;
 }
 
+//! detach function
+//! @brief implementation of detach from Observable class
+//! detach observers to Character
+//! @param player pointer to a character object
 void Character::detach(Character* player)
 {
 	bool condition = false;
@@ -303,11 +322,15 @@ void Character::setName(string newName)
 	name = newName;
 }
 
+//! Implementation of getter method for charClass
+//! @return charClass: the class of character in terms of int (Ex: 1 = Fighter)
 int Character::getCharClass()
 {
 	return charClass;
 }
 
+//! Implementation of setter method for charClass
+//! @param classOfChar: class of character in terms of int (Ex: 1 = Fighter)
 void Character::setCharClass(int classOfChar)
 {
 	charClass = classOfChar;
@@ -395,6 +418,9 @@ void Character::displayStats()
 		<< "\n" << endl;
 }
 
+//! statString function
+//! @brief returns the stats of Character in string form
+//! @return string of the Character stats
 string Character::statString()
 {
 	std::ostringstream out;
@@ -415,6 +441,9 @@ string Character::statString()
 	return out.str();
 }
 
+//! classToString function
+//! @brief converts integer to Character class
+//! @return : string containing the class of the Character
 string Character::classtoString()
 {
 	switch (charClass) {
@@ -423,6 +452,8 @@ string Character::classtoString()
 	}
 }
 
+//! saveCharacter function
+//! @brief saves the Character stats to an XML file (to be loaded later as a save)
 void Character::saveCharacter()
 {
 	CMarkup xml;
@@ -440,6 +471,11 @@ void Character::saveCharacter()
 	xml.Save("characters/" + name + ".xml");
 }
 
+//! loadCharacter function
+//! @brief loads the Character stats from an XML file
+//! @param name : name of Character
+//! @return : pointer to Character object
+// typo here, will fix later
 Character* Character::loadCharacer(string name)
 {
 	CMarkup xml;
@@ -492,7 +528,7 @@ Character* Character::loadCharacer(string name)
 	}
 	return nullptr; //Empty
 }
-
+//USELESS FOR NOW. IMPLEMENT LATER
 ////retrieve the gender of the character and return it
 //string Character::retrieveGender()
 //{
@@ -536,88 +572,81 @@ Character* Character::loadCharacer(string name)
 //	return "";
 //}
 
-void Character::retrieveName() {
-	string charName;
-
-	//retrieve the name and set it to the character
-	cout << "Please enter the name of your character: \n";
-	cin >> charName;
-	setName(charName);
-}
-
-//set the extraPoints stats
-void Character::setExtraPoints()
-{
-	int ExtraPoints = 2;
-	while (ExtraPoints != 0)
-	{
-		//Display message and retrieve the user's input
-		int choice;
-		cout << "\nYou have: " << ExtraPoints << " upgrade(s) available. What would you like to upgrade?\n";
-		cout << "1. STR (Strength)\n";
-		cout << "2. DEX (Dexterity)\n";
-		cout << "3. CON (Constitution)\n";
-		cout << "4. INT (Intelligence)\n";
-		cout << "5. WIS (Wisdom)\n";
-		cout << "6. CHA (Charisma)\n";
-		cin >> choice;
-
-		//if user whishes to improve strength
-		if (choice == 1)
-		{
-			setSTR(getSTR() + 1);
-			ExtraPoints--;
-			cout << "Strength: " << getSTR() << "\n";
-		}
-
-		//if user whishes to improve Dexterity
-		else if (choice == 2)
-		{
-			setDEX(getDEX() + 1);
-			ExtraPoints--;
-			cout << "Dexterity: " << getDEX() << "\n";
-
-		}
-
-		//if user whishes to improve Constitution
-		else if (choice == 3)
-		{
-			setCON(getCON() + 1);
-			ExtraPoints--;
-			cout << "Constitution: " << getCON() << "\n";
-		}
-
-		//if user whishes to improve Intelligence
-		else if (choice == 4)
-		{
-			setINTEL(getINTEL() + 1);
-			ExtraPoints--;
-			cout << "Intelligence: " << getINTEL() << "\n";
-		}
-
-		//if user whishes to improve Wisdom
-		else if (choice == 5)
-		{
-			setWIS(getWIS() + 1);
-			ExtraPoints--;
-			cout << "Wisdom: " << getWIS() << "\n";
-		}
-
-		//if user whishes to improve Luck
-		else if (choice == 6)
-		{
-			setCHA(getCHA() + 1);
-			ExtraPoints--;
-			cout << "Luck: " << getCHA() << "\n";
-		}
-
-		//if no specific bonus has been entered then display error and loop again
-		else
-		{
-			cout << "Error, invalid choice. Please try again.\n";
-		}
-
-		notify();
-	}
-
-}
+//WILL BE USED LATER TO LEVEL UP STATS
+////! setExtraPoints function
+////set the extraPoints stats
+//void Character::setExtraPoints()
+//{
+//	int ExtraPoints = 2;
+//	while (ExtraPoints != 0)
+//	{
+//		//Display message and retrieve the user's input
+//		int choice;
+//		cout << "\nYou have: " << ExtraPoints << " upgrade(s) available. What would you like to upgrade?\n";
+//		cout << "1. STR (Strength)\n";
+//		cout << "2. DEX (Dexterity)\n";
+//		cout << "3. CON (Constitution)\n";
+//		cout << "4. INT (Intelligence)\n";
+//		cout << "5. WIS (Wisdom)\n";
+//		cout << "6. CHA (Charisma)\n";
+//		cin >> choice;
+//
+//		//if user whishes to improve strength
+//		if (choice == 1)
+//		{
+//			setSTR(getSTR() + 1);
+//			ExtraPoints--;
+//			cout << "Strength: " << getSTR() << "\n";
+//		}
+//
+//		//if user whishes to improve Dexterity
+//		else if (choice == 2)
+//		{
+//			setDEX(getDEX() + 1);
+//			ExtraPoints--;
+//			cout << "Dexterity: " << getDEX() << "\n";
+//
+//		}
+//
+//		//if user whishes to improve Constitution
+//		else if (choice == 3)
+//		{
+//			setCON(getCON() + 1);
+//			ExtraPoints--;
+//			cout << "Constitution: " << getCON() << "\n";
+//		}
+//
+//		//if user whishes to improve Intelligence
+//		else if (choice == 4)
+//		{
+//			setINTEL(getINTEL() + 1);
+//			ExtraPoints--;
+//			cout << "Intelligence: " << getINTEL() << "\n";
+//		}
+//
+//		//if user whishes to improve Wisdom
+//		else if (choice == 5)
+//		{
+//			setWIS(getWIS() + 1);
+//			ExtraPoints--;
+//			cout << "Wisdom: " << getWIS() << "\n";
+//		}
+//
+//		//if user whishes to improve Luck
+//		else if (choice == 6)
+//		{
+//			setCHA(getCHA() + 1);
+//			ExtraPoints--;
+//			cout << "Luck: " << getCHA() << "\n";
+//		}
+//
+//		//if no specific bonus has been entered then display error and loop again
+//		else
+//		{
+//			cout << "Error, invalid choice. Please try again.\n";
+//		}
+//
+//		notify();
+//	}
+//
+//}
