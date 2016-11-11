@@ -28,7 +28,7 @@ FileMapBuilder::FileMapBuilder(Character* player)
 //! @brief Deletes the player variable when the builder is deleted.
 FileMapBuilder::~FileMapBuilder()
 {
-	delete player;
+	//delete player;
 }
 //! loadMap function
 //! @brief loads and parse the xml file of map corresponding the unique id given

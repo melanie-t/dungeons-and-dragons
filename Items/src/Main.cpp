@@ -11,6 +11,7 @@
 using namespace std;
 
 
+std::thread runGameThread;
 /**
 Console input thread.
 Take commands through the console. Temporary.
@@ -28,11 +29,11 @@ void runGame(int chosenMap, string characterName)
 
 	try{
 		game->go();
-		system("pause");
 	}
 	catch (char* e){
 		MessageBoxA(NULL, e, "EXCEPTION OCCURED", MB_OK | MB_ICONERROR);
 	}
+	runGameThread.detach();
 }
 
 /**
@@ -48,7 +49,7 @@ int main()
 	while (run)
 	{
 		cout << "What would you like to do? (enter number)" << endl;
-		cout << "1. Start game" << endl;
+		cout << "1. Start/End game" << endl;
 		cout << "2. Create/Edit Map" << endl;
 		cout << "3. Create/Edit Character" << endl;
 		cout << "4. Create/Edit Item" << endl;
@@ -65,7 +66,7 @@ int main()
 		{
 		case 1: // Start game
 		{
-			/*if (!gameRunning)
+			if (!gameRunning)
 			{
 				string name;
 				std::cout << "Enter Character Name: " << endl;
@@ -90,13 +91,14 @@ int main()
 
 				gameRunning = true;
 
-				std::thread consoleThread(runGame, chosenMap, name);
-				consoleThread.join();
+				runGameThread = std::thread(runGame, chosenMap, name);
 			}
 			else
 			{
-				cout << "Error: Game is already running." << endl;
-			}*/
+				cout << "Error: Game is already running. Detatching thread..." << endl;
+				runGameThread.detach();
+				gameRunning = false;
+			}
 			break;
 			//Move stuff
 		} // Start Game FIN

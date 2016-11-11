@@ -90,7 +90,7 @@ void Game::processInput(){
 	while (window->pollEvent(evt)){
 		if (evt.type == sf::Event::Closed)
 		{
-			//window->close();
+			endGame();
 		}
 		update(evt);
 	}
@@ -210,8 +210,6 @@ void Game::update(sf::Event evt){
 void Game::endGame()
 {
 	window->close();
-	delete m_map;
-	delete window;
 }
 
 void Game::loadTextures(){

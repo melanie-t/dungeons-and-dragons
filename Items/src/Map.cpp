@@ -60,7 +60,7 @@ Map::Map(const int id, const int length, const int width, Character* player)
 //! @brief deletes the player with the map.
 Map::~Map()
 {
-	delete player;
+	if (player != nullptr) delete player;
 }
 //! printMap function
 //! Method to print the map array
