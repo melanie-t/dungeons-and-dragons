@@ -80,9 +80,9 @@ int main()
 
 				while (xml.Load(di))
 				{
-					cout << id << endl;
-					id++;
-					sprintf_s(di, 20, "maps/%d.xml", id);
+				cout << id << endl;
+				id++;
+				sprintf_s(di, 20, "maps/%d.xml", id);
 				}
 
 				int chosenMap;
@@ -92,7 +92,6 @@ int main()
 
 				std::thread consoleThread(runGame, chosenMap, name);
 				consoleThread.join();
-				break;
 			}
 			else
 			{
@@ -182,7 +181,7 @@ int main()
 								cin >> x;
 								cout << "Enter y position: ";
 								cin >> y;
-							} while (x > map->getNumRows() || x < 0 || y > map->getNumRows() || y < 0 );
+							} while (x > map->getNumRows() || x < 0 || y > map->getNumRows() || y < 0);
 						}
 
 						switch (editcmd)
