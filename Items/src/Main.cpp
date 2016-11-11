@@ -157,7 +157,7 @@ int main()
 					mapedit = false;
 					break;
 				}
-				}
+				} // end switch
 
 				if (map != nullptr)
 				{
