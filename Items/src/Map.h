@@ -1,6 +1,13 @@
 //! @file 
 //! @brief Header file for the Map class  
 //!
+//! There's no additional game rules at play in these files that haven't already
+//! been implements. The Map Class,the character class and the Item class
+//! all check to see if the created maps are valid.
+//! we allow doors to be anywhere, no known restrictions that disallow doors
+//! to be in the middle of the map in the d20 rules.
+//!
+
 #pragma once
 
 #include <iostream>

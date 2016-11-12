@@ -1,4 +1,4 @@
-//! @file 
+//! @file FileMapBuilder.h
 //! @brief Header file for the FileMapBuilder class  
 //!
 //! The FileMapBuilder, is a concrete builder 

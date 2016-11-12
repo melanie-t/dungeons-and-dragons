@@ -1,8 +1,7 @@
 /*@file Chest.h
-*   @brief Implementation file for the Chest header
+*   @brief Header file for Chest
 *	Chest takes in a parameter of item and checks for its type.
-*	Displays the item type
-*	Will implement randomization later
+*	Displays a picture of the inputted item type
 *	To call displayChest, use Chest::displayChest()
 */
 #pragma once
@@ -10,5 +9,5 @@
 
 class Chest {
 public:
-	static void displayChest(Item inputItem);
+	static void displayChest(Item* inputItem);
 };

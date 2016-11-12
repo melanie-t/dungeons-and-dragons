@@ -22,6 +22,8 @@ public:
 	Fighter();
 	Fighter(string name);
 	Fighter(int level, int str, int dex, int con, int intel, int wis, int cha);
+	Fighter(int level, int str, int dex, int con, int intel, int wis, int cha, string name);
 	bool validateNewFighter();
+	static Fighter* loadFighter(string name);
 };
 

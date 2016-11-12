@@ -1,6 +1,6 @@
-//! @file 
+//! @file Enemy.h
 //! @brief Header file for the Enemy class  
-//!
+//! Creates an enemy (Character) by randomizing stats
 #pragma once
 
 #include "Character.h"

@@ -1,7 +1,17 @@
+//! @file Game.h
+//! @brief Header file for Game Class
+//!
+//! Libraries used:
+//! SMFL: The library was used to so that we can have a GUI for displaying maps.
+//! It was the easiest library to use out of the ones we researched.
+//! Standard Input/Output Streams Library <iostream> is necessary to display the stats of the character created, by using cout
+//! Statndard vector library was used so to facillitate dynamic arrays.
+
 #pragma once
 
 #include <SFML\Graphics.hpp>
 #include "TileMap.h"
+#include "ItemPanel.h"
 #include "Map.h"
 #include <iostream>
 #include <vector>
@@ -65,4 +75,5 @@ public:
 	//Method to start the game
 	void go();
 	void goToNewMap(Map* map); // for the future.
+	bool openedChest = false;
 };

@@ -2,6 +2,7 @@
 #include "FileMapBuilder.h"
 #include "SavedMapBuilder.h"
 #include "Character.h"
+#include "Fighter.h"
 #include "Enemy.h"
 #include "Door.h"
 #include "Item.h"
@@ -16,7 +17,7 @@ using namespace std;
 std::thread runGameThread;
 /**
 Console input thread.
-Take commands through the console. Temporary.
+Take commands through the console. Temp
 */
 void runGame(int chosenMap, string characterName)
 {
@@ -28,6 +29,7 @@ void runGame(int chosenMap, string characterName)
 	Map* map = builder.getMap();
 
 	Game* game = new Game(map->getNumRows(), map->getNumCol(), map);
+	ItemPanel::createInventories();
 
 	try{
 		game->go();
@@ -71,9 +73,15 @@ int main()
 			if (!gameRunning)
 			{
 				string name;
-				std::cout << "Enter Character Name: " << endl;
+				std::cout << "Choose a Fighter from the list."
+					<< "\nDylan, James, Lisa, Maggie: "
+					<< endl;
 				cin >> name;
-
+				if (name != "Dylan" && name != "James" && name != "Lisa" && name != "Maggie")
+				{
+					cout << "Invalid name entered. Playing as Dylan!" << endl;
+					name = "Dylan";
+				}
 				cout << "Choose a map id from the list below:" << endl;
 
 				int id = 1;
@@ -83,9 +91,9 @@ int main()
 
 				while (xml.Load(di))
 				{
-				cout << id << endl;
-				id++;
-				sprintf_s(di, 20, "maps/%d.xml", id);
+					cout << id << endl;
+					id++;
+					sprintf_s(di, 20, "maps/%d.xml", id);
 				}
 
 				int chosenMap;
@@ -102,7 +110,6 @@ int main()
 				gameRunning = false;
 			}
 			break;
-			//Move stuff
 		} // Start Game FIN
 		case 2: // Create/Edit map 
 		{
@@ -311,6 +318,7 @@ int main()
 						case 4: // exit + save, no break function
 						{
 							map->saveMap();
+							break;
 						}
 						case 5: //exit without saving.
 						{
@@ -319,24 +327,363 @@ int main()
 						}
 						default:
 							cout << "Unknown Command" << endl;
+							break;
 						}
 					}
 				}
 			}
+			break;
 		} // Map FIN
 		case 3: // Create/Edit Character
 		{
+			bool characteredit = true;
+			char save;
+			while (characteredit)
+			{
+				cout << "What would you like to do?"
+					<< "\n1. Create new character (Fighter)"
+					<< "\n2. Edit character"
+					<< "\n3. Exit to previous menu" << endl;
+				int charactercmd;
+				cin >> charactercmd;
 
+				switch (charactercmd)
+				{
+				case 1: // create new character
+				{
+					string name;
+					char decision;
+					cout << "Enter name of your character: " << endl;
+					cin >> name;
+					Fighter newFighter(name);
+					newFighter.notify();
+
+					//Ask if player wants to save this character
+					cout << "Do you want to save this Fighter (Y/N)?" << endl;
+					cin >> decision;
+					if (decision == 'Y' || decision == 'y')
+					{
+						newFighter.saveCharacter();
+						cout << "Fighter " << name << " saved. Returning to menu.\n" << endl;
+					}
+					break;
+				}
+				case 2: // edit character
+				{
+					string name;
+					int modifycmd;
+					bool change = false;
+					bool modifycontinue = true;
+
+					cout << "Enter the name of the Fighter you want to edit: " << endl;
+					cin >> name;
+					Fighter* fighterPointer;
+					fighterPointer = Fighter::loadFighter(name);
+
+					// Select modifying category
+					while (modifycontinue) {
+						fighterPointer->notify();
+						cout << "Which category do you wish to modify?"
+							<< "\n1. STR (Strength)"
+							<< "\n2. DEX (Dexterity)"
+							<< "\n3. CON (Constitution)"
+							<< "\n4. INT (Intelligence)"
+							<< "\n5. WIS (Wisdom)"
+							<< "\n6. CHA (Charisma)"
+							<< "\n7. Name"
+							<< "\n8. Exit to previous menu" << endl;
+						cin >> modifycmd;
+						switch (modifycmd) {
+						case 1: //STR
+						{
+							int value;
+							cout << "Enter new STR value:" << endl;
+							cin >> value;
+							if (value >= 3 && value <= 18) {
+								fighterPointer->setSTR(value);
+								change = true;
+							}
+							else
+								cout << "~ Invalid input ~ Ability must be between 3 and 18."
+								<< " Please try again." << endl;
+							break;
+						}
+						case 2: //DEX
+						{
+							int value;
+							cout << "Enter new DEX value:" << endl;
+							cin >> value;
+							if (value >= 3 && value <= 18) {
+								fighterPointer->setDEX(value);
+								change = true;
+							}
+							else
+								cout << "~ Invalid input ~ Ability must be between 3 and 18."
+								<< " Please try again." << endl;
+							break;
+						}
+						case 3: //CON
+						{
+							int value;
+							cout << "Enter new CON value:" << endl;
+							cin >> value;
+							if (value >= 3 && value <= 18) {
+								fighterPointer->setCON(value);
+								change = true;
+							}
+							else
+								cout << "~ Invalid input ~ Ability must be between 3 and 18."
+								<< " Please try again." << endl;
+							break;
+						}
+						case 4: //INT
+						{
+							int value;
+							cout << "Enter new INT value:" << endl;
+							cin >> value;
+							if (value >= 3 && value <= 18) {
+								fighterPointer->setINTEL(value);
+								change = true;
+							}
+							else
+								cout << "~ Invalid input ~ Ability must be between 3 and 18."
+								<< " Please try again." << endl;
+							break;
+						}
+						case 5: //WIS
+						{
+							int value;
+							cout << "Enter new WIS value:" << endl;
+							cin >> value;
+							if (value >= 3 && value <= 18) {
+								fighterPointer->setWIS(value);
+								change = true;
+							}
+							else
+								cout << "~ Invalid input ~ Ability must be between 3 and 18."
+								<< " Please try again." << endl;
+							break;
+						}
+						case 6: //CHA
+						{
+							int value;
+							cout << "Enter new CHA value:" << endl;
+							cin >> value;
+							if (value >= 3 && value <= 18) {
+								fighterPointer->setCHA(value);
+								change = true;
+							}
+							else
+								cout << "~ Invalid input ~ Ability must be between 3 and 18."
+								<< " Please try again." << endl;
+							break;
+						}
+						case 7: //Name
+						{
+							string name;
+							cout << "Enter new name:" << endl;
+							cin >> name;
+							fighterPointer->setName(name);
+							change = true;
+							break;
+						}
+						case 8: //Exit to previous menu
+						{
+							modifycontinue = false;
+							break;
+						}
+						} // end modify character switch
+					} //end modify ability while loop
+
+					//Asks user to save stats if change has occured
+					if (change) {
+						cout << "Would you like to save your new stats (Y/N)?" << endl;
+						cin >> save;
+						if (save == 'Y' || save == 'y')
+						{
+							fighterPointer->saveCharacter();
+							cout << "New stats saved" << endl;
+						}
+					}
+					break;
+				}
+				case 3: // exit
+				{
+					characteredit = false;
+					break;
+				}
+				} // end character switch
+			} // end characteredit loop
+			break;
 		} // Character FIN
 
 		case 4: // Create/Edit Item
 		{
+			bool itemedit = true;
+			while (itemedit)
+			{
+				cout << "Welcome to the item editor." << endl;
+				cout << "what would you like to do?" << endl;
+				cout << "1. create new item" << endl;
+				cout << "2. edit existing item" << endl;
+				cout << "3. exit editor" << endl;
+				int item_cmd;
 
+				cin >> item_cmd;
+
+				Item* item = nullptr;
+
+				switch (item_cmd)
+				{
+				case 1: // create new item
+				{
+					string type;
+					do
+					{
+						cout << "Enter the type of item you would like to create. "
+							<< "\nhelmet, armor, shield, ring, belt, boots, weapon:  " << endl;
+						cin >> type;
+					} while (type != TYPE_HELMET && type != TYPE_RING && type != TYPE_BOOTS && type != TYPE_ARMOR && type != TYPE_SHIELD &&
+						type != TYPE_BELT && type != TYPE_WEAPON);
+
+					int id = 1;
+					CMarkup xml;
+					char di[20];
+					sprintf_s(di, 20, "maps/%d.xml", id);
+					while (xml.Load(string(di)))
+					{
+						id++;
+						sprintf_s(di, 20, "items/%d.xml", id);
+					}
+					cout << "Created new item with ID: " << id << endl;
+					item = new Item(id, type, vector<Enhancement>()); //without enhancements.
+					break;
+				}
+				case 2: //edit existing item
+				{
+					int id;
+					do
+					{
+						cout << "Enter the id of the item you would like to edit: ";
+						cin >> id;
+						item = Item::load(id);
+					} while (item == nullptr);
+					break;
+				}
+				case 3: //exit item editor
+				{
+					itemedit = false;
+					break;
+				}
+				default:
+				{
+					cout << "Unknown command." << endl;
+				}
+				}
+
+				if (item != nullptr)
+				{
+					bool editItem = true;
+					while (editItem)
+					{
+						cout << "What would you like to do with the item?" << endl;
+						cout << "1. Change type" << endl;
+						cout << "2. Add enhancement" << endl;
+						cout << "3. Remove enhancement of certain type" << endl;
+						cout << "4. Exit and Save" << endl;
+						cout << "5. Exit and don't save" << endl;
+						int editItemCMD;
+						cin >> editItemCMD;
+
+						switch (editItemCMD)
+						{
+						case 1: //Change type 
+						{
+							string itemType;
+							do
+							{
+								cout << "Enter the type of item you would like to create. "
+									<< "\nhelmet, armor, shield, ring, belt, boots, weapon:  " << endl;
+								cin >> itemType;
+							} while (itemType != TYPE_HELMET && itemType != TYPE_RING && itemType != TYPE_BOOTS && itemType != TYPE_ARMOR
+								&& itemType != TYPE_SHIELD && itemType != TYPE_BELT && itemType != TYPE_WEAPON);
+							break;
+						}
+						case 2: //add enhancement
+						{
+							string enhancement_type;
+							int bonus;
+							do
+							{
+								cout << "Enter the type of enhancement you would like to add. "
+									<< "\nstrength, constitution, wisdom, charisma, dexterity, intelligence, attackbonus, damagebonus, armorclass: " << endl;
+								cin >> enhancement_type;
+							} while (enhancement_type != EN_STRENGTH && enhancement_type != EN_CONSTITUTION && enhancement_type != EN_WISDOM
+								&& enhancement_type != EN_CHARISMA && enhancement_type != EN_DEXTERITY && enhancement_type != EN_ATTACK_BONUS 
+								&& enhancement_type != EN_DAMAGE_BONUS && enhancement_type != EN_ARMOR_CLASS && enhancement_type != EN_INTELLIGENCE);
+
+							do
+							{
+								cout << "Enter the bonus of the enhancement you would like to add (1 or 5): ";
+								cin >> bonus;
+							} while (bonus != 1 && bonus != 5);
+
+							item->addEnhancement(Enhancement(enhancement_type, bonus));
+							break;
+						}
+						case 3: //Remove
+						{
+							string enhancement_type;
+							int bonus;
+
+							do
+							{
+								cout << "Enter the type of enhancement you would like to remove: "
+									<< "\nstrength, constitution, wisdom, charisma, dexterity, intelligence, attackbonus, damagebonus, armorclass: " << endl;
+								cin >> enhancement_type;
+							} while (enhancement_type != EN_STRENGTH && enhancement_type != EN_CONSTITUTION && enhancement_type != EN_WISDOM
+								&& enhancement_type != EN_CHARISMA
+								&& enhancement_type != EN_DEXTERITY && enhancement_type != EN_ATTACK_BONUS && enhancement_type != EN_DAMAGE_BONUS
+								&& enhancement_type != EN_ARMOR_CLASS && enhancement_type != EN_INTELLIGENCE);
+
+							item->removeEnhancement(enhancement_type);
+							break;
+						}
+						case 4: //exit and save 
+							if (item->validateItem())
+							{
+								item->saveItem();
+								cout << "\nItem saved" << endl;
+							}
+							else
+							{
+								cout << "\nThis item is invalid! These are valid enhancements:" 
+									<< "\nHelmet (intelligence, wisdom, armorclass)"
+									<< "\nArmor (armorclass)"
+									<< "\nShield (armorclass)"
+									<< "\nRing (strength, constitution, wisdom, charisma, armorclass)"
+									<< "\nBelt (constitution, strength)"
+									<< "\nBoots (dexterity, armorclass)"
+									<< "\nWeapon (attackbonus, damagebonus)\n"
+									<< endl;
+								break;
+							}
+						case 5: //exit don't save
+						{
+							editItem = false;
+						}
+						}
+					}
+				}
+			}
+
+			break;
 		} // Item FIN
 
 		case 5: // Exit
 		{
 			run = false;
+			break;
 		}
 		} // Switch Menu FIN
 	}
