@@ -28,6 +28,7 @@ public:
 	void setElement(char** map, int row, int column, char element);
 	void createMapSize(int x, int y);
 	vector<int> outputMap();
+	bool inputMap(vector<int> arrayIn); 
 	bool saveMap();
 
 	//Getters

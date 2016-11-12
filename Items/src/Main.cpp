@@ -6,8 +6,10 @@
 #include "Door.h"
 #include "Item.h"
 #include "Markup.h"
+#include "Editor.h"
 #include <thread>
 #include <Windows.h>
+#include <exception>
 using namespace std;
 
 
@@ -43,7 +45,7 @@ int main()
 {
 
 	cout << "Welcome To Our Dnd demo!" << endl;
-
+	
 	bool run = true;
 	bool gameRunning = false;
 	while (run)
@@ -111,6 +113,7 @@ int main()
 				cout << "1. Create Map" << endl;
 				cout << "2. Edit Map" << endl;
 				cout << "3. Exit Map Editor" << endl;
+				cout << "4. GUI editor" << endl;
 				int  map_cmd;
 				std::cin >> map_cmd;
 				Map* map = nullptr;
@@ -156,7 +159,103 @@ int main()
 				case 3: // exit 
 				{
 					mapedit = false;
-					break;
+				}
+				case 4: // TEST
+				{
+					
+					cout << "\nWould you like to edit an existing map? (y/n): ";
+					char editExisting;
+					cin >> editExisting;
+					if (editExisting == 'y'){
+						Editor editor = Editor(20, 20);
+						Character* character = Character::loadCharacer("james");
+						character->setName("james");
+						FileMapBuilder builder(character);
+						
+						cout << "Please select a map to edit";
+						int choice;
+						cin >> choice;
+
+						//find a better way of doing this.
+						int id = 1;
+						CMarkup xml;
+						char di[20];
+						sprintf_s(di, 20, "maps/%d.xml", id);
+						while (xml.Load(string(di)))
+						{
+							id++;
+							sprintf_s(di, 20, "maps/%d.xml", id);
+						}
+
+						builder.loadMap(choice);
+						Map* map = builder.getMap();
+						editor.initEditor(map);
+					}
+					else{
+						int editorWidth, editorHeight;
+						cout << "Enter map width: " << endl;
+						cin >> editorWidth;
+
+						cout << "Enter map height: " << endl;
+						cin >> editorHeight;
+						
+						Editor editor = Editor(editorWidth, editorHeight);				
+						editor.initEditor();
+						vector<int> newMap(editor.editorLoop());
+						editor.close();
+
+						cout << "\n[Your new map was created]" << endl;				
+						for (int i = 0; i < newMap.size(); i++){
+							if (i % editorWidth == 0) cout << endl;
+							cout << newMap[i] << " ";
+						}
+
+						cout << "\nWould you like to save the map?(y/n)";
+						char saveMap;
+						cin >> saveMap;
+
+						//saveing map to disk
+						if (saveMap == 'y'){
+							
+							int id = 1;
+							CMarkup xml;
+							char di[20];
+							sprintf_s(di, 20, "maps/%d.xml", id);
+
+							cout << "current map ids:\n";
+							while (xml.Load(di))
+							{
+								cout << id << " ";
+								id++;
+								sprintf_s(di, 20, "maps/%d.xml", id);
+							}
+							
+							//initialize map object to save map
+							Map* mapToDisk = new Map(id,editorWidth,editorHeight);
+							
+							//convert map vector to xml and save to disk
+							mapToDisk->inputMap(newMap);										
+						}
+
+						//reinit choice variables
+						int map_cmd;
+						char editExisting;
+						
+						// restart loop
+						cout << "\nWhat would you like to do? (enter number)" << endl;
+						cout << "1. Start/End game" << endl;
+						cout << "2. Create/Edit Map" << endl;
+						cout << "3. Create/Edit Character" << endl;
+						cout << "4. Create/Edit Item" << endl;
+						cout << "5. Exit program" << endl;
+						int cmd;
+						cin >> cmd;
+						break;
+					}
+				default:{
+					cout << "exiting program";
+					cmd = 5;
+				}
 				}
 				}
 

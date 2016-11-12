@@ -14,5 +14,6 @@ public:
 	GameObject();
 	GameObject(std::string objectType);
 
-	std::string getObjectType(){ return this->objectType; }
+	std::string getObjectType(){ return this->objectType; };
+	void setObjectType(std::string type){ objectType = type; };
 };
