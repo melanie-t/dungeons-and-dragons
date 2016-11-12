@@ -1,7 +1,15 @@
+//! @file Game.cpp
+//! @brief Implementation file for the Game class  
+//!
 #include "Game.h"
 #include "Map.h"
+#include "Chest.h"
 #include <SFML\Graphics.hpp>
 
+//! Constructor for Game class
+//! @param tileWidth : width of the tile used
+//! @param tileHeight : height of the tiled used
+//! @param map : Map object that we are loading
 Game::Game(unsigned int tileWidth, unsigned int tileHeight, Map* map){
 	this->width = tileWidth;
 	this->height = tileHeight;
@@ -9,12 +17,17 @@ Game::Game(unsigned int tileWidth, unsigned int tileHeight, Map* map){
 	this->m_map = map;
 }
 
+//! Deconstructor for Game class
+//! @brief Deletes the window and map
 Game::~Game(){
 	//Destroys the window
 	delete window;
 	delete m_map;
 }
 
+//! validMap function
+//! @brief tells us if the map created is valid or not (based on conditions))
+//! @return true if the map is valid/fulfills conditions
 bool Game::validMap(){
 	int startPoint = -1;
 	int endPoint = -1;
@@ -47,6 +60,11 @@ bool Game::validMap(){
 	}
 }
 
+//! validate function
+//! @brief contains the map validity conditions
+//! @param start : beginning of map
+//!	@param end : end of map
+//! @return true if the map is valid
 bool Game::validate(int start, int end){
 	if (start == end)
 		return true;
@@ -72,8 +90,12 @@ bool Game::validate(int start, int end){
 	}
 }
 
+//! init function
+//! @brief intializes the game window 
+//! @return true if game window was initialized successfully
 bool Game::init(){
-	window = new sf::RenderWindow(sf::VideoMode(632, 600), "D&D 2.0");
+	// col and row and reversed.
+	window = new sf::RenderWindow(sf::VideoMode(m_map->getNumRows()*32, m_map->getNumCol()*32 + 250), "D&D 2.0"); //fix the w, h with size of map
 	//Puts the window at the top left of the monitor screen
 	window->setPosition(sf::Vector2i(0, 0));
 	//Prevent multiple key presses
@@ -83,6 +105,8 @@ bool Game::init(){
 	return true;
 }
 
+//! processInput function
+//! @brief keeps track of event where X is pressed to close window
 void Game::processInput(){
 	//To close the window with x
 	sf::Event evt;
@@ -90,12 +114,18 @@ void Game::processInput(){
 	while (window->pollEvent(evt)){
 		if (evt.type == sf::Event::Closed)
 		{
-			endGame();
+			window->close();
 		}
 		update(evt);
 	}
 }
 
+//! update function
+//! @brief moves character based on key press (arrow keys)
+//! Interacts with objects:
+//! Will not walk through wall, water, tree
+//! Opens chest once
+//! @param evt : event from sfml class
 void Game::update(sf::Event evt){
 	//Register what was the last key released
 	if (evt.type == sf::Event::KeyReleased){
@@ -118,9 +148,18 @@ void Game::update(sf::Event evt){
 					break;
 				else if (level[currentPos - width] == 2) //2 is tree
 					break;
+				else if (level[currentPos - width] == 9) //9 is item/chest
+				{
+					if (!openedChest) {
+						Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
+						openedChest = true;
+					}
+					else
+						break;
+				}
 				else if (level[currentPos - width] == 6) // end
 				{
-					m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
+					//YOU WIN!!!
 					endGame();
 				}
 				player.move(0, -32);
@@ -143,9 +182,18 @@ void Game::update(sf::Event evt){
 					break;
 				else if (level[currentPos + width] == 2) //2 is tree
 					break;
+				else if (level[currentPos + width] == 9) //9 is item/chest
+				{
+					if (!openedChest) {
+						Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
+						openedChest = true;
+					}
+					else
+						break;
+				}
 				else if (level[currentPos + width] == 6) // end
 				{
-					m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
+					//m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
 					endGame();
 				}
 				player.move(0, +32);
@@ -168,9 +216,18 @@ void Game::update(sf::Event evt){
 					break;
 				else if (level[currentPos - 1] == 2) //2 is tree
 					break;
+				else if (level[currentPos - 1] == 9) //9 is item/chest
+				{
+					if (!openedChest) {
+						Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
+						openedChest = true;
+					}
+					else
+						break;
+				}
 				else if (level[currentPos - 1] == 6) // end
 				{
-					m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
+					//m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
 					endGame(); // temp
 				}
 				player.move(-32, 0);
@@ -192,9 +249,18 @@ void Game::update(sf::Event evt){
 					break;
 				else if (level[currentPos + 1] == 2) //2 is tree
 					break;
+				else if (level[currentPos +1] == 9) //9 is item/chest
+				{
+					if (!openedChest) {
+						Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
+						openedChest = true;
+					}
+					else
+						break;
+				}
 				else if (level[currentPos + 1] == 6) // end
 				{
-					m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
+					//m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
 					endGame(); // temp.
 				}
 				player.move(+32, 0);
@@ -207,11 +273,36 @@ void Game::update(sf::Event evt){
 	}
 }
 
+//! endGame function
+//! @brief Ends the game by showing the player they won.
+//! Levels up the Character by 1 on each ability score and level and displays new stats
+//! Closes the Game window after 6 seconds to be able to see the changes
 void Game::endGame()
 {
+	m_map->getPlayer()->levelUp();
+
+	text.setString(m_map->getPlayer()->statString());
+	text.setCharacterSize(12);
+	text.setFillColor(sf::Color::Black);
+	text.setStyle(sf::Text::Bold);
+	text.setPosition(20, (height * 32 + 8));
+
+	sf::Texture winner;
+	winner.loadFromFile("Win.png");
+	sf::Sprite win(winner);
+	win.setPosition(10, 10);
+	window->clear(sf::Color(255,255,255,255));
+	window->draw(text);
+	window->draw(win);
+	window->display();
+	sf::sleep(sf::milliseconds(6000)); // for now. have to change later to exit only when escape/enter
 	window->close();
 }
 
+//! loadTextures function
+//! @brief loads up the sprites for the map 
+//! Player sprite and map sprites
+//! Exits if unable to load either
 void Game::loadTextures(){
 	//Loads the player's texture
 	if (!playerTexture.loadFromFile("hero.png"))
@@ -233,6 +324,10 @@ void Game::loadTextures(){
 	createText();
 }
 
+//! createText function
+//! @brief Initializes text that displays in Game GUI
+//! Loads font and intializes text for character stats display
+//! Creates textbox with white background for character stats display
 void Game::createText(){
 	//Loads the text's fonts
 	if (!font.loadFromFile("font.ttf")){
@@ -259,14 +354,15 @@ void Game::createText(){
 	currentPosition.setPosition(20, (height * 32 + 56));
 
 	//Initializes the box in which the text will be written in
-	textBox.setSize(sf::Vector2f(width * 32 - 20, 250));
-	textBox.setPosition(12, height * 32 + 5);
+	textBox.setSize(sf::Vector2f(150, 240));
+	textBox.setPosition(5, height * 32 + 5);
 	textBox.setOutlineColor(sf::Color::Green);
 	textBox.setOutlineThickness(3);
 }
 
+//! render function
+//! @brief Draws everything onto the window
 void Game::render(){
-	//Draws everything onto the window
 	//currentPosition.setString("Current position: " + std::to_string((currentPos - 1) % width));
 	window->draw(map);
 	window->draw(player);
@@ -275,8 +371,9 @@ void Game::render(){
 	window->draw(currentPosition);
 }
 
+//! mainLoop function
+//! @brief Runs program while window is open
 void Game::mainLoop(){
-	//Runs program while window is open
 	while (window->isOpen()){
 		window->clear();
 		render();
@@ -285,6 +382,8 @@ void Game::mainLoop(){
 	}
 }
 
+//! go function
+//! @brief Checks if the map is valid and able to open window
 void Game::go(){
 	if (!init())
 		throw "Could not initialize the window";

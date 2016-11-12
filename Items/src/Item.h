@@ -1,4 +1,4 @@
-//! @file 
+//! @file Item.h
 //! @brief Header file for the Item class  
 //!
 //! Libraries used: 
@@ -37,9 +37,13 @@ public:
 	//Creates Random Item based on level
 	static Item* randommize(int lvl);
 	//Creates Item Class from File Load
-	static Item load(int id);
+	static Item* load(int id);
 	//Returns an integer for the type. Used by Chest.h to check which type it is
 	int getItemType();
+	//add enhancment to influences
+	void addEnhancement(Enhancement enh);
+	//remove enhancement
+	void removeEnhancement(string type);
 private:
 	int id;
 	int itemType;

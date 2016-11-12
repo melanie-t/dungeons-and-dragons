@@ -1,6 +1,6 @@
-//! @file 
+//! @file GameObject.h
 //! @brief Header file for the GameObject class  
-//!
+//! Contains all of the game objects (Door, Enemy, Fighter, Item)
 #pragma once
 
 #include <string>

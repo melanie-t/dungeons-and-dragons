@@ -1,15 +1,28 @@
+/*@file TileMap.cpp
+* @brief Implementation file for the Chest .cpp file
+*/
 #include "TileMap.h"
 
 
+//! TileMap default constructor
+//! @brief does nothing.
 TileMap::TileMap()
 {
 }
 
-
+//! TileMap default destructor
+//! @brief does nothing.
 TileMap::~TileMap()
 {
 }
 
+//! load function
+//! @brief loads tiles from sprite sheet
+//! @param tilset, tile set to load.
+//! @param tileSize the size of each tile in  the sheet.
+//! @param vector of the tile numbers.
+//! @width # of tiles per row
+//! @height # of tiles per column
 bool TileMap::load(const std::string& tileset, sf::Vector2u tileSize, std::vector<int>& tiles, unsigned int width, unsigned int height){
 	//Load the tileset texture
 	if (!m_tileset.loadFromFile("bkrd.png")){
@@ -46,6 +59,10 @@ bool TileMap::load(const std::string& tileset, sf::Vector2u tileSize, std::vecto
 	return true;
 }
 
+//! draw function
+//! @brief draws the tiles.
+//! @param target the window to draw the tilemap to
+//! @param the state of the window.
 void TileMap::draw(sf::RenderTarget& target, sf::RenderStates states) const{
 	//apply the transform
 	states.transform *= getTransform();

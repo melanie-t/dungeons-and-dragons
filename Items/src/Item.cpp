@@ -1,6 +1,6 @@
-//! @file 
+//! @file Item.cpp
 //! @brief Implementation file for the Item class  
-//!
+//! 
 
 #include "Item.h"
 #include "GameObject.h"
@@ -218,7 +218,6 @@ bool Item::validateItem()
 //! @brief saves the item class as a xml file using Cmarkup
 bool Item::saveItem()
 {
-	//Hopefully this shit worksssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
 	CMarkup xml;
 
 	//xml.SetDoc("<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n");
@@ -514,8 +513,13 @@ Item* Item::randommize(int lvl)
 
 	return new Item(type, enh);
 }
+//! static load function
+//! @brief loads previously saved items 
+//! static cast so that it does not require creation of Item.
+//! @param id number of the item created (counter)
+//! @return : Pointer to Item loaded
 
-static Item load(int id)
+Item* Item::load(int id)
 {
 	char di[20];
 	sprintf_s(di, 20, "Items/%d.xml", id);
@@ -571,20 +575,23 @@ static Item load(int id)
 					}
 				}
 				xml.OutOfElem();
-				return Item(id, type, enhancements);
+				return new Item(id, type, enhancements);
 			}
 
 			xml.OutOfElem();
 		}
-		return Item(); //return empty item.
+		return nullptr; //return null
 	}
 	else
 	{
 		cout << xml.GetError() << endl;
-		return Item(); //return empty item.
+		return nullptr; //return null
 	}
 }
 
+//! getItemType function
+//! @brief method used to make use of switch statements when checking item type
+//! @return : int type of item
 int Item::getItemType() {
 	string itemType = getType();
 	if (itemType.compare("armor") == 0)
@@ -603,4 +610,27 @@ int Item::getItemType() {
 		return 7;
 	else
 		return 0;
+}
+
+//! addEnhancement function
+//! @brief add enhancement from the item
+//! @param enh enhancement is a bonus stat on equips
+void Item::addEnhancement(Enhancement enh)
+{
+	influence.push_back(enh);
+}
+
+//! removeEnhancement function
+//! @brief remove enhancement from the item
+//! @param type type is the item type (armor, helmet, belt, ring, etc.)
+void Item::removeEnhancement(string type)
+{
+	for (int i = 0; i < influence.size(); i++)
+	{
+		if (influence[i].getType() == type)
+		{
+			influence.erase(influence.begin() + i);
+			cout << "\nEnhancement removed\n";
+		}
+	}
 }
