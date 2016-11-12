@@ -1,0 +1,68 @@
+﻿Build started 11/11/2016 12:55:03 AM.
+     1>Project "C:\Users\nguyen\Desktop\comp 345 proj - DND\COMP345_DND\Items\Items.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Users\nguyen\Desktop\comp 345 proj - DND\COMP345_DND\\SFML\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\Character.cpp src\Door.cpp src\Enhancement.cpp src\Fighter.cpp src\FileMapBuilder.cpp src\Game.cpp src\GameObject.cpp src\Item.cpp src\ItemContainer.cpp src\Main.cpp src\Map.cpp src\Markup.cpp src\Enemy.cpp src\Observable.cpp src\Observer.cpp src\SavedMapBuilder.cpp src\MapBuildDirector.cpp src\TileMap.cpp
+         TileMap.cpp
+     1>c:\users\nguyen\desktop\comp 345 proj - dnd\comp345_dnd\items\src\tilemap.cpp(35): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\nguyen\desktop\comp 345 proj - dnd\comp345_dnd\items\src\tilemap.cpp(36): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\nguyen\desktop\comp 345 proj - dnd\comp345_dnd\items\src\tilemap.cpp(37): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\nguyen\desktop\comp 345 proj - dnd\comp345_dnd\items\src\tilemap.cpp(38): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\nguyen\desktop\comp 345 proj - dnd\comp345_dnd\items\src\tilemap.cpp(41): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\nguyen\desktop\comp 345 proj - dnd\comp345_dnd\items\src\tilemap.cpp(42): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\nguyen\desktop\comp 345 proj - dnd\comp345_dnd\items\src\tilemap.cpp(43): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\nguyen\desktop\comp 345 proj - dnd\comp345_dnd\items\src\tilemap.cpp(44): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+         MapBuildDirector.cpp
+         SavedMapBuilder.cpp
+         Observer.cpp
+         Observable.cpp
+         Enemy.cpp
+         Markup.cpp
+         Note: MBCS build (not UTF-8)
+         Map.cpp
+         Main.cpp
+         ItemContainer.cpp
+     1>c:\users\nguyen\desktop\comp 345 proj - dnd\comp345_dnd\items\src\itemcontainer.cpp(40): warning C4018: '<' : signed/unsigned mismatch
+         Item.cpp
+         GameObject.cpp
+         Game.cpp
+     1>c:\users\nguyen\desktop\comp 345 proj - dnd\comp345_dnd\items\src\game.cpp(22): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\nguyen\desktop\comp 345 proj - dnd\comp345_dnd\items\src\game.cpp(34): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\nguyen\desktop\comp 345 proj - dnd\comp345_dnd\items\src\game.cpp(54): warning C4018: '>' : signed/unsigned mismatch
+     1>c:\users\nguyen\desktop\comp 345 proj - dnd\comp345_dnd\items\src\game.cpp(140): warning C4018: '>=' : signed/unsigned mismatch
+     1>c:\users\nguyen\desktop\comp 345 proj - dnd\comp345_dnd\items\src\game.cpp(232): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\nguyen\desktop\comp 345 proj - dnd\comp345_dnd\items\src\game.cpp(253): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\nguyen\desktop\comp 345 proj - dnd\comp345_dnd\items\src\game.cpp(259): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\nguyen\desktop\comp 345 proj - dnd\comp345_dnd\items\src\game.cpp(262): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\nguyen\desktop\comp 345 proj - dnd\comp345_dnd\items\src\game.cpp(263): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+         FileMapBuilder.cpp
+         Fighter.cpp
+         Enhancement.cpp
+         Door.cpp
+         Character.cpp
+     1>c:\users\nguyen\desktop\comp 345 proj - dnd\comp345_dnd\items\src\character.cpp(82): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
+         Generating Code...
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\nguyen\Desktop\comp 345 proj - DND\COMP345_DND\Debug\Dnd.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Users\nguyen\Desktop\comp 345 proj - DND\COMP345_DND\\SFML\lib" "sfml-main-d.lib" "sfml-graphics-d.lib" "sfml-audio-d.lib" "sfml-window-d.lib" "sfml-system-d.lib" "sfml-network-d.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\nguyen\Desktop\comp 345 proj - DND\COMP345_DND\Debug\Dnd.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\nguyen\Desktop\comp 345 proj - DND\COMP345_DND\Debug\Dnd.lib" /MACHINE:X86 Debug\Character.obj
+         Debug\Door.obj
+         Debug\Enhancement.obj
+         Debug\Fighter.obj
+         Debug\FileMapBuilder.obj
+         Debug\Game.obj
+         Debug\GameObject.obj
+         Debug\Item.obj
+         Debug\ItemContainer.obj
+         Debug\Main.obj
+         Debug\Map.obj
+         Debug\Markup.obj
+         Debug\Enemy.obj
+         Debug\Observable.obj
+         Debug\Observer.obj
+         Debug\SavedMapBuilder.obj
+         Debug\MapBuildDirector.obj
+         Debug\TileMap.obj
+         Items.vcxproj -> C:\Users\nguyen\Desktop\comp 345 proj - DND\COMP345_DND\Debug\Dnd.exe
+     1>Done Building Project "C:\Users\nguyen\Desktop\comp 345 proj - DND\COMP345_DND\Items\Items.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:12.13

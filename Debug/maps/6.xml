@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+<map>
+	<id>6</id>
+	<rows>10</rows>
+	<columns>10</columns>
+	
+	<doors>
+	    <door1>
+			<mapid>6</mapid>
+			<x>0</x>
+			<y>5</y>
+			<start>1</start>
+		</door1>
+		<door2>
+			<mapid>7</mapid>
+			<x>6</x>
+			<y>9</y>
+			<start>0</start>
+		</door2>
+	</doors>
+	
+	<walls>
+    </walls>
+		
+		<items>
+		    <item>
+		        <x>3</x>
+		        <y>2</y>
+            </item>
+		</items>
+		
+		<enemies>
+			<enemy>
+			    <x>4</x>
+			    <y>4</y>
+			</enemy>
+			<enemy>
+			    <x>6</x>
+			    <y>3</y>
+			</enemy>
+			<enemy>
+			    <x>3</x>
+			    <y>7</y>
+			</enemy>
+			<enemy>
+			    <x>7</x>
+			    <y>4</y>
+			</enemy>
+			<enemy>
+			    <x>2</x>
+			    <y>8</y>
+			</enemy>
+		</enemies>
+</map>
