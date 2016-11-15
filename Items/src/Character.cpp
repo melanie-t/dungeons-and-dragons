@@ -133,7 +133,7 @@ void Character::statGenerator() {
 					strSet = true;
 				}
 				else {
-					cout << "Already set. Please choose another ability."
+					cout << "Already set. Please choose another ability." << endl;
 					i--;
 				}
 					
@@ -147,7 +147,7 @@ void Character::statGenerator() {
 					dexSet = true;
 				}
 				else {
-					cout << "Already set. Please choose another ability."
+					cout << "Already set. Please choose another ability." << endl;
 						i--;
 				}
 				break;
@@ -155,12 +155,12 @@ void Character::statGenerator() {
 			case 3: {
 				if (!conSet)
 				{
-					setCon(totalScores[i]);
+					setCON(totalScores[i]);
 					cout << "CON: " << totalScores[i] << endl;
 					conSet = true;
 				}
 				else {
-					cout << "Already set. Please choose another ability."
+					cout << "Already set. Please choose another ability." << endl;
 						i--;
 				}
 				break;
@@ -172,7 +172,7 @@ void Character::statGenerator() {
 					intSet = true;
 				}
 				else {
-					cout << "Already set. Please choose another ability."
+					cout << "Already set. Please choose another ability." << endl;
 						i--;
 				}
 				break;
@@ -184,7 +184,7 @@ void Character::statGenerator() {
 					wisSet = true;
 				}
 				else {
-					cout << "Already set. Please choose another ability."
+					cout << "Already set. Please choose another ability." << endl;
 						i--;
 				}
 				break;
@@ -196,7 +196,7 @@ void Character::statGenerator() {
 					chaSet = true;
 				}
 				else {
-					cout << "Already set. Please choose another ability."
+					cout << "Already set. Please choose another ability." << endl;
 						i--;
 				}
 				break;
