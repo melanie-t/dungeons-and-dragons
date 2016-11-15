@@ -115,6 +115,10 @@ void Character::statGenerator() {
 
 	for (int i = 0; i < 6; i++) {
 		do {
+			cout << "Scores leftover: ";
+			for (int j = i; j < 6; j++) {
+				cout << totalScores[j] << " ";
+			}
 			cout << "\nChoose ability to set as " << totalScores[i]
 				<< "\n1. STR"
 				<< "\n2. DEX"
@@ -131,12 +135,13 @@ void Character::statGenerator() {
 					setSTR(totalScores[i]);
 					cout << "STR: " << totalScores[i] << endl;
 					strSet = true;
+					displayStats();
 				}
 				else {
 					cout << "Already set. Please choose another ability." << endl;
-					i--;
+					if (i != 0)
+						i--;
 				}
-					
 				break;
 			}
 			case 2: {
@@ -145,9 +150,11 @@ void Character::statGenerator() {
 					setDEX(totalScores[i]);
 					cout << "DEX: " << totalScores[i] << endl;
 					dexSet = true;
+					displayStats();
 				}
 				else {
 					cout << "Already set. Please choose another ability." << endl;
+					if (i != 0)
 						i--;
 				}
 				break;
@@ -158,9 +165,11 @@ void Character::statGenerator() {
 					setCON(totalScores[i]);
 					cout << "CON: " << totalScores[i] << endl;
 					conSet = true;
+					displayStats();
 				}
 				else {
 					cout << "Already set. Please choose another ability." << endl;
+					if (i != 0)
 						i--;
 				}
 				break;
@@ -170,9 +179,11 @@ void Character::statGenerator() {
 					setINTEL(totalScores[i]);
 					cout << "INTEL: " << totalScores[i] << endl;
 					intSet = true;
+					displayStats();
 				}
 				else {
 					cout << "Already set. Please choose another ability." << endl;
+					if (i != 0)
 						i--;
 				}
 				break;
@@ -182,9 +193,11 @@ void Character::statGenerator() {
 					setWIS(totalScores[i]);
 					cout << "WIS: " << totalScores[i] << endl;
 					wisSet = true;
+					displayStats();
 				}
 				else {
 					cout << "Already set. Please choose another ability." << endl;
+					if (i != 0)
 						i--;
 				}
 				break;
@@ -194,16 +207,20 @@ void Character::statGenerator() {
 					setCHA(totalScores[i]);
 					cout << "CHA: " << totalScores[i] << endl;
 					chaSet = true;
+					displayStats();
 				}
 				else {
 					cout << "Already set. Please choose another ability." << endl;
+					if (i != 0)
 						i--;
 				}
 				break;
 			}
 			default: {
 				cout << "Invalid choice. Choose between 1-6" << endl;
-				i--;
+				if (i != 0)
+					i--;
+				break;
 			}
 			}
 		} while (choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5 && choice != 6);
