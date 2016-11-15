@@ -1,10 +1,9 @@
-//Dylan, I changed the ENUM AbilityModifiers -> Ability
-
 //! @file Character.cpp 
 //! @brief Implementation file for the Character class  
 //!
 
 #include "Character.h"
+#include "Dice.h"
 #include <iostream> /* cin, cout */
 #include <stdlib.h> /* srand, rand */
 #include <time.h> /* time */
@@ -96,15 +95,119 @@ bool Character::validateNewCharacter()
 }
 
 //! statGenerator function
-//! @brief generates random stats for the character
+//! @brief generates random stats for the character using 4d6
 void Character::statGenerator() {
 	srand(time(NULL));
-	abilityScores[Ability::STRENGTH] = rand() % 16 + 3;
-	abilityScores[Ability::DEXTERITY] = rand() % 16 + 3;
-	abilityScores[Ability::CONSTITUTION] = rand() % 16 + 3;
-	abilityScores[Ability::INTELLIGENCE] = rand() % 16 + 3;
-	abilityScores[Ability::WISDOM] = rand() % 16 + 3;
-	abilityScores[Ability::CHARISMA] = rand() % 16 + 3;
+	Dice dice;
+	int choice;
+	int totalScores[6];
+	bool strSet = false,
+		dexSet = false,
+		conSet = false,
+		intSet = false,
+		wisSet = false,
+		chaSet = false;
+
+	//Initializes all 6 rolls (4d6)
+	for (int i = 0; i < 6; i++) {
+		totalScores[i] = dice.roll("4d6[0]");
+	}
+
+	for (int i = 0; i < 6; i++) {
+		do {
+			cout << "\nChoose ability to set as " << totalScores[i]
+				<< "\n1. STR"
+				<< "\n2. DEX"
+				<< "\n3. CON"
+				<< "\n4. INTEL"
+				<< "\n5. WIS"
+				<< "\n6. CHA" << endl;
+			cin >> choice;
+
+			switch (choice) {
+			case 1: {
+				if (!strSet)
+				{
+					setSTR(totalScores[i]);
+					cout << "STR: " << totalScores[i] << endl;
+					strSet = true;
+				}
+				else {
+					cout << "Already set. Please choose another ability."
+					i--;
+				}
+					
+				break;
+			}
+			case 2: {
+				if (!dexSet)
+				{
+					setDEX(totalScores[i]);
+					cout << "DEX: " << totalScores[i] << endl;
+					dexSet = true;
+				}
+				else {
+					cout << "Already set. Please choose another ability."
+						i--;
+				}
+				break;
+			}
+			case 3: {
+				if (!conSet)
+				{
+					setCon(totalScores[i]);
+					cout << "CON: " << totalScores[i] << endl;
+					conSet = true;
+				}
+				else {
+					cout << "Already set. Please choose another ability."
+						i--;
+				}
+				break;
+			}
+			case 4: {
+				if (!intSet) {
+					setINTEL(totalScores[i]);
+					cout << "INTEL: " << totalScores[i] << endl;
+					intSet = true;
+				}
+				else {
+					cout << "Already set. Please choose another ability."
+						i--;
+				}
+				break;
+			}
+			case 5: {
+				if (!wisSet) {
+					setWIS(totalScores[i]);
+					cout << "WIS: " << totalScores[i] << endl;
+					wisSet = true;
+				}
+				else {
+					cout << "Already set. Please choose another ability."
+						i--;
+				}
+				break;
+			}
+			case 6: {
+				if (!chaSet) {
+					setCHA(totalScores[i]);
+					cout << "CHA: " << totalScores[i] << endl;
+					chaSet = true;
+				}
+				else {
+					cout << "Already set. Please choose another ability."
+						i--;
+				}
+				break;
+			}
+			default: {
+				cout << "Invalid choice. Choose between 1-6" << endl;
+				i--;
+			}
+			}
+		} while (choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5 && choice != 6);
+	}
 	secondaryStatCalc();
 }
 

@@ -1,6 +1,8 @@
 /* Documentation at tail of file */
-#ifndef DICE_H
-#define DICE_H
+#pragma once
+#include <string>
+
+using std::string;
 
 class Dice
 {
@@ -32,8 +34,6 @@ private:
 	/* generates random number based on size of die */
 	int getRandom();
 };
-
-#endif
 
 /*
 This class is a random number generator for dice rolls based on user specifications.

@@ -30,6 +30,7 @@
 #include "Observable.h"
 #include "ItemContainer.h"
 #include <string>
+
 using namespace std;
 
 //! Class that implements a character 

@@ -287,13 +287,8 @@ void Game::endGame()
 	text.setStyle(sf::Text::Bold);
 	text.setPosition(20, (height * 32 + 8));
 
-	sf::Texture winner;
-	winner.loadFromFile("Win.png");
-	sf::Sprite win(winner);
-	win.setPosition(10, 10);
 	window->clear(sf::Color(255,255,255,255));
 	window->draw(text);
-	window->draw(win);
 	window->display();
 	sf::sleep(sf::milliseconds(6000)); // for now. have to change later to exit only when escape/enter
 	window->close();
