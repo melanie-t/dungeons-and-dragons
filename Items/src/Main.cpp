@@ -171,16 +171,17 @@ int main()
 				{
 					
 					cout << "\nWould you like to edit an existing map? (y/n): ";
+					int editorWidth, editorHeight,choice;
 					char editExisting;
 					cin >> editExisting;
+
 					if (editExisting == 'y'){
-						Editor editor = Editor(20, 20);
+						//load a character to load map with... maybe create a generic character
 						Character* character = Character::loadCharacer("james");
 						character->setName("james");
 						FileMapBuilder builder(character);
 						
-						cout << "Please select a map to edit";
-						int choice;
+						cout << "\nPlease select a map to edit" << endl;
 						cin >> choice;
 
 						//find a better way of doing this.
@@ -190,16 +191,61 @@ int main()
 						sprintf_s(di, 20, "maps/%d.xml", id);
 						while (xml.Load(string(di)))
 						{
+							cout << id << ".xml"<<endl;
 							id++;
 							sprintf_s(di, 20, "maps/%d.xml", id);
 						}
 
+						//load map of choice
+						cout << "loading map" << endl;
 						builder.loadMap(choice);
 						Map* map = builder.getMap();
+						
+						//set editor to map dimensions
+						editorWidth = map->getNumCol();
+						editorHeight = map->getNumRows();
+
+						//initialize editor
+						Editor editor = Editor(editorWidth,editorHeight);
+
+						// opens the editor with the previous map data
+						cout << "starting editor" << endl;
 						editor.initEditor(map);
+
+						//saves map data into 1D array
+						vector<int> newMap(editor.editorLoop());
+						editor.close();
+
+						cout << "\nwould you like to save the newly edited map [" << choice<<"] ?(y/n)" << endl;
+						char saveMap;
+						cin >> saveMap;
+
+						if (saveMap == 'y'){
+							//initialize map object to save map
+							Map* mapToDisk = new Map(choice, editorWidth, editorHeight);
+
+							//convert map array to xml and save to disk
+							mapToDisk->inputMap(newMap);
+						}
+
+						//reinit choice variables
+						int map_cmd;
+						char editExisting;
+						int choice;
+
+						// restart loop
+						cout << "\nWhat would you like to do? (enter number)" << endl;
+						cout << "1. Start/End game" << endl;
+						cout << "2. Create/Edit Map" << endl;
+						cout << "3. Create/Edit Character" << endl;
+						cout << "4. Create/Edit Item" << endl;
+						cout << "5. Exit program" << endl;
+						int cmd;
+						cin >> cmd;
+						break;
+
 					}
 					else{
-						int editorWidth, editorHeight;
 						cout << "Enter map width: " << endl;
 						cin >> editorWidth;
 
