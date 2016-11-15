@@ -232,15 +232,87 @@ vector<int> Map::outputMap()
 	return output;
 }
 
-//! saveMap function
-//! @brief Saves the map object into an xml file.
+//takes the 1D array from the editor and turns it into a new map object
+//because we make new objects all the time will we run out of mem....
+bool Map::inputMap(vector<int>arrayIn){
+	cout << "\nNew Map length::" << row << endl;
+	cout << "New Map Height::" << column<< endl;
+	cout << "arrayInSIZE: " << arrayIn.size() << endl;
+	int type = 0;
+	int x, y;
+	for (int i = 0; i < arrayIn.size(); i++){
+		
+		type = arrayIn[i];
+		switch (type){
+		case 0:{		//Grass
+			x = i % row;
+			y = i / row;
+			map[x][y]->setObjectType(GRASS);
+			break;
+		}
+		case 1:{		//water
+			x = i % row;
+			y = i / row;
+			map[x][y]->setObjectType(WATER);
+			break;
+		}
+		case 2:{		//tree
+			x = i % row;
+			y = i / row;
+			map[x][y]->setObjectType(TREE);
+			break;
+		}
+		case 7:{		//door
+			x = i % row;
+			y = i / row;
+			map[x][y]->setObjectType(DOOR);
+			break;
+		}
+		case 9:{		//item
+			x = i % row;
+			y = i / row;
+			map[x][y]->setObjectType(ITEM);
+			break;
+		}
+		case 10:{		//enemy
+			x = i % row;
+			y = i / row;
+			map[x][y]->setObjectType(ENEMY);
+			break;
+		}
+		}
+	}
+	cout << "\nFinished converting array to XML" << endl;
+
+	//saves XML to disk
+	saveMap();
+	return true;
+
+	// map validation doesn't work properly
+	/*
+	if (validatePath()){
+		cout << "Map Validated! \nSaving map..." << endl;
+		saveMap();
+		return true;
+	}
+	else{
+		cout << "Validation failed. \nMap not saving." << endl;
+		return false;
+	}
+	cout << "The map was unable to save." << endl;
+	*/
+}
+
 bool Map::saveMap()
 {
+	//map validation doesn't work properly
+	/*
 	if (validatePath() == false)
 	{
 		//Invalid Map.
 		return false;
 	}
+	*/
 
 	CMarkup xml;
 	xml.AddElem("map");
@@ -358,6 +430,7 @@ bool Map::saveMap()
 	char di[20];
 	sprintf_s(di, 20, "maps/%d.xml", ID);
 	xml.Save(string(di));
+	cout << "The map has been saved!";
 	return true;
 }
 
