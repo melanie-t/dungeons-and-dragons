@@ -75,6 +75,8 @@
   <ItemGroup>
     <ClInclude Include="src\BrickTexture.h" />
     <ClInclude Include="src\Character.h" />
+    <ClInclude Include="src\Chest.h" />
+    <ClInclude Include="src\Dice.h" />
     <ClInclude Include="src\Door.h" />
     <ClInclude Include="src\Editor.h" />
     <ClInclude Include="src\Enemy.h" />
@@ -100,6 +102,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Character.cpp" />
+    <ClCompile Include="src\Chest.cpp" />
+    <ClCompile Include="src\Dice.cpp" />
     <ClCompile Include="src\Door.cpp" />
     <ClCompile Include="src\Editor.cpp" />
     <ClCompile Include="src\Enhancement.cpp" />

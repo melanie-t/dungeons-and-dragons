@@ -114,10 +114,6 @@ int Character::abilityModifier(int abilityScore)
 {
 	// Proper calculation of abilityMod;
 	int abilityMod = (abilityScore - 10) / 2;
-
-	// In case of negative abilityMod
-	if (abilityMod <= 0)
-		abilityMod = 1;
 	return abilityMod;
 }
 

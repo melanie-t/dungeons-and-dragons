@@ -119,14 +119,18 @@ private:
 		}
 		catch (regex_error& e) {
 			cout << "error in regex" << endl;
-		}		try {			number = stoi(parseResult[0]);		//stoi() std function that casts string to int
+		}
+
+		try {
+			number = stoi(parseResult[0]);		//stoi() std function that casts string to int
 			type = stoi(parseResult[1]);
 			total = stoi(parseResult[2]);
 			//return true;
 		}
 		catch (exception e) {
 			cout << endl << "exception in parseResult assignment" << endl;
-		}		return true;
+		}
+		return true;
 	}
 
 

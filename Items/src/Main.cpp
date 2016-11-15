@@ -29,7 +29,6 @@ void runGame(int chosenMap, string characterName)
 	Map* map = builder.getMap();
 
 	Game* game = new Game(map->getNumRows(), map->getNumCol(), map);
-	ItemPanel::createInventories();
 
 	try{
 		game->go();
@@ -206,7 +205,7 @@ int main()
 						editorHeight = map->getNumRows();
 
 						//initialize editor
-						Editor editor = Editor(editorWidth,editorHeight);
+						Editor editor(editorWidth,editorHeight);
 
 						// opens the editor with the previous map data
 						cout << "starting editor" << endl;
@@ -252,7 +251,7 @@ int main()
 						cout << "Enter map height: " << endl;
 						cin >> editorHeight;
 						
-						Editor editor = Editor(editorWidth, editorHeight);				
+						Editor editor(editorWidth, editorHeight);				
 						editor.initEditor();
 						vector<int> newMap(editor.editorLoop());
 						editor.close();

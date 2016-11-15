@@ -107,7 +107,8 @@ private:
 	bool equipBoots;
 	bool equipRing;
 	bool equipHelmet;
-	ItemContainer backpack;
+	vector <ItemContainer> backpack;
+	vector <ItemContainer> inventory;
 	string name;
 	//string gender
 	Character* List[10];
