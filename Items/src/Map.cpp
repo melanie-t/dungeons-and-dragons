@@ -244,6 +244,12 @@ bool Map::inputMap(vector<int>arrayIn){
 		
 		type = arrayIn[i];
 		switch (type){
+		case 0:{		//Grass
+			x = i % row;
+			y = i / row;
+			map[x][y]->setObjectType(GRASS);
+			break;
+		}
 		case 1:{		//water
 			x = i % row;
 			y = i / row;
