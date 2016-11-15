@@ -66,32 +66,26 @@ bool Game::validMap(){
 //!	@param end : end of map
 //! @return true if the map is valid
 bool Game::validate(int start, int end){
-	//one door room
 	if (start == end)
 		return true;
-
-	//player would spawn outside of map area 
+	//checks if its out of bounds
 	else if (start < 0 || start > (level.size() - 1))
 	{
 		return false;
 	}
-
 	//Checks if the position has already been checked
 	else if (std::find(positionChecked.begin(), positionChecked.end(), start) != positionChecked.end())
 	{
 		return false;
 	}
-
 	//Checks if its walkable
 	else if (level[start] == 1 || level[start] == 2 || level[start] == 4 || level[start] == 8 || level[start] == 9)
 	{
 		return false;
 	}
-
 	//Else checks right,left,top,bottom
 	else{
 		positionChecked.push_back(start);
-		//searches tiles to right, left, above, below
 		return validate(start + 1, end) || validate(start - 1, end) || validate(start - width, end) || validate(start + width, end);
 	}
 }
