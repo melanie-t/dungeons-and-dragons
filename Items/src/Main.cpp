@@ -19,7 +19,7 @@ Take commands through the console. Temp
 */
 void runGame(int chosenMap, string characterName)
 {
-	Character* character = Character::loadCharacer(characterName);
+	Character* character = Character::loadCharacter(characterName);
 	character->setName(characterName);
 
 	FileMapBuilder builder(character);
@@ -277,8 +277,8 @@ int main()
 
 					cout << "Enter the name of the Fighter you want to edit: " << endl;
 					cin >> name;
-					Fighter* fighterPointer;
-					fighterPointer = Fighter::loadFighter(name);
+					Character* fighterPointer;
+					fighterPointer = Character::loadCharacter(name);
 
 					// Select modifying category
 					while (modifycontinue) {

@@ -9,13 +9,6 @@
 using std::cout;
 using std::endl;
 
-//! Constructor: Passes values to each ability score
-Fighter::Fighter(int level, int str, int dex, int con, int intel, int wis, int cha):
-													Character(level, str, dex, con, intel, wis, cha)
-{
-	setCharClass(1);
-}
-
 //! Constructor: For loading Fighters
 //! @param level level of Fighter
 //! @param str strength of Fighter
@@ -25,17 +18,11 @@ Fighter::Fighter(int level, int str, int dex, int con, int intel, int wis, int c
 //! @param wis wisdom of Fighter
 //! @param cha charisma of Fighter
 //! @param name name of Fighter
-Fighter::Fighter(int level, int str, int dex, int con, int intel, int wis, int cha, string name)
+Fighter::Fighter(string name, int level, int str, int dex, int con, int intel, int wis, int cha, int hp, 
+		vector <ItemContainer> backpack, vector <ItemContainer> equips) 
+	: Character(name, 1, level, str, dex, con, intel, wis, cha, hp, backpack, equips)
 {
-	setCharClass(1);
-	setLevel(level);
-	setSTR(str);
-	setDEX(dex);
-	setCON(con);
-	setINTEL(intel);
-	setWIS(wis);
-	setCHA(cha);
-	setName(name);
+	//1 represents character class Fighter
 }
 
 //! Default constructor: Assigns level as 1, 0 as all ability scores
@@ -54,6 +41,7 @@ Fighter::Fighter(string name)
 	setLevel(1);
 	setCharClass(1);
 	statGenerator();
+	secondaryStatCalc();
 }
 
 //! validateNewFighter function
@@ -71,61 +59,3 @@ bool Fighter::validateNewFighter()
 		return false;
 	return true;
 }
-
-//! loadFighter function
-//! @brief Loads previously saved Fighter from XML file
-//! @param name name of Fighter
-Fighter* Fighter::loadFighter(string name)
-{
-	CMarkup xml;
-	if (xml.Load("characters/" + name + ".xml"))
-	{
-		xml.FindElem();
-		if (xml.GetTagName() != "character")
-		{
-			cout << "This file is not a character." << endl;
-			cout << xml.GetTagName() << endl;
-		}
-		else
-		{
-			xml.IntoElem();
-			int level, str, dex, con, intel, wis, cha;
-			while (xml.FindElem())
-			{
-				string tag = xml.GetTagName();
-				if (tag == "level")
-				{
-					level = atoi(xml.GetData().c_str());
-				}
-				else if (tag == "strength")
-				{
-					str = atoi(xml.GetData().c_str());
-				}
-				else if (tag == "dexterity")
-				{
-					dex = atoi(xml.GetData().c_str());
-				}
-				else if (tag == "constitution")
-				{
-					con = atoi(xml.GetData().c_str());
-				}
-				else if (tag == "intelligence")
-				{
-					intel = atoi(xml.GetData().c_str());
-				}
-				else if (tag == "wisdom")
-				{
-					wis = atoi(xml.GetData().c_str());
-				}
-				else if (tag == "charisma")
-				{
-					cha = atoi(xml.GetData().c_str());
-				}
-			}
-			return new Fighter(level, str, dex, con, intel, wis, cha, name);
-		}
-	}
-	return NULL; //Empty
-}
-
-

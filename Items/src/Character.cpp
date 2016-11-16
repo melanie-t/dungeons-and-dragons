@@ -17,7 +17,28 @@ Character::Character() : Character(1, 0, 0, 0, 0, 0, 0) //hi, this is just clean
 {
 }
 
-//! Constructor: passes values to each ability score and set hit points to 10
+//! Constructor: passes values to each ability score and generates hp at level 1
+//! @param lvl level of Character
+//! @param str strength of Character
+//! @param dex dexterity of Character
+//! @param con constitution of Character
+//! @param intel intelligence of Character
+//! @param wis wisdom of Character
+//! @param cha charisma of Character
+Character::Character(int lvl, int str, int dex, int con, int intel, int wis, int cha) 
+{
+	level = lvl;
+	abilityScores[Ability::STRENGTH] = str;
+	abilityScores[Ability::DEXTERITY] = dex;
+	abilityScores[Ability::CONSTITUTION] = con;
+	abilityScores[Ability::INTELLIGENCE] = intel;
+	abilityScores[Ability::WISDOM] = wis;
+	abilityScores[Ability::CHARISMA] = cha;
+	currentHitPoints = 10 + abilityModifier(Ability::CONSTITUTION);
+	secondaryStatCalc();
+}
+
+//! Constructor: Used to load characters from saved XML files
 //! @param lvl level of Character
 //! @param str strength of Character
 //! @param dex dexterity of Character
@@ -26,7 +47,8 @@ Character::Character() : Character(1, 0, 0, 0, 0, 0, 0) //hi, this is just clean
 //! @param wis wisdom of Character
 //! @param cha charisma of Character
 //! @param name name of Character
-Character::Character(int lvl, int str, int dex, int con, int intel, int wis, int cha, string name)
+Character::Character(string name, int charclass, int lvl, int str, int dex, int con, int intel,
+	int wis, int cha, int hp, vector <ItemContainer> backpack, vector <ItemContainer> equips)
 {
 	this->name = name;
 	level = lvl;
@@ -36,7 +58,7 @@ Character::Character(int lvl, int str, int dex, int con, int intel, int wis, int
 	abilityScores[Ability::INTELLIGENCE] = intel;
 	abilityScores[Ability::WISDOM] = wis;
 	abilityScores[Ability::CHARISMA] = cha;
-
+	currentHitPoints = 10 + abilityModifier(Ability::CONSTITUTION);
 	secondaryStatCalc();
 }
 
@@ -234,10 +256,6 @@ int Character::abilityModifier(int abilityScore)
 {
 	// Proper calculation of abilityMod;
 	int abilityMod = (abilityScore - 10) / 2;
-
-	// In case of negative abilityMod
-	if (abilityMod <= 0)
-		abilityMod = 1;
 	return abilityMod;
 }
 
@@ -245,7 +263,6 @@ int Character::abilityModifier(int abilityScore)
 //! @brief generates secondary stats based on
 //! primary stats.
 void Character::secondaryStatCalc() {
-	setHitPoints(10 + getLevel()*abilityModifier(getCON()));
 	setArmorClass(abilityModifier(getDEX()));
 	setAttackBonus(getLevel()*(abilityModifier(getSTR()) + abilityModifier(getDEX())) / 5);
 	setDamageBonus(abilityModifier(getSTR()));
@@ -567,8 +584,14 @@ string Character::statString()
 string Character::classtoString()
 {
 	switch (charClass) {
-	case 1: return "Fighter";
-	default: return "N/A";
+	case 1: {
+		return "Fighter";
+		break;
+	}
+	default: {
+		return "N/A";
+		break;
+	}
 	}
 }
 
@@ -586,6 +609,8 @@ void Character::saveCharacter()
 	xml.AddElem("intelligence", getINTEL());
 	xml.AddElem("wisdom", getWIS());
 	xml.AddElem("charisma", getCHA());
+	xml.AddElem("hp", getHitPoints());
+	xml.AddElem("class", getCharClass());
 	//char di[20];
 	//sprintf_s(di, 20, "characters/%s.xml", name.c_str());
 	xml.Save("characters/" + name + ".xml");
@@ -596,7 +621,7 @@ void Character::saveCharacter()
 //! @param name : name of Character
 //! @return : pointer to Character object
 // typo here, will fix later
-Character* Character::loadCharacer(string name)
+Character* Character::loadCharacter(string name)
 {
 	CMarkup xml;
 	if (xml.Load("characters/" + name + ".xml"))
@@ -610,7 +635,9 @@ Character* Character::loadCharacer(string name)
 		else
 		{
 			xml.IntoElem();
-			int level, str, dex, con, intel, wis, cha;
+			int level, charclass, str, dex, con, intel, wis, cha, hp;
+			vector <ItemContainer> backpack, equips;
+
 			while (xml.FindElem())
 			{
 				string tag = xml.GetTagName();
@@ -642,8 +669,17 @@ Character* Character::loadCharacer(string name)
 				{
 					cha = atoi(xml.GetData().c_str());
 				}
+				else if (tag == "hp")
+				{
+					hp = atoi(xml.GetData().c_str());
+				}
+				else if (tag == "class")
+				{
+					charclass = atoi(xml.GetData().c_str());
+				}
 			}
-			return new Character(level, str, dex, con, intel, wis, cha, name);
+			return new Character(name, charclass, level, str, dex, con, intel, 
+				wis, cha, hp, backpack, equips);
 		}
 	}
 	return nullptr; //Empty

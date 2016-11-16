@@ -4,9 +4,9 @@
 * @date 10/21/2016
 * 
 * Character creation in Dungeons and Dragons follows these rules: 
-*	1. Randomly generated ability scores (Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma)
+*	1. Ability scores generated through 4d6 dice (Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma)
 *	2. Ability scores range from 3 to 18
-*	3. Ability modifiers are calculated by (abilityScore-10)/2
+*	3. Ability modifiers are calculated as (abilityScore-10)/2
 *	4. Secondary stats are calculated using ability modifiers (armor class, hit points, attack bonus, damage bonus)
 *		4a. Armor Class is calculated as the Dexterity Modifier
 *		4b. Hit Points are calculated as 10 + Dexterity Modifier * Level
@@ -38,7 +38,9 @@ class Character : public Observable
 {
 public:
 	Character();
-	Character(int level, int str, int dex, int con, int intel, int wis, int cha, string name = "");
+	Character(int lvl, int str, int dex, int con, int intel, int wis, int cha);
+	Character(string name, int charclass, int lvl, int str, int dex, int con, int intel, int wis,
+		int cha, int hp, vector <ItemContainer> backpack, vector <ItemContainer> equips);
 
 	void notify();
 	void attach(Character* c);
@@ -89,7 +91,7 @@ public:
 	string statString();
 	string classtoString();
 	void saveCharacter();
-	static Character* loadCharacer(string name);
+	static Character* loadCharacter(string name);
 
 	//string retrieveGender();
 	//void setExtraPoints();
@@ -108,9 +110,10 @@ private:
 	bool equipBoots;
 	bool equipRing;
 	bool equipHelmet;
-	ItemContainer backpack;
+	vector <ItemContainer> inventory;
+	vector <ItemContainer> backpack;
 	string name;
-	//string gender
+	string gender;
 	Character* List[10];
 };
 
