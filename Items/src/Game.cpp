@@ -268,6 +268,10 @@ void Game::update(sf::Event evt){
 			}
 			break;
 		}
+		else if (evt.key.code == sf::Keyboard::Escape)
+		{
+			this->endGame();
+		}
 	default:
 		break;
 	}
