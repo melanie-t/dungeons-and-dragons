@@ -16,14 +16,14 @@
 
 #include "Character.h"
 #include "GameObject.h"
+#include "ItemContainer.h"
 
 class Fighter: public Character, public GameObject {
 public:
 	Fighter();
 	Fighter(string name);
-	Fighter(int level, int str, int dex, int con, int intel, int wis, int cha);
-	Fighter(int level, int str, int dex, int con, int intel, int wis, int cha, string name);
+	Fighter(string name, int level, int str, int dex, int con, int intel, int wis, int cha, int hp, 
+		vector <ItemContainer> backpack, vector <ItemContainer> equips);
 	bool validateNewFighter();
-	static Fighter* loadFighter(string name);
 };
 
