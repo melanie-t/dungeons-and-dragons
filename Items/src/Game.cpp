@@ -358,12 +358,12 @@ void Game::createText(){
 //! render function
 //! @brief Draws everything onto the window
 void Game::render(){
-	currentPosition.setString("Current position: " + std::to_string((currentPos - 1) % width));
+	//currentPosition.setString("Current position: " + std::to_string((currentPos - 1) % width));
 	window->draw(map);
 	window->draw(player);
 	window->draw(textBox);
 	window->draw(text);
-	window->draw(currentPosition);
+	//window->draw(currentPosition);
 }
 
 //! mainLoop function
