@@ -25,21 +25,33 @@
     <Filter Include="Source Files\GameObjects">
       <UniqueIdentifier>{b6891e34-ca20-44ca-8c18-e0cd9e9b0544}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Map Builder">
+      <UniqueIdentifier>{c81000fa-c012-4bf4-be24-eb43ea62f7d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Abstract Observable">
+      <UniqueIdentifier>{4aef0b42-0a80-4765-8411-655bb4b96658}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics">
+      <UniqueIdentifier>{377b019f-966e-433a-9600-125b8b403b1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Helpers">
+      <UniqueIdentifier>{fd394baa-be29-4ba0-92cb-814dd3274e0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Map Builder">
+      <UniqueIdentifier>{1dfff0b6-99cb-4c27-aff5-a4eaeb30a8aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Abstract Observables">
+      <UniqueIdentifier>{4c7088e9-fe26-4a38-81ca-c978187efef1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics">
+      <UniqueIdentifier>{f0c3d81e-1316-4aec-90ef-d8c75a92685e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Helpers">
+      <UniqueIdentifier>{c506fd98-c37a-4331-ab86-73e026865da3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Map.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\MapBuilder.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\SavedMapBuilder.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\FileMapBuilder.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\MapBuildDirector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\ItemContainer.h">
@@ -84,29 +96,41 @@
     <ClInclude Include="src\Enemy.h">
       <Filter>Header Files\GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\TileMap.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Observable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Observer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ItemPanel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Chest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Dice.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\FileMapBuilder.h">
+      <Filter>Header Files\Map Builder</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MapBuildDirector.h">
+      <Filter>Header Files\Map Builder</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SavedMapBuilder.h">
+      <Filter>Header Files\Map Builder</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Observable.h">
+      <Filter>Header Files\Abstract Observable</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Observer.h">
+      <Filter>Header Files\Abstract Observable</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TileMap.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MapBuilder.h">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
     <ClInclude Include="src\StatisticsHelper.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ItemPanel.h">
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -119,16 +143,7 @@
     <ClCompile Include="src\Character.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Markup.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\FileMapBuilder.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Enhancement.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SavedMapBuilder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Fighter.cpp">
@@ -146,25 +161,7 @@
     <ClCompile Include="src\Door.cpp">
       <Filter>Source Files\GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="src\MapBuildDirector.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\TileMap.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Observer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Observable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ItemPanel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Chest.cpp">
@@ -173,8 +170,35 @@
     <ClCompile Include="src\Dice.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\FileMapBuilder.cpp">
+      <Filter>Source Files\Map Builder</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MapBuildDirector.cpp">
+      <Filter>Source Files\Map Builder</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SavedMapBuilder.cpp">
+      <Filter>Source Files\Map Builder</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Observable.cpp">
+      <Filter>Source Files\Abstract Observables</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Observer.cpp">
+      <Filter>Source Files\Abstract Observables</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TileMap.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
     <ClCompile Include="src\StatisticsHelper.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Markup.cpp">
+      <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ItemPanel.cpp">
+      <Filter>Source Files\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
