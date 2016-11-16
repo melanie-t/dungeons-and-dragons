@@ -49,31 +49,27 @@ bool SavedMapBuilder::loadMap(int id)
 				}
 				else if (s == "rows")
 				{
-					map->setNumRows(atoi(xml.GetData().c_str()));
+					map->setWidth(atoi(xml.GetData().c_str()));
 				}
 				else if (s == "columns")
 				{
-					map->setNumCol(atoi(xml.GetData().c_str()));
+					map->setLength(atoi(xml.GetData().c_str()));
 				}
 				else if (s == "doors")
 				{
 					xml.IntoElem();
 					while (xml.FindElem())
 					{
-						Door* door = new Door();
-						int x, y, mapid;
-						bool start;
+						bool start = false;
+						Door* door = new Door(start);
+						int x, y;//, mapid;
 
 						xml.IntoElem();
 						while (xml.FindElem())
 						{
 							string doorTag = xml.GetTagName();
 
-							if (doorTag == "mapid")
-							{
-								mapid = atoi(xml.GetData().c_str());
-							}
-							else if (doorTag == "x")
+							if (doorTag == "x")
 							{
 								x = atoi(xml.GetData().c_str());
 							}
@@ -86,7 +82,7 @@ bool SavedMapBuilder::loadMap(int id)
 								start = (atoi(xml.GetData().c_str()) == 1);
 							}
 						}
-						door->setDestinationID(mapid);
+						//door->setDestinationID(mapid);
 						door->setStart(start);
 						map->fillCell(x, y, door);
 						xml.OutOfElem();
@@ -187,9 +183,9 @@ bool SavedMapBuilder::loadMap(int id)
 					xml.OutOfElem();
 				}
 			}
-			for (int i = 0; i != map->getNumRows(); i++)
+			for (int i = 0; i != map->getWidth(); i++)
 			{
-				for (int k = 0; k != map->getNumCol(); k++)
+				for (int k = 0; k != map->getLength(); k++)
 				{
 					if (!map->isOccupied(i, k))
 					{

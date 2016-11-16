@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
 <map>
 	<id>1</id>
-	<rows>20</rows>
-	<columns>10</columns>
+	<width>20</width>
+	<length>10</length>
 	
 	<doors>
 		<door1>

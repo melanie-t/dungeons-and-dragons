@@ -1,7 +1,7 @@
 <map>
 <id>2</id>
-<rows>20</rows>
-<column>20</column>
+<width>20</width>
+<length>20</length>
 	<doors>
 		<door>
 			<mapid>2</mapid>

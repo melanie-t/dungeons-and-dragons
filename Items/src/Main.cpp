@@ -27,7 +27,7 @@ void runGame(int chosenMap, string characterName)
 	builder.loadMap(chosenMap);
 	Map* map = builder.getMap();
 
-	Game* game = new Game(map->getNumRows(), map->getNumCol(), map);
+	Game* game = new Game(map->getWidth(), map->getLength(), map);
 	ItemPanel::createInventories();
 
 	try{
@@ -187,7 +187,7 @@ int main()
 								cin >> x;
 								cout << "Enter y position: ";
 								cin >> y;
-							} while (x > map->getNumRows() || x < 0 || y > map->getNumRows() || y < 0);
+							} while (x > map->getWidth() || x < 0 || y > map->getWidth() || y < 0);
 						}
 
 						switch (editcmd)

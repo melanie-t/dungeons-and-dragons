@@ -41,22 +41,22 @@ public:
 	//Getters
 	int getID(){ return this->ID; }
 	std::string getName(){ return this->name; }
-	int getNumRows(){ return this->row; }
-	int getNumCol(){ return this->column; }
+	int getWidth(){ return this->width; }
+	int getLength(){ return this->length; }
 	(GameObject*)** getMap(){ return this->map; }
 	Character* getPlayer(){ return this->player; }
 
 	//setters
 	void setID(int id){ this->ID = id; }
 	void setName(std::string name){ this->name = name; }
-	void setNumRows(int rows){ this->row = rows; }
-	void setNumCol(int col){ this->column = col; }
+	void setWidth(int wid){ this->width = wid; }
+	void setLength(int len){ this->length = len; }
 private:
 	//Member variables;
 	//grass, tree, water, brick.
 	GameObject*** map;
-	int row;
-	int column;
+	int width;
+	int length;
 	int ID;
 	std::string name;
 	int** mapSearch;

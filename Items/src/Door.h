@@ -12,7 +12,7 @@ private:
 	int destinationID;
 	bool start;
 public:
-	Door();
+	//Door();
 	Door(int destinationID, bool start = false);
 	Door(bool start = false);
 

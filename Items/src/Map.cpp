@@ -34,9 +34,9 @@ Map::Map()
 Map::Map(const int id, const int length, const int width, Character* player)
 {
 	this->ID = id;
-	//width = row, length = column
-	this->row = width;
-	this->column = length;
+	//length, width
+	this->width = width;
+	this->length = length;
 	//Player on the map.
 	this->player = player;
 	//Creating an array that will serve as our map.
@@ -99,8 +99,8 @@ bool Map::validatePath()
 	int startx, starty;
 	int endx, endy;
 	//check if there's a start point and end point
-	for (int i = 0; i < row; ++i) {
-		for (int j = 0; j < column; ++j) {
+	for (int i = 0; i < width; ++i) {
+		for (int j = 0; j < length; ++j) {
 			if (map[i][j]->getObjectType() == DOOR)
 			{
 				/*if (i != 0 && j != 0 && i != row - 1 && j != column - 1)
@@ -137,7 +137,7 @@ bool Map::validatePath()
 void Map::fillCell(int x, int y, GameObject* obj)
 {
 
-	if (x > row || y > column)
+	if (x > width || y > length)
 	{
 		cout << "invalid position" << endl;
 		return;
@@ -174,7 +174,7 @@ bool Map::recursiveSearch(int posx, int posy, int endposx, int endposy)
 	else if (mapSearch[posx][posy]) { //Check if the flag is on, on that posx and posy in order to avoid infinite loop.
 		return false;
 	}
-	else if (posx < 0 || posy < 0 || posx > row || posy > column) {
+	else if (posx < 0 || posy < 0 || posx > width || posy > length) {
 		return false;
 	}
 	else if (&map[posx][posy] == nullptr) {
@@ -192,9 +192,9 @@ bool Map::recursiveSearch(int posx, int posy, int endposx, int endposy)
 vector<int> Map::outputMap()
 {
 	vector<int> output;
-	for (int i = 0; i != this->column; i++)
+	for (int i = 0; i != this->length; i++)
 	{
-		for (int j = 0; j != this->row; j++)
+		for (int j = 0; j != this->width; j++)
 		{
 			if (map[i][j]->getObjectType() == WATER)
 			{
@@ -247,14 +247,14 @@ bool Map::saveMap()
 	xml.AddElem("map");
 	xml.IntoElem();
 	xml.AddElem("id", this->ID);
-	xml.AddElem("rows", this->row);
-	xml.AddElem("column", this->column);
+	xml.AddElem("width", this->width);
+	xml.AddElem("column", this->length);
 
 	xml.SavePos("map");
 
-	for (int i = 0; i != this->column; i++)
+	for (int i = 0; i != this->length; i++)
 	{
-		for (int k = 0; k != this->row; k++)
+		for (int k = 0; k != this->width; k++)
 		{
 			if (&this->map[i][k] == nullptr)
 			{
@@ -363,9 +363,9 @@ bool Map::saveMap()
 
 void Map::printMap()
 {
-	for (int i = 0; i != this->getNumCol(); i++)
+	for (int i = 0; i != this->getLength(); i++)
 	{
-		for (int k = 0; k != this->getNumRows(); k++)
+		for (int k = 0; k != this->getWidth(); k++)
 		{
 			//
 		}

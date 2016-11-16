@@ -64,22 +64,22 @@ bool FileMapBuilder::loadMap(int id)
 				{
 					map->setID(atoi(xml.GetData().c_str()));
 				}
-				else if (s == "rows")
+				else if (s == "width")
 				{
-					map->setNumRows(atoi(xml.GetData().c_str()));
+					map->setWidth(atoi(xml.GetData().c_str()));
 				}
 				else if (s == "columns")
 				{
-					map->setNumCol(atoi(xml.GetData().c_str()));
+					map->setLength(atoi(xml.GetData().c_str()));
 				}
 				else if (s == "doors")
 				{
 					xml.IntoElem();
 					while (xml.FindElem())
 					{
-						Door* door = new Door();
+						bool start = false;
+						Door* door = new Door(start);
 						int x, y, mapid;
-						bool start;
 
 						xml.IntoElem();
 						while (xml.FindElem())
@@ -103,7 +103,7 @@ bool FileMapBuilder::loadMap(int id)
 								start = (atoi(xml.GetData().c_str()) == 1);
 							}
 						}
-						door->setDestinationID(mapid);
+						//door->setDestinationID(mapid);
 						door->setStart(start);
 						map->fillCell(x, y, door);
 						xml.OutOfElem();
@@ -205,9 +205,9 @@ bool FileMapBuilder::loadMap(int id)
 				}
 			}
 
-			for (int i = 0; i != map->getNumRows(); i++)
+			for (int i = 0; i != map->getWidth(); i++)
 			{
-				for (int k = 0; k != map->getNumCol(); k++)
+				for (int k = 0; k != map->getLength(); k++)
 				{
 					if (!map->isOccupied(i, k))
 					{
