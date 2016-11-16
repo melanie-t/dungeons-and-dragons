@@ -218,7 +218,11 @@ int main()
 						}
 						case 4: // exit + save, no break function
 						{
-							map->saveMap();
+							if (!map->saveMap())
+							{
+								cout << "Invalid map." << endl;
+								break;
+							}
 						}
 						case 5: //exit without saving.
 						{

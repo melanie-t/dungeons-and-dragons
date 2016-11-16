@@ -103,11 +103,11 @@ bool Map::validatePath()
 		for (int j = 0; j < column; ++j) {
 			if (map[i][j]->getObjectType() == DOOR)
 			{
-				if (i != 0 && j != 0 && i != row - 1 && j != column - 1)
+				/*if (i != 0 && j != 0 && i != row - 1 && j != column - 1)
 				{
 					//The door is not at the egde of the map.
 					return false;
-				}
+				}*/
 				Door* door = static_cast<Door*> (map[i][j]);
 
 				if (door->getStart()) { //start
@@ -236,6 +236,13 @@ vector<int> Map::outputMap()
 //! @brief Saves the map object into an xml file.
 bool Map::saveMap()
 {
+
+	if (!this->validatePath())
+	{
+		//Invlaid map.
+		return false;
+	}
+
 	CMarkup xml;
 	xml.AddElem("map");
 	xml.IntoElem();
