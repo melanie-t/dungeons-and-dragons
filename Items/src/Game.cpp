@@ -243,7 +243,7 @@ void Game::update(sf::Event evt){
 			}
 			else{
 				//Checks if space occupied or out of bounds
-				if ((currentPos - 1) % width >= (width-2))
+				if ((currentPos) % width > (width-2))
 					break;
 				else if (level[currentPos + 1] == 1) //1 is water
 					break;
@@ -358,7 +358,7 @@ void Game::createText(){
 //! render function
 //! @brief Draws everything onto the window
 void Game::render(){
-	//currentPosition.setString("Current position: " + std::to_string((currentPos - 1) % width));
+	currentPosition.setString("Current position: " + std::to_string((currentPos - 1) % width));
 	window->draw(map);
 	window->draw(player);
 	window->draw(textBox);
