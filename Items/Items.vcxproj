@@ -96,6 +96,7 @@
     <ClInclude Include="src\Observer.h" />
     <ClInclude Include="src\SavedMapBuilder.h" />
     <ClInclude Include="src\ObjectTypes.h" />
+    <ClInclude Include="src\StatisticsHelper.h" />
     <ClInclude Include="src\TileMap.h" />
     <ClInclude Include="src\TreeTexture.h" />
     <ClInclude Include="src\WaterTexture.h" />
@@ -121,6 +122,7 @@
     <ClCompile Include="src\Observer.cpp" />
     <ClCompile Include="src\SavedMapBuilder.cpp" />
     <ClCompile Include="src\MapBuildDirector.cpp" />
+    <ClCompile Include="src\StatisticsHelper.cpp" />
     <ClCompile Include="src\TileMap.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

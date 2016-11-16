@@ -5,8 +5,9 @@
 class Statistics
 {
 private:
-	static Statistics* singleton;
 	CMarkup xml;
+	static Statistics* singleton;
+
 public:
 	int getNumMaps();
 	int getNumItems();

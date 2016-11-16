@@ -42,6 +42,7 @@ void Statistics::setNumMaps(int num)
 
 		xml.SetData(num);
 	}
+	xml.Save("stats.xml");
 }
 
 void Statistics::setNumItems(int num)
@@ -54,4 +55,14 @@ void Statistics::setNumItems(int num)
 
 		xml.SetData(num);
 	}
+	xml.Save("stats.xml");
+}
+
+Statistics* Statistics::singleton;
+
+Statistics* Statistics::getInstance()
+{
+	if (singleton == nullptr)
+		singleton = new Statistics();
+	return singleton;
 }
