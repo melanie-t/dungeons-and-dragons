@@ -9,6 +9,7 @@
 #include "Markup.h"
 #include <thread>
 #include <Windows.h>
+#include "StatisticsHelper.h"
 using namespace std;
 
 
@@ -120,11 +121,15 @@ int main()
 				cout << "3. Exit Map Editor" << endl;
 				int  map_cmd;
 				std::cin >> map_cmd;
+
 				Map* map = nullptr;
+				bool created = false;
+
 				switch (map_cmd)
 				{
 				case 1: // create map:
 				{
+					created = true;
 					int width, length;
 					cout << "What length should the map be?" << endl;
 					cin >> length;
@@ -133,15 +138,7 @@ int main()
 					//map = new Map();
 
 					//find a better way of doing this.
-					int id = 1;
-					CMarkup xml;
-					char di[20];
-					sprintf_s(di, 20, "maps/%d.xml", id);
-					while (xml.Load(string(di)))
-					{
-						id++;
-						sprintf_s(di, 20, "maps/%d.xml", id);
-					}
+					int id = Statistics::getInstance()->getNumMaps() + 1;
 					map = new Map(id, length, width);
 					cout << "Created new map with ID: " << id << endl;
 					break;
@@ -222,6 +219,11 @@ int main()
 							{
 								cout << "Invalid map." << endl;
 								break;
+							}
+							else if (created)
+							{
+								int numMap = Statistics::getInstance()->getNumMaps();
+								Statistics::getInstance()->setNumMaps(numMap+1);
 							}
 						}
 						case 5: //exit without saving.
@@ -436,6 +438,7 @@ int main()
 				cin >> item_cmd;
 
 				Item* item = nullptr;
+				bool created = false;
 
 				switch (item_cmd)
 				{
@@ -450,15 +453,16 @@ int main()
 					} while (type != TYPE_HELMET && type != TYPE_RING && type != TYPE_BOOTS && type != TYPE_ARMOR && type != TYPE_SHIELD &&
 						type != TYPE_BELT && type != TYPE_WEAPON);
 
-					int id = 1;
-					CMarkup xml;
+					created = true;
+					int id = Statistics::getInstance()->getNumItems() + 1;
+					/*CMarkup xml;
 					char di[20];
-					sprintf_s(di, 20, "maps/%d.xml", id);
+					sprintf_s(di, 20, "items/%d.xml", id);
 					while (xml.Load(string(di)))
 					{
 						id++;
 						sprintf_s(di, 20, "items/%d.xml", id);
-					}
+					}*/
 					cout << "Created new item with ID: " << id << endl;
 					item = new Item(id, type, vector<Enhancement>()); //without enhancements.
 					break;
@@ -556,6 +560,8 @@ int main()
 						case 4: //exit and save 
 							if (item->validateItem())
 							{
+								int num = Statistics::getInstance()->getNumItems();
+								Statistics::getInstance()->setNumItems(num + 1);
 								item->saveItem();
 								cout << "\nItem saved" << endl;
 							}
