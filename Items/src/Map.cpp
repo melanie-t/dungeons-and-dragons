@@ -361,3 +361,14 @@ bool Map::saveMap()
 	return xml.Save(string(di));
 }
 
+void Map::printMap()
+{
+	for (int i = 0; i != this->getNumCol(); i++)
+	{
+		for (int k = 0; k != this->getNumRows(); k++)
+		{
+			//
+		}
+	}
+}
+

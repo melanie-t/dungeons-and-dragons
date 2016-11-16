@@ -14,6 +14,7 @@ private:
 public:
 	Door();
 	Door(int destinationID, bool start = false);
+	Door(bool start = false);
 
 	int getDestinationID(){ return this->destinationID; }
 	void setDestinationID(int d){ this->destinationID = d; }

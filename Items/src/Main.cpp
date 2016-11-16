@@ -194,13 +194,13 @@ int main()
 						{
 						case 1: //add door.
 						{
-							int mapid;
+							//int mapid;
 							bool start;
-							cout << "Enter mapid that the door leads to: ";
-							cin >> mapid;
+							//cout << "Enter mapid that the door leads to: ";
+							//cin >> mapid;
 							cout << "Is this a start or end position(1 for start, 0 for end): ";
 							cin >> start;
-							map->fillCell(x, y, new Door(mapid, start));
+							map->fillCell(x, y, new Door(start));
 							break;
 						}
 						case 2: // add item in this area

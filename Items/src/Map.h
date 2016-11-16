@@ -36,6 +36,7 @@ public:
 	void createMapSize(int x, int y);
 	vector<int> outputMap();
 	bool saveMap();
+	void printMap();
 
 	//Getters
 	int getID(){ return this->ID; }
