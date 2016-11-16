@@ -243,7 +243,7 @@ void Game::update(sf::Event evt){
 			}
 			else{
 				//Checks if space occupied or out of bounds
-				if ((currentPos - 1) % width >= (width-2))
+				if ((currentPos) % width > (width-2))
 					break;
 				else if (level[currentPos + 1] == 1) //1 is water
 					break;
@@ -363,7 +363,7 @@ void Game::render(){
 	window->draw(player);
 	window->draw(textBox);
 	window->draw(text);
-	window->draw(currentPosition);
+	//window->draw(currentPosition);
 }
 
 //! mainLoop function
