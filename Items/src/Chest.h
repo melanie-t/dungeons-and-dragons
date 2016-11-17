@@ -5,9 +5,12 @@
 *	To call displayChest, use Chest::displayChest()
 */
 #pragma once
-#include "Item.h"
+#include "ItemContainer.h"
 
 class Chest {
 public:
 	static void displayChest(Item* inputItem);
+
+private:
+	ItemContainer chestItems;
 };

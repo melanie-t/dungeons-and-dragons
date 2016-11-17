@@ -28,7 +28,6 @@ void runGame(int chosenMap, string characterName)
 	Map* map = builder.getMap();
 
 	Game* game = new Game(map->getWidth(), map->getLength(), map);
-	ItemPanel::createInventories();
 
 	try{
 		game->go();
@@ -73,14 +72,9 @@ int main()
 			{
 				string name;
 				std::cout << "Choose a Fighter from the list."
-					<< "\nDylan, James, Lisa, Maggie: "
+					<< "\n<Enter list here>"
 					<< endl;
 				cin >> name;
-				if (name != "Dylan" && name != "James" && name != "Lisa" && name != "Maggie")
-				{
-					cout << "Invalid name entered. Playing as Dylan!" << endl;
-					name = "Dylan";
-				}
 				cout << "Choose a map id from the list below:" << endl;
 
 				int id = 1;
@@ -534,7 +528,7 @@ int main()
 										|| enhancement_type != EN_WISDOM || enhancement_type != EN_CHARISMA 
 										|| enhancement_type != EN_ARMOR_CLASS))
 									|| (item->getType() == TYPE_BOOTS && (enhancement_type != EN_DEXTERITY && enhancement_type != EN_ARMOR_CLASS))
-									|| (item->getType == TYPE_WEAPON && (enhancement_type != EN_ATTACK_BONUS && enhancement_type != EN_DAMAGE_BONUS)))
+									|| (item->getType() == TYPE_WEAPON && (enhancement_type != EN_ATTACK_BONUS && enhancement_type != EN_DAMAGE_BONUS)))
 								{
 									cout << "Invalid Enhancement. Valid Enhancements for each item type: "
 										<< "\nHelmet (intelligence, wisdom, armorclass)"
