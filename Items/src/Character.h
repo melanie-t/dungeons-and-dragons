@@ -78,14 +78,25 @@ public:
 	int getCharClass();
 	void setCharClass(int classOfChar);
 	void levelUp();
+	ItemContainer getBackpack();
+	void addToBackpack(Item newItem);
 
 	bool gameover = false;
-	bool armorEquipped();
-	bool shieldEquipped();
-	bool weaponEquipped();
-	bool bootsEquipped();
-	bool ringEquipped();
-	bool helmetEquipped();
+	void equipHelmet(Item* helmet);
+	void equipArmor(Item* armor);
+	void equipBelt(Item* belt);
+	void equipBoots(Item* boots);
+	void equipShield(Item* shield);
+	void equipWeapon(Item* weapon);
+	void equipRing(Item* ring);
+
+	void removeHelmet();
+	void removeArmor();
+	void removeBelt();
+	void removeBoots();
+	void removeShield();
+	void removeWeapon();
+	void removeRing();
 
 	void displayStats();
 	string statString();
@@ -104,14 +115,17 @@ private:
 	int attackBonus;
 	int damageBonus;
 	int charClass;
-	bool equipArmor;
-	bool equipShield;
-	bool equipWeapon;
-	bool equipBoots;
-	bool equipRing;
-	bool equipHelmet;
-	vector <ItemContainer> inventory;
-	vector <ItemContainer> backpack;
+	
+	bool helmetEquipped = false,
+		armorEquipped = false,
+		beltEquipped = false,
+		bootsEquipped = false,
+		shieldEquipped = false,
+		weaponEquipped = false,
+		ringEquipped = false;
+
+	Item* equips[7]; //(0)helmet, (1)armor, (2)belt, (3)boots, (4)shield, (5)weapon, (6)ring
+	ItemContainer backpack;
 	string name;
 	string gender;
 	Character* List[10];
@@ -125,4 +139,15 @@ enum Ability
 	INTELLIGENCE,
 	WISDOM,
 	CHARISMA
+};
+
+enum Equip
+{
+	HELMET,
+	ARMOR,
+	BELT,
+	BOOTS,
+	SHIELD,
+	WEAPON,
+	RING
 };

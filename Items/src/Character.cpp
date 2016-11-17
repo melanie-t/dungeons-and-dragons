@@ -487,53 +487,197 @@ void Character::levelUp()
 	abilityScores[Ability::CHARISMA] < 18 ? setSTR(abilityScores[Ability::CHARISMA] + 1) : false;
 }
 
-//! armorEquipped function
-//! @return true if equipArmor=true, else false.
-bool Character::armorEquipped()
+ItemContainer Character::getBackpack()
 {
-	return equipArmor;
-}
-//! shieldEquipped function
-//! @return true if equipShield=true, else false.
-bool Character::shieldEquipped()
-{
-	if (equipShield)
-		return true;
-	return false;
-}
-//! weaponEquipped function
-//! @return true if equipWeapon=true, else false.
-bool Character::weaponEquipped()
-{
-	if (equipWeapon)
-		return true;
-	return false;
-}
-//! bootsEquipped function
-//! @return true if equipBoots=true, else false.
-bool Character::bootsEquipped()
-{
-	if (equipBoots)
-		return true;
-	return false;
+	return backpack;
 }
 
-//! ringEquipped function
-//! @return true if equipRing=true, else false.
-bool Character::ringEquipped()
+void Character::addToBackpack(Item newItem)
 {
-	if (equipRing)
-		return true;
-	return false;
+	backpack.addItem(newItem);
 }
-//! helmetEquipped function
-//! @return true if equipHelmet=true, else false.
-bool Character::helmetEquipped()
+
+void Character::equipHelmet(Item* helmet)
 {
-	if (equipHelmet)
-		return true;
-	return false;
+	if (!helmetEquipped)
+	{
+		//Nothing equipped
+		equips[Equip::HELMET] = helmet;
+		helmetEquipped = true;
+	}
+	else
+	{
+		//Puts current item into backpack and equips new item
+		backpack.addItem(*equips[Equip::HELMET]);
+		equips[Equip::HELMET] = helmet;
+	}
 }
+
+void Character::equipArmor(Item* armor)
+{
+	if (!armorEquipped)
+	{
+		//Nothing equipped
+		equips[Equip::ARMOR] = armor;
+		armorEquipped = true;
+	}
+	else
+	{
+		//Puts current item into backpack and equips new item
+		backpack.addItem(*equips[Equip::ARMOR]);
+		equips[Equip::ARMOR] = armor;
+	}
+}
+
+void Character::equipBelt(Item* belt)
+{
+	if (!beltEquipped)
+	{
+		//Nothing equipped
+		equips[Equip::BELT] = belt;
+		beltEquipped = true;
+	}
+	else
+	{
+		//Puts current item into backpack and equips new item
+		backpack.addItem(*equips[Equip::BELT]);
+		equips[Equip::BELT] = belt;
+	}
+}
+
+void Character::equipBoots(Item* boots)
+{
+	if (!bootsEquipped)
+	{
+		//Nothing equipped
+		equips[Equip::BOOTS] = boots;
+		bootsEquipped = true;
+	}
+	else
+	{
+		//Puts current item into backpack and equips new item
+		backpack.addItem(*equips[Equip::BOOTS]);
+		equips[Equip::BOOTS] = boots;
+	}
+}
+
+void Character::equipShield(Item* shield)
+{
+	if (!shieldEquipped)
+	{
+		//Nothing equipped
+		equips[Equip::SHIELD] = shield;
+		shieldEquipped = true;
+	}
+	else
+	{	//Puts current item into backpack and equips new item
+		backpack.addItem(*equips[Equip::SHIELD]);
+		equips[Equip::SHIELD] = shield;
+	}
+}
+
+void Character::equipWeapon(Item* weapon)
+{
+	if (!weaponEquipped)
+	{
+		//Nothing equipped
+		equips[Equip::WEAPON] = weapon;
+		weaponEquipped = true;
+	}
+	else
+	{
+		//Puts current item into backpack and equips new item
+		backpack.addItem(*equips[Equip::WEAPON]);
+		equips[Equip::WEAPON] = weapon;
+	}
+}
+
+void Character::equipRing(Item* ring)
+{
+	if (!ringEquipped)
+	{
+		//Nothing equipped
+		equips[Equip::RING] = ring;
+		ringEquipped = true;
+	}
+	else
+	{
+		//Puts current item into backpack and equips new item
+		backpack.addItem(*equips[Equip::RING]);
+		equips[Equip::RING] = ring;
+	}
+}
+
+void Character::removeHelmet()
+{
+	if (helmetEquipped)
+	{
+		backpack.addItem(*equips[Equip::HELMET]);
+		equips[Equip::HELMET] = NULL;
+		helmetEquipped = false;
+	}
+}
+
+void Character::removeArmor()
+{
+	if (armorEquipped)
+	{
+		backpack.addItem(*equips[Equip::ARMOR]);
+		equips[Equip::ARMOR] = NULL;
+		armorEquipped = false;
+	}
+}
+
+void Character::removeBelt()
+{
+	if (beltEquipped)
+	{
+		backpack.addItem(*equips[Equip::BELT]);
+		equips[Equip::BELT] = NULL;
+		beltEquipped = false;
+	}
+}
+
+void Character::removeBoots()
+{
+	if (bootsEquipped)
+	{
+		backpack.addItem(*equips[Equip::BOOTS]);
+		equips[Equip::BOOTS] = NULL;
+		bootsEquipped = false;
+	}
+}
+
+void Character::removeShield()
+{
+	if (shieldEquipped)
+	{
+		backpack.addItem(*equips[Equip::SHIELD]);
+		equips[Equip::SHIELD] = NULL;
+		shieldEquipped = false;
+	}
+}
+
+void Character::removeWeapon()
+{
+	if (weaponEquipped)
+	{
+		backpack.addItem(*equips[Equip::WEAPON]);
+		equips[Equip::WEAPON] = NULL;
+		weaponEquipped = false;
+	}
+}
+
+void Character::removeRing()
+{
+	if (ringEquipped)
+	{
+		backpack.addItem(*equips[Equip::RING]);
+		equips[Equip::RING] = NULL;
+		ringEquipped = false;
+	}
+}
+
 //! displayStats function
 //! @brief displays the stats of the Character.
 void Character::displayStats()
