@@ -38,7 +38,7 @@ void runGame(int chosenMap, string characterName)
 	runGameThread.detach();
 }
 
-void toLower(basic_string<char>& s) {
+inline void toLower(basic_string<char>& s) {
 	for (basic_string<char>::iterator p = s.begin(); p != s.end(); ++p) 
 	{
 		*p = tolower(*p);
