@@ -526,6 +526,27 @@ int main()
 								cout << "Enter the type of enhancement you would like to add. "
 									<< "\nstrength, constitution, wisdom, charisma, dexterity, intelligence, attackbonus, damagebonus, armorclass: " << endl;
 								cin >> enhancement_type;
+
+								if ((item->getType() == TYPE_HELMET && (enhancement_type != EN_INTELLIGENCE && enhancement_type != EN_WISDOM
+										&& enhancement_type != EN_ARMOR_CLASS))
+									|| ((item->getType() == TYPE_ARMOR || item->getType() == TYPE_SHIELD) && (enhancement_type != EN_ARMOR_CLASS))
+									|| ((item->getType() == TYPE_RING) && (enhancement_type != EN_STRENGTH || enhancement_type != EN_CONSTITUTION
+										|| enhancement_type != EN_WISDOM || enhancement_type != EN_CHARISMA 
+										|| enhancement_type != EN_ARMOR_CLASS))
+									|| (item->getType() == TYPE_BOOTS && (enhancement_type != EN_DEXTERITY && enhancement_type != EN_ARMOR_CLASS))
+									|| (item->getType == TYPE_WEAPON && (enhancement_type != EN_ATTACK_BONUS && enhancement_type != EN_DAMAGE_BONUS)))
+								{
+									cout << "Invalid Enhancement. Valid Enhancements for each item type: "
+										<< "\nHelmet (intelligence, wisdom, armorclass)"
+										<< "\nArmor (armorclass)"
+										<< "\nShield (armorclass)"
+										<< "\nRing (strength, constitution, wisdom, charisma, armorclass)"
+										<< "\nBelt (constitution, strength)"
+										<< "\nBoots (dexterity, armorclass)"
+										<< "\nWeapon (attackbonus, damagebonus)\n"
+										<< endl;
+									enhancement_type = "uyeiug"; //abritrary, just to make this do/while continue to loop.
+								}
 							} while (enhancement_type != EN_STRENGTH && enhancement_type != EN_CONSTITUTION && enhancement_type != EN_WISDOM
 								&& enhancement_type != EN_CHARISMA && enhancement_type != EN_DEXTERITY && enhancement_type != EN_ATTACK_BONUS 
 								&& enhancement_type != EN_DAMAGE_BONUS && enhancement_type != EN_ARMOR_CLASS && enhancement_type != EN_INTELLIGENCE);
