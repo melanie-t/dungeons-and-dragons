@@ -475,7 +475,7 @@ void Character::setCharClass(int classOfChar)
 
 //! Implementation of level up method.
 //! Occurs when we complete a map.
-//  GUYS! I'm using if-else shortcut: (condition) ? (if_true) : (if_false)
+//  Using if-else shortcut: (condition) ? (if_true) : (if_false)
 void Character::levelUp()
 {
 	level = level + 1;
@@ -487,195 +487,188 @@ void Character::levelUp()
 	abilityScores[Ability::CHARISMA] < 18 ? setSTR(abilityScores[Ability::CHARISMA] + 1) : false;
 }
 
+//! Getter method to get the ItemContainer backpack
+//! @return backpack: the backpack (itemcontainer vector) inventory
 ItemContainer Character::getBackpack()
 {
 	return backpack;
 }
 
-void Character::addToBackpack(Item newItem)
-{
-	backpack.addItem(newItem);
-}
+//! Implementation of equip method
+//! @param item: The item that you wish to equip
+void Character::equipItem(Item* item) {
+	string type = item->getType();
 
-void Character::equipHelmet(Item* helmet)
-{
-	if (!helmetEquipped)
-	{
-		//Nothing equipped
-		equips[Equip::HELMET] = helmet;
-		helmetEquipped = true;
+	if (type == TYPE_HELMET) {
+		if (!helmetEquipped)
+		{
+			//Nothing equipped
+			equips[Equip::HELMET] = item;
+			helmetEquipped = true;
+		}
+		else
+		{
+			//Puts current item into backpack and equips new item
+			backpack.addItem(*equips[Equip::HELMET]);
+			equips[Equip::HELMET] = item;
+		}
 	}
+
+	else if (type == TYPE_ARMOR)
+	{
+		if (!armorEquipped)
+		{
+			//Nothing equipped
+			equips[Equip::ARMOR] = item;
+			armorEquipped = true;
+		}
+		else
+		{
+			//Puts current item into backpack and equips new item
+			backpack.addItem(*equips[Equip::ARMOR]);
+			equips[Equip::ARMOR] = item;
+		}
+	}
+
+	else if (type == TYPE_BELT)
+	{
+		if (!beltEquipped)
+		{
+			//Nothing equipped
+			equips[Equip::BELT] = item;
+			beltEquipped = true;
+		}
+		else
+		{
+			//Puts current item into backpack and equips new item
+			backpack.addItem(*equips[Equip::BELT]);
+			equips[Equip::BELT] = item;
+		}
+	}
+
+	else if (type == TYPE_BOOTS)
+	{
+		if (!bootsEquipped)
+		{
+			//Nothing equipped
+			equips[Equip::BOOTS] = item;
+			bootsEquipped = true;
+		}
+		else
+		{
+			//Puts current item into backpack and equips new item
+			backpack.addItem(*equips[Equip::BOOTS]);
+			equips[Equip::BOOTS] = item;
+		}
+	}
+
+	else if (type == TYPE_SHIELD)
+	{
+		if (!bootsEquipped)
+		{
+			//Nothing equipped
+			equips[Equip::BOOTS] = item;
+			bootsEquipped = true;
+		}
+		else
+		{
+			//Puts current item into backpack and equips new item
+			backpack.addItem(*equips[Equip::BOOTS]);
+			equips[Equip::BOOTS] = item;
+		}
+	}
+
+	else if (type == TYPE_WEAPON)
+	{
+		if (!weaponEquipped)
+		{
+			//Nothing equipped
+			equips[Equip::WEAPON] = item;
+			weaponEquipped = true;
+		}
+		else
+		{
+			//Puts current item into backpack and equips new item
+			backpack.addItem(*equips[Equip::WEAPON]);
+			equips[Equip::WEAPON] = item;
+		}
+	}
+
+	else if (type == TYPE_RING)
+	{
+		if (!ringEquipped)
+		{
+			//Nothing equipped
+			equips[Equip::RING] = item;
+			ringEquipped = true;
+		}
+
+		else
+		{
+			//Puts current item into backpack and equips new item
+			backpack.addItem(*equips[Equip::RING]);
+			equips[Equip::RING] = item;
+		}
+	}
+
 	else
-	{
-		//Puts current item into backpack and equips new item
-		backpack.addItem(*equips[Equip::HELMET]);
-		equips[Equip::HELMET] = helmet;
-	}
+		cout << "Invalid item type" << endl;
 }
 
-void Character::equipArmor(Item* armor)
-{
-	if (!armorEquipped)
-	{
-		//Nothing equipped
-		equips[Equip::ARMOR] = armor;
-		armorEquipped = true;
-	}
-	else
-	{
-		//Puts current item into backpack and equips new item
-		backpack.addItem(*equips[Equip::ARMOR]);
-		equips[Equip::ARMOR] = armor;
-	}
-}
+void Character::removeItem(Item* item) {
+	string type = item->getType();
 
-void Character::equipBelt(Item* belt)
-{
-	if (!beltEquipped)
-	{
-		//Nothing equipped
-		equips[Equip::BELT] = belt;
-		beltEquipped = true;
-	}
-	else
-	{
-		//Puts current item into backpack and equips new item
-		backpack.addItem(*equips[Equip::BELT]);
-		equips[Equip::BELT] = belt;
-	}
-}
-
-void Character::equipBoots(Item* boots)
-{
-	if (!bootsEquipped)
-	{
-		//Nothing equipped
-		equips[Equip::BOOTS] = boots;
-		bootsEquipped = true;
-	}
-	else
-	{
-		//Puts current item into backpack and equips new item
-		backpack.addItem(*equips[Equip::BOOTS]);
-		equips[Equip::BOOTS] = boots;
-	}
-}
-
-void Character::equipShield(Item* shield)
-{
-	if (!shieldEquipped)
-	{
-		//Nothing equipped
-		equips[Equip::SHIELD] = shield;
-		shieldEquipped = true;
-	}
-	else
-	{	//Puts current item into backpack and equips new item
-		backpack.addItem(*equips[Equip::SHIELD]);
-		equips[Equip::SHIELD] = shield;
-	}
-}
-
-void Character::equipWeapon(Item* weapon)
-{
-	if (!weaponEquipped)
-	{
-		//Nothing equipped
-		equips[Equip::WEAPON] = weapon;
-		weaponEquipped = true;
-	}
-	else
-	{
-		//Puts current item into backpack and equips new item
-		backpack.addItem(*equips[Equip::WEAPON]);
-		equips[Equip::WEAPON] = weapon;
-	}
-}
-
-void Character::equipRing(Item* ring)
-{
-	if (!ringEquipped)
-	{
-		//Nothing equipped
-		equips[Equip::RING] = ring;
-		ringEquipped = true;
-	}
-	else
-	{
-		//Puts current item into backpack and equips new item
-		backpack.addItem(*equips[Equip::RING]);
-		equips[Equip::RING] = ring;
-	}
-}
-
-void Character::removeHelmet()
-{
-	if (helmetEquipped)
+	if (type == TYPE_HELMET && helmetEquipped)
 	{
 		backpack.addItem(*equips[Equip::HELMET]);
 		equips[Equip::HELMET] = NULL;
 		helmetEquipped = false;
 	}
-}
 
-void Character::removeArmor()
-{
-	if (armorEquipped)
+	else if (type == TYPE_ARMOR && armorEquipped)
 	{
 		backpack.addItem(*equips[Equip::ARMOR]);
 		equips[Equip::ARMOR] = NULL;
 		armorEquipped = false;
 	}
-}
 
-void Character::removeBelt()
-{
-	if (beltEquipped)
+	else if (type == TYPE_BELT && beltEquipped)
 	{
 		backpack.addItem(*equips[Equip::BELT]);
 		equips[Equip::BELT] = NULL;
 		beltEquipped = false;
 	}
-}
 
-void Character::removeBoots()
-{
-	if (bootsEquipped)
+	else if (type == TYPE_BOOTS && bootsEquipped)
 	{
 		backpack.addItem(*equips[Equip::BOOTS]);
 		equips[Equip::BOOTS] = NULL;
 		bootsEquipped = false;
 	}
-}
 
-void Character::removeShield()
-{
-	if (shieldEquipped)
+	else if (type == TYPE_SHIELD && shieldEquipped)
 	{
 		backpack.addItem(*equips[Equip::SHIELD]);
 		equips[Equip::SHIELD] = NULL;
 		shieldEquipped = false;
 	}
-}
 
-void Character::removeWeapon()
-{
-	if (weaponEquipped)
+	else if (type == TYPE_WEAPON && weaponEquipped)
 	{
 		backpack.addItem(*equips[Equip::WEAPON]);
 		equips[Equip::WEAPON] = NULL;
 		weaponEquipped = false;
 	}
-}
 
-void Character::removeRing()
-{
-	if (ringEquipped)
+	else if (type == TYPE_RING && ringEquipped)
 	{
 		backpack.addItem(*equips[Equip::RING]);
 		equips[Equip::RING] = NULL;
 		ringEquipped = false;
 	}
+
+	else
+		cout << "Nothing to remove" << endl;
 }
 
 //! displayStats function

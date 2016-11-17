@@ -79,24 +79,10 @@ public:
 	void setCharClass(int classOfChar);
 	void levelUp();
 	ItemContainer getBackpack();
-	void addToBackpack(Item newItem);
 
 	bool gameover = false;
-	void equipHelmet(Item* helmet);
-	void equipArmor(Item* armor);
-	void equipBelt(Item* belt);
-	void equipBoots(Item* boots);
-	void equipShield(Item* shield);
-	void equipWeapon(Item* weapon);
-	void equipRing(Item* ring);
-
-	void removeHelmet();
-	void removeArmor();
-	void removeBelt();
-	void removeBoots();
-	void removeShield();
-	void removeWeapon();
-	void removeRing();
+	void equipItem(Item* item);
+	void removeItem(Item* item);
 
 	void displayStats();
 	string statString();
