@@ -29,13 +29,20 @@ void runGame(int chosenMap, string characterName)
 
 	Game* game = new Game(map->getWidth(), map->getLength(), map);
 
-	try{
+	try {
 		game->go();
 	}
-	catch (char* e){
+	catch (char* e) {
 		MessageBoxA(NULL, e, "EXCEPTION OCCURED", MB_OK | MB_ICONERROR);
 	}
 	runGameThread.detach();
+}
+
+void toLower(basic_string<char>& s) {
+	for (basic_string<char>::iterator p = s.begin(); p != s.end(); ++p) 
+	{
+		*p = tolower(*p);
+	}
 }
 
 /**
@@ -255,6 +262,7 @@ int main()
 					char decision;
 					cout << "Enter name of your character: " << endl;
 					cin >> name;
+					toLower(name);  //will convert to lowercase
 					Fighter newFighter(name);
 					newFighter.notify();
 
@@ -277,6 +285,8 @@ int main()
 
 					cout << "Enter the name of the Fighter you want to edit: " << endl;
 					cin >> name;
+					toLower(name);
+
 					Character* fighterPointer;
 					fighterPointer = Character::loadCharacter(name);
 

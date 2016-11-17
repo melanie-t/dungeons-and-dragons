@@ -95,7 +95,7 @@ bool Game::validate(int start, int end){
 //! @return true if game window was initialized successfully
 bool Game::init(){
 	// col and row and reversed.
-	window = new sf::RenderWindow(sf::VideoMode(m_map->getWidth() * 32, m_map->getLength() * 32 + 250), "D&D 2.0"); //fix the w, h with size of map
+	window = new sf::RenderWindow(sf::VideoMode(m_map->getWidth() * 32, m_map->getLength() * 32 + 250), "D&D 2.0"); 
 	//Puts the window at the top left of the monitor screen
 	window->setPosition(sf::Vector2i(0, 0));
 	//Prevent multiple key presses

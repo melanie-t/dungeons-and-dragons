@@ -538,6 +538,14 @@ bool Character::helmetEquipped()
 //! @brief displays the stats of the Character.
 void Character::displayStats()
 {
+	for (basic_string<char>::iterator p = name.begin(); p != name.end(); ++p)
+	{
+		if (p == name.begin())
+			*p = toupper(*p);
+		else
+			*p = tolower(*p);
+	}
+
 	cout << "\n= PLAYER STATS ="
 		<< "\nName: " << getName()
 		<< "\nClass: " << classtoString()
@@ -560,9 +568,18 @@ void Character::displayStats()
 //! @return string of the Character stats
 string Character::statString()
 {
+	//Converts name to first char capitalized
+	for (basic_string<char>::iterator p = name.begin(); p != name.end(); ++p)
+	{
+		if (p == name.begin())
+			*p = toupper(*p);
+		else
+			*p = tolower(*p);
+	}
+
 	std::ostringstream out;
 	out << "\nName: " << getName()
-		<< "\nClass: Fighter" //<< classtoString()
+		<< "\nClass: "  << classtoString()
 		<< "\nLVL: " << getLevel()
 		<< "\nHP : " << getHitPoints()
 		<< "\nSTR: " << getSTR()
