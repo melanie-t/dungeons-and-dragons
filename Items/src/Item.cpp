@@ -43,7 +43,7 @@ Item::~Item()
 }
 
 //! method to get the type of the item
-//! @return : type of the item
+//! @return : string type of the item
 string Item::getType()
 {
 	return type;
@@ -241,7 +241,6 @@ bool Item::saveItem()
 	sprintf_s(di, 20, "items/%d.xml", id);
 	xml.Save(string(di));
 	return true;
-
 }
 
 //! function that randomly chooses
@@ -510,8 +509,9 @@ Item* Item::randommize(int lvl)
 
 	//Item item(type, enh);
 	//item.levelRequirement = lvl;
-
-	return new Item(type, enh);
+	Item* randomItem = new Item(type, enh);
+	randomItem->saveItem(); //will save the newly generated item as an XML file
+	return randomItem;
 }
 //! static load function
 //! @brief loads previously saved items 

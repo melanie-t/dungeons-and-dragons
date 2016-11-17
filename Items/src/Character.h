@@ -82,7 +82,13 @@ public:
 
 	bool gameover = false;
 	void equipItem(Item* item);
-	void removeItem(Item* item);
+	void removeHelmet();
+	void removeArmor();
+	void removeBelt();
+	void removeBoots();
+	void removeShield();
+	void removeWeapon();
+	void removeRing();
 
 	void displayStats();
 	string statString();

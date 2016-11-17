@@ -602,7 +602,6 @@ void Character::equipItem(Item* item) {
 			equips[Equip::RING] = item;
 			ringEquipped = true;
 		}
-
 		else
 		{
 			//Puts current item into backpack and equips new item
@@ -615,60 +614,81 @@ void Character::equipItem(Item* item) {
 		cout << "Invalid item type" << endl;
 }
 
-void Character::removeItem(Item* item) {
-	string type = item->getType();
-
-	if (type == TYPE_HELMET && helmetEquipped)
+//! Implementation to unequip helmet in equips
+void Character::removeHelmet()
+{
+	if (helmetEquipped)
 	{
 		backpack.addItem(*equips[Equip::HELMET]);
 		equips[Equip::HELMET] = NULL;
 		helmetEquipped = false;
 	}
+}
 
-	else if (type == TYPE_ARMOR && armorEquipped)
+//! Implementation to unequip armor in equips
+void Character::removeArmor()
+{
+	if (armorEquipped)
 	{
 		backpack.addItem(*equips[Equip::ARMOR]);
 		equips[Equip::ARMOR] = NULL;
 		armorEquipped = false;
 	}
+}
 
-	else if (type == TYPE_BELT && beltEquipped)
+//! Implementation to unequip belt in equips
+void Character::removeBelt()
+{
+	if (beltEquipped)
 	{
 		backpack.addItem(*equips[Equip::BELT]);
 		equips[Equip::BELT] = NULL;
 		beltEquipped = false;
 	}
+}
 
-	else if (type == TYPE_BOOTS && bootsEquipped)
+//! Implementation to unequip boots in equips
+void Character::removeBoots()
+{
+	if (bootsEquipped)
 	{
 		backpack.addItem(*equips[Equip::BOOTS]);
 		equips[Equip::BOOTS] = NULL;
 		bootsEquipped = false;
 	}
+}
 
-	else if (type == TYPE_SHIELD && shieldEquipped)
+//! Implementation to unequip shield in equips
+void Character::removeShield()
+{
+	if (shieldEquipped)
 	{
 		backpack.addItem(*equips[Equip::SHIELD]);
 		equips[Equip::SHIELD] = NULL;
 		shieldEquipped = false;
 	}
+}
 
-	else if (type == TYPE_WEAPON && weaponEquipped)
+//! Implementation to unequip weapon in equips
+void Character::removeWeapon()
+{
+	if (weaponEquipped)
 	{
 		backpack.addItem(*equips[Equip::WEAPON]);
 		equips[Equip::WEAPON] = NULL;
 		weaponEquipped = false;
 	}
+}
 
-	else if (type == TYPE_RING && ringEquipped)
+//! Implementation to unequip ring in equips
+void Character::removeRing()
+{
+	if (ringEquipped)
 	{
 		backpack.addItem(*equips[Equip::RING]);
 		equips[Equip::RING] = NULL;
 		ringEquipped = false;
 	}
-
-	else
-		cout << "Nothing to remove" << endl;
 }
 
 //! displayStats function
