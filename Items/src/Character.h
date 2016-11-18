@@ -40,7 +40,7 @@ public:
 	Character();
 	Character(int lvl, int str, int dex, int con, int intel, int wis, int cha);
 	Character(string name, int charclass, int lvl, int str, int dex, int con, int intel, int wis,
-		int cha, int hp, vector <ItemContainer> backpack, vector <ItemContainer> equips);
+		int cha, int hp, ItemContainer backpack, ItemContainer equips);
 
 	void notify();
 	void attach(Character* c);

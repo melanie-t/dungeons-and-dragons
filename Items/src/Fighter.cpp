@@ -19,8 +19,7 @@ using std::endl;
 //! @param cha charisma of Fighter
 //! @param name name of Fighter
 Fighter::Fighter(string name, int level, int str, int dex, int con, int intel, int wis, int cha, int hp, 
-		vector <ItemContainer> backpack, vector <ItemContainer> equips) 
-	: Character(name, 1, level, str, dex, con, intel, wis, cha, hp, backpack, equips)
+		ItemContainer backpack, ItemContainer equips) : Character(name, 1, level, str, dex, con, intel, wis, cha, hp, backpack, equips)
 {
 	//1 represents character class Fighter
 }

@@ -39,15 +39,17 @@ public:
 	//Creates Item Class from File Load
 	static Item* load(int id);
 	//Returns an integer for the type. Used by Chest.h to check which type it is
-	int getItemType();
+	//int getItemType();
 	//add enhancment to influences
 	void addEnhancement(Enhancement enh);
 	//remove enhancement
 	void removeEnhancement(string type);
+	//status represents if it's not found, in backpack or equipped (0, 1, 2 respectively)
 private:
 	int id;
 	int itemType;
 	string type;
+	int spriteNumber;
 	//int levelRequirement;
 	vector<Enhancement> influence;
 };

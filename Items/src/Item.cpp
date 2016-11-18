@@ -270,23 +270,39 @@ inline int givePlusFiveBonus(int lvl)
 Item* Item::randommize(int lvl)
 {
 	int r = rand() % 7 + 1; //Random number between 1 and 7 for choosing item type.
+	int randomSprite = rand() % 5 + 1; // Random sprite number between 1 to 5
 	string type;
+	string itemPath = "res/";
 	switch (r)
 	{
 	case 1:
-		type = TYPE_HELMET; break;
+		type = TYPE_HELMET;
+		itemPath = itemPath + "helmet/" + to_string(randomSprite) + ".png";
+		break;
 	case 2:
-		type = TYPE_ARMOR; break;
+		type = TYPE_ARMOR; 
+		itemPath = itemPath + "armor/" + to_string(randomSprite) + ".png";
+		break;
 	case 3:
-		type = TYPE_SHIELD; break;
+		type = TYPE_SHIELD; 
+		itemPath = itemPath + "shield/" + to_string(randomSprite) + ".png";
+		break;
 	case 4:
-		type = TYPE_RING; break;
+		type = TYPE_RING; 
+		itemPath = itemPath + "ring/" + to_string(randomSprite) + ".png";
+		break;
 	case 5:
-		type = TYPE_BELT; break;
+		type = TYPE_BELT; 
+		itemPath = itemPath + "belt/" + to_string(randomSprite) + ".png";
+		break;
 	case 6:
-		type = TYPE_BOOTS; break;
+		type = TYPE_BOOTS; 
+		itemPath = itemPath + "boots/" + to_string(randomSprite) + ".png";
+		break;
 	case 7:
-		type = TYPE_WEAPON; break;
+		type = TYPE_WEAPON; 
+		itemPath = itemPath + "weapon/" + to_string(randomSprite) + ".png";
+		break;
 	}
 
 	// For now, randomly generated items will not have enhancements.
@@ -587,29 +603,6 @@ Item* Item::load(int id)
 		cout << xml.GetError() << endl;
 		return nullptr; //return null
 	}
-}
-
-//! getItemType function
-//! @brief method used to make use of switch statements when checking item type
-//! @return : int type of item
-int Item::getItemType() {
-	string itemType = getType();
-	if (itemType.compare("armor") == 0)
-		return 1;
-	else if (itemType.compare("belt") == 0)
-		return 2;
-	else if (itemType.compare("helmet") == 0)
-		return 3;
-	else if (itemType.compare("ring") == 0)
-		return 4;
-	else if (itemType.compare("shield") == 0)
-		return 5;
-	else if (itemType.compare("boots") == 0)
-		return 6;
-	else if (itemType.compare("weapon") == 0)
-		return 7;
-	else
-		return 0;
 }
 
 //! addEnhancement function

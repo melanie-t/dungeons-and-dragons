@@ -47,8 +47,11 @@ Character::Character(int lvl, int str, int dex, int con, int intel, int wis, int
 //! @param wis wisdom of Character
 //! @param cha charisma of Character
 //! @param name name of Character
+//! @param hp health points of Character
+//! @param backpack contains all items in backpack inventory
+//! @param equips contains all items that are currently worn
 Character::Character(string name, int charclass, int lvl, int str, int dex, int con, int intel,
-	int wis, int cha, int hp, vector <ItemContainer> backpack, vector <ItemContainer> equips)
+	int wis, int cha, int hp, ItemContainer backpack, ItemContainer equips)
 {
 	this->name = name;
 	level = lvl;
@@ -785,6 +788,8 @@ void Character::saveCharacter()
 	xml.AddElem("charisma", getCHA());
 	xml.AddElem("hp", getHitPoints());
 	xml.AddElem("class", getCharClass());
+	xml.AddElem("backpack");
+	xml.AddElem("equips");
 	//char di[20];
 	//sprintf_s(di, 20, "characters/%s.xml", name.c_str());
 	xml.Save("characters/" + name + ".xml");
@@ -810,7 +815,7 @@ Character* Character::loadCharacter(string name)
 		{
 			xml.IntoElem();
 			int level, charclass, str, dex, con, intel, wis, cha, hp;
-			vector <ItemContainer> backpack, equips;
+			ItemContainer backpack, equips;
 
 			while (xml.FindElem())
 			{

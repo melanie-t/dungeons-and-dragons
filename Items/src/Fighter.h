@@ -23,7 +23,7 @@ public:
 	Fighter();
 	Fighter(string name);
 	Fighter(string name, int level, int str, int dex, int con, int intel, int wis, int cha, int hp, 
-		vector <ItemContainer> backpack, vector <ItemContainer> equips);
+		ItemContainer backpack, ItemContainer equips);
 	bool validateNewFighter();
 };
 
