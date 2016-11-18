@@ -21,6 +21,7 @@ public:
 	Item();
 	// Constructor
 	Item(int id, string type,vector<Enhancement> influences);
+	Item(int id, string type, vector<Enhancement> influences, string path);
 	Item(string type, vector<Enhancement> influences);
 	//Destructor
 	~Item();

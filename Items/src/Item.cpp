@@ -554,7 +554,7 @@ Item* Item::load(int id)
 			xml.IntoElem();
 			vector<Enhancement> enhancements;
 			int id;
-			string type;
+			string type, path;
 
 			while (xml.FindElem())
 			{
@@ -566,6 +566,10 @@ Item* Item::load(int id)
 				else if (s == "type")
 				{
 					type = xml.GetData();
+				}
+				else if (s == "path")
+				{
+					path = xml.GetData();
 				}
 				else if (s == "enhancements")
 				{
@@ -592,7 +596,9 @@ Item* Item::load(int id)
 					}
 				}
 				xml.OutOfElem();
-				return new Item(id, type, enhancements);
+				Item* loadedItem = new Item(id, type, enhancements);
+				loadedItem->setItemPath(path);
+				return loadedItem;
 			}
 
 			xml.OutOfElem();
