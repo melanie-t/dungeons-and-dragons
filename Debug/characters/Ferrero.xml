@@ -1,11 +1,22 @@
 <character>
-<level>1</level>
-<strength>12</strength>
-<dexterity>11</dexterity>
-<constitution>17</constitution>
-<intelligence>9</intelligence>
-<wisdom>6</wisdom>
-<charisma>13</charisma>
-<hp>13</hp>
-<class>1</class>
+	<level>1</level>
+	<strength>12</strength>
+	<dexterity>11</dexterity>
+	<constitution>17</constitution>
+	<intelligence>9</intelligence>
+	<wisdom>6</wisdom>
+	<charisma>13</charisma>
+	<hp>13</hp>
+	<class>1</class>
+	
+	<inventory>
+		<item>1</item>
+		<item>2</item>
+	</inventory>
+	
+	<equipped>
+		<item>4</item>
+		<item>6</item>
+	</equipped>
+	
 </character>
