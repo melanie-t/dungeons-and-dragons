@@ -225,6 +225,7 @@ bool Item::saveItem()
 	xml.IntoElem();
 	xml.AddElem("id", id);
 	xml.AddElem("type", this->type);
+	xml.AddElem("path", this->itemPath);
 	xml.AddElem("enhancements");
 	xml.IntoElem();
 	for (int i = 0; i != influence.size(); i++)
@@ -270,38 +271,37 @@ inline int givePlusFiveBonus(int lvl)
 Item* Item::randommize(int lvl)
 {
 	int r = rand() % 7 + 1; //Random number between 1 and 7 for choosing item type.
-	int randomSprite = rand() % 5 + 1; // Random sprite number between 1 to 5
-	string type;
-	string itemPath = "res/";
+	int randomSprite = rand() % 5 + 1; // Random sprite number between 1 to 5 to choose an icon.
+	string type, itemPath;
 	switch (r)
 	{
 	case 1:
 		type = TYPE_HELMET;
-		itemPath = itemPath + "helmet/" + to_string(randomSprite) + ".png";
+		itemPath = "res/helmet/" + to_string(randomSprite) + ".png";
 		break;
 	case 2:
 		type = TYPE_ARMOR; 
-		itemPath = itemPath + "armor/" + to_string(randomSprite) + ".png";
+		itemPath = "res/armor/" + to_string(randomSprite) + ".png";
 		break;
 	case 3:
 		type = TYPE_SHIELD; 
-		itemPath = itemPath + "shield/" + to_string(randomSprite) + ".png";
+		itemPath = "res/shield/" + to_string(randomSprite) + ".png";
 		break;
 	case 4:
 		type = TYPE_RING; 
-		itemPath = itemPath + "ring/" + to_string(randomSprite) + ".png";
+		itemPath = "res/ring/" + to_string(randomSprite) + ".png";
 		break;
 	case 5:
 		type = TYPE_BELT; 
-		itemPath = itemPath + "belt/" + to_string(randomSprite) + ".png";
+		itemPath = "res/belt/" + to_string(randomSprite) + ".png";
 		break;
 	case 6:
 		type = TYPE_BOOTS; 
-		itemPath = itemPath + "boots/" + to_string(randomSprite) + ".png";
+		itemPath = "res/boots/" + to_string(randomSprite) + ".png";
 		break;
 	case 7:
 		type = TYPE_WEAPON; 
-		itemPath = itemPath + "weapon/" + to_string(randomSprite) + ".png";
+		itemPath = "res/weapon/" + to_string(randomSprite) + ".png";
 		break;
 	}
 
@@ -526,6 +526,7 @@ Item* Item::randommize(int lvl)
 	//Item item(type, enh);
 	//item.levelRequirement = lvl;
 	Item* randomItem = new Item(type, enh);
+	randomItem->setItemPath(itemPath);
 	randomItem->saveItem(); //will save the newly generated item as an XML file
 	return randomItem;
 }
@@ -626,4 +627,9 @@ void Item::removeEnhancement(string type)
 			cout << "\nEnhancement removed\n";
 		}
 	}
+}
+
+void Item::setItemPath(string path)
+{
+	itemPath = path;
 }

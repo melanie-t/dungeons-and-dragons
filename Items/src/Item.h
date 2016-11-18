@@ -44,12 +44,13 @@ public:
 	void addEnhancement(Enhancement enh);
 	//remove enhancement
 	void removeEnhancement(string type);
-	//status represents if it's not found, in backpack or equipped (0, 1, 2 respectively)
+	void setItemPath(string path);
+
 private:
 	int id;
 	int itemType;
 	string type;
-	int spriteNumber;
+	string itemPath;
 	//int levelRequirement;
 	vector<Enhancement> influence;
 };
