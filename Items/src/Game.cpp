@@ -18,6 +18,7 @@ Game::Game(unsigned int tileWidth, unsigned int tileHeight, Map* map){
 	this->height = tileHeight;
 	this->level = map->outputMap();
 	this->m_map = map;
+	this->ended = false;
 }
 
 //! Deconstructor for Game class
@@ -273,7 +274,17 @@ void Game::update(sf::Event evt){
 		}
 		else if (evt.key.code == sf::Keyboard::Escape)
 		{
-			this->endGame();
+			if (!ended)
+			{
+				this->endGame(); // temp.
+			}
+		}
+		else if (evt.key.code == sf::Keyboard::Return)
+		{
+			if (ended)
+			{
+				window->close();
+			}
 		}
 		break;
 	case sf::Event::MouseMoved:
@@ -312,17 +323,27 @@ void Game::endGame()
 {
 	m_map->getPlayer()->levelUp();
 
-	text.setString(m_map->getPlayer()->statString());
-	text.setCharacterSize(12);
-	text.setFillColor(sf::Color::Black);
-	text.setStyle(sf::Text::Bold);
-	text.setPosition(20, (height * 32 + 8));
+	//window->display();
+	ended = true;
 
-	window->clear(sf::Color(255,255,255,255));
-	window->draw(text);
-	window->display();
-	sf::sleep(sf::milliseconds(6000)); // for now. have to change later to exit only when escape/enter
-	window->close();
+	while (window->isOpen()){
+		window->clear();
+
+		text.setString(m_map->getPlayer()->statString());
+		text.setCharacterSize(12);
+		text.setFillColor(sf::Color::Black);
+		text.setStyle(sf::Text::Bold);
+		text.setPosition(20, (height * 32 + 8));
+
+		window->clear(sf::Color(255, 255, 255, 255));
+		window->draw(text);
+
+		processInput();
+		window->display();
+	}
+
+	//sf::sleep(sf::milliseconds(6000)); // for now. have to change later to exit only when escape/enter
+	//window->close();
 }
 
 //! loadTextures function

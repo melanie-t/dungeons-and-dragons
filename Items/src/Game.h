@@ -78,4 +78,5 @@ public:
 	void go();
 	void goToNewMap(Map* map); // for the future.
 	bool openedChest = false;
+	bool ended;
 };
