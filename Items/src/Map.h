@@ -12,9 +12,11 @@
 
 #include <iostream>
 #include <string>
+#include <map>
 #include "GameObject.h"
 #include "Character.h"
 #include <vector>
+#include "pos.h"
 
 #ifndef Map_H
 #define Map_H
@@ -45,6 +47,7 @@ public:
 	(GameObject*)** getMap(){ return this->map; }
 	Character* getPlayer(){ return this->player; }
 	GameObject* getObject(int x, int y);
+	std::vector<pos> getDoors(){ return doors;  }
 
 	//setters
 	void setID(int id){ this->ID = id; }
@@ -59,6 +62,7 @@ private:
 	int length;
 	int ID;
 	std::string name;
+	std::vector<pos> doors;
 	int** mapSearch;
 	bool recursiveSearch(int posx, int posy, int endposx, int endposy);
 	Character* player;

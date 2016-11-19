@@ -153,6 +153,12 @@
     <ClInclude Include="src\CharacterEquipEnum.h">
       <Filter>Header Files\Constants</Filter>
     </ClInclude>
+    <ClInclude Include="src\Campaign.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\pos.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Map.cpp">
@@ -223,6 +229,9 @@
     </ClCompile>
     <ClCompile Include="src\Friend.cpp">
       <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Campaign.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

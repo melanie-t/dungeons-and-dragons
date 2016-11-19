@@ -131,6 +131,15 @@ void Map::fillCell(int x, int y, GameObject* obj)
 		return;
 	}
 
+	if (obj->getObjectType() == OBJ_DOOR)
+	{
+		pos position;
+		position.x = x;
+		position.y = y;
+		
+		doors.push_back(position);
+	}
+
 	map[x][y] = obj;
 }
 //! isOccupied function
@@ -280,7 +289,7 @@ bool Map::saveMap()
 					xml.IntoElem();
 
 					Door* door = static_cast<Door*>(map[i][k]);
-					xml.AddElem("mapid", door->getDestinationID());
+					//xml.AddElem("mapid", door->getDestinationID());
 					xml.AddElem("x", i);
 					xml.AddElem("y", k);
 					xml.AddElem("start", door->getStart());

@@ -31,6 +31,7 @@ public:
 	FileMapBuilder(Character* player);
 	~FileMapBuilder();
 	virtual bool loadMap(int id);
+	void createCampagin(Map* map);
 private:
 	Character* player;
 };

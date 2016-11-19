@@ -14,6 +14,7 @@
 #include "GrassTexture.h"
 #include "Enemy.h"
 #include "Friend.h"
+#include "StatisticsHelper.h"
 using namespace std;
 
 //! Default Constructor
@@ -256,3 +257,33 @@ bool FileMapBuilder::loadMap(int id)
 	}
 	return false;
 }
+
+/*void FileMapBuilder::createCampagin(Map* map)
+{
+	for (int i = 0; i != map->getWidth(); i++)
+	{
+		for (int k = 0; k != map->getLength(); k++)
+		{
+			if (map->getObject(i, k)->getObjectType() == OBJ_DOOR)
+			{
+				//BAD BAD BAD
+				cout << "Door Detected at (" << i << ", " << k << ")" << endl;
+				cout << "Choose a map id from the list below to link to the door:" << endl;
+
+				int max = Statistics::getInstance()->getNumMaps();
+				for (int i = 0; i != max; i++)
+				{
+					cout << (i + 1) << endl;
+				}
+				int chosenMap;
+
+				do
+				{
+					cin >> chosenMap;
+				} while (i > max || i < 0);
+
+				Door* door = static_cast<Door*>(map->getObject(i, k));
+			}
+		}
+	}
+}*/

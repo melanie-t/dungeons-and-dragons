@@ -28,6 +28,7 @@ void runGame(int chosenMap, string characterName)
 	FileMapBuilder builder(character);
 	builder.loadMap(chosenMap);
 	Map* map = builder.getMap();
+	//builder.createCampagin(map);
 
 	Game* game = new Game(map->getWidth(), map->getLength(), map);
 

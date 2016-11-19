@@ -75,6 +75,7 @@
   <ItemGroup>
     <ClInclude Include="src\AbilityModifierTypes.h" />
     <ClInclude Include="src\BrickTexture.h" />
+    <ClInclude Include="src\Campaign.h" />
     <ClInclude Include="src\Character.h" />
     <ClInclude Include="src\CharacterEquipEnum.h" />
     <ClInclude Include="src\Chest.h" />
@@ -99,6 +100,7 @@
     <ClInclude Include="src\Markup.h" />
     <ClInclude Include="src\Observable.h" />
     <ClInclude Include="src\Observer.h" />
+    <ClInclude Include="src\pos.h" />
     <ClInclude Include="src\SavedMapBuilder.h" />
     <ClInclude Include="src\ObjectTypes.h" />
     <ClInclude Include="src\StatisticsHelper.h" />
@@ -108,6 +110,7 @@
     <ClInclude Include="src\WaterTexture.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Campaign.cpp" />
     <ClCompile Include="src\Character.cpp" />
     <ClCompile Include="src\Chest.cpp" />
     <ClCompile Include="src\Dice.cpp" />

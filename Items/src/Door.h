@@ -10,18 +10,16 @@
 class Door : public GameObject
 {
 private:
-	int destinationID;
 	Map* destination;
+	Map* prev;
 	bool start;
 public:
 	//Door();
-	Door(int destinationID, bool start = false);
+	Door(Map* destination, bool start = false);
 	Door(bool start = false);
 
-	int getDestinationID(){ return this->destinationID; }
-	void setDestinationID(int d){ this->destinationID = d; }
-
-	Map* getDestination(){ this->destination; }
+	Map* getDestination(){ return destination; }
+	void setDestination(Map* dest){ destination = dest; }
 
 	int getStart(){ return this->start; }
 	void setStart(bool s){ this->start = s; }

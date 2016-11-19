@@ -5,14 +5,14 @@
 
 //! Constructor for the Door class
 //! @param start boolean to see if the door is the start or end
-Door::Door(bool start) : Door(-1, start)
+Door::Door(bool start) : Door(nullptr, start)
 {
 }
 //! Constructor for the Door class
 //! @param destinationID destination of the door
 //! @param start boolean to see if the door is the start or end
-Door::Door(int destinationID, bool start) : GameObject(OBJ_DOOR)
+Door::Door(Map* destination, bool start) : GameObject(OBJ_DOOR)
 {
-	this->destinationID = destinationID;
+	this->destination = destination;
 	this->start = start;
 }
