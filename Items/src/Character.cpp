@@ -13,7 +13,7 @@
 using namespace std;
 
 //! Default constructor: initializes level to 1 and generates new character with 0 stats
-Character::Character() : Character(1, 0, 0, 0, 0, 0, 0) //hi, this is just cleaner. So I changed it - Dylan.
+Character::Character() : Character(1, 0, 0, 0, 0, 0, 0)
 {
 }
 

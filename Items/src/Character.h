@@ -29,6 +29,8 @@
 #include "GameObject.h"
 #include "Observable.h"
 #include "ItemContainer.h"
+#include "AbilityModifierTypes.h"
+#include "CharacterEquipEnum.h"
 #include <string>
 
 using namespace std;
@@ -121,25 +123,4 @@ private:
 	string name;
 	string gender;
 	Character* List[10];
-};
-
-enum Ability
-{
-	STRENGTH,
-	DEXTERITY,
-	CONSTITUTION,
-	INTELLIGENCE,
-	WISDOM,
-	CHARISMA
-};
-
-enum Equip
-{
-	HELMET,
-	ARMOR,
-	BELT,
-	BOOTS,
-	SHIELD,
-	WEAPON,
-	RING
 };

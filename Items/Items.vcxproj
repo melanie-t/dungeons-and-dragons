@@ -73,13 +73,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\AbilityModifierTypes.h" />
     <ClInclude Include="src\BrickTexture.h" />
     <ClInclude Include="src\Character.h" />
+    <ClInclude Include="src\CharacterEquipEnum.h" />
     <ClInclude Include="src\Chest.h" />
     <ClInclude Include="src\Dice.h" />
     <ClInclude Include="src\Door.h" />
     <ClInclude Include="src\Enemy.h" />
     <ClInclude Include="src\Enhancement.h" />
+    <ClInclude Include="src\EnhancementTypes.h" />
     <ClInclude Include="src\Fighter.h" />
     <ClInclude Include="src\FileMapBuilder.h" />
     <ClInclude Include="src\Friend.h" />
@@ -89,6 +92,7 @@
     <ClInclude Include="src\Item.h" />
     <ClInclude Include="src\ItemContainer.h" />
     <ClInclude Include="src\ItemPanel.h" />
+    <ClInclude Include="src\ItemTypes.h" />
     <ClInclude Include="src\Map.h" />
     <ClInclude Include="src\MapBuildDirector.h" />
     <ClInclude Include="src\MapBuilder.h" />

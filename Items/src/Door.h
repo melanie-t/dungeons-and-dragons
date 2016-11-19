@@ -5,11 +5,13 @@
 #pragma once
 
 #include "GameObject.h"
+#include "Map.h"
 
 class Door : public GameObject
 {
 private:
 	int destinationID;
+	Map* destination;
 	bool start;
 public:
 	//Door();
@@ -18,6 +20,8 @@ public:
 
 	int getDestinationID(){ return this->destinationID; }
 	void setDestinationID(int d){ this->destinationID = d; }
+
+	Map* getDestination(){ this->destination; }
 
 	int getStart(){ return this->start; }
 	void setStart(bool s){ this->start = s; }

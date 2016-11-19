@@ -1,0 +1,11 @@
+#pragma once
+
+enum Ability
+{
+	STRENGTH,
+	DEXTERITY,
+	CONSTITUTION,
+	INTELLIGENCE,
+	WISDOM,
+	CHARISMA
+};
