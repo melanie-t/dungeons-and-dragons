@@ -364,12 +364,55 @@ bool Map::saveMap()
 
 void Map::printMap()
 {
+	cout << "Map: " << endl << endl;
+	cout << "C: Chest" << endl;
+	cout << "G: Grass" << endl;
+	cout << "M: Enemy" << endl;
+	cout << "W: Water" << endl;
+	cout << "T: Tree" << endl;
+	cout << "S: Start Door" << endl;
+	cout << "E: End Door" << endl;
+
+	cout << endl << endl; //skip two lines.
+
 	for (int i = 0; i != this->getLength(); i++)
 	{
 		for (int k = 0; k != this->getWidth(); k++)
 		{
-			//
+			if (this->map[i][k]->getObjectType() == OBJ_CHEST)
+			{
+				cout << "C ";
+			}
+			else if (this->map[i][k]->getObjectType() == OBJ_ENEMY)
+			{
+				cout << "M ";
+			}
+			else if (this->map[i][k]->getObjectType() == OBJ_WATER)
+			{
+				cout << "W ";
+			}
+			else if (this->map[i][k]->getObjectType() == OBJ_TREE)
+			{
+				cout << "T ";
+			}
+			else if (this->map[i][k]->getObjectType() == OBJ_DOOR)
+			{
+				if (static_cast<Door*>(this->map[i][k])->getStart())
+				{
+					cout << "S ";
+				}
+				else
+				{
+					cout << "E ";
+				}
+			}
+			else
+			{
+				cout << "G "; //Grass
+			}
 		}
+		cout << endl;
 	}
+	cout << endl;
 }
 

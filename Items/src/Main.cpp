@@ -170,9 +170,11 @@ int main()
 					bool changeMap = true;
 					while (changeMap)
 					{
+						map->printMap();
+
 						cout << "What would you like to do with the map?" << endl;
 						cout << "1. Add Door" << endl;
-						cout << "2. Add Item" << endl;
+						cout << "2. Add Chest" << endl;
 						cout << "3. Add Enemy" << endl;
 						cout << "4. Exit & Save" << endl;
 						cout << "5. Exit & Don't Save" << endl;
