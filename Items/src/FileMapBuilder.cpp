@@ -161,7 +161,8 @@ bool FileMapBuilder::loadMap(int id)
 					{
 						xml.IntoElem();
 						int x, y;
-						Item* item = Item::randommize(player->getLevel());
+						//Item* item = Item::randommize(player->getLevel());
+						GameObject* obj = new GameObject(CHEST); //Change once chest is done.
 						while (xml.FindElem())
 						{
 							if (xml.GetTagName() == "x")
@@ -174,7 +175,7 @@ bool FileMapBuilder::loadMap(int id)
 							}
 						}
 						xml.OutOfElem();
-						map->fillCell(x, y, item);
+						map->fillCell(x, y, obj);
 					}
 					xml.OutOfElem();
 				}

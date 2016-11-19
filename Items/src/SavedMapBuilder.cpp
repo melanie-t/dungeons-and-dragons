@@ -140,7 +140,8 @@ bool SavedMapBuilder::loadMap(int id)
 					{
 						xml.IntoElem();
 						int x, y;
-						Item* item = new Item();
+						//Item* item = new Item();
+						GameObject* obj = new GameObject(CHEST); //Change once chest is done.
 						while (xml.FindElem())
 						{
 							if (xml.GetTagName() == "x")
@@ -153,7 +154,7 @@ bool SavedMapBuilder::loadMap(int id)
 							}
 						}
 						xml.OutOfElem();
-						map->fillCell(x, y, item);
+						map->fillCell(x, y, obj);
 					}
 					xml.OutOfElem();
 				}

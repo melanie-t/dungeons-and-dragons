@@ -7,7 +7,7 @@
 #define TREE "tree"
 #define BRICK "brick"
 #define CHARACTER "character"
-#define ITEM "item"
+#define CHEST "chest"
 #define DOOR "door"
 #define GRASS "grass"
 #define ENEMY "enemy"

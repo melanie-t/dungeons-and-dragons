@@ -215,7 +215,7 @@ vector<int> Map::outputMap()
 					output.push_back(6); // idk what these are supposed to push.
 				}
 			}
-			else if (map[i][j]->getObjectType() == ITEM)
+			else if (map[i][j]->getObjectType() == CHEST)
 			{
 				output.push_back(9);
 			}
@@ -264,7 +264,7 @@ bool Map::saveMap()
 			{
 				if (this->map[i][k]->getObjectType().empty()) continue;
 
-				if (this->map[i][k]->getObjectType() == ITEM)
+				if (this->map[i][k]->getObjectType() == CHEST)
 				{
 					if (!xml.FindElem("items"))
 					{

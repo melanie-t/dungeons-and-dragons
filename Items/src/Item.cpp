@@ -25,7 +25,7 @@ Item::Item(string type_name, vector<Enhancement> influences) : Item(0, type_name
 //! @param id : id of the item.
 //! @param type_name : string representing the type of item
 //! @param influences : vector containing all the characteristics influenced by the item
-Item::Item(int id, string type_name, vector<Enhancement> influences) : GameObject(ITEM)
+Item::Item(int id, string type_name, vector<Enhancement> influences)
 {
 	this->id = id;
 	this->type = type_name;

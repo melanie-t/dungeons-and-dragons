@@ -14,7 +14,7 @@
 using namespace std;
 
 //! class for the implementation of items wearable by a character
-class Item : public GameObject
+class Item
 {
 public:
 	// Default constructor
