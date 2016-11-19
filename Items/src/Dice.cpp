@@ -85,7 +85,7 @@ int Dice::sayRoll(string str) {
 		cout << "given total: " << total << endl << endl;
 		return saySum(number, type, total);
 	}
-	else if (!parseString(str)) {
+	else{
 		cout << "String parse error. Dice roll = 0" << endl;
 		return 0;
 	}
@@ -111,7 +111,7 @@ bool Dice::parseString(string str) {
 	}
 	catch (regex_error& e) 
 	{
-		cout << "error in regex" << endl;
+		cout << "error in regex: " << e.code() << endl;
 	}
 
 	try {

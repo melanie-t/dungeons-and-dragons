@@ -569,7 +569,7 @@ int main()
 						case 3: //Remove
 						{
 							string enhancement_type;
-							int bonus;
+							//int bonus;
 
 							do
 							{
