@@ -23,7 +23,10 @@ public:
 	void addItem(Item anitem);
 	// method to get an item from the item container
 	Item getItem(string itemType);
+	vector<int> getIDs();
+
 private:
 	vector<Item> Items;
+	vector<int> itemIDs;
 };
 

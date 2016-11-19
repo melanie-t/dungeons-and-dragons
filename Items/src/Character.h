@@ -42,7 +42,7 @@ public:
 	Character();
 	Character(int lvl, int str, int dex, int con, int intel, int wis, int cha);
 	Character(string name, int charclass, int lvl, int str, int dex, int con, int intel, int wis,
-		int cha, int hp, ItemContainer backpack, ItemContainer equips);
+		int cha, int hp, ItemContainer backpack, Item* equips[7]);
 
 	void notify();
 	void attach(Character* c);
@@ -118,8 +118,8 @@ private:
 		weaponEquipped = false,
 		ringEquipped = false;
 
-	Item* equips[7]; //(0)helmet, (1)armor, (2)belt, (3)boots, (4)shield, (5)weapon, (6)ring
 	ItemContainer backpack;
+	Item* equips[7]; //(0)helmet, (1)armor, (2)belt, (3)boots, (4)shield, (5)weapon, (6)ring
 	string name;
 	string gender;
 	Character* List[10];

@@ -42,3 +42,10 @@ Item ItemContainer::getItem(string itemType)
 			return Items[i];
 	return Item(); //return empty Item.
 }
+
+vector<int> ItemContainer::getIDs() {
+	for (auto it = Items.begin(); it != Items.end(); ++it) {
+		itemIDs.push_back(it->getID());
+	}
+	return itemIDs;
+}

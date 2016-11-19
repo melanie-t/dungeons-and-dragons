@@ -51,7 +51,7 @@ Character::Character(int lvl, int str, int dex, int con, int intel, int wis, int
 //! @param backpack contains all items in backpack inventory
 //! @param equips contains all items that are currently worn
 Character::Character(string name, int charclass, int lvl, int str, int dex, int con, int intel,
-	int wis, int cha, int hp, ItemContainer backpack, ItemContainer equips)
+	int wis, int cha, int hp, ItemContainer backpack, Item* equips[7])
 {
 	this->name = name;
 	level = lvl;
@@ -795,7 +795,24 @@ void Character::saveCharacter()
 	xml.AddElem("hp", getHitPoints());
 	xml.AddElem("class", getCharClass());
 	xml.AddElem("backpack");
+	xml.IntoElem();
+	//Iterate through the item IDs in backpack
+	for (int i: backpack.getIDs()) 
+	{
+		xml.AddElem("item", i);
+	}
+	xml.OutOfElem();
 	xml.AddElem("equips");
+	xml.IntoElem();
+	
+	//Iterate through equips
+	for (Item* i : equips) {
+		if (i = NULL)
+			xml.AddElem("equip", 0);
+		else
+			xml.AddElem("equip", i->getID());
+	}
+
 	//char di[20];
 	//sprintf_s(di, 20, "characters/%s.xml", name.c_str());
 	xml.Save("characters/" + name + ".xml");
@@ -821,7 +838,8 @@ Character* Character::loadCharacter(string name)
 		{
 			xml.IntoElem();
 			int level, charclass, str, dex, con, intel, wis, cha, hp;
-			ItemContainer backpack, equips;
+			ItemContainer backpack;
+			Item* equips[7];
 
 			while (xml.FindElem())
 			{
@@ -862,6 +880,30 @@ Character* Character::loadCharacter(string name)
 				{
 					charclass = atoi(xml.GetData().c_str());
 				}
+				else if (tag == "backpack")
+				{
+					xml.IntoElem();
+					while (xml.FindElem("item"))
+					{
+						// Reads Item ID and loads XML file into backpack
+						int id = atoi(xml.GetData().c_str());
+						backpack.addItem(*Item::load(id));
+					}
+					xml.OutOfElem();
+				}
+				else if (tag == "equips") // Reads Item ID and loads XML file into equips
+				{
+					xml.IntoElem();
+					int i = 0;
+					while (xml.FindElem("item"))
+					{
+						int id = atoi(xml.GetData().c_str());
+						if (id != 0)
+							equips[i] = Item::load(id);
+						i++;
+					}
+					xml.OutOfElem();
+				}
 			}
 			return new Character(name, charclass, level, str, dex, con, intel, 
 				wis, cha, hp, backpack, equips);
@@ -869,6 +911,7 @@ Character* Character::loadCharacter(string name)
 	}
 	return nullptr; //Empty
 }
+
 //USELESS FOR NOW. IMPLEMENT LATER
 ////retrieve the gender of the character and return it
 //string Character::retrieveGender()

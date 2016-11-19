@@ -9,14 +9,14 @@
 	<hp>13</hp>
 	<class>1</class>
 	
-	<inventory>
+	<backpack>
 		<item>1</item>
 		<item>2</item>
-	</inventory>
+	</backpack>
 	
-	<equipped>
+	<equips>
 		<item>4</item>
 		<item>6</item>
-	</equipped>
+	</equips>
 	
 </character>

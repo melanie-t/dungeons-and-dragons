@@ -639,3 +639,7 @@ void Item::setItemPath(string path)
 {
 	itemPath = path;
 }
+
+int Item::getID() {
+	return id;
+}
