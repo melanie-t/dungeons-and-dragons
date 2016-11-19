@@ -259,6 +259,12 @@ int Character::abilityModifier(int abilityScore)
 {
 	// Proper calculation of abilityMod;
 	int abilityMod = (abilityScore - 10) / 2;
+
+	if (abilityMod < 0)
+	{
+		abilityMod = 0;
+	}
+
 	return abilityMod;
 }
 
