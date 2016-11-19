@@ -18,6 +18,7 @@ However, the map needs a path between the begin cell and end cell.
 #include "Character.h"
 #include "Door.h"
 #include "Markup.h"
+#include "TileTypes.h"
 using namespace std;
 
 //! Default Constructor
@@ -101,7 +102,7 @@ bool Map::validatePath()
 	//check if there's a start point and end point
 	for (int i = 0; i < width; ++i) {
 		for (int j = 0; j < length; ++j) {
-			if (map[i][j]->getObjectType() == DOOR)
+			if (map[i][j]->getObjectType() == OBJ_DOOR)
 			{
 				/*if (i != 0 && j != 0 && i != row - 1 && j != column - 1)
 				{
@@ -196,36 +197,36 @@ vector<int> Map::outputMap()
 	{
 		for (int j = 0; j != this->width; j++)
 		{
-			if (map[i][j]->getObjectType() == WATER)
+			if (map[i][j]->getObjectType() == OBJ_WATER)
 			{
-				output.push_back(1); // idk what these are supposed to push.
+				output.push_back(TileTypes::WATER);
 			}
-			else if (map[i][j]->getObjectType() == TREE)
+			else if (map[i][j]->getObjectType() == OBJ_TREE)
 			{
-				output.push_back(2); // idk what these are supposed to push.
+				output.push_back(TileTypes::TREE);
 			}
-			else if (map[i][j]->getObjectType() == DOOR)
+			else if (map[i][j]->getObjectType() == OBJ_DOOR)
 			{
 				if (static_cast<Door*>(map[i][j])->getStart())
 				{
-					output.push_back(7);
+					output.push_back(TileTypes::START);
 				}
 				else
 				{
-					output.push_back(6); // idk what these are supposed to push.
+					output.push_back(TileTypes::END); 
 				}
 			}
-			else if (map[i][j]->getObjectType() == CHEST)
+			else if (map[i][j]->getObjectType() == OBJ_CHEST)
 			{
-				output.push_back(9);
+				output.push_back(TileTypes::CHEST);
 			}
-			else if (map[i][j]->getObjectType() == ENEMY)
+			else if (map[i][j]->getObjectType() == OBJ_ENEMY)
 			{
-				output.push_back(10);
+				output.push_back(TileTypes::ENEMY);
 			}
 			else
 			{
-				output.push_back(0); //idk what these are supposed to be, (get grass graphics)
+				output.push_back(TileTypes::GRASS);
 			}
 		}
 	}
@@ -264,7 +265,7 @@ bool Map::saveMap()
 			{
 				if (this->map[i][k]->getObjectType().empty()) continue;
 
-				if (this->map[i][k]->getObjectType() == CHEST)
+				if (this->map[i][k]->getObjectType() == OBJ_CHEST)
 				{
 					if (!xml.FindElem("items"))
 					{
@@ -277,7 +278,7 @@ bool Map::saveMap()
 					xml.AddElem("y", k);
 					xml.RestorePos("map");
 				}
-				else if (this->map[i][k]->getObjectType() == DOOR)
+				else if (this->map[i][k]->getObjectType() == OBJ_DOOR)
 				{
 					if (!xml.FindElem("doors"))
 					{
@@ -294,7 +295,7 @@ bool Map::saveMap()
 					xml.AddElem("start", door->getStart());
 					xml.RestorePos("map");
 				}
-				else if (this->map[i][k]->getObjectType() == WATER)
+				else if (this->map[i][k]->getObjectType() == OBJ_WATER)
 				{
 					if (!xml.FindElem("walls"))
 					{
@@ -309,7 +310,7 @@ bool Map::saveMap()
 					xml.AddElem("y", k);
 					xml.RestorePos("map");
 				}
-				else if (this->map[i][k]->getObjectType() == TREE)
+				else if (this->map[i][k]->getObjectType() == OBJ_TREE)
 				{
 					if (!xml.FindElem("walls"))
 					{
@@ -324,7 +325,7 @@ bool Map::saveMap()
 					xml.AddElem("y", k);
 					xml.RestorePos("map");
 				}
-				else if (this->map[i][k]->getObjectType() == BRICK)
+				else if (this->map[i][k]->getObjectType() == OBJ_BRICK)
 				{
 					if (!xml.FindElem("walls"))
 					{
@@ -339,7 +340,7 @@ bool Map::saveMap()
 					xml.AddElem("y", k);
 					xml.RestorePos("map");
 				}
-				else if (this->map[i][k]->getObjectType() == ENEMY)
+				else if (this->map[i][k]->getObjectType() == OBJ_ENEMY)
 				{
 					if (!xml.FindElem("enemies"))
 					{

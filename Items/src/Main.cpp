@@ -206,7 +206,7 @@ int main()
 						}
 						case 2: // add item in this area
 						{
-							map->fillCell(x, y, new Item());
+							map->fillCell(x, y, new GameObject(OBJ_CHEST));
 							break;
 						}
 						case 3: //add enemy in this area

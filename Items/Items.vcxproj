@@ -98,6 +98,7 @@
     <ClInclude Include="src\ObjectTypes.h" />
     <ClInclude Include="src\StatisticsHelper.h" />
     <ClInclude Include="src\TileMap.h" />
+    <ClInclude Include="src\TileTypes.h" />
     <ClInclude Include="src\TreeTexture.h" />
     <ClInclude Include="src\WaterTexture.h" />
   </ItemGroup>

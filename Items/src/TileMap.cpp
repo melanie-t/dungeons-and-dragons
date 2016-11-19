@@ -2,6 +2,7 @@
 * @brief Implementation file for the Chest .cpp file
 */
 #include "TileMap.h"
+#include "TileTypes.h"
 
 
 //! TileMap default constructor

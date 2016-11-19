@@ -7,7 +7,7 @@
 class BrickTexture : public GameObject
 {
 public:
-	BrickTexture() : GameObject(BRICK)
+	BrickTexture() : GameObject(OBJ_BRICK)
 	{
 	}
 };

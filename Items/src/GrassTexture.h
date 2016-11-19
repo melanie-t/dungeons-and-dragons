@@ -7,7 +7,7 @@
 class GrassTexture : public GameObject
 {
 public:
-	GrassTexture() : GameObject(GRASS)
+	GrassTexture() : GameObject(OBJ_GRASS)
 	{
 	}
 };

@@ -19,7 +19,7 @@ Enemy::Enemy() : Enemy(1, 1, 1, 1, 1, 1, 1)
 //! @param wis wisdom of enemy
 //! @param cha charisma of enemy
 Enemy::Enemy(int lvl, int str, int dex, int con, int intel, int wis, int cha) : 
-		Character(lvl, str, dex, con, intel, wis, cha), GameObject(ENEMY)
+	Character(lvl, str, dex, con, intel, wis, cha), GameObject(OBJ_ENEMY)
 {
 }
 

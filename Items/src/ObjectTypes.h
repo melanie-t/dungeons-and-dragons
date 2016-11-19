@@ -3,12 +3,12 @@
 //!
 #pragma once
 
-#define WATER "water"
-#define TREE "tree"
-#define BRICK "brick"
-#define CHARACTER "character"
-#define CHEST "chest"
-#define DOOR "door"
-#define GRASS "grass"
-#define ENEMY "enemy"
-#define PLAYER "player"
+#define OBJ_WATER "water"
+#define OBJ_TREE "tree"
+#define OBJ_BRICK "brick"
+#define OBJ_CHARACTER "character"
+#define OBJ_CHEST "chest"
+#define OBJ_DOOR "door"
+#define OBJ_GRASS "grass"
+#define OBJ_ENEMY "enemy"
+#define OBJ_PLAYER "player"

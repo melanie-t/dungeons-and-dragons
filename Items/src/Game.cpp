@@ -4,6 +4,7 @@
 #include "Game.h"
 #include "Map.h"
 #include "Chest.h"
+#include "TileTypes.h"
 #include <SFML\Graphics.hpp>
 
 //! Constructor for Game class
@@ -33,7 +34,7 @@ bool Game::validMap(){
 	int endPoint = -1;
 	//finds the starting point in the array
 	for (int i = 0; i < level.size(); ++i){
-		if (level[i] == 7){
+		if (level[i] == TileTypes::START){
 			startPoint = i;
 			break;
 		}
@@ -45,7 +46,7 @@ bool Game::validMap(){
 	else{
 		//Finds the ending point in the array
 		for (int i = 0; i < level.size(); ++i){
-			if (level[i] == 6){
+			if (level[i] == TileTypes::END){
 				endPoint = i;
 				break;
 			}
@@ -79,7 +80,7 @@ bool Game::validate(int start, int end){
 		return false;
 	}
 	//Checks if its walkable
-	else if (level[start] == 1 || level[start] == 2 || level[start] == 4 || level[start] == 8 || level[start] == 9)
+	else if (level[start] == TileTypes::WATER || level[start] == TileTypes::TREE || level[start] == TileTypes::CHEST)
 	{
 		return false;
 	}
@@ -144,11 +145,11 @@ void Game::update(sf::Event evt){
 				//Checks if space occupied or out of bounds
 				if ((currentPos - width < 0))
 					break;
-				else if (level[currentPos - width] == 1) //1 is water
+				else if (level[currentPos - width] == TileTypes::WATER) //1 is water
 					break;
-				else if (level[currentPos - width] == 2) //2 is tree
+				else if (level[currentPos - width] == TileTypes::TREE) //2 is tree
 					break;
-				else if (level[currentPos - width] == 9) //9 is item/chest
+				else if (level[currentPos - width] == TileTypes::CHEST) //9 is item/chest
 				{
 					if (!openedChest) {
 						Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
@@ -157,7 +158,7 @@ void Game::update(sf::Event evt){
 					else
 						break;
 				}
-				else if (level[currentPos - width] == 6) // end
+				else if (level[currentPos - width] == TileTypes::END) // end
 				{
 					//YOU WIN!!!
 					endGame();
@@ -178,11 +179,11 @@ void Game::update(sf::Event evt){
 				//Checks if space occupied or out of bounds
 				if ((currentPos + width >= level.size()))
 					break;
-				else if (level[currentPos + width] == 1) //1 is water
+				else if (level[currentPos + width] == TileTypes::WATER) //1 is water
 					break;
-				else if (level[currentPos + width] == 2) //2 is tree
+				else if (level[currentPos + width] == TileTypes::TREE) //2 is tree
 					break;
-				else if (level[currentPos + width] == 9) //9 is item/chest
+				else if (level[currentPos + width] == TileTypes::CHEST) //9 is item/chest
 				{
 					if (!openedChest) {
 						Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
@@ -191,7 +192,7 @@ void Game::update(sf::Event evt){
 					else
 						break;
 				}
-				else if (level[currentPos + width] == 6) // end
+				else if (level[currentPos + width] == TileTypes::END) // end
 				{
 					//m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
 					endGame();
@@ -212,11 +213,11 @@ void Game::update(sf::Event evt){
 				//Checks if space occupied or out of bounds
 				if ((currentPos) % width <= 0)
 					break;
-				else if (level[currentPos - 1] == 1) //1 is water
+				else if (level[currentPos - 1] == TileTypes::WATER) //1 is water
 					break;
-				else if (level[currentPos - 1] == 2) //2 is tree
+				else if (level[currentPos - 1] == TileTypes::TREE) //2 is tree
 					break;
-				else if (level[currentPos - 1] == 9) //9 is item/chest
+				else if (level[currentPos - 1] == TileTypes::CHEST) //9 is item/chest
 				{
 					if (!openedChest) {
 						Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
@@ -225,7 +226,7 @@ void Game::update(sf::Event evt){
 					else
 						break;
 				}
-				else if (level[currentPos - 1] == 6) // end
+				else if (level[currentPos - 1] == TileTypes::END) // end
 				{
 					//m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
 					endGame(); // temp
@@ -245,11 +246,11 @@ void Game::update(sf::Event evt){
 				//Checks if space occupied or out of bounds
 				if ((currentPos) % width > (width-2))
 					break;
-				else if (level[currentPos + 1] == 1) //1 is water
+				else if (level[currentPos + 1] == TileTypes::WATER) //1 is water
 					break;
-				else if (level[currentPos + 1] == 2) //2 is tree
+				else if (level[currentPos + 1] == TileTypes::TREE) //2 is tree
 					break;
-				else if (level[currentPos +1] == 9) //9 is item/chest
+				else if (level[currentPos +1] == TileTypes::CHEST) //9 is item/chest
 				{
 					if (!openedChest) {
 						Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
@@ -258,7 +259,7 @@ void Game::update(sf::Event evt){
 					else
 						break;
 				}
-				else if (level[currentPos + 1] == 6) // end
+				else if (level[currentPos + 1] == TileTypes::END) // end
 				{
 					//m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
 					endGame(); // temp.
@@ -314,7 +315,7 @@ void Game::loadTextures(){
 	player.setTextureRect(sf::IntRect(0, 0, 20, 26));
 	//Sets the player to the starting position
 	for (int i = 0; i < width * height; ++i){
-		if (level[i] == 7){
+		if (level[i] == TileTypes::START){
 			currentPos = i;
 			break;
 		}
