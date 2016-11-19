@@ -712,6 +712,11 @@ void Character::displayStats()
 			*p = tolower(*p);
 	}
 
+	string items;
+	for (Item* i : equips) {
+		items = items + i->itemString() + "\n";
+	}
+
 	cout << "\n= PLAYER STATS ="
 		<< "\nName: " << getName()
 		<< "\nClass: " << classtoString()
@@ -726,6 +731,7 @@ void Character::displayStats()
 		<< "\nArmor Class: " << getArmorClass()
 		<< "\nAttack Bonus: " << getAttackBonus()
 		<< "\nDamage Bonus: " << getDamageBonus()
+		<< "\nItems equipped: " << items
 		<< "\n" << endl;
 }
 
@@ -743,6 +749,11 @@ string Character::statString()
 			*p = tolower(*p);
 	}
 
+	string items;
+	for (Item* i : equips) {
+		items = items + i->itemString() + "\n";
+	}
+
 	std::ostringstream out;
 	out << "\nName: " << getName()
 		<< "\nClass: "  << classtoString()
@@ -757,6 +768,7 @@ string Character::statString()
 		<< "\nArmor Class: " << getArmorClass()
 		<< "\nAttack Bonus: " << getAttackBonus()
 		<< "\nDamage Bonus: " << getDamageBonus()
+		<< "\nItems equpped: " << items
 		<< "\n" << endl;
 	return out.str();
 }
