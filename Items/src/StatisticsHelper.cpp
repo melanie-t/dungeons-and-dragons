@@ -1,4 +1,5 @@
 #include "StatisticsHelper.h"
+#include <iostream>
 
 int Statistics::getNumMaps()
 {
@@ -32,6 +33,31 @@ int Statistics::getNumItems()
 	}
 }
 
+std::vector<std::string> Statistics::getCharacterList()
+{
+	std::vector<std::string> characterlist;
+	xml.Load("stats.xml");
+	if (xml.FindElem("stats"))
+	{
+		xml.IntoElem();
+		if (xml.FindElem("characters"))
+		{
+			xml.IntoElem();
+
+			while (xml.FindElem())
+			{
+				characterlist.push_back(xml.GetData().c_str());
+			}
+			xml.OutOfElem();
+		}
+		return characterlist;
+	}
+	else
+	{
+		return characterlist; //Not a stats file.
+	}
+}
+
 void Statistics::setNumMaps(int num)
 {
 	xml.Load("stats.xml");
@@ -54,6 +80,21 @@ void Statistics::setNumItems(int num)
 		xml.FindElem("items");
 
 		xml.SetData(num);
+	}
+	xml.Save("stats.xml");
+}
+
+void Statistics::addCharacter(std::string name)
+{
+	xml.Load("stats.xml");
+	if (xml.FindElem("stats"))
+	{
+		xml.IntoElem();
+		if (xml.FindElem("characters"))
+		{
+			xml.IntoElem();
+			xml.AddElem("character", name);
+		}
 	}
 	xml.Save("stats.xml");
 }

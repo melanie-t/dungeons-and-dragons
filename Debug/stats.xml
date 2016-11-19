@@ -1,4 +1,11 @@
 <stats>
 	<maps>2</maps>
 	<items>3</items>
+	<characters>
+		<character>James</character>
+		<character>Dylan</character>
+		<character>Melanie</character>
+		<character>Kevin</character>
+		<character>Nguyen</character>
+	</characters>
 </stats>

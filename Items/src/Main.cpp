@@ -81,9 +81,16 @@ int main()
 			if (!gameRunning)
 			{
 				string name;
-				std::cout << "Choose a Fighter from the list."
-					<< "\n<Enter list here>"
-					<< endl;
+				std::cout << "Choose a Fighter from the list." << endl;
+
+				vector<string> characters = Statistics::getInstance()->getCharacterList();
+
+				for (int i = 0; i != characters.size(); i++)
+				{
+					string name = *(characters.begin() + i);
+					cout << name << endl;
+				}
+
 				cin >> name;
 				cout << "Choose a map id from the list below:" << endl;
 
@@ -284,6 +291,7 @@ int main()
 					{
 						newFighter.saveCharacter();
 						cout << "Fighter " << name << " saved. Returning to menu.\n" << endl;
+						Statistics::getInstance()->addCharacter(name);
 					}
 					break;
 				}
@@ -470,14 +478,7 @@ int main()
 
 					created = true;
 					int id = Statistics::getInstance()->getNumItems() + 1;
-					/*CMarkup xml;
-					char di[20];
-					sprintf_s(di, 20, "items/%d.xml", id);
-					while (xml.Load(string(di)))
-					{
-						id++;
-						sprintf_s(di, 20, "items/%d.xml", id);
-					}*/
+
 					cout << "Created new item with ID: " << id << endl;
 					item = new Item(id, type, vector<Enhancement>()); //without enhancements.
 					break;
