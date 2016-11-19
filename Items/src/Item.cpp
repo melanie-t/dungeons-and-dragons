@@ -4,6 +4,7 @@
 
 #include "Item.h"
 #include "GameObject.h"
+#include "StatisticsHelper.h"
 #include "Markup.h"
 #include <iostream>
 #include <sstream>
@@ -220,8 +221,11 @@ bool Item::validateItem()
 //! @brief saves the item class as a xml file using Cmarkup
 bool Item::saveItem()
 {
+	Statistics stats;
+	int id = stats.getNumItems() + 1;
+	stats.setNumItems(id);
+
 	CMarkup xml;
-	id = id + 1;
 	//xml.SetDoc("<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n");
 	xml.AddElem("item");
 	xml.IntoElem();

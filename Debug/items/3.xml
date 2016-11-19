@@ -1,0 +1,11 @@
+<item>
+<id>3</id>
+<type>shield</type>
+<path>res/shield/5.png</path>
+<enhancements>
+<enhancement>
+<type>armorclass</type>
+<bonus>1</bonus>
+</enhancement>
+</enhancements>
+</item>

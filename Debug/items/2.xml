@@ -1,0 +1,11 @@
+<item>
+<id>2</id>
+<type>helmet</type>
+<path>res/helmet/1.png</path>
+<enhancements>
+<enhancement>
+<type>wisdom</type>
+<bonus>1</bonus>
+</enhancement>
+</enhancements>
+</item>

@@ -51,7 +51,7 @@ public:
 	string itemString();
 
 private:
-	int id = 2;
+	int id;
 	string type;
 	string itemPath = "Default item path";
 	//int levelRequirement;
