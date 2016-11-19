@@ -49,11 +49,11 @@ bool SavedMapBuilder::loadMap(int id)
 				{
 					map->setID(atoi(xml.GetData().c_str()));
 				}
-				else if (s == "rows")
+				else if (s == "width")
 				{
 					map->setWidth(atoi(xml.GetData().c_str()));
 				}
-				else if (s == "columns")
+				else if (s == "length")
 				{
 					map->setLength(atoi(xml.GetData().c_str()));
 				}

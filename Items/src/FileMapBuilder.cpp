@@ -70,7 +70,7 @@ bool FileMapBuilder::loadMap(int id)
 				{
 					map->setWidth(atoi(xml.GetData().c_str()));
 				}
-				else if (s == "columns")
+				else if (s == "length")
 				{
 					map->setLength(atoi(xml.GetData().c_str()));
 				}
