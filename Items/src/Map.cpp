@@ -213,7 +213,6 @@ vector<int> Map::outputMap()
 			}
 			else if (map[i][j]->getObjectType() == OBJ_FRIEND)
 			{
-				cout << i << endl << j << endl;
 				output.push_back(TileTypes::FRIEND);
 			}
 			else
