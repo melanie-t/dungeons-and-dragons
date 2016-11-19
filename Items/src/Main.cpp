@@ -1,3 +1,6 @@
+#include <thread>
+#include <Windows.h>
+
 #include "Game.h"
 #include "FileMapBuilder.h"
 #include "SavedMapBuilder.h"
@@ -7,8 +10,7 @@
 #include "Door.h"
 #include "Item.h"
 #include "Markup.h"
-#include <thread>
-#include <Windows.h>
+#include "Friend.h"
 #include "StatisticsHelper.h"
 using namespace std;
 
@@ -176,8 +178,9 @@ int main()
 						cout << "1. Add Door" << endl;
 						cout << "2. Add Chest" << endl;
 						cout << "3. Add Enemy" << endl;
-						cout << "4. Exit & Save" << endl;
-						cout << "5. Exit & Don't Save" << endl;
+						cout << "4. Add Friend" << endl;
+						cout << "5. Exit & Save" << endl;
+						cout << "6. Exit & Don't Save" << endl;
 						int editcmd;
 						cin >> editcmd;
 
@@ -216,7 +219,12 @@ int main()
 							map->fillCell(x, y, new Enemy());
 							break;
 						}
-						case 4: // exit + save, no break function
+						case 4: //add friend in this area
+						{
+							map->fillCell(x, y, new Friend());
+							break;
+						}
+						case 5: // exit + save, no break function
 						{
 							if (!map->saveMap())
 							{
@@ -229,7 +237,7 @@ int main()
 								Statistics::getInstance()->setNumMaps(numMap+1);
 							}
 						}
-						case 5: //exit without saving.
+						case 6: //exit without saving.
 						{
 							changeMap = false;
 							break;

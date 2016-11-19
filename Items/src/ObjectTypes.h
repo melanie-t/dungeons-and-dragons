@@ -12,3 +12,4 @@
 #define OBJ_GRASS "grass"
 #define OBJ_ENEMY "enemy"
 #define OBJ_PLAYER "player"
+#define OBJ_FRIEND "friend"

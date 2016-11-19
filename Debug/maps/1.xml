@@ -44,4 +44,11 @@
 			<y>5</y>
 		</enemy1>
 	</enemies>
+	
+	<friends>
+		<friend>
+			<x>8</x>
+			<y>9</y>
+		</friend>
+	</friends>
 </map>

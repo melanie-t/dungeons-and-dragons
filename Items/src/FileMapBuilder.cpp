@@ -3,6 +3,7 @@
 //!
 #include <iostream>
 #include <string>
+
 #include "FileMapBuilder.h"
 #include "Door.h"
 #include "Markup.h"
@@ -12,6 +13,7 @@
 #include "Item.h"
 #include "GrassTexture.h"
 #include "Enemy.h"
+#include "Friend.h"
 using namespace std;
 
 //! Default Constructor
@@ -200,6 +202,31 @@ bool FileMapBuilder::loadMap(int id)
 							}
 						}
 						map->fillCell(x, y, enemy);
+						xml.OutOfElem();
+					}
+					xml.OutOfElem();
+				}
+				else if (s == "friends")
+				{
+					xml.IntoElem();
+					while (xml.FindElem())
+					{
+						xml.IntoElem();
+						Friend* frien = Friend::randomize(player);
+						int x, y;
+						//now in each enemy tage
+						while (xml.FindElem())
+						{
+							if (xml.GetTagName() == "x")
+							{
+								x = atoi(xml.GetData().c_str());
+							}
+							else if (xml.GetTagName() == "y")
+							{
+								y = atoi(xml.GetData().c_str());
+							}
+						}
+						map->fillCell(x, y, frien);
 						xml.OutOfElem();
 					}
 					xml.OutOfElem();

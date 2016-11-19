@@ -63,19 +63,6 @@ Map::~Map()
 {
 	if (player != nullptr) delete player;
 }
-//! printMap function
-//! Method to print the map array
-void Map::printMap(char** map, int length, int width)
-{
-	for (int i = 0; i < length; i++)
-	{
-		for (int j = 0; j < width; i++)
-		{
-			cout << map[i][j];
-		}
-		cout << endl;
-	}
-}
 //! setElement function
 //! Method to set an element in the array (in order to create the map)
 void Map::setElement(char** map, int row, int column, char element)
@@ -224,6 +211,10 @@ vector<int> Map::outputMap()
 			{
 				output.push_back(TileTypes::ENEMY);
 			}
+			else if (map[i][j]->getObjectType() == OBJ_FRIEND)
+			{
+				output.push_back(TileTypes::FRIEND);
+			}
 			else
 			{
 				output.push_back(TileTypes::GRASS);
@@ -354,6 +345,20 @@ bool Map::saveMap()
 					xml.AddElem("y", k);
 					xml.RestorePos("map");
 				}
+				else if (this->map[i][k]->getObjectType() == OBJ_FRIEND)
+				{
+					if (!xml.FindElem("friends"))
+					{
+						xml.AddElem("friends");
+					}
+					xml.IntoElem();
+					xml.AddElem("friend");
+					xml.IntoElem();
+
+					xml.AddElem("x", i);
+					xml.AddElem("y", k);
+					xml.RestorePos("map");
+				}
 			}
 		}
 	}
@@ -361,7 +366,8 @@ bool Map::saveMap()
 	sprintf_s(di, 20, "maps/%d.xml", ID);
 	return xml.Save(string(di));
 }
-
+//! printMap function
+//! Method to print the map array
 void Map::printMap()
 {
 	cout << "Map: " << endl << endl;
@@ -372,6 +378,7 @@ void Map::printMap()
 	cout << "T: Tree" << endl;
 	cout << "S: Start Door" << endl;
 	cout << "E: End Door" << endl;
+	cout << "F: Friendly NPC" << endl;
 
 	cout << endl << endl; //skip two lines.
 
@@ -386,6 +393,10 @@ void Map::printMap()
 			else if (this->map[i][k]->getObjectType() == OBJ_ENEMY)
 			{
 				cout << "M ";
+			}
+			else if (this->map[i][k]->getObjectType() == OBJ_FRIEND)
+			{
+				cout << "F ";
 			}
 			else if (this->map[i][k]->getObjectType() == OBJ_WATER)
 			{
