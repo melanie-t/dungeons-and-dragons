@@ -213,6 +213,7 @@ vector<int> Map::outputMap()
 			}
 			else if (map[i][j]->getObjectType() == OBJ_FRIEND)
 			{
+				cout << i << endl << j << endl;
 				output.push_back(TileTypes::FRIEND);
 			}
 			else
@@ -429,6 +430,6 @@ void Map::printMap()
 
 GameObject* Map::getObject(int x, int y)
 {
-	return map[x][y];
+	return map[y][x];
 }
 

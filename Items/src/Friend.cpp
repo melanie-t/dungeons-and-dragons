@@ -39,5 +39,15 @@ Friend* Friend::randomize(Character* player)
 	int wis = (rand() % 10 - 5) + player->getWIS();
 	int cha = (rand() % 10 - 5) + player->getCHA();
 
+	if (str < 0)
+	{
+		str = 0;
+	}
+	else if (str > 18)
+	{
+		str = 18;
+	}
+	//ect.
+
 	return new Friend(player->getLevel(), str, dex, con, intel, wis, cha);
 }

@@ -288,8 +288,6 @@ void Game::update(sf::Event evt){
 		}
 		else if (this->m_map->getObject(tileX, tileY)->getObjectType() == OBJ_FRIEND)
 		{
-			//Doesn't work.
-			cout << "here" << endl;
 			Friend* frien = static_cast<Friend*>(this->m_map->getObject(tileX, tileY));
 			enemyStats.setString("Friend" + frien->statString());
 		}
