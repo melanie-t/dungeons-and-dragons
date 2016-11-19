@@ -427,3 +427,8 @@ void Map::printMap()
 	cout << endl;
 }
 
+GameObject* Map::getObject(int x, int y)
+{
+	return map[x][y];
+}
+

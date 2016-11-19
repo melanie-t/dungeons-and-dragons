@@ -5,6 +5,8 @@
 #include "Map.h"
 #include "Chest.h"
 #include "TileTypes.h"
+#include "Enemy.h"
+#include "Friend.h"
 #include <SFML\Graphics.hpp>
 
 //! Constructor for Game class
@@ -273,6 +275,32 @@ void Game::update(sf::Event evt){
 		{
 			this->endGame();
 		}
+		break;
+	case sf::Event::MouseMoved:
+	{
+		int tileX = evt.mouseMove.x / 32;
+		int tileY = evt.mouseMove.y / 32;
+		
+		if (this->m_map->getObject(tileX, tileY)->getObjectType() == OBJ_ENEMY)
+		{
+			Enemy* enemy = static_cast<Enemy*>(this->m_map->getObject(tileX, tileY));
+			enemyStats.setString("Enemy" + enemy->statString());
+		}
+		else if (this->m_map->getObject(tileX, tileY)->getObjectType() == OBJ_FRIEND)
+		{
+			//Doesn't work.
+			cout << "here" << endl;
+			Friend* frien = static_cast<Friend*>(this->m_map->getObject(tileX, tileY));
+			enemyStats.setString("Friend" + frien->statString());
+		}
+		else
+		{
+			//Don't show enemy stats.
+			enemyStats.setString("Enemy/Friend");
+		}
+
+		break;
+	}
 	default:
 		break;
 	}
@@ -336,9 +364,11 @@ void Game::createText(){
 	}
 	//sets the text's font
 	text.setFont(font);
+	enemyStats.setFont(font);
 	currentPosition.setFont(font);
 
 	std::string heroName = m_map->getPlayer()->getName();
+
 
 	//Initializes the text
 	text.setString(m_map->getPlayer()->statString());
@@ -346,6 +376,13 @@ void Game::createText(){
 	text.setFillColor(sf::Color::Black);
 	text.setStyle(sf::Text::Bold);
 	text.setPosition(20, (height * 32 + 8));
+
+	//Enemy Stats text
+	enemyStats.setString("Enemy/Friend");
+	enemyStats.setCharacterSize(12);
+	enemyStats.setFillColor(sf::Color::Black);
+	enemyStats.setStyle(sf::Text::Bold);
+	enemyStats.setPosition(165, (height * 32 + 8));
 
 	//Initializes the text of current position
 	currentPosition.setCharacterSize(12);
@@ -358,6 +395,11 @@ void Game::createText(){
 	textBox.setPosition(5, height * 32 + 5);
 	textBox.setOutlineColor(sf::Color::Green);
 	textBox.setOutlineThickness(3);
+
+	enemyStatsBox.setSize(sf::Vector2f(150, 240));
+	enemyStatsBox.setPosition(150, height * 32 + 5);
+	enemyStatsBox.setOutlineColor(sf::Color::Green);
+	enemyStatsBox.setOutlineThickness(3);
 }
 
 //! render function
@@ -367,7 +409,9 @@ void Game::render(){
 	window->draw(map);
 	window->draw(player);
 	window->draw(textBox);
+	window->draw(enemyStatsBox);
 	window->draw(text);
+	window->draw(enemyStats);
 	//window->draw(currentPosition);
 }
 

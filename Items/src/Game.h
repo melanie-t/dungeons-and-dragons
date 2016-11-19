@@ -24,8 +24,10 @@ private:
 	sf::Sprite player;
 	sf::Font font;
 	sf::Text text;
+	sf::Text enemyStats;
 	sf::Text currentPosition;
 	sf::RectangleShape textBox;
+	sf::RectangleShape enemyStatsBox;
 	TileMap map;
 	std::vector<sf::Sprite> enemies;
 

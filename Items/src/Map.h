@@ -44,6 +44,7 @@ public:
 	int getLength(){ return this->length; }
 	(GameObject*)** getMap(){ return this->map; }
 	Character* getPlayer(){ return this->player; }
+	GameObject* getObject(int x, int y);
 
 	//setters
 	void setID(int id){ this->ID = id; }
