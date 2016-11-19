@@ -48,12 +48,12 @@ public:
 	void removeEnhancement(string type);
 	void setItemPath(string path);
 	int getID();
+	string itemString();
 
 private:
-	int id;
-	int itemType;
+	int id = 2;
 	string type;
-	string itemPath;
+	string itemPath = "Default item path";
 	//int levelRequirement;
 	vector<Enhancement> influence;
 };

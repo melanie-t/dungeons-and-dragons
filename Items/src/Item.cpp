@@ -6,6 +6,8 @@
 #include "GameObject.h"
 #include "Markup.h"
 #include <iostream>
+#include <sstream>
+#include <time.h>
 
 //! default constructor
 Item::Item() : Item(0, "", vector<Enhancement>())
@@ -219,28 +221,33 @@ bool Item::validateItem()
 bool Item::saveItem()
 {
 	CMarkup xml;
-
+	id = id + 1;
 	//xml.SetDoc("<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n");
 	xml.AddElem("item");
 	xml.IntoElem();
 	xml.AddElem("id", id);
 	xml.AddElem("type", this->type);
 	xml.AddElem("path", this->itemPath);
-	xml.AddElem("enhancements");
-	xml.IntoElem();
-	for (int i = 0; i != influence.size(); i++)
+
+	if (!influence.empty())
 	{
-		xml.AddElem("enhancement");
+		xml.AddElem("enhancements");
 		xml.IntoElem();
-		xml.AddElem("type", influence[i].getType());
-		xml.AddElem("bonus", influence[i].getBonus());
+		for (int i = 0; i != influence.size(); i++)
+		{
+			xml.AddElem("enhancement");
+			xml.IntoElem();
+			xml.AddElem("type", influence[i].getType());
+			xml.AddElem("bonus", influence[i].getBonus());
+			xml.OutOfElem();
+		}
 		xml.OutOfElem();
 	}
-	xml.OutOfElem();
 
 	char di[20];
 	sprintf_s(di, 20, "items/%d.xml", id);
 	xml.Save(string(di));
+	cout << "Item saved" << endl;
 	return true;
 }
 
@@ -270,6 +277,7 @@ inline int givePlusFiveBonus(int lvl)
 //! @param lvl the level of the character
 Item* Item::randommize(int lvl)
 {
+	srand(time(NULL));
 	int r = rand() % 7 + 1; //Random number between 1 and 7 for choosing item type.
 	int randomSprite = rand() % 5 + 1; // Random sprite number between 1 to 5 to choose an icon.
 	string type, itemPath;
@@ -528,6 +536,7 @@ Item* Item::randommize(int lvl)
 	Item* randomItem = new Item(type, enh);
 	randomItem->setItemPath(itemPath);
 	randomItem->saveItem(); //will save the newly generated item as an XML file
+	cout << "Item created" << endl;
 	return randomItem;
 }
 //! static load function
@@ -642,4 +651,14 @@ void Item::setItemPath(string path)
 
 int Item::getID() {
 	return id;
+}
+
+string Item::itemString() {
+	std::ostringstream out;
+	out << "\nItem type: " << type
+		<< "\nID: " << id
+		<< "\nItem path: " << itemPath
+		<< "\n" << endl;
+	
+		return out.str();
 }
