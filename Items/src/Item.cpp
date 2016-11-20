@@ -253,7 +253,7 @@ bool Item::saveItem()
 		{
 			xml.AddElem("enhancement");
 			xml.IntoElem();
-			xml.AddElem("type", influence[i].getType());
+			xml.AddElem("enh_type", influence[i].getType());
 			xml.AddElem("bonus", influence[i].getBonus());
 			xml.OutOfElem();
 		}
