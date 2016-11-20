@@ -75,8 +75,11 @@
   <ItemGroup>
     <ClInclude Include="src\AbilityModifierTypes.h" />
     <ClInclude Include="src\BrickTexture.h" />
+    <ClInclude Include="src\Bully.h" />
     <ClInclude Include="src\Campaign.h" />
     <ClInclude Include="src\Character.h" />
+    <ClInclude Include="src\CharacterBuilder.h" />
+    <ClInclude Include="src\CharacterCreater.h" />
     <ClInclude Include="src\CharacterEquipEnum.h" />
     <ClInclude Include="src\Chest.h" />
     <ClInclude Include="src\Dice.h" />
@@ -98,12 +101,14 @@
     <ClInclude Include="src\MapBuildDirector.h" />
     <ClInclude Include="src\MapBuilder.h" />
     <ClInclude Include="src\Markup.h" />
+    <ClInclude Include="src\Nimble.h" />
     <ClInclude Include="src\Observable.h" />
     <ClInclude Include="src\Observer.h" />
     <ClInclude Include="src\pos.h" />
     <ClInclude Include="src\SavedMapBuilder.h" />
     <ClInclude Include="src\ObjectTypes.h" />
     <ClInclude Include="src\StatisticsHelper.h" />
+    <ClInclude Include="src\Tank.h" />
     <ClInclude Include="src\TileMap.h" />
     <ClInclude Include="src\TileTypes.h" />
     <ClInclude Include="src\TreeTexture.h" />
@@ -112,6 +117,8 @@
   <ItemGroup>
     <ClCompile Include="src\Campaign.cpp" />
     <ClCompile Include="src\Character.cpp" />
+    <ClCompile Include="src\CharacterBuilder.cpp" />
+    <ClCompile Include="src\CharacterCreater.cpp" />
     <ClCompile Include="src\Chest.cpp" />
     <ClCompile Include="src\Dice.cpp" />
     <ClCompile Include="src\Door.cpp" />

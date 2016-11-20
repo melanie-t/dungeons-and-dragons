@@ -1,6 +1,11 @@
 #include <thread>
 #include <Windows.h>
 
+//CharacterBuilder (Bully Fighter, Nimble Fighter, Tank Fighter)
+//#include "CharacterCreater.h"
+//#include "Bully.h"
+//#include "Tank.h"
+//#include "Nimble.h"
 #include "Game.h"
 #include "FileMapBuilder.h"
 #include "SavedMapBuilder.h"
