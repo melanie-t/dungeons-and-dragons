@@ -22,11 +22,23 @@ Item::Item() : Item(0, "", vector<Enhancement>())
 //! @param influences : vector containing all the characteristics influenced by the item
 Item::Item(string type_name, vector<Enhancement> influences)
 {
-	int id = stat.getNumItems() + 1;
-	stat.setNumItems(id);
-	this->id;
+	int idIncrement = stat.getNumItems();
+	this->id = idIncrement;
 	this->type = type_name;
 	this->influence = influences;
+}
+
+//! constructor specifically for loading items
+//! @param type : string representing type of item
+//! @param influence : vector containing all the characteristics influenced by the item
+//! @param path : string representing item sprite path
+Item::Item(int id, string type_name, vector<Enhancement> influences, string path)
+{
+	this->id = id;
+	this->type = type_name;
+	this->influence = influences;
+	this->itemPath = path;
+	cout << toString() << "Item loaded successfully" << endl;
 }
 
 //! constructor that receives an item type as a string and a vector containing the enhancements that this item gives
@@ -35,7 +47,8 @@ Item::Item(string type_name, vector<Enhancement> influences)
 //! @param influences : vector containing all the characteristics influenced by the item
 Item::Item(int id, string type_name, vector<Enhancement> influences)
 {
-	this->id = id;
+	int idIncrement = stat.getNumItems();
+	this->id = idIncrement;
 	this->type = type_name;
 	this->influence = influences;
 }
@@ -226,9 +239,7 @@ bool Item::validateItem()
 //! @brief saves the item class as a xml file using Cmarkup
 bool Item::saveItem()
 {
-	int id = stat.getNumItems() + 1;
-	stat.setNumItems(id);
-
+	stat.setNumItems(id + 1);
 	CMarkup xml;
 	//xml.SetDoc("<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n");
 	xml.AddElem("item");
@@ -236,10 +247,7 @@ bool Item::saveItem()
 	xml.AddElem("id", id);
 	xml.AddElem("type", this->type);
 	xml.AddElem("path", this->itemPath);
-
-	if (!influence.empty())
-	{
-		xml.AddElem("enhancements");
+		xml.AddElem("influence");
 		xml.IntoElem();
 		for (int i = 0; i != influence.size(); i++)
 		{
@@ -250,12 +258,10 @@ bool Item::saveItem()
 			xml.OutOfElem();
 		}
 		xml.OutOfElem();
-	}
-
 	char di[20];
 	sprintf_s(di, 20, "items/%d.xml", id);
 	xml.Save(string(di));
-	cout << "Item saved" << endl;
+	cout << "Item saved successfully" << endl;
 	return true;
 }
 
@@ -538,13 +544,11 @@ Item* Item::randommize(int lvl)
 			}
 		}
 	}
-
-	//Item item(type, enh);
-	//item.levelRequirement = lvl;
 	Item* randomItem = new Item(type, enh);
 	randomItem->setItemPath(itemPath);
 	randomItem->saveItem(); //will save the newly generated item as an XML file
-	cout << "Item created" << endl;
+	cout << "Random item created (Level " << lvl << "): \n" 
+		<< randomItem->toString() << endl;
 	return randomItem;
 }
 //! static load function
@@ -560,7 +564,7 @@ Item* Item::load(int id)
 	CMarkup xml;
 	if (xml.Load(string(di)))
 	{
-		xml.FindElem();
+		xml.FindElem(); // root <item> element
 		if (xml.GetTagName() != "item")
 		{
 			cout << "This file is not a item." << endl;
@@ -568,57 +572,53 @@ Item* Item::load(int id)
 		}
 		else
 		{
-			xml.IntoElem();
+			xml.IntoElem(); // inside <item> element
 			vector<Enhancement> enhancements;
 			int id;
 			string type, path;
 
-			while (xml.FindElem())
-			{
-				string s = xml.GetTagName();
-				if (s == "id")
-				{
-					id = atoi(xml.GetData().c_str());
-				}
-				else if (s == "type")
-				{
-					type = xml.GetData();
-				}
-				else if (s == "path")
-				{
-					path = xml.GetData();
-				}
-				else if (s == "enhancements")
-				{
-					xml.IntoElem();
-					while (xml.FindElem())
-					{
-						xml.IntoElem();
-						while (xml.FindElem())
-						{
-							string enh_type;
-							int bonus;
-							string tag = xml.GetTagName();
-							if (tag == "type")
-							{
-								enh_type = xml.GetData();
-							}
-							else if (tag == "bonus")
-							{
-								bonus = atoi(xml.GetData().c_str());
-							}
-							Enhancement enh(enh_type, bonus);
-							enhancements.push_back(enh);
-						}
-					}
-				}
-				xml.OutOfElem();
-				Item* loadedItem = new Item(id, type, enhancements);
-				loadedItem->setItemPath(path);
-				return loadedItem;
-			}
+			string s = xml.GetTagName();
+			xml.FindElem("id");
+			id = atoi(xml.GetData().c_str());
+			//cout << "Loaded ID: " << id << endl;
 
-			xml.OutOfElem();
+			xml.FindElem("type");
+			type = xml.GetData();
+			//cout << "Loaded type: " << type << endl;
+
+			xml.FindElem("path");
+			path = xml.GetData();
+			//cout << "Loaded path: " << path << endl;
+				
+			while (xml.FindElem("influence"))
+			{
+				xml.IntoElem(); // inside <influence>
+				while (xml.FindElem("enhancement"))
+				{
+					xml.IntoElem(); // inside <enhancement>
+					string enh_type;
+					int bonus;
+					string tag = xml.GetTagName();
+							
+					xml.FindElem("enh_type");
+					enh_type = xml.GetData();
+				//	cout << "Loaded enhancement: " << enh_type << endl;
+
+					xml.FindElem("bonus");
+					bonus = atoi(xml.GetData().c_str());
+				//	cout << "Loaded bonus: " << bonus << endl;
+
+					Enhancement enh(enh_type, bonus);
+				//	cout << enh.toString();
+					enhancements.push_back(enh);
+					xml.OutOfElem(); // out of <enhancement> element
+				}
+				xml.OutOfElem(); // out of <enhancement> element
+			}
+				xml.OutOfElem(); // out of <influence> element
+				return new Item(id, type, enhancements, path);
+
+			xml.OutOfElem(); // out of <item> element
 		}
 		return nullptr; //return null
 	}
@@ -666,7 +666,21 @@ string Item::toString() {
 	out << "\nType: " << type
 		<< "\nID: " << id
 		<< "\nItem path: " << itemPath
-		<< "\n" << endl;
+		<< "\nEnhancements\n" << enhancementString()
+		<< endl;
+	
+	return out.str();
+}
+
+string Item::enhancementString()
+{
+	std::ostringstream out;
+	
+	for (Enhancement e : influence)
+	{
+		if (!NULL)
+			out << e.toString();
+	}
 	
 	return out.str();
 }

@@ -23,7 +23,8 @@ public:
 	Item();
 	// Constructor
 	Item(int id, string type,vector<Enhancement> influences);
-	//Item(int id, string type, vector<Enhancement> influences, string path);
+	//Constructor to load items
+	Item(int id, string type, vector<Enhancement> influences, string path);
 	Item(string type, vector<Enhancement> influences);
 	//Destructor
 	~Item();
@@ -50,6 +51,7 @@ public:
 	void setItemPath(string path);
 	int getID();
 	string toString();
+	string enhancementString();
 
 private:
 	int id;

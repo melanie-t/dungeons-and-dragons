@@ -25,6 +25,7 @@ public:
 	void setType(string type);
 	//setter for bonus
 	void setBonus(int bonus);
+	string toString();
 private:
 	string type;
 	int bonus;
