@@ -237,7 +237,6 @@ vector<int> Map::outputMap()
 //! @brief Saves the map object into an xml file.
 bool Map::saveMap()
 {
-
 	if (!this->validatePath())
 	{
 		//Invlaid map.

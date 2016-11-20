@@ -44,7 +44,7 @@ void Campaign::setup(Map* map)
 		}
 	}
 }
-Campaign* Campaign::createCampaign()
+Campaign* Campaign::createCampaign(Character* player)
 {
 	cout << "Pick a Starting map ID below" << Statistics::getInstance()->getNumMaps() << " and above 0; ";
 	int start;
@@ -56,7 +56,7 @@ Campaign* Campaign::createCampaign()
 	} while (start > Statistics::getInstance()->getNumMaps() || start <= 0);
 
 	//Load the map that the campaign will start on.
-	FileMapBuilder builder;
+	FileMapBuilder builder(player);
 	builder.loadMap(start);
 
 	Map* startMap = builder.getMap();

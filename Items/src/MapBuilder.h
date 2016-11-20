@@ -30,7 +30,7 @@ class MapBuilder
 protected:
 	Map* m_Map;
 public:
-	~MapBuilder(){ delete m_Map; }
+	~MapBuilder(){ }
 	Map* getMap(){ return this->m_Map; }
 
 	void createNewMap(){ this->m_Map = new Map(); };

@@ -12,6 +12,7 @@
 #include "Markup.h"
 #include "Friend.h"
 #include "StatisticsHelper.h"
+#include "Campaign.h"
 using namespace std;
 
 
@@ -20,17 +21,17 @@ std::thread runGameThread;
 Console input thread.
 Take commands through the console. Temp
 */
-void runGame(int chosenMap, string characterName)
+void runGame(Map* chosenMap)
 {
-	Character* character = Character::loadCharacter(characterName);
-	character->setName(characterName);
+	//Character* character = Character::loadCharacter(characterName);
+	//character->setName(characterName);
 
-	FileMapBuilder builder(character);
-	builder.loadMap(chosenMap);
-	Map* map = builder.getMap();
+	//FileMapBuilder builder(character);
+	//builder.loadMap(chosenMap);
+	//Map* map = builder.getMap();
 	//builder.createCampagin(map);
 
-	Game* game = new Game(map->getWidth(), map->getLength(), map);
+	Game* game = new Game(chosenMap->getWidth(), chosenMap->getLength(), chosenMap);
 
 	try {
 		game->go();
@@ -92,7 +93,11 @@ int main()
 				}
 
 				cin >> name;
-				cout << "Choose a map id from the list below:" << endl;
+
+				Character* player = Character::loadCharacter(name);
+				Campaign* camp = Campaign::createCampaign(player);
+
+				/*cout << "Choose a map id from the list below:" << endl;
 
 				int id = 1;
 				CMarkup xml;
@@ -107,11 +112,11 @@ int main()
 				}
 
 				int chosenMap;
-				cin >> chosenMap;
+				cin >> chosenMap;*/
 
 				gameRunning = true;
 
-				runGameThread = std::thread(runGame, chosenMap, name);
+				runGameThread = std::thread(runGame, camp->getBeginningMap());
 			}
 			else
 			{

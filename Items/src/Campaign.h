@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Map.h"
+#include "Character.h"
 
 class Campaign
 {
@@ -14,5 +15,5 @@ public:
 
 
 	static Campaign* loadCampaign(int id);
-	static Campaign* createCampaign();
+	static Campaign* createCampaign(Character* player);
 };
