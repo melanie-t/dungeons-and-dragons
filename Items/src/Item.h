@@ -12,6 +12,7 @@
 #include "Enhancement.h"
 #include "GameObject.h"
 #include "ItemTypes.h"
+#include "StatisticsHelper.h"
 using namespace std;
 
 //! class for the implementation of items wearable by a character
@@ -22,6 +23,7 @@ public:
 	Item();
 	// Constructor
 	Item(int id, string type,vector<Enhancement> influences);
+	//Constructor to load items
 	Item(int id, string type, vector<Enhancement> influences, string path);
 	Item(string type, vector<Enhancement> influences);
 	//Destructor
@@ -48,12 +50,14 @@ public:
 	void removeEnhancement(string type);
 	void setItemPath(string path);
 	int getID();
-	string itemString();
+	string toString();
+	string enhancementString();
 
 private:
 	int id;
 	string type;
 	string itemPath = "Default item path";
+	Statistics stat;
 	//int levelRequirement;
 	vector<Enhancement> influence;
 };

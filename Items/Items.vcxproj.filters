@@ -52,6 +52,12 @@
     <Filter Include="Header Files\Constants">
       <UniqueIdentifier>{255758b4-c411-418b-a260-640e4491695d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\CharacterBuilder">
+      <UniqueIdentifier>{34780ac0-8de5-43b2-89e4-84516c4392cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Characterbuilder">
+      <UniqueIdentifier>{d03ae6d0-71d2-40d6-ae47-23d20641050f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Map.h">
@@ -159,6 +165,21 @@
     <ClInclude Include="src\pos.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\CharacterBuilder.h">
+      <Filter>Header Files\Characterbuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CharacterCreater.h">
+      <Filter>Header Files\Characterbuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Bully.h">
+      <Filter>Header Files\Characterbuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Nimble.h">
+      <Filter>Header Files\Characterbuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tank.h">
+      <Filter>Header Files\Characterbuilder</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Map.cpp">
@@ -232,6 +253,12 @@
     </ClCompile>
     <ClCompile Include="src\Campaign.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CharacterCreater.cpp">
+      <Filter>Source Files\CharacterBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CharacterBuilder.cpp">
+      <Filter>Source Files\CharacterBuilder</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

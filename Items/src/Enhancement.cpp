@@ -2,6 +2,7 @@
 //! @brief Implementation file for the Item class  
 //!
 #include "Enhancement.h"
+#include <sstream>
 
 // default constructor
 
@@ -48,4 +49,12 @@ void Enhancement::setType(string type)
 void Enhancement::setBonus(int bonus)
 {
 	this->bonus = bonus;
+}
+
+string Enhancement::toString() 
+{
+	std::ostringstream out;
+	out << type << ": " << bonus << endl;
+	
+	return out.str();
 }

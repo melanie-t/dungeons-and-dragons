@@ -24,6 +24,7 @@ public:
 	// method to get an item from the item container
 	Item getItem(string itemType);
 	vector<int> getIDs();
+	string toString();
 
 private:
 	vector<Item> Items;

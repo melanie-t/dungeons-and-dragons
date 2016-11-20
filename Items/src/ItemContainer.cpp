@@ -3,6 +3,7 @@
 //!
 
 #include "ItemContainer.h"
+#include <sstream>
 
 //! default constructor
 ItemContainer::ItemContainer()
@@ -48,4 +49,15 @@ vector<int> ItemContainer::getIDs() {
 		itemIDs.push_back(it->getID());
 	}
 	return itemIDs;
+}
+
+string ItemContainer::toString() {
+	std::ostringstream out;
+	
+	for (auto it = Items.begin(); it != Items.end(); ++it)
+	{
+		out << it->toString();
+	}
+
+	return out.str();
 }

@@ -2,10 +2,11 @@
 	<id>1</id>
 	<type>armor</type>
 	<level>1</level>
-	<enhancements>
+	<path>LoadTest_1.png</path>
+	<influence>
 		<enhancement>
-			<type>strength</type>
+			<enh_type>strength</enh_type>
 			<bonus>1</bonus>
 		</enhancement>
-	</enhancements>
+	</influence>
 </item>

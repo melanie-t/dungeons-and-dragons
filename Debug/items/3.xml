@@ -2,10 +2,10 @@
 <id>3</id>
 <type>shield</type>
 <path>res/shield/5.png</path>
-<enhancements>
+<influence>
 <enhancement>
-<type>armorclass</type>
+<enh_type>armorclass</enh_type>
 <bonus>1</bonus>
 </enhancement>
-</enhancements>
+</influence>
 </item>
