@@ -1,9 +1,14 @@
+//! file Nimble.h
+//! @brief Header file and Implementation of the Nimble Character
+//!
 #pragma once
 #include "CharacterBuilder.h"
 #include <algorithm>
+//! Class for the Nimble, inherit from the CharacterBuilder
 class Nimble : public CharacterBuilder{
 public:
 	Dice dice;
+	//! Method to set the ability scores to the character
 	virtual void buildAbilityScores(){
 		int abilityScores[6];
 		for (int i = 0; i < 6; i++){
