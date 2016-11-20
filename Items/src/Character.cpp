@@ -755,7 +755,7 @@ string Character::statString()
 
 	string items;
 	for (Item* i : equips) {
-		items = items + i->toString() + "\n";
+		//items = items + i->toString() + "\n";
 	}
 
 	std::ostringstream out;

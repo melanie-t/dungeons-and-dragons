@@ -7,6 +7,7 @@
 #include "TileTypes.h"
 #include "Enemy.h"
 #include "Friend.h"
+#include "Door.h"
 #include <SFML\Graphics.hpp>
 
 //! Constructor for Game class
@@ -98,7 +99,6 @@ bool Game::validate(int start, int end){
 //! @brief intializes the game window 
 //! @return true if game window was initialized successfully
 bool Game::init(){
-	// col and row and reversed.
 	window = new sf::RenderWindow(sf::VideoMode(m_map->getWidth() * 32, m_map->getLength() * 32 + 250), "D&D 2.0"); 
 	//Puts the window at the top left of the monitor screen
 	window->setPosition(sf::Vector2i(0, 0));
@@ -163,8 +163,20 @@ void Game::update(sf::Event evt){
 				}
 				else if (level[currentPos - width] == TileTypes::END) // end
 				{
+					int x = currentPos % width;
+					int y = currentPos / width - 1;
+					Door* door = static_cast<Door*>(this->m_map->getObject(x, y));
+
+					if (door != nullptr)
+					{
+						cout << "destination: " << door->getDestination()->getID() << endl;
+						this->m_map = door->getDestination();
+						this->level = door->getDestination()->outputMap();
+						//this->init();
+						loadTextures();
+					}
 					//YOU WIN!!!
-					endGame();
+					//endGame();
 				}
 				player.move(0, -32);
 				currentPos -= width;
@@ -198,7 +210,18 @@ void Game::update(sf::Event evt){
 				else if (level[currentPos + width] == TileTypes::END) // end
 				{
 					//m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
-					endGame();
+					int x = currentPos % width;
+					int y = currentPos / width + 1;
+					Door* door = static_cast<Door*>(this->m_map->getObject(x, y));
+
+					if (door != nullptr)
+					{
+						cout << "destination: " << door->getDestination()->getID() << endl;
+						this->m_map = door->getDestination();
+						this->level = door->getDestination()->outputMap();
+						//this->init();
+						loadTextures();
+					}
 				}
 				player.move(0, +32);
 				currentPos += width;
@@ -232,7 +255,18 @@ void Game::update(sf::Event evt){
 				else if (level[currentPos - 1] == TileTypes::END) // end
 				{
 					//m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
-					endGame(); // temp
+					int x = currentPos % width - 1;
+					int y = currentPos / width;
+					Door* door = static_cast<Door*>(this->m_map->getObject(x, y));
+
+					if (door != nullptr)
+					{
+						cout << "destination: " << door->getDestination()->getID() << endl;
+						this->m_map = door->getDestination();
+						this->level = door->getDestination()->outputMap();
+						this->init();
+						loadTextures();
+					}
 				}
 				player.move(-32, 0);
 				currentPos--;
@@ -265,7 +299,18 @@ void Game::update(sf::Event evt){
 				else if (level[currentPos + 1] == TileTypes::END) // end
 				{
 					//m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
-					endGame(); // temp.
+					int x = currentPos % width + 1;
+					int y = currentPos / width;
+					Door* door = static_cast<Door*>(this->m_map->getObject(x, y));
+
+					if (door != nullptr)
+					{
+						cout << "destination: " << door->getDestination()->getID() << endl;
+						this->m_map = door->getDestination();
+						this->level = door->getDestination()->outputMap();
+						//this->init();
+						loadTextures();
+					}
 				}
 				player.move(+32, 0);
 				currentPos++;
