@@ -20,8 +20,13 @@ Item::Item() : Item(0, "", vector<Enhancement>())
 //! this constructor sets the item id to 0. eg. not caring.
 //! @param type_name : string representing the type of item
 //! @param influences : vector containing all the characteristics influenced by the item
-Item::Item(string type_name, vector<Enhancement> influences) : Item(0, type_name, influences)
+Item::Item(string type_name, vector<Enhancement> influences)
 {
+	int id = stat.getNumItems() + 1;
+	stat.setNumItems(id);
+	this->id;
+	this->type = type_name;
+	this->influence = influences;
 }
 
 //! constructor that receives an item type as a string and a vector containing the enhancements that this item gives
@@ -221,9 +226,8 @@ bool Item::validateItem()
 //! @brief saves the item class as a xml file using Cmarkup
 bool Item::saveItem()
 {
-	Statistics stats;
-	int id = stats.getNumItems() + 1;
-	stats.setNumItems(id);
+	int id = stat.getNumItems() + 1;
+	stat.setNumItems(id);
 
 	CMarkup xml;
 	//xml.SetDoc("<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n");
@@ -552,7 +556,7 @@ Item* Item::randommize(int lvl)
 Item* Item::load(int id)
 {
 	char di[20];
-	sprintf_s(di, 20, "Items/%d.xml", id);
+	sprintf_s(di, 20, "items/%d.xml", id);
 	CMarkup xml;
 	if (xml.Load(string(di)))
 	{
@@ -657,12 +661,12 @@ int Item::getID() {
 	return id;
 }
 
-string Item::itemString() {
+string Item::toString() {
 	std::ostringstream out;
-	out << "\nItem type: " << type
+	out << "\nType: " << type
 		<< "\nID: " << id
 		<< "\nItem path: " << itemPath
 		<< "\n" << endl;
 	
-		return out.str();
+	return out.str();
 }

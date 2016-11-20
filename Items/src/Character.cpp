@@ -55,6 +55,7 @@ Character::Character(string name, int charclass, int lvl, int str, int dex, int 
 {
 	this->name = name;
 	level = lvl;
+	charClass = charclass;
 	abilityScores[Ability::STRENGTH] = str;
 	abilityScores[Ability::DEXTERITY] = dex;
 	abilityScores[Ability::CONSTITUTION] = con;
@@ -713,8 +714,10 @@ void Character::displayStats()
 	}
 
 	string items;
-	for (Item* i : equips) {
-		items = items + i->itemString() + "\n";
+	for (Item* i : equips) 
+	{
+		if (i != NULL)
+		items = items + i->toString() + "\n";
 	}
 
 	cout << "\n= PLAYER STATS ="
@@ -751,7 +754,7 @@ string Character::statString()
 
 	string items;
 	for (Item* i : equips) {
-		items = items + i->itemString() + "\n";
+		items = items + i->toString() + "\n";
 	}
 
 	std::ostringstream out;
