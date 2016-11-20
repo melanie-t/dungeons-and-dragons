@@ -1,8 +1,13 @@
+//! file Bully.h
+//! @brief Header file and Implementation of the Bully Character
+//!
 #pragma once
 #include "CharacterBuilder.h"
 #include <algorithm>
+//! Class for the Bully, inherit from the CharacterBuilder
 class Bully : public CharacterBuilder{
 public:
+	//! Method to set the ability scores to the character
 	virtual void buildAbilityScores(){
 		Dice dice;
 		int abilityScores[6];

@@ -1,3 +1,6 @@
+//! @file CharacterBuilder.h
+//! @brief Header file for the CharacterBuilder
+//!
 #pragma once
 #include "Character.h"
 #include "Dice.h"
