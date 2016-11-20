@@ -169,11 +169,18 @@ void Game::update(sf::Event evt){
 
 					if (door != nullptr)
 					{
-						cout << "destination: " << door->getDestination()->getID() << endl;
-						this->m_map = door->getDestination();
-						this->level = door->getDestination()->outputMap();
-						//this->init();
-						loadTextures();
+						if (door->getDestination() != nullptr)
+						{
+							cout << "destination: " << door->getDestination()->getID() << endl;
+							this->m_map = door->getDestination();
+							this->level = door->getDestination()->outputMap();
+							//this->init();
+							loadTextures();
+						}
+						else
+						{
+							endGame();
+						}
 					}
 					//YOU WIN!!!
 					//endGame();
@@ -216,11 +223,18 @@ void Game::update(sf::Event evt){
 
 					if (door != nullptr)
 					{
-						cout << "destination: " << door->getDestination()->getID() << endl;
-						this->m_map = door->getDestination();
-						this->level = door->getDestination()->outputMap();
-						//this->init();
-						loadTextures();
+						if (door->getDestination() != nullptr)
+						{
+							cout << "destination: " << door->getDestination()->getID() << endl;
+							this->m_map = door->getDestination();
+							this->level = door->getDestination()->outputMap();
+							//this->init();
+							loadTextures();
+						}
+						else
+						{
+							endGame();
+						}
 					}
 				}
 				player.move(0, +32);
@@ -261,11 +275,18 @@ void Game::update(sf::Event evt){
 
 					if (door != nullptr)
 					{
-						cout << "destination: " << door->getDestination()->getID() << endl;
-						this->m_map = door->getDestination();
-						this->level = door->getDestination()->outputMap();
-						this->init();
-						loadTextures();
+						if (door->getDestination() != nullptr)
+						{
+							cout << "destination: " << door->getDestination()->getID() << endl;
+							this->m_map = door->getDestination();
+							this->level = door->getDestination()->outputMap();
+							//this->init();
+							loadTextures();
+						}
+						else
+						{
+							endGame();
+						}
 					}
 				}
 				player.move(-32, 0);
@@ -305,11 +326,18 @@ void Game::update(sf::Event evt){
 
 					if (door != nullptr)
 					{
-						cout << "destination: " << door->getDestination()->getID() << endl;
-						this->m_map = door->getDestination();
-						this->level = door->getDestination()->outputMap();
-						//this->init();
-						loadTextures();
+						if (door->getDestination() != nullptr)
+						{
+							cout << "destination: " << door->getDestination()->getID() << endl;
+							this->m_map = door->getDestination();
+							this->level = door->getDestination()->outputMap();
+							//this->init();
+							loadTextures();
+						}
+						else
+						{
+							endGame();
+						}
 					}
 				}
 				player.move(+32, 0);
