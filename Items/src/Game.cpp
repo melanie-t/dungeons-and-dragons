@@ -179,8 +179,7 @@ void Game::update(sf::Event evt){
 							endGame();
 						}
 					}
-					//YOU WIN!!!
-					//endGame();
+					break;
 				}
 				player.move(0, -32);
 				currentPos -= width;
@@ -229,6 +228,7 @@ void Game::update(sf::Event evt){
 							endGame();
 						}
 					}
+					break;
 				}
 				player.move(0, +32);
 				currentPos += width;
@@ -277,6 +277,7 @@ void Game::update(sf::Event evt){
 							endGame();
 						}
 					}
+					break;
 				}
 				player.move(-32, 0);
 				currentPos--;
@@ -324,6 +325,7 @@ void Game::update(sf::Event evt){
 							endGame();
 						}
 					}
+					break;
 				}
 				player.move(+32, 0);
 				currentPos++;
@@ -419,13 +421,7 @@ void Game::loadTextures(){
 	player.setTexture(playerTexture);
 	player.setTextureRect(sf::IntRect(0, 0, 20, 26));
 	//Sets the player to the starting position
-	for (int i = 0; i < width * height; ++i){
-		if (level[i] == TileTypes::START){
-			currentPos = i;
-			break;
-		}
-	}
-	player.setPosition((currentPos % width) * 32 + 5, (currentPos / width) * 32 + 3);
+	resetStart();
 	createText();
 }
 
@@ -524,19 +520,19 @@ void Game::goToNewMap(Map* map)
 	this->m_map = map;
 	this->level = map->outputMap();
 	//this->init();
-	loadTextures();
+	//loadTextures();
+	this->map.load("bkrd.png", sf::Vector2u(32, 32), level, width, height);
 
+	resetStart();
+}
+
+void Game::resetStart()
+{
 	for (int i = 0; i < width * height; ++i){
 		if (level[i] == TileTypes::START){
 			currentPos = i;
 			break;
 		}
 	}
-
-	while (window->isOpen()){
-		window->clear();
-		render();
-		processInput();
-		window->display();
-	}
+	player.setPosition((currentPos % width) * 32 + 5, (currentPos / width) * 32 + 3);
 }
