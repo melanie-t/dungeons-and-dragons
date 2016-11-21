@@ -674,10 +674,7 @@ string Item::enhancementString()
 	
 	for (Enhancement e : influence)
 	{
-		if (!NULL)
-		{
-			out << e.toString();
-		}
+		out << e.toString();
 	}
 	return out.str();
 }
