@@ -1,29 +1,28 @@
+<?xml version="1.0" ?>
 <map>
-<id>2</id>
-<width>20</width>
-<length>20</length>
+	<id>2</id>
+	<width>20</width>
+	<length>10</length>
+	
 	<doors>
-		<door>
+		<door1>
 			<mapid>2</mapid>
 			<x>2</x>
 			<y>5</y>
 			<start>0</start>
-		</door>
-		<door>
+		</door1>
+		<door2>
 			<mapid>2</mapid>
 			<x>2</x>
 			<y>6</y>
 			<start>1</start>
-		</door>
+		</door2>
 	</doors>
+	
 	<items>
-		<item>
-		<x>2</x>
-		<y>2</y>
-		</item>
-	<item>
-		<x>2</x>
-		<y>3</y>
-		</item>
+		<item1>
+			<x>1</x>
+			<y>1</y>
+		</item1>
 	</items>
 </map>

@@ -172,10 +172,7 @@ void Game::update(sf::Event evt){
 					{
 						if (door->getDestination() != nullptr)
 						{
-							this->m_map = door->getDestination();
-							this->level = door->getDestination()->outputMap();
-							//this->init();
-							loadTextures();
+							this->goToNewMap(door->getDestination());
 						}
 						else
 						{
@@ -225,10 +222,7 @@ void Game::update(sf::Event evt){
 					{
 						if (door->getDestination() != nullptr)
 						{
-							this->m_map = door->getDestination();
-							this->level = door->getDestination()->outputMap();
-							//this->init();
-							loadTextures();
+							this->goToNewMap(door->getDestination());
 						}
 						else
 						{
@@ -276,10 +270,7 @@ void Game::update(sf::Event evt){
 					{
 						if (door->getDestination() != nullptr)
 						{
-							this->m_map = door->getDestination();
-							this->level = door->getDestination()->outputMap();
-							//this->init();
-							loadTextures();
+							this->goToNewMap(door->getDestination());
 						}
 						else
 						{
@@ -326,10 +317,7 @@ void Game::update(sf::Event evt){
 					{
 						if (door->getDestination() != nullptr)
 						{
-							this->m_map = door->getDestination();
-							this->level = door->getDestination()->outputMap();
-							//this->init();
-							loadTextures();
+							this->goToNewMap(door->getDestination());
 						}
 						else
 						{
@@ -528,5 +516,27 @@ void Game::go(){
 	else{
 		std::cout << "Invalid Map";
 		EXIT_FAILURE;
+	}
+}
+
+void Game::goToNewMap(Map* map)
+{
+	this->m_map = map;
+	this->level = map->outputMap();
+	//this->init();
+	loadTextures();
+
+	for (int i = 0; i < width * height; ++i){
+		if (level[i] == TileTypes::START){
+			currentPos = i;
+			break;
+		}
+	}
+
+	while (window->isOpen()){
+		window->clear();
+		render();
+		processInput();
+		window->display();
 	}
 }
