@@ -679,6 +679,5 @@ string Item::enhancementString()
 			out << e.toString();
 		}
 	}
-	
 	return out.str();
 }
