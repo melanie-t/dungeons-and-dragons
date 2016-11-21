@@ -46,14 +46,13 @@ void Campaign::setup(Map* map)
 			builder.loadMap(mapid);
 			Map* map = builder.getMap();
 			door->setDestination(map);
-			cout << door->getDestination()->getID() << endl;
 			setup(map);
 		}
 	}
 }
 Campaign* Campaign::createCampaign(Character* player)
 {
-	cout << "Pick a Starting map ID below " << Statistics::getInstance()->getNumMaps() << " and above 0; ";
+	cout << "Pick a Starting map ID below" << Statistics::getInstance()->getNumMaps() << " and above 0; ";
 	int start;
 
 	do

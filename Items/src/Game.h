@@ -61,8 +61,6 @@ private:
 	void update(sf::Event evt);
 
 	//Ends the game
-	void goToNewMap(Map* map); // for the future.
-	void resetStart();
 	void endGame();
 
 	//Variables for player to move in the map
@@ -78,6 +76,7 @@ public:
 	~Game();
 	//Method to start the game
 	void go();
+	void goToNewMap(Map* map); // for the future.
 	bool openedChest = false;
 	bool ended;
 };

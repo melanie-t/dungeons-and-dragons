@@ -15,7 +15,6 @@ Item::Item() : Item(0, "", vector<Enhancement>(), "")
 {
 }
 
-
 //! constructor that receives an item type as a string and a vector containing the enhancements that this item gives
 //! this constructor sets the item id to 0. eg. not caring.
 //! @param type_name : string representing the type of item
@@ -23,9 +22,10 @@ Item::Item() : Item(0, "", vector<Enhancement>(), "")
 Item::Item(string type_name, vector<Enhancement> influences)
 {
 	int idIncrement = Statistics::getInstance()->getNumItems();
-	this->id = idIncrement+1;
+	this->id = idIncrement + 1;
 	this->type = type_name;
 	this->influence = influences;
+	this->itemPath = "";
 }
 
 //! constructor specifically for loading items
@@ -38,7 +38,7 @@ Item::Item(int id, string type_name, vector<Enhancement> influences, string path
 	this->type = type_name;
 	this->influence = influences;
 	this->itemPath = path;
-	cout << toString() << "Item loaded successfully" << endl;
+	//cout << toString() << "Item loaded successfully" << endl;
 }
 
 //! Destructor For the Item class
@@ -56,6 +56,13 @@ Item::~Item()
 string Item::getType()
 {
 	return type;
+}
+
+//! method to set the type of item
+//! @param item : string of type of item
+void Item::setType(string ntype)
+{
+	type = ntype;
 }
 
 //! method to get the influences of the item
@@ -650,14 +657,15 @@ int Item::getID() {
 }
 
 string Item::toString() {
-	std::ostringstream out;
-	out << "\nType: " << type
-		<< "\nID: " << id
-		<< "\nItem path: " << itemPath
-		<< "\nEnhancements\n" << enhancementString()
-		<< endl;
-	
-	return out.str();
+	if (id != 0)
+	{
+		std::ostringstream out;
+		out << "\nType: " << type
+			<< "\nID: " << id
+			<< "\nItem path: " << itemPath
+			<< "\nEnhancements\n" << enhancementString();
+		return out.str();
+	}
 }
 
 string Item::enhancementString()
@@ -667,8 +675,9 @@ string Item::enhancementString()
 	for (Enhancement e : influence)
 	{
 		if (!NULL)
+		{
 			out << e.toString();
+		}
 	}
-	
 	return out.str();
 }

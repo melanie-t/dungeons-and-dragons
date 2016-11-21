@@ -21,13 +21,15 @@ class Item
 public:
 	// Default constructor
 	Item();
+	// Constructor
+	Item(string type_name, vector<Enhancement> influences);
 	//Constructor to load items
-	Item(int id, string type, vector<Enhancement> influences, string path = "");
-	Item(string type, vector<Enhancement> influences);
+	Item(int id, string type, vector<Enhancement> influences, string path);
 	//Destructor
 	~Item();
 	// method to get the type of the item
 	string getType();
+	void setType(string type);
 	// method to get the influences of the item
 	vector<Enhancement> getInfluences();
 	//method to validate an item
@@ -55,7 +57,6 @@ private:
 	int id;
 	string type;
 	string itemPath = "Default item path";
-	//Statistics stat;
 	//int levelRequirement;
 	vector<Enhancement> influence;
 };

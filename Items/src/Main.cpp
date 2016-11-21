@@ -491,7 +491,7 @@ int main()
 					int id = Statistics::getInstance()->getNumItems() + 1;
 
 					cout << "Created new item with ID: " << id << endl;
-					item = new Item(id, type, vector<Enhancement>()); //without enhancements.
+					item = new Item(id, type, vector<Enhancement>(), ""); //without enhancements.
 					break;
 				}
 				case 2: //edit existing item

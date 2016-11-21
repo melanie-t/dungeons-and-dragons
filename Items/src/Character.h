@@ -42,7 +42,7 @@ public:
 	Character();
 	Character(int lvl, int str, int dex, int con, int intel, int wis, int cha);
 	Character(string name, int charclass, int lvl, int str, int dex, int con, int intel, int wis,
-		int cha, int hp, ItemContainer backpack, Item* equips[7]);
+		int cha, int hp, ItemContainer backpack, Item equips[7]);
 
 	void notify();
 	void attach(Character* c);
@@ -83,7 +83,7 @@ public:
 	ItemContainer getBackpack();
 
 	bool gameover = false;
-	void equipItem(Item* item);
+	void equipItem(Item item);
 	void removeHelmet();
 	void removeArmor();
 	void removeBelt();
@@ -97,7 +97,7 @@ public:
 	string classtoString();
 	void saveCharacter();
 	static Character* loadCharacter(string name);
-
+	void setEquips(Item equips[7]);
 	//string retrieveGender();
 	//void setExtraPoints();
 
@@ -119,7 +119,7 @@ private:
 		ringEquipped = false;
 
 	ItemContainer backpack;
-	Item* equips[7]; //(0)helmet, (1)armor, (2)belt, (3)boots, (4)shield, (5)weapon, (6)ring
+	Item equips[7]; //(0)helmet, (1)armor, (2)belt, (3)boots, (4)shield, (5)weapon, (6)ring
 	string name;
 	string gender;
 	Character* List[10];
