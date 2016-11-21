@@ -11,7 +11,7 @@
 #include <time.h>
 
 //! default constructor
-Item::Item() : Item(0, "", vector<Enhancement>())
+Item::Item() : Item(0, "", vector<Enhancement>(), "")
 {
 }
 
@@ -22,8 +22,8 @@ Item::Item() : Item(0, "", vector<Enhancement>())
 //! @param influences : vector containing all the characteristics influenced by the item
 Item::Item(string type_name, vector<Enhancement> influences)
 {
-	int idIncrement = stat.getNumItems();
-	this->id = idIncrement;
+	int idIncrement = Statistics::getInstance()->getNumItems();
+	this->id = idIncrement+1;
 	this->type = type_name;
 	this->influence = influences;
 }
@@ -39,18 +39,6 @@ Item::Item(int id, string type_name, vector<Enhancement> influences, string path
 	this->influence = influences;
 	this->itemPath = path;
 	cout << toString() << "Item loaded successfully" << endl;
-}
-
-//! constructor that receives an item type as a string and a vector containing the enhancements that this item gives
-//! @param id : id of the item.
-//! @param type_name : string representing the type of item
-//! @param influences : vector containing all the characteristics influenced by the item
-Item::Item(int id, string type_name, vector<Enhancement> influences)
-{
-	int idIncrement = stat.getNumItems();
-	this->id = idIncrement;
-	this->type = type_name;
-	this->influence = influences;
 }
 
 //! Destructor For the Item class
@@ -239,7 +227,7 @@ bool Item::validateItem()
 //! @brief saves the item class as a xml file using Cmarkup
 bool Item::saveItem()
 {
-	stat.setNumItems(id + 1);
+	Statistics::getInstance()->setNumItems(id);
 	CMarkup xml;
 	//xml.SetDoc("<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n");
 	xml.AddElem("item");

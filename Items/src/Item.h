@@ -21,10 +21,8 @@ class Item
 public:
 	// Default constructor
 	Item();
-	// Constructor
-	Item(int id, string type,vector<Enhancement> influences);
 	//Constructor to load items
-	Item(int id, string type, vector<Enhancement> influences, string path);
+	Item(int id, string type, vector<Enhancement> influences, string path = "");
 	Item(string type, vector<Enhancement> influences);
 	//Destructor
 	~Item();
@@ -57,7 +55,7 @@ private:
 	int id;
 	string type;
 	string itemPath = "Default item path";
-	Statistics stat;
+	//Statistics stat;
 	//int levelRequirement;
 	vector<Enhancement> influence;
 };
