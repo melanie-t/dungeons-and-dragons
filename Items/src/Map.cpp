@@ -437,6 +437,6 @@ void Map::printMap()
 
 GameObject* Map::getObject(int x, int y)
 {
-	return map[y][x];
+	return map[x][y];
 }
 
