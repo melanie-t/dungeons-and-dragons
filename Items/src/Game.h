@@ -62,6 +62,7 @@ private:
 
 	//Ends the game
 	void endGame();
+	void goToNewMap(Map* map); // for the future.
 
 	//Variables for player to move in the map
 	int currentPos;
@@ -76,7 +77,6 @@ public:
 	~Game();
 	//Method to start the game
 	void go();
-	void goToNewMap(Map* map); // for the future.
 	bool openedChest = false;
 	bool ended;
 };

@@ -74,7 +74,7 @@ bool Game::validate(int start, int end){
 	if (start == end)
 		return true;
 	//checks if its out of bounds
-	else if (start < 0 || start > (level.size() - 1))
+	else if (start < 0 || start >(level.size() - 1))
 	{
 		return false;
 	}
@@ -99,7 +99,7 @@ bool Game::validate(int start, int end){
 //! @brief intializes the game window 
 //! @return true if game window was initialized successfully
 bool Game::init(){
-	window = new sf::RenderWindow(sf::VideoMode(m_map->getWidth() * 32, m_map->getLength() * 32 + 250), "D&D 2.0"); 
+	window = new sf::RenderWindow(sf::VideoMode(m_map->getWidth() * 32, m_map->getLength() * 32 + 250), "D&D 2.0");
 	//Puts the window at the top left of the monitor screen
 	window->setPosition(sf::Vector2i(0, 0));
 	//Prevent multiple key presses
@@ -163,19 +163,16 @@ void Game::update(sf::Event evt){
 				}
 				else if (level[currentPos - width] == TileTypes::END) // end
 				{
-					int x = currentPos % width;
-					int y = currentPos / width - 1;
+					int y = currentPos % width;
+					int x = currentPos / width - 1;
+
 					Door* door = static_cast<Door*>(this->m_map->getObject(x, y));
 
 					if (door != nullptr)
 					{
 						if (door->getDestination() != nullptr)
 						{
-							cout << "destination: " << door->getDestination()->getID() << endl;
-							this->m_map = door->getDestination();
-							this->level = door->getDestination()->outputMap();
-							//this->init();
-							loadTextures();
+							this->goToNewMap(door->getDestination());
 						}
 						else
 						{
@@ -217,19 +214,15 @@ void Game::update(sf::Event evt){
 				else if (level[currentPos + width] == TileTypes::END) // end
 				{
 					//m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
-					int x = currentPos % width;
-					int y = currentPos / width + 1;
+					int y = currentPos % width;
+					int x = currentPos / width + 1;
 					Door* door = static_cast<Door*>(this->m_map->getObject(x, y));
 
 					if (door != nullptr)
 					{
 						if (door->getDestination() != nullptr)
 						{
-							cout << "destination: " << door->getDestination()->getID() << endl;
-							this->m_map = door->getDestination();
-							this->level = door->getDestination()->outputMap();
-							//this->init();
-							loadTextures();
+							this->goToNewMap(door->getDestination());
 						}
 						else
 						{
@@ -269,19 +262,15 @@ void Game::update(sf::Event evt){
 				else if (level[currentPos - 1] == TileTypes::END) // end
 				{
 					//m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
-					int x = currentPos % width - 1;
-					int y = currentPos / width;
+					int y = currentPos % width - 1;
+					int x = currentPos / width;
 					Door* door = static_cast<Door*>(this->m_map->getObject(x, y));
 
 					if (door != nullptr)
 					{
 						if (door->getDestination() != nullptr)
 						{
-							cout << "destination: " << door->getDestination()->getID() << endl;
-							this->m_map = door->getDestination();
-							this->level = door->getDestination()->outputMap();
-							//this->init();
-							loadTextures();
+							this->goToNewMap(door->getDestination());
 						}
 						else
 						{
@@ -302,13 +291,13 @@ void Game::update(sf::Event evt){
 			}
 			else{
 				//Checks if space occupied or out of bounds
-				if ((currentPos) % width > (width-2))
+				if ((currentPos) % width > (width - 2))
 					break;
 				else if (level[currentPos + 1] == TileTypes::WATER) //1 is water
 					break;
 				else if (level[currentPos + 1] == TileTypes::TREE) //2 is tree
 					break;
-				else if (level[currentPos +1] == TileTypes::CHEST) //9 is item/chest
+				else if (level[currentPos + 1] == TileTypes::CHEST) //9 is item/chest
 				{
 					if (!openedChest) {
 						Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
@@ -320,19 +309,15 @@ void Game::update(sf::Event evt){
 				else if (level[currentPos + 1] == TileTypes::END) // end
 				{
 					//m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
-					int x = currentPos % width + 1;
-					int y = currentPos / width;
+					int y = currentPos % width + 1;
+					int x = currentPos / width;
 					Door* door = static_cast<Door*>(this->m_map->getObject(x, y));
 
 					if (door != nullptr)
 					{
 						if (door->getDestination() != nullptr)
 						{
-							cout << "destination: " << door->getDestination()->getID() << endl;
-							this->m_map = door->getDestination();
-							this->level = door->getDestination()->outputMap();
-							//this->init();
-							loadTextures();
+							this->goToNewMap(door->getDestination());
 						}
 						else
 						{
@@ -364,7 +349,7 @@ void Game::update(sf::Event evt){
 	{
 		int tileX = evt.mouseMove.y / 32;
 		int tileY = evt.mouseMove.x / 32;
-		
+
 		if (this->m_map->getObject(tileX, tileY)->getObjectType() == OBJ_ENEMY)
 		{
 			Enemy* enemy = static_cast<Enemy*>(this->m_map->getObject(tileX, tileY));
@@ -531,5 +516,27 @@ void Game::go(){
 	else{
 		std::cout << "Invalid Map";
 		EXIT_FAILURE;
+	}
+}
+
+void Game::goToNewMap(Map* map)
+{
+	this->m_map = map;
+	this->level = map->outputMap();
+	//this->init();
+	loadTextures();
+
+	for (int i = 0; i < width * height; ++i){
+		if (level[i] == TileTypes::START){
+			currentPos = i;
+			break;
+		}
+	}
+
+	while (window->isOpen()){
+		window->clear();
+		render();
+		processInput();
+		window->display();
 	}
 }
