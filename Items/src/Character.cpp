@@ -51,9 +51,9 @@ Character::Character(int lvl, int str, int dex, int con, int intel, int wis, int
 //! @param backpack contains all items in backpack inventory
 //! @param equips contains all items that are currently worn
 Character::Character(string name, int charclass, int lvl, int str, int dex, int con, int intel,
-	int wis, int cha, int hp, ItemContainer backpack, Item* equips[7])
+	int wis, int cha, int hp, ItemContainer bkpack, Item equips[7])
 {
-	this->name = name;
+	name = name;
 	level = lvl;
 	charClass = charclass;
 	abilityScores[Ability::STRENGTH] = str;
@@ -62,8 +62,11 @@ Character::Character(string name, int charclass, int lvl, int str, int dex, int 
 	abilityScores[Ability::INTELLIGENCE] = intel;
 	abilityScores[Ability::WISDOM] = wis;
 	abilityScores[Ability::CHARISMA] = cha;
-	currentHitPoints = 10 + abilityModifier(Ability::CONSTITUTION);
+	currentHitPoints = hp;
+	backpack = bkpack;
+	setEquips(equips);
 	secondaryStatCalc();
+
 }
 
 //! notify function
@@ -506,20 +509,20 @@ ItemContainer Character::getBackpack()
 
 //! Implementation of equip method
 //! @param item: The item that you wish to equip
-void Character::equipItem(Item* item) {
-	string type = item->getType();
+void Character::equipItem(Item item) {
+	string type = item.getType();
 
 	if (type == TYPE_HELMET) {
-		if (!helmetEquipped)
+		if (!helmetEquipped) // Nothing equipped
 		{
-			//Nothing equipped
 			equips[Equip::HELMET] = item;
+			
 			helmetEquipped = true;
 		}
 		else
 		{
 			//Puts current item into backpack and equips new item
-			backpack.addItem(*equips[Equip::HELMET]);
+			backpack.addItem(equips[Equip::HELMET]);
 			equips[Equip::HELMET] = item;
 		}
 	}
@@ -535,7 +538,7 @@ void Character::equipItem(Item* item) {
 		else
 		{
 			//Puts current item into backpack and equips new item
-			backpack.addItem(*equips[Equip::ARMOR]);
+			backpack.addItem(equips[Equip::ARMOR]);
 			equips[Equip::ARMOR] = item;
 		}
 	}
@@ -551,7 +554,7 @@ void Character::equipItem(Item* item) {
 		else
 		{
 			//Puts current item into backpack and equips new item
-			backpack.addItem(*equips[Equip::BELT]);
+			backpack.addItem(equips[Equip::BELT]);
 			equips[Equip::BELT] = item;
 		}
 	}
@@ -567,7 +570,7 @@ void Character::equipItem(Item* item) {
 		else
 		{
 			//Puts current item into backpack and equips new item
-			backpack.addItem(*equips[Equip::BOOTS]);
+			backpack.addItem(equips[Equip::BOOTS]);
 			equips[Equip::BOOTS] = item;
 		}
 	}
@@ -583,7 +586,7 @@ void Character::equipItem(Item* item) {
 		else
 		{
 			//Puts current item into backpack and equips new item
-			backpack.addItem(*equips[Equip::BOOTS]);
+			backpack.addItem(equips[Equip::BOOTS]);
 			equips[Equip::BOOTS] = item;
 		}
 	}
@@ -599,7 +602,7 @@ void Character::equipItem(Item* item) {
 		else
 		{
 			//Puts current item into backpack and equips new item
-			backpack.addItem(*equips[Equip::WEAPON]);
+			backpack.addItem(equips[Equip::WEAPON]);
 			equips[Equip::WEAPON] = item;
 		}
 	}
@@ -615,7 +618,7 @@ void Character::equipItem(Item* item) {
 		else
 		{
 			//Puts current item into backpack and equips new item
-			backpack.addItem(*equips[Equip::RING]);
+			backpack.addItem(equips[Equip::RING]);
 			equips[Equip::RING] = item;
 		}
 	}
@@ -629,8 +632,8 @@ void Character::removeHelmet()
 {
 	if (helmetEquipped)
 	{
-		backpack.addItem(*equips[Equip::HELMET]);
-		equips[Equip::HELMET] = NULL;
+		backpack.addItem(equips[Equip::HELMET]);
+		equips[Equip::HELMET] = Item();
 		helmetEquipped = false;
 	}
 }
@@ -640,8 +643,8 @@ void Character::removeArmor()
 {
 	if (armorEquipped)
 	{
-		backpack.addItem(*equips[Equip::ARMOR]);
-		equips[Equip::ARMOR] = NULL;
+		backpack.addItem(equips[Equip::ARMOR]);
+		equips[Equip::ARMOR] = Item();
 		armorEquipped = false;
 	}
 }
@@ -651,8 +654,8 @@ void Character::removeBelt()
 {
 	if (beltEquipped)
 	{
-		backpack.addItem(*equips[Equip::BELT]);
-		equips[Equip::BELT] = NULL;
+		backpack.addItem(equips[Equip::BELT]);
+		equips[Equip::BELT] = Item();
 		beltEquipped = false;
 	}
 }
@@ -662,8 +665,8 @@ void Character::removeBoots()
 {
 	if (bootsEquipped)
 	{
-		backpack.addItem(*equips[Equip::BOOTS]);
-		equips[Equip::BOOTS] = NULL;
+		backpack.addItem(equips[Equip::BOOTS]);
+		equips[Equip::BOOTS] = Item();
 		bootsEquipped = false;
 	}
 }
@@ -673,8 +676,8 @@ void Character::removeShield()
 {
 	if (shieldEquipped)
 	{
-		backpack.addItem(*equips[Equip::SHIELD]);
-		equips[Equip::SHIELD] = NULL;
+		backpack.addItem(equips[Equip::SHIELD]);
+		equips[Equip::SHIELD] = Item();
 		shieldEquipped = false;
 	}
 }
@@ -684,8 +687,8 @@ void Character::removeWeapon()
 {
 	if (weaponEquipped)
 	{
-		backpack.addItem(*equips[Equip::WEAPON]);
-		equips[Equip::WEAPON] = NULL;
+		backpack.addItem(equips[Equip::WEAPON]);
+		equips[Equip::WEAPON] = Item();
 		weaponEquipped = false;
 	}
 }
@@ -695,8 +698,8 @@ void Character::removeRing()
 {
 	if (ringEquipped)
 	{
-		backpack.addItem(*equips[Equip::RING]);
-		equips[Equip::RING] = NULL;
+		backpack.addItem(equips[Equip::RING]);
+		equips[Equip::RING] = Item();
 		ringEquipped = false;
 	}
 }
@@ -714,10 +717,10 @@ void Character::displayStats()
 	}
 
 	string items;
-	for (Item* i : equips) 
+	for (int i = 0; i < 7; i++)
 	{
-		if (i != NULL)
-			items = items + i->toString() + "\n";
+		if (equips[i].getID() != 0)
+			items = items + equips[i].toString();
 	}
 
 	cout << "\n= PLAYER STATS ="
@@ -734,9 +737,8 @@ void Character::displayStats()
 		<< "\nArmor Class: " << getArmorClass()
 		<< "\nAttack Bonus: " << getAttackBonus()
 		<< "\nDamage Bonus: " << getDamageBonus()
-		<< "\nItems equipped: " << items
-		<< "\nBackpack: " << backpack.toString()
-		<< "\n" << endl;
+		<< "\n= Equips =" << items
+		<< "\n= Backpack =" << backpack.toString() << endl;
 }
 
 //! statString function
@@ -754,8 +756,10 @@ string Character::statString()
 	}
 
 	string items;
-	for (Item* i : equips) {
-		//items = items + i->toString() + "\n";
+	for (Item i : equips)
+	{
+		if (i.getID() != 0)
+			items = items + i.toString() + "\n";
 	}
 
 	std::ostringstream out;
@@ -772,9 +776,9 @@ string Character::statString()
 		<< "\nArmor Class: " << getArmorClass()
 		<< "\nAttack Bonus: " << getAttackBonus()
 		<< "\nDamage Bonus: " << getDamageBonus()
-		<< "\nItems equipped: " << items
-		<< "\nBackpack: " << backpack.toString()
-		<< "\n" << endl;
+		<< "\n= Equips =" << items
+		<< "\n= Backpack =" << backpack.toString()
+		<< endl;
 	return out.str();
 }
 
@@ -823,11 +827,11 @@ void Character::saveCharacter()
 	xml.IntoElem();
 	
 	//Iterate through equips
-	for (Item* i : equips) {
-		if (i = NULL)
-			xml.AddElem("equip", 0);
+	for (Item i : equips) {
+		if (i.getID() == 0)
+			xml.AddElem("equip", 0); // nothing equipped
 		else
-			xml.AddElem("equip", i->getID());
+			xml.AddElem("equip", i.getID());
 	}
 
 	//char di[20];
@@ -856,7 +860,7 @@ Character* Character::loadCharacter(string name)
 			xml.IntoElem();
 			int level, charclass, str, dex, con, intel, wis, cha, hp;
 			ItemContainer backpack;
-			Item* equips[7];
+			Item equips[7];
 
 			while (xml.FindElem())
 			{
@@ -916,7 +920,7 @@ Character* Character::loadCharacter(string name)
 					{
 						int id = atoi(xml.GetData().c_str());
 						if (id != 0)
-							equips[i] = Item::load(id);
+							equips[i] = *Item::load(id);
 						i++;
 					}
 					xml.OutOfElem();
@@ -927,6 +931,16 @@ Character* Character::loadCharacter(string name)
 		}
 	}
 	return nullptr; //Empty
+}
+
+//! setEquips function
+//! will take in an Item pointer array of length 7 and copy to Character's equips array
+//! @param equips : the equips that's getting passed to Character's equips
+void Character::setEquips(Item newEquips[7]) {
+	for (int i = 0; i < 7; i++)
+	{
+		equips[i] = newEquips[i];
+	}
 }
 
 //USELESS FOR NOW. IMPLEMENT LATER

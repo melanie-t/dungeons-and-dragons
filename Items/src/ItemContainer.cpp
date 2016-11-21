@@ -56,7 +56,8 @@ string ItemContainer::toString() {
 	
 	for (auto it = Items.begin(); it != Items.end(); ++it)
 	{
-		out << it->toString();
+		if (it->getID() != 0)
+			out << it->toString();
 	}
 
 	return out.str();

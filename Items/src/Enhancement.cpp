@@ -54,7 +54,7 @@ void Enhancement::setBonus(int bonus)
 string Enhancement::toString() 
 {
 	std::ostringstream out;
-	out << type << ": " << bonus << endl;
-	
+	if (!(type.compare("") == 0))
+		out << type << ": " << bonus << endl;	
 	return out.str();
 }
