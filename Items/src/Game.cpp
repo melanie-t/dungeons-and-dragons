@@ -362,8 +362,8 @@ void Game::update(sf::Event evt){
 		break;
 	case sf::Event::MouseMoved:
 	{
-		int tileX = evt.mouseMove.x / 32;
-		int tileY = evt.mouseMove.y / 32;
+		int tileX = evt.mouseMove.y / 32;
+		int tileY = evt.mouseMove.x / 32;
 		
 		if (this->m_map->getObject(tileX, tileY)->getObjectType() == OBJ_ENEMY)
 		{
