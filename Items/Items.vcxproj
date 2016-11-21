@@ -73,7 +73,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="PlayerActionTypes.h" />
     <ClInclude Include="src\AbilityModifierTypes.h" />
+    <ClInclude Include="src\AgressorStrategy.h" />
     <ClInclude Include="src\BrickTexture.h" />
     <ClInclude Include="src\Bully.h" />
     <ClInclude Include="src\Campaign.h" />
@@ -90,9 +92,11 @@
     <ClInclude Include="src\Fighter.h" />
     <ClInclude Include="src\FileMapBuilder.h" />
     <ClInclude Include="src\Friend.h" />
+    <ClInclude Include="src\FriendlyStrategy.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\GameObject.h" />
     <ClInclude Include="src\GrassTexture.h" />
+    <ClInclude Include="src\HumanPlayerStrategy.h" />
     <ClInclude Include="src\Item.h" />
     <ClInclude Include="src\ItemContainer.h" />
     <ClInclude Include="src\ItemPanel.h" />
@@ -108,6 +112,7 @@
     <ClInclude Include="src\SavedMapBuilder.h" />
     <ClInclude Include="src\ObjectTypes.h" />
     <ClInclude Include="src\StatisticsHelper.h" />
+    <ClInclude Include="src\Strategy.h" />
     <ClInclude Include="src\Tank.h" />
     <ClInclude Include="src\TileMap.h" />
     <ClInclude Include="src\TileTypes.h" />

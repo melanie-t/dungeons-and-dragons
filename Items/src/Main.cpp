@@ -100,7 +100,8 @@ int main()
 				cin >> name;
 
 				Character* player = Character::loadCharacter(name);
-				Campaign* camp = Campaign::createCampaign(player);
+				Campaign* camp = Campaign::loadCampaign(1, player);//Campaign::createCampaign(player);
+				//camp->saveCampaign();
 
 				/*cout << "Choose a map id from the list below:" << endl;
 

@@ -1,14 +1,20 @@
-#include <map>
+//#include <map>
+#include <queue>
 
 #include "Campaign.h"
 #include "FileMapBuilder.h"
 #include "StatisticsHelper.h"
 #include "Door.h"
 
-Campaign::Campaign(Map* start)
+Campaign::Campaign(Map* start, bool setup, int id)
 {
 	this->begin = start;
-	this->setupCampaign();
+	this->id = id;
+
+	if (setup)
+	{
+		this->setupCampaign();
+	}
 }
 void Campaign::setupCampaign()
 {
@@ -63,4 +69,142 @@ Campaign* Campaign::createCampaign(Character* player)
 	Map* startMap = builder.getMap();
 	
 	return new Campaign(startMap);
+}
+
+Campaign* Campaign::loadCampaign(int id, Character* player)
+{
+	CMarkup xml;
+	char di[20];
+	sprintf_s(di, 20, "campaign/%d.xml", id);
+	Map* start;
+	
+	if (xml.Load(string(di)))
+	{
+		if (!xml.FindElem("Campaign")) return nullptr; //Not a campaign file.
+
+		xml.IntoElem();
+
+		xml.FindElem("start");
+		
+		queue<Door*> doors;
+		queue<Map*> maps;
+
+		FileMapBuilder builder(player);
+		int startID = atoi(xml.GetData().c_str());
+		builder.loadMap(startID);
+		start = builder.getMap();
+
+		maps.push(start);
+
+		while (xml.FindElem("map"))
+		{
+			xml.IntoElem(); //into map.
+			while (xml.FindElem())
+			{
+				xml.SavePos("map");
+				xml.FindElem("ID");
+				int mapid = atoi(xml.GetData().c_str());
+				xml.RestorePos("map");
+
+				if (mapid != maps.front()->getID())
+				{
+					break; // something wrong.
+				}
+
+				xml.FindElem("doors");
+				xml.IntoElem();
+				while (xml.FindElem())
+				{
+					xml.IntoElem();
+					int x, y;
+
+					xml.SavePos("door");
+					xml.FindElem("x");
+					x = atoi(xml.GetData().c_str());
+
+					xml.RestorePos("door");
+					xml.FindElem("y");
+					y = atoi(xml.GetData().c_str());
+
+					if (maps.front()->getObject(x, y)->getObjectType() != OBJ_DOOR)
+					{
+						break; //This tile isn't a door.
+					}
+					xml.RestorePos("door");
+					xml.FindElem("doorid");
+					int doorid = atoi(xml.GetData().c_str());
+
+					Door* door = static_cast<Door*>(maps.front()->getObject(x, y));
+					builder.loadMap(doorid);
+					Map* dest = builder.getMap();
+					door->setDestination(dest);
+					xml.OutOfElem(); //out of door.
+				}
+				xml.OutOfElem(); // out of doors.
+				xml.OutOfElem(); // out of map.
+			}
+			maps.pop();
+		}
+		return new Campaign(start, false, id);
+
+	}
+	return nullptr;
+}
+
+void Campaign::saveCampaign()
+{
+	CMarkup xml;
+
+	xml.AddElem("Campaign");
+	//Map* cur = this->begin;
+
+	xml.IntoElem();
+
+	queue<Map*> maps;
+	maps.push(this->begin);
+
+	while (!maps.empty())
+	{
+		Map* cur = maps.front();
+		xml.AddElem("map");
+		xml.IntoElem();
+		xml.AddElem("ID", cur->getID());
+		xml.AddElem("Start", cur->getID());
+
+		xml.SavePos("before");
+
+		if (!cur->getDoors().empty())
+		{
+			xml.AddElem("doors");
+		}
+		
+		xml.IntoElem();
+		for (pos doorpos : cur->getDoors())
+		{
+			xml.AddElem("door");
+			xml.IntoElem();
+			Door* door = static_cast<Door*>(cur->getObject(doorpos.x, doorpos.y));
+			if (!door->getStart())
+			{
+				if (door->getDestination() == nullptr)
+				{
+					xml.AddElem("doorid", 0);
+				}
+				else
+				{
+					xml.AddElem("doorid", door->getDestination()->getID());
+					maps.push(door->getDestination());
+				}
+				xml.AddElem("x", doorpos.x);
+				xml.AddElem("y", doorpos.y);
+			}
+			xml.OutOfElem(); // out of door.
+		}
+		xml.OutOfElem(); // Out Of doors
+		maps.pop();
+		xml.OutOfElem(); // out of map
+	}
+	char di[20];
+	sprintf_s(di, 20, "campaign/%d.xml", id);
+	xml.Save(string(di));
 }

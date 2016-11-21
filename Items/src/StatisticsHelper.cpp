@@ -32,6 +32,21 @@ int Statistics::getNumItems()
 		return -1; //Not a stats file.
 	}
 }
+int Statistics::getNumCampaigns()
+{
+	xml.Load("stats.xml");
+	if (xml.FindElem("stats"))
+	{
+		xml.IntoElem();
+		xml.FindElem("campaign");
+
+		return atoi(xml.GetData().c_str());
+	}
+	else
+	{
+		return -1; //Not a stats file.
+	}
+}
 
 std::vector<std::string> Statistics::getCharacterList()
 {
@@ -78,6 +93,19 @@ void Statistics::setNumItems(int num)
 	{
 		xml.IntoElem();
 		xml.FindElem("items");
+
+		xml.SetData(num);
+	}
+	xml.Save("stats.xml");
+}
+
+void Statistics::setNumCampaigns(int num)
+{
+	xml.Load("stats.xml");
+	if (xml.FindElem("stats"))
+	{
+		xml.IntoElem();
+		xml.FindElem("campaigns");
 
 		xml.SetData(num);
 	}

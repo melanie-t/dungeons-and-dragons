@@ -28,9 +28,6 @@
     <Filter Include="Header Files\Map Builder">
       <UniqueIdentifier>{c81000fa-c012-4bf4-be24-eb43ea62f7d8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Abstract Observable">
-      <UniqueIdentifier>{4aef0b42-0a80-4765-8411-655bb4b96658}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Graphics">
       <UniqueIdentifier>{377b019f-966e-433a-9600-125b8b403b1f}</UniqueIdentifier>
     </Filter>
@@ -39,9 +36,6 @@
     </Filter>
     <Filter Include="Source Files\Map Builder">
       <UniqueIdentifier>{1dfff0b6-99cb-4c27-aff5-a4eaeb30a8aa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Abstract Observables">
-      <UniqueIdentifier>{4c7088e9-fe26-4a38-81ca-c978187efef1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Graphics">
       <UniqueIdentifier>{f0c3d81e-1316-4aec-90ef-d8c75a92685e}</UniqueIdentifier>
@@ -57,6 +51,15 @@
     </Filter>
     <Filter Include="Header Files\Characterbuilder">
       <UniqueIdentifier>{d03ae6d0-71d2-40d6-ae47-23d20641050f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Abstract Classes">
+      <UniqueIdentifier>{4aef0b42-0a80-4765-8411-655bb4b96658}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Abstract Classes">
+      <UniqueIdentifier>{4c7088e9-fe26-4a38-81ca-c978187efef1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Character Strategy">
+      <UniqueIdentifier>{f67fb53a-fb91-4549-b614-403377c503c2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -115,19 +118,16 @@
       <Filter>Header Files\Map Builder</Filter>
     </ClInclude>
     <ClInclude Include="src\Observable.h">
-      <Filter>Header Files\Abstract Observable</Filter>
+      <Filter>Header Files\Abstract Classes</Filter>
     </ClInclude>
     <ClInclude Include="src\Observer.h">
-      <Filter>Header Files\Abstract Observable</Filter>
+      <Filter>Header Files\Abstract Classes</Filter>
     </ClInclude>
     <ClInclude Include="src\Game.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="src\TileMap.h">
       <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="src\MapBuilder.h">
-      <Filter>Header Files\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="src\StatisticsHelper.h">
       <Filter>Header Files\Helpers</Filter>
@@ -162,12 +162,6 @@
     <ClInclude Include="src\Campaign.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\pos.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\CharacterBuilder.h">
-      <Filter>Header Files\Characterbuilder</Filter>
-    </ClInclude>
     <ClInclude Include="src\CharacterCreater.h">
       <Filter>Header Files\Characterbuilder</Filter>
     </ClInclude>
@@ -179,6 +173,30 @@
     </ClInclude>
     <ClInclude Include="src\Tank.h">
       <Filter>Header Files\Characterbuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CharacterBuilder.h">
+      <Filter>Header Files\Abstract Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\HumanPlayerStrategy.h">
+      <Filter>Header Files\Character Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Strategy.h">
+      <Filter>Header Files\Abstract Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AgressorStrategy.h">
+      <Filter>Header Files\Character Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="src\FriendlyStrategy.h">
+      <Filter>Header Files\Character Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="src\pos.h">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MapBuilder.h">
+      <Filter>Header Files\Abstract Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerActionTypes.h">
+      <Filter>Header Files\Constants</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -225,10 +243,10 @@
       <Filter>Source Files\Map Builder</Filter>
     </ClCompile>
     <ClCompile Include="src\Observable.cpp">
-      <Filter>Source Files\Abstract Observables</Filter>
+      <Filter>Source Files\Abstract Classes</Filter>
     </ClCompile>
     <ClCompile Include="src\Observer.cpp">
-      <Filter>Source Files\Abstract Observables</Filter>
+      <Filter>Source Files\Abstract Classes</Filter>
     </ClCompile>
     <ClCompile Include="src\Game.cpp">
       <Filter>Source Files\Graphics</Filter>
