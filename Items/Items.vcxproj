@@ -120,6 +120,7 @@
     <ClInclude Include="src\WaterTexture.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\AgressorStrategy.cpp" />
     <ClCompile Include="src\Campaign.cpp" />
     <ClCompile Include="src\Character.cpp" />
     <ClCompile Include="src\CharacterBuilder.cpp" />
@@ -131,8 +132,10 @@
     <ClCompile Include="src\Fighter.cpp" />
     <ClCompile Include="src\FileMapBuilder.cpp" />
     <ClCompile Include="src\Friend.cpp" />
+    <ClCompile Include="src\FriendlyStrategy.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
+    <ClCompile Include="src\HumanPlayerStartegy.cpp" />
     <ClCompile Include="src\Item.cpp" />
     <ClCompile Include="src\ItemContainer.cpp" />
     <ClCompile Include="src\ItemPanel.cpp" />

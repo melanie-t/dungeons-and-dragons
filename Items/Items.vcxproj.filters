@@ -61,6 +61,9 @@
     <Filter Include="Header Files\Character Strategy">
       <UniqueIdentifier>{f67fb53a-fb91-4549-b614-403377c503c2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Character Strategy">
+      <UniqueIdentifier>{90cbc0c3-f31d-4239-a7ce-cc0cfc67c21d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Map.h">
@@ -277,6 +280,15 @@
     </ClCompile>
     <ClCompile Include="src\CharacterBuilder.cpp">
       <Filter>Source Files\CharacterBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AgressorStrategy.cpp">
+      <Filter>Source Files\Character Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FriendlyStrategy.cpp">
+      <Filter>Source Files\Character Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HumanPlayerStartegy.cpp">
+      <Filter>Source Files\Character Strategy</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

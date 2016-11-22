@@ -25,7 +25,7 @@ Game::Game(unsigned int tileWidth, unsigned int tileHeight, Map* map){
 //! Deconstructor for Game class
 //! @brief Deletes the window and map
 Game::~Game(){
-	//Destroys the window
+	//Destroys the window & map
 	delete window;
 	delete m_map;
 }
@@ -179,8 +179,7 @@ void Game::update(sf::Event evt){
 							endGame();
 						}
 					}
-					//YOU WIN!!!
-					//endGame();
+					break;
 				}
 				player.move(0, -32);
 				currentPos -= width;
@@ -229,6 +228,7 @@ void Game::update(sf::Event evt){
 							endGame();
 						}
 					}
+					break;
 				}
 				player.move(0, +32);
 				currentPos += width;
@@ -277,6 +277,7 @@ void Game::update(sf::Event evt){
 							endGame();
 						}
 					}
+					break;
 				}
 				player.move(-32, 0);
 				currentPos--;
@@ -324,6 +325,7 @@ void Game::update(sf::Event evt){
 							endGame();
 						}
 					}
+					break;
 				}
 				player.move(+32, 0);
 				currentPos++;
@@ -521,6 +523,7 @@ void Game::go(){
 
 void Game::goToNewMap(Map* map)
 {
+	Map* cur = this->m_map;
 	this->m_map = map;
 	this->level = map->outputMap();
 	//this->init();
@@ -532,11 +535,12 @@ void Game::goToNewMap(Map* map)
 			break;
 		}
 	}
+	delete cur; //Delete old map, since doors are 1 way.
 
-	while (window->isOpen()){
+	/*while (window->isOpen()){
 		window->clear();
 		render();
 		processInput();
 		window->display();
-	}
+	}*/
 }
