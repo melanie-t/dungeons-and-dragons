@@ -15,6 +15,7 @@
 #include "Enemy.h"
 #include "Friend.h"
 #include "StatisticsHelper.h"
+#include "CharacterSpriteTypes.h"
 using namespace std;
 
 //! Default Constructor
@@ -202,6 +203,7 @@ bool FileMapBuilder::loadMap(int id)
 								y = atoi(xml.GetData().c_str());
 							}
 						}
+						enemy->setPosition(x, y);
 						map->fillCell(x, y, enemy);
 						xml.OutOfElem();
 					}
@@ -227,6 +229,7 @@ bool FileMapBuilder::loadMap(int id)
 								y = atoi(xml.GetData().c_str());
 							}
 						}
+						frien->setPosition(x, y);
 						map->fillCell(x, y, frien);
 						xml.OutOfElem();
 					}

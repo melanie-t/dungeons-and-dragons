@@ -13,6 +13,4 @@ enum TileTypes
 	START,
 	UNK4,
 	CHEST,
-	ENEMY,
-	FRIEND,
 };

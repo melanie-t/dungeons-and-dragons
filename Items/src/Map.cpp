@@ -139,6 +139,14 @@ void Map::fillCell(int x, int y, GameObject* obj)
 		
 		doors.push_back(position);
 	}
+	else if (obj->getObjectType() == OBJ_ENEMY)
+	{
+		enemies.push_back(static_cast<Enemy*>(obj));
+	}
+	else if (obj->getObjectType() == OBJ_FRIEND)
+	{
+		friends.push_back(static_cast<Friend*>(obj));
+	}
 
 	map[x][y] = obj;
 }
@@ -189,9 +197,9 @@ bool Map::recursiveSearch(int posx, int posy, int endposx, int endposy)
 vector<int> Map::outputMap()
 {
 	vector<int> output;
-	for (int i = 0; i != this->length; i++)
+	for (int j = 0; j != this->length; j++)
 	{
-		for (int j = 0; j != this->width; j++)
+		for (int i = 0; i != this->width; i++)
 		{
 			if (map[i][j]->getObjectType() == OBJ_WATER)
 			{
@@ -209,7 +217,7 @@ vector<int> Map::outputMap()
 				}
 				else
 				{
-					output.push_back(TileTypes::END); 
+					output.push_back(TileTypes::END);
 				}
 			}
 			else if (map[i][j]->getObjectType() == OBJ_CHEST)
@@ -218,11 +226,11 @@ vector<int> Map::outputMap()
 			}
 			else if (map[i][j]->getObjectType() == OBJ_ENEMY)
 			{
-				output.push_back(TileTypes::ENEMY);
+				output.push_back(TileTypes::GRASS);
 			}
 			else if (map[i][j]->getObjectType() == OBJ_FRIEND)
 			{
-				output.push_back(TileTypes::FRIEND);
+				output.push_back(TileTypes::GRASS);
 			}
 			else
 			{

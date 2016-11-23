@@ -29,7 +29,7 @@ Game::Game(unsigned int tileWidth, unsigned int tileHeight, Map* map){
 Game::~Game(){
 	//Destroys the window & map
 	delete window;
-	delete m_map;
+	//delete m_map;
 }
 
 //! validMap function
@@ -167,8 +167,8 @@ void Game::update(sf::Event evt){
 			}
 			else if (level[currentPos - width] == TileTypes::END) // end
 			{
-				int y = currentPos % width;
-				int x = currentPos / width - 1;
+				int x = currentPos % width;
+				int y = currentPos / width - 1;
 
 				Door* door = static_cast<Door*>(this->m_map->getObject(x, y));
 
@@ -212,8 +212,8 @@ void Game::update(sf::Event evt){
 			else if (level[currentPos + width] == TileTypes::END) // end
 			{
 				//m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
-				int y = currentPos % width;
-				int x = currentPos / width + 1;
+				int x = currentPos % width;
+				int y = currentPos / width + 1;
 				Door* door = static_cast<Door*>(this->m_map->getObject(x, y));
 
 				if (door != nullptr)
@@ -257,8 +257,8 @@ void Game::update(sf::Event evt){
 			else if (level[currentPos - 1] == TileTypes::END) // end
 			{
 				//m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
-				int y = currentPos % width - 1;
-				int x = currentPos / width;
+				int x = currentPos % width - 1;
+				int y = currentPos / width;
 				Door* door = static_cast<Door*>(this->m_map->getObject(x, y));
 
 				if (door != nullptr)
@@ -302,8 +302,8 @@ void Game::update(sf::Event evt){
 			else if (level[currentPos + 1] == TileTypes::END) // end
 			{
 				//m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
-				int y = currentPos % width + 1;
-				int x = currentPos / width;
+				int x = currentPos % width + 1;
+				int y = currentPos / width;
 				Door* door = static_cast<Door*>(this->m_map->getObject(x, y));
 
 				if (door != nullptr)
@@ -620,6 +620,15 @@ void Game::loadTextures(){
 	map.load("bkrd.png", sf::Vector2u(32, 32), level, width, height);
 	this->m_map->getPlayer()->setPosition((currentPos % width), (currentPos / width));
 	this->m_map->getPlayer()->initSprite(CharacterSpriteType::S_PLAYER);
+
+	for (Enemy* enemy : m_map->getEnemies())
+	{
+		enemy->initSprite(CharacterSpriteType::S_ENEMY);
+	}
+	for (Friend* frien : m_map->getFriends())
+	{
+		frien->initSprite(CharacterSpriteType::S_FRIEND);
+	}
 	//player.setPosition((currentPos % width) * 32 + 5, (currentPos / width) * 32 + 3);
 	createText();
 }
@@ -680,6 +689,16 @@ void Game::render(){
 	//currentPosition.setString("Current position: " + std::to_string((currentPos - 1) % width));
 	window->draw(map);
 	window->draw(*this->m_map->getPlayer()->getSprite());
+
+	for (Enemy* enemy : m_map->getEnemies())
+	{
+		window->draw(*enemy->getSprite());
+	}
+	for (Friend* frien : m_map->getFriends())
+	{
+		window->draw(*frien->getSprite());
+	}
+
 	window->draw(textBox);
 	window->draw(enemyStatsBox);
 	window->draw(text);
@@ -716,15 +735,19 @@ void Game::go(){
 
 void Game::goToNewMap(Map* map)
 {
-	this->m_map = map;
-	this->level = map->outputMap();
-	//this->init();
-	loadTextures();
+	if (map != nullptr)
+	{
+		m_map = nullptr;
+		this->m_map = map;
+		this->level = map->outputMap();
+		//this->init();
+		loadTextures();
 
-	for (int i = 0; i < width * height; ++i){
-		if (level[i] == TileTypes::START){
-			currentPos = i;
-			break;
+		for (int i = 0; i < width * height; ++i){
+			if (level[i] == TileTypes::START){
+				currentPos = i;
+				break;
+			}
 		}
 	}
 }

@@ -15,6 +15,8 @@
 #include <map>
 #include "GameObject.h"
 #include "Character.h"
+#include "Enemy.h"
+#include "Friend.h"
 #include <vector>
 #include "pos.h"
 
@@ -48,6 +50,8 @@ public:
 	Character* getPlayer(){ return this->player; }
 	GameObject* getObject(int x, int y);
 	std::vector<pos> getDoors(){ return doors;  }
+	std::vector<Enemy*> getEnemies(){ return enemies; }
+	std::vector<Friend*> getFriends(){ return friends; }
 
 	//setters
 	void setID(int id){ this->ID = id; }
@@ -65,6 +69,8 @@ private:
 	std::vector<pos> doors;
 	int** mapSearch;
 	bool recursiveSearch(int posx, int posy, int endposx, int endposy);
+	vector<Enemy*> enemies;
+	vector<Friend*> friends;
 	Character* player;
 };
 #endif
