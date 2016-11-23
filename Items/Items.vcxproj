@@ -105,6 +105,7 @@
     <ClInclude Include="src\MapBuildDirector.h" />
     <ClInclude Include="src\MapBuilder.h" />
     <ClInclude Include="src\Markup.h" />
+    <ClInclude Include="src\MathHelper.h" />
     <ClInclude Include="src\Nimble.h" />
     <ClInclude Include="src\Observable.h" />
     <ClInclude Include="src\Observer.h" />
@@ -144,6 +145,7 @@
     <ClCompile Include="src\Map.cpp" />
     <ClCompile Include="src\Markup.cpp" />
     <ClCompile Include="src\Enemy.cpp" />
+    <ClCompile Include="src\MathHelper.cpp" />
     <ClCompile Include="src\Observable.cpp" />
     <ClCompile Include="src\Observer.cpp" />
     <ClCompile Include="src\SavedMapBuilder.cpp" />

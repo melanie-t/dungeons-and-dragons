@@ -117,6 +117,9 @@ public:
 
 	sf::Sprite* getSprite() { return this->characterSprite; }
 
+	int attackRoll(int d20);
+	int attack(int attackRoll);
+
 private:
 	int abilityScores[6];
 	int currentHitPoints;

@@ -31,7 +31,6 @@ int HumanPlayerStrategy::execute(pos characterPos, pos targetPos,int lastkey, sf
 		{
 			return PlayerAction::ATTACK;
 		}
-		//TODO: attack.
 		}
 	}
 	return 0;

@@ -19,6 +19,7 @@ However, the map needs a path between the begin cell and end cell.
 #include "Door.h"
 #include "Markup.h"
 #include "TileTypes.h"
+#include "MathHelper.h"
 using namespace std;
 
 //! Default Constructor
@@ -141,10 +142,14 @@ void Map::fillCell(int x, int y, GameObject* obj)
 	}
 	else if (obj->getObjectType() == OBJ_ENEMY)
 	{
+		Enemy* enemy = static_cast<Enemy*>(obj);
+		enemy->setName("Enemy #" + to_string(enemies.size() + 1));
 		enemies.push_back(static_cast<Enemy*>(obj));
 	}
 	else if (obj->getObjectType() == OBJ_FRIEND)
 	{
+		Friend* frien = static_cast<Friend*>(obj);
+		frien->setName("Friend #" + to_string(friends.size() + 1));
 		friends.push_back(static_cast<Friend*>(obj));
 	}
 
@@ -448,3 +453,31 @@ GameObject* Map::getObject(int x, int y)
 	return map[x][y];
 }
 
+Enemy* Map::getClosestEnemy(Character* origin)
+{
+	Enemy* closest = nullptr;
+	int closeDistance = -1;
+	int index = -1;
+
+	for (int i = 0; i != enemies.size(); i++)
+	{
+		Enemy* enemy = enemies[i];
+		if (closest == nullptr)
+		{
+			closest = enemy;
+			closeDistance = MathHelper::getDistance(origin->getPosition(), enemy->getPosition());
+			index = i;
+		}
+		else
+		{
+			int distance = MathHelper::getDistance(origin->getPosition(), enemy->getPosition());
+			if (distance < closeDistance)
+			{
+				closest = enemy;
+				closeDistance = distance;
+				index = i;
+			}
+		}
+	}
+	return enemies[index];
+}

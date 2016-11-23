@@ -1,6 +1,8 @@
 //! @file Game.cpp
 //! @brief Implementation file for the Game class  
 //!
+#include <SFML\Graphics.hpp>
+
 #include "Game.h"
 #include "Map.h"
 #include "Chest.h"
@@ -8,9 +10,10 @@
 #include "Enemy.h"
 #include "Friend.h"
 #include "Door.h"
+#include "Dice.h"
 #include "HumanPlayerStrategy.h"
 #include "PlayerActionTypes.h"
-#include <SFML\Graphics.hpp>
+#include "MathHelper.h"
 
 //! Constructor for Game class
 //! @param tileWidth : width of the tile used
@@ -322,6 +325,42 @@ void Game::update(sf::Event evt){
 			//player.move(+32, 0);
 			this->m_map->getPlayer()->move(PlayerMove::RIGHT);
 			currentPos++;
+		}
+		case PlayerAction::ATTACK:
+		{
+			Dice dice;
+			//int d20 = dice.roll("d20");
+			//int attackRoll = m_map->getPlayer()->attackRoll(d20);
+			//int index = m_map->getClosestEnemy(m_map->getPlayer());
+
+			///These don't work.
+			Enemy* enemy = m_map->getClosestEnemy(m_map->getPlayer());
+
+			if (enemy != nullptr)
+			{
+				int distance = MathHelper::getDistance(m_map->getPlayer()->getPosition(), enemy->getPosition());
+
+				//Character is in range. Must be 1 tile away.
+				if (distance <= 1)
+				{
+					Dice dice;
+					int d20 = dice.roll("1d20"); //dunno.
+					int attackRoll = m_map->getPlayer()->attackRoll(d20);
+
+					if ((attackRoll > enemy->getArmorClass() && d20 != 1) || d20 == 20)
+					{
+						//int damage = 
+						enemy->hit(10); // temp.
+
+						cout << enemy->getHitPoints() << endl; //remains the same before change.
+						if (enemy->getHitPoints() <= 0)
+						{
+							//remove enemy.
+						}
+					}
+				}
+			}
+			break;
 		}
 		}
 	}

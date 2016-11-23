@@ -20,8 +20,6 @@
 #include <vector>
 #include "pos.h"
 
-#ifndef Map_H
-#define Map_H
 class Map {
 public:
 	//Constructor
@@ -52,6 +50,7 @@ public:
 	std::vector<pos> getDoors(){ return doors;  }
 	std::vector<Enemy*> getEnemies(){ return enemies; }
 	std::vector<Friend*> getFriends(){ return friends; }
+	Enemy* getClosestEnemy(Character* origin);
 
 	//setters
 	void setID(int id){ this->ID = id; }
@@ -73,4 +72,3 @@ private:
 	vector<Friend*> friends;
 	Character* player;
 };
-#endif

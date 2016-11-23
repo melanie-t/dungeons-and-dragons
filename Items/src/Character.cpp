@@ -327,15 +327,16 @@ void Character::hit(int damage)
 {
 	if (currentHitPoints > damage)
 	{
-		currentHitPoints = currentHitPoints - damage;
-		cout << "\nYou got hit! (-" << damage << " HP)\n" << endl;
-		notify();
+		this->currentHitPoints = currentHitPoints - damage;
+		//cout << "\nYou got hit! (-" << damage << " HP)\n" << endl;
+		//notify();
 	}
 
 	else
 	{
-		currentHitPoints = 0;
-		cout << "GAME OVER. Thanks for playing!" << endl;
+		this->currentHitPoints = 0;
+		notify();
+		//cout << "GAME OVER. Thanks for playing!" << endl;
 		gameover = true;
 	}
 
@@ -345,7 +346,7 @@ void Character::hit(int damage)
 //! @return int: value of currentHitPoints
 int Character::getHitPoints()
 {
-	return (10 + getLevel()*abilityModifier(getCON()));
+	return this->currentHitPoints;//(10 + getLevel()*abilityModifier(getCON()));
 }
 
 //! Implementation of a setter method for currentHitPoints
@@ -1074,6 +1075,21 @@ void Character::move(PlayerMove move)
 		break;
 	}
 	}
+}
+//! attackRoll function
+//! d20 roll + attack bonus
+//! @return result of attack bonus
+int Character::attackRoll(int d20)
+{
+	return d20 + this->attackBonus;
+}
+
+//! attack function
+//! attackRoll + strength modifier.
+//! @return total attack.
+int Character::attack(int attackRoll)
+{
+	return attackRoll + getSTR(); //+ size
 }
 
 //USELESS FOR NOW. IMPLEMENT LATER
