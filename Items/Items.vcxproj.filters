@@ -198,7 +198,10 @@
     <ClInclude Include="src\MapBuilder.h">
       <Filter>Header Files\Abstract Classes</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerActionTypes.h">
+    <ClInclude Include="src\PlayerActionTypes.h">
+      <Filter>Header Files\Constants</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CharacterSpriteTypes.h">
       <Filter>Header Files\Constants</Filter>
     </ClInclude>
   </ItemGroup>

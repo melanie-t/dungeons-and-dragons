@@ -2,13 +2,17 @@
 //! @brief Implementation file for the Character class  
 //!
 
-#include "Character.h"
-#include "Dice.h"
 #include <iostream> /* cin, cout */
 #include <stdlib.h> /* srand, rand */
 #include <time.h> /* time */
 #include <sstream>
+
+#include "Character.h"
+#include "Dice.h"
 #include "Markup.h"
+#include "HumanPlayerStrategy.h"
+#include "AgressorStrategy.h"
+#include "FriendlyStrategy.h"
 
 using namespace std;
 
@@ -112,6 +116,42 @@ void Character::detach(Character* player)
 		}
 	}
 }
+
+//! initSprite function
+//! @brief loads appropirate Sprite for character.
+//! @param type The type of character this is: player, enemy or friend
+
+void Character::initSprite(CharacterSpriteType type)
+{
+	characterTexture = new sf::Texture();
+	switch (type)
+	{
+	case CharacterSpriteType::S_PLAYER:
+	{
+		characterTexture->loadFromFile("res/character/hero.png");
+		setStrategy(new HumanPlayerStrategy());
+		break;
+	}
+	case CharacterSpriteType::S_ENEMY:
+	{
+		characterTexture->loadFromFile("res/character/enemy.png");
+		setStrategy(new AgressorStrategy());
+		break;
+	}
+	case CharacterSpriteType::S_FRIEND:
+	{
+		characterTexture->loadFromFile("res/character/friend.png");
+		setStrategy(new FriendlyStrategy());
+		break;
+	}
+	}
+
+	characterSprite = new sf::Sprite();
+	characterSprite->setTexture(*characterTexture);
+	characterSprite->setTextureRect(sf::IntRect(0, 0, 20, 26));
+	characterSprite->setPosition(position.x * 32 + 5, position.y * 32 + 3);
+}
+
 
 //! Implementation of the verification of a newly created Character
 //! @return bool value, true of the character is valid (stats should be in the 3-18 range for a new character), false if invalid. 
@@ -940,6 +980,99 @@ void Character::setEquips(Item newEquips[7]) {
 	for (int i = 0; i < 7; i++)
 	{
 		equips[i] = newEquips[i];
+	}
+}
+
+//! getStrategy function
+//! @brief returns character strategy.
+Strategy* Character::getStrategy() {
+	return this->strategy;
+}
+
+//! setStrategy function
+//! setter for the strategy field.
+//! @param strat stategy to set
+void Character::setStrategy(Strategy* strat) {
+	this->strategy = strat; 
+}
+
+//! getPosition function
+//! @brief getter for position field.
+//! @return position of character
+pos Character::getPosition()
+{
+	return this->position;
+}
+
+//! setPosition function
+//! @brief setter for position field
+//! @param x x position of player.
+//! @param y y position of player
+void Character::setPosition(int x, int y)
+{
+	this->position.x = x;
+	this->position.y = y;
+}
+
+//! changeSprite function
+//! change sprite according to action.
+void Character::changeSprite(PlayerMove move)
+{
+	switch (move)
+	{
+	case PlayerMove::UP:
+	{
+		characterSprite->setTextureRect(sf::IntRect(20, 0, 20, 26));
+		break;
+	}
+	case PlayerMove::DOWN:
+	{
+		characterSprite->setTextureRect(sf::IntRect(0, 0, 20, 26));
+		break;
+	}
+	case PlayerMove::RIGHT:
+	{
+		characterSprite->setTextureRect(sf::IntRect(60, 0, 20, 26));
+		break;
+	}
+	case PlayerMove::LEFT:
+	{
+		characterSprite->setTextureRect(sf::IntRect(40, 0, 20, 26)); //Change Sprite.
+		break;
+	}
+	}
+}
+
+//! changeSprite function
+//! change sprite according to action.
+void Character::move(PlayerMove move)
+{
+	switch (move)
+	{
+	case PlayerMove::UP:
+	{
+		position.y -= 1;
+		characterSprite->move(0, -32);
+		break;
+	}
+	case PlayerMove::DOWN:
+	{
+		position.y += 1;
+		characterSprite->move(0, +32);
+		break;
+	}
+	case PlayerMove::RIGHT:
+	{
+		position.x += 1;
+		characterSprite->move(+32, 0);
+		break;
+	}
+	case PlayerMove::LEFT:
+	{
+		position.x -= 1;
+		characterSprite->move(-32, 0);
+		break;
+	}
 	}
 }
 

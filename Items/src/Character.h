@@ -31,6 +31,9 @@
 #include "ItemContainer.h"
 #include "AbilityModifierTypes.h"
 #include "CharacterEquipEnum.h"
+#include "Strategy.h"
+#include "CharacterSpriteTypes.h"
+#include "PlayerActionTypes.h"
 #include <string>
 
 using namespace std;
@@ -47,6 +50,8 @@ public:
 	void notify();
 	void attach(Character* c);
 	void detach(Character* c);
+
+	void initSprite(CharacterSpriteType type);
 
 	bool validateNewCharacter();
 	void statGenerator();
@@ -101,6 +106,17 @@ public:
 	//string retrieveGender();
 	//void setExtraPoints();
 
+	Strategy* getStrategy();
+	void setStrategy(Strategy* strat);
+
+	pos getPosition();
+	void setPosition(int x, int y);
+
+	void move(PlayerMove move);
+	void changeSprite(PlayerMove move);
+
+	sf::Sprite* getSprite() { return this->characterSprite; }
+
 private:
 	int abilityScores[6];
 	int currentHitPoints;
@@ -123,4 +139,9 @@ private:
 	string name;
 	string gender;
 	Character* List[10];
+	Strategy* strategy;
+	pos position;
+
+	sf::Texture* characterTexture;
+	sf::Sprite* characterSprite;
 };

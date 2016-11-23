@@ -20,8 +20,8 @@ class Game{
 private:
 	//Initializes the window, the player, the font, the text, and creates the map.
 	sf::RenderWindow* window;
-	sf::Texture playerTexture;
-	sf::Sprite player;
+	//sf::Texture playerTexture;
+	//sf::Sprite player;
 	sf::Font font;
 	sf::Text text;
 	sf::Text enemyStats;

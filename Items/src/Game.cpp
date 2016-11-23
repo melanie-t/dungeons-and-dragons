@@ -8,6 +8,8 @@
 #include "Enemy.h"
 #include "Friend.h"
 #include "Door.h"
+#include "HumanPlayerStrategy.h"
+#include "PlayerActionTypes.h"
 #include <SFML\Graphics.hpp>
 
 //! Constructor for Game class
@@ -135,7 +137,195 @@ void Game::update(sf::Event evt){
 	if (evt.type == sf::Event::KeyReleased){
 		lastKey = evt.key.code;
 	}
-	switch (evt.type){
+	if (evt.type == sf::Event::KeyPressed)
+	{
+		m_map->getPlayer()->setStrategy(new HumanPlayerStrategy());
+		int action = m_map->getPlayer()->getStrategy()->execute(m_map->getPlayer()->getPosition(), 
+			m_map->getPlayer()->getPosition(), lastKey, &evt);
+
+		switch (action)
+		{
+		case PlayerAction::MOVE_UP:
+		{
+			this->m_map->getPlayer()->changeSprite(PlayerMove::UP);
+
+			//Checks if space occupied or out of bounds
+			if ((currentPos - width < 0))
+				break;
+			else if (level[currentPos - width] == TileTypes::WATER) //1 is water
+				break;
+			else if (level[currentPos - width] == TileTypes::TREE) //2 is tree
+				break;
+			else if (level[currentPos - width] == TileTypes::CHEST) //9 is item/chest
+			{
+				if (!openedChest) {
+					Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
+					openedChest = true;
+				}
+				else
+					break;
+			}
+			else if (level[currentPos - width] == TileTypes::END) // end
+			{
+				int y = currentPos % width;
+				int x = currentPos / width - 1;
+
+				Door* door = static_cast<Door*>(this->m_map->getObject(x, y));
+
+				if (door != nullptr)
+				{
+					if (door->getDestination() != nullptr)
+					{
+						this->goToNewMap(door->getDestination());
+					}
+					else
+					{
+						endGame();
+					}
+				}
+				break;
+			}
+			this->m_map->getPlayer()->move(PlayerMove::UP);
+			currentPos -= width;
+			break;
+		}
+		case PlayerAction::MOVE_DOWN:
+		{
+			this->m_map->getPlayer()->changeSprite(PlayerMove::DOWN);
+			//player.setTextureRect(sf::IntRect(0, 0, 20, 26)); //Change Sprite
+			//Checks if space occupied or out of bounds
+			if ((currentPos + width >= level.size()))
+				break;
+			else if (level[currentPos + width] == TileTypes::WATER) //1 is water
+				break;
+			else if (level[currentPos + width] == TileTypes::TREE) //2 is tree
+				break;
+			else if (level[currentPos + width] == TileTypes::CHEST) //9 is item/chest
+			{
+				if (!openedChest) {
+					Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
+					openedChest = true;
+				}
+				else
+					break;
+			}
+			else if (level[currentPos + width] == TileTypes::END) // end
+			{
+				//m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
+				int y = currentPos % width;
+				int x = currentPos / width + 1;
+				Door* door = static_cast<Door*>(this->m_map->getObject(x, y));
+
+				if (door != nullptr)
+				{
+					if (door->getDestination() != nullptr)
+					{
+						this->goToNewMap(door->getDestination());
+					}
+					else
+					{
+						endGame();
+					}
+				}
+				break;
+			}
+			//player.move(0, +32);
+			this->m_map->getPlayer()->move(PlayerMove::DOWN);
+			currentPos += width;
+			break;
+		}
+		case PlayerAction::MOVE_LEFT:
+		{
+			this->m_map->getPlayer()->changeSprite(PlayerMove::LEFT);
+			//player.setTextureRect(sf::IntRect(40, 0, 20, 26)); //Change Sprite.
+			//Checks if space occupied or out of bounds
+			if ((currentPos) % width <= 0)
+				break;
+			else if (level[currentPos - 1] == TileTypes::WATER) //1 is water
+				break;
+			else if (level[currentPos - 1] == TileTypes::TREE) //2 is tree
+				break;
+			else if (level[currentPos - 1] == TileTypes::CHEST) //9 is item/chest
+			{
+				if (!openedChest) {
+					Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
+					openedChest = true;
+				}
+				else
+					break;
+			}
+			else if (level[currentPos - 1] == TileTypes::END) // end
+			{
+				//m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
+				int y = currentPos % width - 1;
+				int x = currentPos / width;
+				Door* door = static_cast<Door*>(this->m_map->getObject(x, y));
+
+				if (door != nullptr)
+				{
+					if (door->getDestination() != nullptr)
+					{
+						this->goToNewMap(door->getDestination());
+					}
+					else
+					{
+						endGame();
+					}
+				}
+				break;
+			}
+			//player.move(-32, 0);
+			this->m_map->getPlayer()->move(PlayerMove::LEFT);
+			currentPos--;
+			break;
+		}
+		case PlayerAction::MOVE_RIGHT:
+		{
+			this->m_map->getPlayer()->changeSprite(PlayerMove::RIGHT);
+			//player.setTextureRect(sf::IntRect(60, 0, 20, 26));
+			//Checks if space occupied or out of bounds
+			if ((currentPos) % width > (width - 2))
+				break;
+			else if (level[currentPos + 1] == TileTypes::WATER) //1 is water
+				break;
+			else if (level[currentPos + 1] == TileTypes::TREE) //2 is tree
+				break;
+			else if (level[currentPos + 1] == TileTypes::CHEST) //9 is item/chest
+			{
+				if (!openedChest) {
+					Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
+					openedChest = true;
+				}
+				else
+					break;
+			}
+			else if (level[currentPos + 1] == TileTypes::END) // end
+			{
+				//m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
+				int y = currentPos % width + 1;
+				int x = currentPos / width;
+				Door* door = static_cast<Door*>(this->m_map->getObject(x, y));
+
+				if (door != nullptr)
+				{
+					if (door->getDestination() != nullptr)
+					{
+						this->goToNewMap(door->getDestination());
+					}
+					else
+					{
+						endGame();
+					}
+				}
+				break;
+			}
+			//player.move(+32, 0);
+			this->m_map->getPlayer()->move(PlayerMove::RIGHT);
+			currentPos++;
+		}
+		}
+	}
+	/*switch (evt.type){
 	case sf::Event::KeyPressed:
 		if (evt.key.code == sf::Keyboard::Up){
 			//sets the player looking upwards
@@ -372,7 +562,7 @@ void Game::update(sf::Event evt){
 	}
 	default:
 		break;
-	}
+	}*/
 }
 
 //! endGame function
@@ -412,14 +602,14 @@ void Game::endGame()
 //! Exits if unable to load either
 void Game::loadTextures(){
 	//Loads the player's texture
-	if (!playerTexture.loadFromFile("hero.png"))
+	/*if (!playerTexture.loadFromFile("hero.png"))
 		EXIT_FAILURE;
 	//Creates the map according to the level
 	else if (!map.load("bkrd.png", sf::Vector2u(32, 32), level, width, height))
 		EXIT_FAILURE;
 	//Sets the player's texture
 	player.setTexture(playerTexture);
-	player.setTextureRect(sf::IntRect(0, 0, 20, 26));
+	player.setTextureRect(sf::IntRect(0, 0, 20, 26));*/
 	//Sets the player to the starting position
 	for (int i = 0; i < width * height; ++i){
 		if (level[i] == TileTypes::START){
@@ -427,7 +617,10 @@ void Game::loadTextures(){
 			break;
 		}
 	}
-	player.setPosition((currentPos % width) * 32 + 5, (currentPos / width) * 32 + 3);
+	map.load("bkrd.png", sf::Vector2u(32, 32), level, width, height);
+	this->m_map->getPlayer()->setPosition((currentPos % width), (currentPos / width));
+	this->m_map->getPlayer()->initSprite(CharacterSpriteType::S_PLAYER);
+	//player.setPosition((currentPos % width) * 32 + 5, (currentPos / width) * 32 + 3);
 	createText();
 }
 
@@ -486,7 +679,7 @@ void Game::createText(){
 void Game::render(){
 	//currentPosition.setString("Current position: " + std::to_string((currentPos - 1) % width));
 	window->draw(map);
-	window->draw(player);
+	window->draw(*this->m_map->getPlayer()->getSprite());
 	window->draw(textBox);
 	window->draw(enemyStatsBox);
 	window->draw(text);
@@ -523,7 +716,6 @@ void Game::go(){
 
 void Game::goToNewMap(Map* map)
 {
-	Map* cur = this->m_map;
 	this->m_map = map;
 	this->level = map->outputMap();
 	//this->init();
@@ -535,12 +727,4 @@ void Game::goToNewMap(Map* map)
 			break;
 		}
 	}
-	delete cur; //Delete old map, since doors are 1 way.
-
-	/*while (window->isOpen()){
-		window->clear();
-		render();
-		processInput();
-		window->display();
-	}*/
 }
