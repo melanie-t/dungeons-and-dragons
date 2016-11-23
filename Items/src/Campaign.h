@@ -14,8 +14,9 @@ public:
 	void setupCampaign();
 	void saveCampaign();
 	Map* getBeginningMap(){ return begin; }
+	void setBeginningMap(Map* map);
 
 
-	static Campaign* loadCampaign(int id, Character* player);
-	static Campaign* createCampaign(Character* player);
+	static Campaign* loadCampaign(int id, Character* player = nullptr);
+	static Campaign* createCampaign();
 };

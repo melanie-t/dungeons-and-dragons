@@ -71,7 +71,8 @@ int main()
 		cout << "2. Create/Edit Map" << endl;
 		cout << "3. Create/Edit Character" << endl;
 		cout << "4. Create/Edit Item" << endl;
-		cout << "5. Exit program" << endl;
+		cout << "5. Create/Edit Campaign" << endl;
+		cout << "6. Exit program" << endl;
 		int cmd;
 		cin >> cmd;
 
@@ -100,25 +101,11 @@ int main()
 				cin >> name;
 
 				Character* player = Character::loadCharacter(name);
-				Campaign* camp = Campaign::loadCampaign(1, player);//Campaign::createCampaign(player);
-				//camp->saveCampaign();
+				std::cout << "Choose a campaign # between 1 and " << Statistics::getInstance()->getNumCampaigns() << endl;
+				int campID;
+				cin >> campID;
 
-				/*cout << "Choose a map id from the list below:" << endl;
-
-				int id = 1;
-				CMarkup xml;
-				char di[20];
-				sprintf_s(di, 20, "maps/%d.xml", id);
-
-				while (xml.Load(di))
-				{
-					cout << id << endl;
-					id++;
-					sprintf_s(di, 20, "maps/%d.xml", id);
-				}
-
-				int chosenMap;
-				cin >> chosenMap;*/
+				Campaign* camp = Campaign::loadCampaign(campID, player);
 
 				gameRunning = true;
 
@@ -638,7 +625,58 @@ int main()
 			break;
 		} // Item FIN
 
-		case 5: // Exit
+		case 5: //Create/Edit Campaign.
+		{
+			bool campEdit = true;
+			while (campEdit)
+			{
+				cout << "What would you like to do? (enter number)" << endl;
+				cout << "1. Create Campaign" << endl;
+				cout << "2. Edit Campaign" << endl;
+				cout << "3. Exit Editor" << endl;
+				int campCMD;
+				cin >> campCMD;
+
+				Campaign* camp = nullptr;
+				switch (campCMD)
+				{
+				case 1: //Create
+				{
+					camp = Campaign::createCampaign(); break;
+				}
+				case 2: //Edit Map
+				{
+					std::cout << "Choose a campaign # between 1 and " << Statistics::getInstance()->getNumCampaigns() << endl;
+					int campID;
+					cin >> campID;
+					camp = Campaign::loadCampaign(campID);
+				}
+				case 3:
+				{
+					campEdit = false; 
+					break;
+				}
+				}
+
+				if (camp != nullptr)
+				{
+					camp->setupCampaign();
+					int yesNo;
+					do
+					{
+						std::cout << "Would you like to save the campaign? (1 for yes, 0 for no)" << endl;
+						cin >> yesNo;
+					} while (yesNo != 0 && yesNo != 1);
+
+					if (yesNo == 1)
+					{
+						camp->saveCampaign();
+						cout << "Map Saved." << endl;
+					}
+				}
+			}
+		}
+		case 6: // Exit
 		{
 			run = false;
 			break;

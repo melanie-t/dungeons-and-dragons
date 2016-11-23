@@ -3,8 +3,10 @@
 
 #include "Campaign.h"
 #include "FileMapBuilder.h"
+#include "SavedMapBuilder.h"
 #include "StatisticsHelper.h"
 #include "Door.h"
+#include "MapBuildDirector.h"
 
 Campaign::Campaign(Map* start, bool setup, int id)
 {
@@ -30,7 +32,7 @@ void Campaign::setup(Map* map)
 		if (door->getStart()) continue; // skip start doors
 
 		cout << "Door Detected at (" << doorpos->x << ", " << doorpos->y << ")" << "on map #" << map->getID() << endl;
-		cout << "Pick a map to link to this door below" << Statistics::getInstance()->getNumMaps() << ". Enter 0 to make the door a finish line.";
+		cout << "Pick a map to link to this door below " << Statistics::getInstance()->getNumMaps() << ". Enter 0 to make the door a finish line.";
 		int mapid;
 
 		do
@@ -42,17 +44,28 @@ void Campaign::setup(Map* map)
 		if (mapid == 0) continue;
 		else
 		{
-			FileMapBuilder builder(map->getPlayer());
-			builder.loadMap(mapid);
-			Map* map = builder.getMap();
-			door->setDestination(map);
-			setup(map);
+			if (map->getPlayer() != nullptr)
+			{
+				FileMapBuilder builder(map->getPlayer());
+				builder.loadMap(mapid);
+				Map* map = builder.getMap();
+				door->setDestination(map);
+				setup(map);
+			}
+			else
+			{
+				SavedMapBuilder builder;
+				builder.loadMap(mapid);
+				Map* map = builder.getMap();
+				door->setDestination(map);
+				setup(map);
+			}
 		}
 	}
 }
-Campaign* Campaign::createCampaign(Character* player)
+Campaign* Campaign::createCampaign()
 {
-	cout << "Pick a Starting map ID below" << Statistics::getInstance()->getNumMaps() << " and above 0; ";
+	cout << "Pick a Starting map ID " << Statistics::getInstance()->getNumMaps() << " or under and above 0; ";
 	int start;
 
 	do
@@ -62,7 +75,7 @@ Campaign* Campaign::createCampaign(Character* player)
 	} while (start > Statistics::getInstance()->getNumMaps() || start <= 0);
 
 	//Load the map that the campaign will start on.
-	FileMapBuilder builder(player);
+	SavedMapBuilder builder;
 	builder.loadMap(start);
 
 	Map* startMap = builder.getMap();
@@ -88,10 +101,20 @@ Campaign* Campaign::loadCampaign(int id, Character* player)
 		queue<Door*> doors;
 		queue<Map*> maps;
 
-		FileMapBuilder builder(player);
+		MapBuildDirector director;
+		if (player != nullptr)
+		{
+			director.setMapBuilder(new FileMapBuilder(player));
+			//FileMapBuilder builder(player);
+		}
+		else
+		{
+			director.setMapBuilder(new SavedMapBuilder());
+		}
+
 		int startID = atoi(xml.GetData().c_str());
-		builder.loadMap(startID);
-		start = builder.getMap();
+		director.constructMap(startID);
+		start = director.getMap();
 
 		maps.push(start);
 
@@ -134,8 +157,8 @@ Campaign* Campaign::loadCampaign(int id, Character* player)
 					int doorid = atoi(xml.GetData().c_str());
 
 					Door* door = static_cast<Door*>(maps.front()->getObject(x, y));
-					builder.loadMap(doorid);
-					Map* dest = builder.getMap();
+					director.constructMap(doorid);
+					Map* dest = director.getMap();
 					door->setDestination(dest);
 					xml.OutOfElem(); //out of door.
 				}
@@ -175,9 +198,9 @@ void Campaign::saveCampaign()
 		if (!cur->getDoors().empty())
 		{
 			xml.AddElem("doors");
+			xml.IntoElem();
 		}
 		
-		xml.IntoElem();
 		for (pos doorpos : cur->getDoors())
 		{
 			xml.AddElem("door");
@@ -203,7 +226,22 @@ void Campaign::saveCampaign()
 		maps.pop();
 		xml.OutOfElem(); // out of map
 	}
+
 	char di[20];
 	sprintf_s(di, 20, "campaign/%d.xml", id);
+
+	if (!xml.Load(string(di)))
+	{
+		int num = Statistics::getInstance()->getNumCampaigns();
+		Statistics::getInstance()->setNumCampaigns(num + 1);
+	}
 	xml.Save(string(di));
+}
+
+void Campaign::setBeginningMap(Map* map)
+{
+	this->begin = map;
+
+	//Resetting the beginning map changes the entire campaign.
+	this->setupCampaign();
 }

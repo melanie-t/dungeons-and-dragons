@@ -38,7 +38,7 @@ int Statistics::getNumCampaigns()
 	if (xml.FindElem("stats"))
 	{
 		xml.IntoElem();
-		xml.FindElem("campaign");
+		xml.FindElem("campaigns");
 
 		return atoi(xml.GetData().c_str());
 	}
