@@ -325,244 +325,31 @@ void Game::update(sf::Event evt){
 		}
 		}
 	}
-	/*switch (evt.type){
-	case sf::Event::KeyPressed:
-		if (evt.key.code == sf::Keyboard::Up){
-			//sets the player looking upwards
-			player.setTextureRect(sf::IntRect(20, 0, 20, 26));
-			if (lastKey != evt.key.code)
-			{
-
-			}
-			else{
-				//Checks if space occupied or out of bounds
-				if ((currentPos - width < 0))
-					break;
-				else if (level[currentPos - width] == TileTypes::WATER) //1 is water
-					break;
-				else if (level[currentPos - width] == TileTypes::TREE) //2 is tree
-					break;
-				else if (level[currentPos - width] == TileTypes::CHEST) //9 is item/chest
-				{
-					if (!openedChest) {
-						Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
-						openedChest = true;
-					}
-					else
-						break;
-				}
-				else if (level[currentPos - width] == TileTypes::END) // end
-				{
-					int y = currentPos % width;
-					int x = currentPos / width - 1;
-
-					Door* door = static_cast<Door*>(this->m_map->getObject(x, y));
-
-					if (door != nullptr)
-					{
-						if (door->getDestination() != nullptr)
-						{
-							this->goToNewMap(door->getDestination());
-						}
-						else
-						{
-							endGame();
-						}
-					}
-					break;
-				}
-				player.move(0, -32);
-				currentPos -= width;
-			}
-			break;
-		}
-		if (evt.key.code == sf::Keyboard::Down){
-			//sets the player looking downwards
-			player.setTextureRect(sf::IntRect(0, 0, 20, 26));
-			if (lastKey != evt.key.code)
-			{
-				break;
-			}
-			else{
-				//Checks if space occupied or out of bounds
-				if ((currentPos + width >= level.size()))
-					break;
-				else if (level[currentPos + width] == TileTypes::WATER) //1 is water
-					break;
-				else if (level[currentPos + width] == TileTypes::TREE) //2 is tree
-					break;
-				else if (level[currentPos + width] == TileTypes::CHEST) //9 is item/chest
-				{
-					if (!openedChest) {
-						Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
-						openedChest = true;
-					}
-					else
-						break;
-				}
-				else if (level[currentPos + width] == TileTypes::END) // end
-				{
-					//m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
-					int y = currentPos % width;
-					int x = currentPos / width + 1;
-					Door* door = static_cast<Door*>(this->m_map->getObject(x, y));
-
-					if (door != nullptr)
-					{
-						if (door->getDestination() != nullptr)
-						{
-							this->goToNewMap(door->getDestination());
-						}
-						else
-						{
-							endGame();
-						}
-					}
-					break;
-				}
-				player.move(0, +32);
-				currentPos += width;
-			}
-			break;
-		}
-		if (evt.key.code == sf::Keyboard::Left){
-			//sets the player looking left
-			player.setTextureRect(sf::IntRect(40, 0, 20, 26));
-			if (lastKey != evt.key.code)
-			{
-
-			}
-			else{
-				//Checks if space occupied or out of bounds
-				if ((currentPos) % width <= 0)
-					break;
-				else if (level[currentPos - 1] == TileTypes::WATER) //1 is water
-					break;
-				else if (level[currentPos - 1] == TileTypes::TREE) //2 is tree
-					break;
-				else if (level[currentPos - 1] == TileTypes::CHEST) //9 is item/chest
-				{
-					if (!openedChest) {
-						Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
-						openedChest = true;
-					}
-					else
-						break;
-				}
-				else if (level[currentPos - 1] == TileTypes::END) // end
-				{
-					//m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
-					int y = currentPos % width - 1;
-					int x = currentPos / width;
-					Door* door = static_cast<Door*>(this->m_map->getObject(x, y));
-
-					if (door != nullptr)
-					{
-						if (door->getDestination() != nullptr)
-						{
-							this->goToNewMap(door->getDestination());
-						}
-						else
-						{
-							endGame();
-						}
-					}
-					break;
-				}
-				player.move(-32, 0);
-				currentPos--;
-			}
-			break;
-		}
-		if (evt.key.code == sf::Keyboard::Right){
-			//sets the player looking upwards
-			player.setTextureRect(sf::IntRect(60, 0, 20, 26));
-			if (lastKey != evt.key.code)
-			{
-			}
-			else{
-				//Checks if space occupied or out of bounds
-				if ((currentPos) % width > (width - 2))
-					break;
-				else if (level[currentPos + 1] == TileTypes::WATER) //1 is water
-					break;
-				else if (level[currentPos + 1] == TileTypes::TREE) //2 is tree
-					break;
-				else if (level[currentPos + 1] == TileTypes::CHEST) //9 is item/chest
-				{
-					if (!openedChest) {
-						Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
-						openedChest = true;
-					}
-					else
-						break;
-				}
-				else if (level[currentPos + 1] == TileTypes::END) // end
-				{
-					//m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
-					int y = currentPos % width + 1;
-					int x = currentPos / width;
-					Door* door = static_cast<Door*>(this->m_map->getObject(x, y));
-
-					if (door != nullptr)
-					{
-						if (door->getDestination() != nullptr)
-						{
-							this->goToNewMap(door->getDestination());
-						}
-						else
-						{
-							endGame();
-						}
-					}
-					break;
-				}
-				player.move(+32, 0);
-				currentPos++;
-			}
-			break;
-		}
-		else if (evt.key.code == sf::Keyboard::Escape)
-		{
-			if (!ended)
-			{
-				this->endGame(); // temp.
-			}
-		}
-		else if (evt.key.code == sf::Keyboard::Return)
-		{
-			if (ended)
-			{
-				window->close();
-			}
-		}
-		break;
-	case sf::Event::MouseMoved:
+	else if (sf::Event::MouseMoved)
 	{
-		int tileX = evt.mouseMove.y / 32;
-		int tileY = evt.mouseMove.x / 32;
+		int tileY = evt.mouseMove.y / 32;
+		int tileX = evt.mouseMove.x / 32;
 
-		if (this->m_map->getObject(tileX, tileY)->getObjectType() == OBJ_ENEMY)
+		if (tileX > 0 && tileY > 0)
 		{
-			Enemy* enemy = static_cast<Enemy*>(this->m_map->getObject(tileX, tileY));
-			enemyStats.setString("Enemy" + enemy->statString());
-		}
-		else if (this->m_map->getObject(tileX, tileY)->getObjectType() == OBJ_FRIEND)
-		{
-			Friend* frien = static_cast<Friend*>(this->m_map->getObject(tileX, tileY));
-			enemyStats.setString("Friend" + frien->statString());
-		}
-		else
-		{
-			//Don't show enemy stats.
-			enemyStats.setString("Enemy/Friend");
-		}
 
-		break;
+			if (this->m_map->getObject(tileX, tileY)->getObjectType() == OBJ_ENEMY)
+			{
+				Enemy* enemy = static_cast<Enemy*>(this->m_map->getObject(tileX, tileY));
+				enemyStats.setString("Enemy" + enemy->statString());
+			}
+			else if (this->m_map->getObject(tileX, tileY)->getObjectType() == OBJ_FRIEND)
+			{
+				Friend* frien = static_cast<Friend*>(this->m_map->getObject(tileX, tileY));
+				enemyStats.setString("Friend" + frien->statString());
+			}
+			else
+			{
+				//Don't show enemy stats.
+				enemyStats.setString("Enemy/Friend");
+			}
+		}
 	}
-	default:
-		break;
-	}*/
 }
 
 //! endGame function

@@ -27,6 +27,10 @@ int HumanPlayerStrategy::execute(pos characterPos, pos targetPos,int lastkey, sf
 		{
 			return PlayerAction::MOVE_RIGHT;
 		}
+		case sf::Keyboard::A:
+		{
+			return PlayerAction::ATTACK;
+		}
 		//TODO: attack.
 		}
 	}
