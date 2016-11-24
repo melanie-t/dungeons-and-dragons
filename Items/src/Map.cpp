@@ -58,6 +58,12 @@ Map::Map(const int id, const int length, const int width, Character* player)
 	mapSearch = new int*[width];
 	for (int i = 0; i < length; ++i)
 		mapSearch[i] = new int[length];
+
+	if (player != nullptr)
+	{
+		turns.push_back(player);
+		turn = 0;
+	}
 }
 //! destructor of the map class
 //! @brief deletes the player with the map.
@@ -146,12 +152,14 @@ void Map::fillCell(int x, int y, GameObject* obj)
 		Enemy* enemy = static_cast<Enemy*>(obj);
 		enemy->setName("Enemy #" + to_string(enemies.size() + 1));
 		enemies.push_back(static_cast<Enemy*>(obj));
+		turns.push_back(enemy);
 	}
 	else if (obj->getObjectType() == OBJ_FRIEND)
 	{
 		Friend* frien = static_cast<Friend*>(obj);
 		frien->setName("Friend #" + to_string(friends.size() + 1));
 		friends.push_back(static_cast<Friend*>(obj));
+		//turns.push_back(frien);
 	}
 
 	map[x][y] = obj;
@@ -493,4 +501,14 @@ void Map::removeEnemy(Enemy* enemy)
 		}
 	}
 	fillCell(enemy->getPosition().x, enemy->getPosition().y, new GrassTexture());
+}
+
+void Map::nextTurn()
+{
+	turn++;
+}
+
+Character* Map::getTurn()
+{
+	return turns[turn % turns.size()];
 }

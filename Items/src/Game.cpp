@@ -42,7 +42,7 @@ bool Game::validMap(){
 	int startPoint = -1;
 	int endPoint = -1;
 	//finds the starting point in the array
-	for (int i = 0; i < level.size(); ++i){
+	for (unsigned int i = 0; i < level.size(); ++i){
 		if (level[i] == TileTypes::START){
 			startPoint = i;
 			break;
@@ -54,7 +54,7 @@ bool Game::validMap(){
 	}
 	else{
 		//Finds the ending point in the array
-		for (int i = 0; i < level.size(); ++i){
+		for (unsigned int i = 0; i < level.size(); ++i){
 			if (level[i] == TileTypes::END){
 				endPoint = i;
 				break;
@@ -140,20 +140,23 @@ void Game::update(sf::Event evt){
 	if (evt.type == sf::Event::KeyReleased){
 		lastKey = evt.key.code;
 	}
-	if (evt.type == sf::Event::KeyPressed)
-	{
-		m_map->getPlayer()->setStrategy(new HumanPlayerStrategy());
-		int action = m_map->getPlayer()->getStrategy()->execute(m_map->getPlayer()->getPosition(), 
-			m_map->getPlayer()->getPosition(), lastKey, &evt);
+		Character* character = m_map->getTurn();//static_cast<Character*>(m_map->getEnemies()[0]);
+		//Character* character = m_map->getTurn();
+
+		int action = character->getStrategy()->execute(character->getPosition(),
+			m_map->getPlayer()->getPosition(), level, m_map->getWidth(), lastKey, &evt);
+
+		/*int action = m_map->getPlayer()->getStrategy()->execute(m_map->getPlayer()->getPosition(), 
+			m_map->getPlayer()->getPosition(), level, lastKey, &evt);*/
 
 		switch (action)
 		{
 		case PlayerAction::MOVE_UP:
 		{
-			this->m_map->getPlayer()->changeSprite(PlayerMove::UP);
+			character->changeSprite(PlayerMove::UP);
 
 			//Checks if space occupied or out of bounds
-			if ((currentPos - width < 0))
+			if (character->getPosition().y <= 0) //todo change to character.
 				break;
 			else if (level[currentPos - width] == TileTypes::WATER) //1 is water
 				break;
@@ -175,7 +178,7 @@ void Game::update(sf::Event evt){
 
 				Door* door = static_cast<Door*>(this->m_map->getObject(x, y));
 
-				if (door != nullptr && m_map->getEnemies().empty())
+				if (door != nullptr && m_map->getEnemies().empty() && character == m_map->getPlayer())
 				{
 					if (door->getDestination() != nullptr)
 					{
@@ -188,16 +191,17 @@ void Game::update(sf::Event evt){
 					break;
 				}
 			}
-			this->m_map->getPlayer()->move(PlayerMove::UP);
+			character->move(PlayerMove::UP);
+			m_map->nextTurn();
 			currentPos -= width;
 			break;
 		}
 		case PlayerAction::MOVE_DOWN:
 		{
-			this->m_map->getPlayer()->changeSprite(PlayerMove::DOWN);
+			character->changeSprite(PlayerMove::DOWN);
 			//player.setTextureRect(sf::IntRect(0, 0, 20, 26)); //Change Sprite
 			//Checks if space occupied or out of bounds
-			if ((currentPos + width >= level.size()))
+			if (character->getPosition().y >= m_map->getLength() - 1)
 				break;
 			else if (level[currentPos + width] == TileTypes::WATER) //1 is water
 				break;
@@ -219,7 +223,7 @@ void Game::update(sf::Event evt){
 				int y = currentPos / width + 1;
 				Door* door = static_cast<Door*>(this->m_map->getObject(x, y));
 
-				if (door != nullptr && m_map->getEnemies().empty())
+				if (door != nullptr && m_map->getEnemies().empty() && character == m_map->getPlayer())
 				{
 					if (door->getDestination() != nullptr)
 					{
@@ -232,17 +236,17 @@ void Game::update(sf::Event evt){
 					break;
 				}
 			}
-			//player.move(0, +32);
-			this->m_map->getPlayer()->move(PlayerMove::DOWN);
+			character->move(PlayerMove::DOWN);
+			m_map->nextTurn();
 			currentPos += width;
 			break;
 		}
 		case PlayerAction::MOVE_LEFT:
 		{
-			this->m_map->getPlayer()->changeSprite(PlayerMove::LEFT);
+			character->changeSprite(PlayerMove::LEFT);
 			//player.setTextureRect(sf::IntRect(40, 0, 20, 26)); //Change Sprite.
 			//Checks if space occupied or out of bounds
-			if ((currentPos) % width <= 0)
+			if (character->getPosition().x <= 0)
 				break;
 			else if (level[currentPos - 1] == TileTypes::WATER) //1 is water
 				break;
@@ -264,7 +268,7 @@ void Game::update(sf::Event evt){
 				int y = currentPos / width;
 				Door* door = static_cast<Door*>(this->m_map->getObject(x, y));
 
-				if (door != nullptr && m_map->getEnemies().empty())
+				if (door != nullptr && m_map->getEnemies().empty() && character == m_map->getPlayer())
 				{
 					if (door->getDestination() != nullptr)
 					{
@@ -278,21 +282,28 @@ void Game::update(sf::Event evt){
 				}
 			}
 			//player.move(-32, 0);
-			this->m_map->getPlayer()->move(PlayerMove::LEFT);
+			character->move(PlayerMove::LEFT);
+			m_map->nextTurn();
 			currentPos--;
 			break;
 		}
 		case PlayerAction::MOVE_RIGHT:
 		{
-			this->m_map->getPlayer()->changeSprite(PlayerMove::RIGHT);
+			character->changeSprite(PlayerMove::RIGHT);
 			//player.setTextureRect(sf::IntRect(60, 0, 20, 26));
 			//Checks if space occupied or out of bounds
-			if ((currentPos) % width > (width - 2))
+			if (character->getPosition().x >= m_map->getWidth()-1)
+			{
 				break;
+			}
 			else if (level[currentPos + 1] == TileTypes::WATER) //1 is water
+			{
 				break;
+			}
 			else if (level[currentPos + 1] == TileTypes::TREE) //2 is tree
+			{
 				break;
+			}
 			else if (level[currentPos + 1] == TileTypes::CHEST) //9 is item/chest
 			{
 				if (!openedChest) {
@@ -309,7 +320,7 @@ void Game::update(sf::Event evt){
 				int y = currentPos / width;
 				Door* door = static_cast<Door*>(this->m_map->getObject(x, y));
 
-				if (door != nullptr && m_map->getEnemies().empty())
+				if (door != nullptr && m_map->getEnemies().empty() && character == m_map->getPlayer())
 				{
 					if (door->getDestination() != nullptr)
 					{
@@ -323,11 +334,14 @@ void Game::update(sf::Event evt){
 				}
 			}
 			//player.move(+32, 0);
-			this->m_map->getPlayer()->move(PlayerMove::RIGHT);
+			character->move(PlayerMove::RIGHT);
+			m_map->nextTurn();
 			currentPos++;
+			break;
 		}
 		case PlayerAction::ATTACK:
 		{
+			//TODO: edit this.
 			Dice dice;
 			//int d20 = dice.roll("d20");
 			//int attackRoll = m_map->getPlayer()->attackRoll(d20);
@@ -357,6 +371,7 @@ void Game::update(sf::Event evt){
 						//Formula for basic melee attack is:
 						// 1[W] + strength modifier for under level 21.
 						// 2[W] + strength modifier for level 21 and above.
+
 						if (m_map->getPlayer()->getLevel() < 21) //Lower than 21
 						{
 							damage = swordRoll + strengthModifier;
@@ -366,7 +381,7 @@ void Game::update(sf::Event evt){
 							damage = (2 * swordRoll) + strengthModifier;
 						}
 
-						enemy->hit(damage); // temp.
+						enemy->hit(damage);
 
 						cout << enemy->getHitPoints() << endl; //remains the same before change.
 						if (enemy->getHitPoints() <= 0)
@@ -376,11 +391,11 @@ void Game::update(sf::Event evt){
 					}
 				}
 			}
+			m_map->nextTurn();
 			break;
 		}
 		}
-	}
-	else if (sf::Event::MouseMoved)
+	if (sf::Event::MouseMoved)
 	{
 		int tileY = evt.mouseMove.y / 32;
 		int tileX = evt.mouseMove.x / 32;

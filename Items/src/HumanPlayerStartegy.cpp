@@ -5,33 +5,36 @@
 #include "TileTypes.h"
 #include "PlayerActionTypes.h"
 
-int HumanPlayerStrategy::execute(pos characterPos, pos targetPos,int lastkey, sf::Event* evt)
+int HumanPlayerStrategy::execute(pos characterPos, pos targetPos, std::vector<int> level, int width, int lastkey, sf::Event* evt)
 {
 	if (evt != nullptr)
 	{
-		switch (evt->key.code)
+		if (evt->type == sf::Event::KeyReleased)
 		{
-		case sf::Keyboard::Up:
-		{
-			return PlayerAction::MOVE_UP;
-		}
-		case sf::Keyboard::Down:
-		{
-			return PlayerAction::MOVE_DOWN;
-		}
-		case sf::Keyboard::Left:
-		{
-			return PlayerAction::MOVE_LEFT;
-		}
-		case sf::Keyboard::Right:
-		{
-			return PlayerAction::MOVE_RIGHT;
-		}
-		case sf::Keyboard::A:
-		{
-			return PlayerAction::ATTACK;
-		}
+			switch (evt->key.code)
+			{
+			case sf::Keyboard::Up:
+			{
+				return PlayerAction::MOVE_UP;
+			}
+			case sf::Keyboard::Down:
+			{
+				return PlayerAction::MOVE_DOWN;
+			}
+			case sf::Keyboard::Left:
+			{
+				return PlayerAction::MOVE_LEFT;
+			}
+			case sf::Keyboard::Right:
+			{
+				return PlayerAction::MOVE_RIGHT;
+			}
+			case sf::Keyboard::A:
+			{
+				return PlayerAction::ATTACK;
+			}
+			}
 		}
 	}
-	return 0;
+	return -1;
 }

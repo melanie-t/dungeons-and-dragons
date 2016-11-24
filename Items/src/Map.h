@@ -58,6 +58,9 @@ public:
 	void setName(std::string name){ this->name = name; }
 	void setWidth(int wid){ this->width = wid; }
 	void setLength(int len){ this->length = len; }
+
+	void nextTurn();
+	Character* getTurn();
 private:
 	//Member variables;
 	//grass, tree, water, brick.
@@ -65,11 +68,13 @@ private:
 	int width;
 	int length;
 	int ID;
+	int turn;
 	std::string name;
 	std::vector<pos> doors;
 	int** mapSearch;
 	bool recursiveSearch(int posx, int posy, int endposx, int endposy);
 	vector<Enemy*> enemies;
 	vector<Friend*> friends;
+	vector<Character*> turns;
 	Character* player;
 };

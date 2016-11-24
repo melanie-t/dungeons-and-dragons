@@ -328,15 +328,11 @@ void Character::hit(int damage)
 	if (currentHitPoints > damage)
 	{
 		this->currentHitPoints -= damage;
-		//cout << "\nYou got hit! (-" << damage << " HP)\n" << endl;
-		//notify();
 	}
 
 	else
 	{
 		this->currentHitPoints = 0;
-		//notify();
-		//cout << "GAME OVER. Thanks for playing!" << endl;
 		gameover = true;
 	}
 
