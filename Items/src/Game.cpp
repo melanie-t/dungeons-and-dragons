@@ -175,7 +175,7 @@ void Game::update(sf::Event evt){
 
 				Door* door = static_cast<Door*>(this->m_map->getObject(x, y));
 
-				if (door != nullptr)
+				if (door != nullptr && m_map->getEnemies().empty())
 				{
 					if (door->getDestination() != nullptr)
 					{
@@ -185,8 +185,8 @@ void Game::update(sf::Event evt){
 					{
 						endGame();
 					}
+					break;
 				}
-				break;
 			}
 			this->m_map->getPlayer()->move(PlayerMove::UP);
 			currentPos -= width;
@@ -219,7 +219,7 @@ void Game::update(sf::Event evt){
 				int y = currentPos / width + 1;
 				Door* door = static_cast<Door*>(this->m_map->getObject(x, y));
 
-				if (door != nullptr)
+				if (door != nullptr && m_map->getEnemies().empty())
 				{
 					if (door->getDestination() != nullptr)
 					{
@@ -229,8 +229,8 @@ void Game::update(sf::Event evt){
 					{
 						endGame();
 					}
+					break;
 				}
-				break;
 			}
 			//player.move(0, +32);
 			this->m_map->getPlayer()->move(PlayerMove::DOWN);
@@ -264,7 +264,7 @@ void Game::update(sf::Event evt){
 				int y = currentPos / width;
 				Door* door = static_cast<Door*>(this->m_map->getObject(x, y));
 
-				if (door != nullptr)
+				if (door != nullptr && m_map->getEnemies().empty())
 				{
 					if (door->getDestination() != nullptr)
 					{
@@ -274,8 +274,8 @@ void Game::update(sf::Event evt){
 					{
 						endGame();
 					}
+					break;
 				}
-				break;
 			}
 			//player.move(-32, 0);
 			this->m_map->getPlayer()->move(PlayerMove::LEFT);
@@ -309,7 +309,7 @@ void Game::update(sf::Event evt){
 				int y = currentPos / width;
 				Door* door = static_cast<Door*>(this->m_map->getObject(x, y));
 
-				if (door != nullptr)
+				if (door != nullptr && m_map->getEnemies().empty())
 				{
 					if (door->getDestination() != nullptr)
 					{
@@ -319,8 +319,8 @@ void Game::update(sf::Event evt){
 					{
 						endGame();
 					}
+					break;
 				}
-				break;
 			}
 			//player.move(+32, 0);
 			this->m_map->getPlayer()->move(PlayerMove::RIGHT);
