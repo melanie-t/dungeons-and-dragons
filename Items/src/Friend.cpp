@@ -29,6 +29,7 @@ Character(lvl, str, dex, con, intel, wis, cha), GameObject(OBJ_FRIEND)
 //! @param player player of map or campaign
 Friend* Friend::randomize(Character* player)
 {
+	srand(time(NULL));
 	//For each stat, the enemy will within a range of +/- 5  of that.
 	//The lvl will be the same.
 	//May change in the future.

@@ -29,6 +29,7 @@ Enemy::Enemy(int lvl, int str, int dex, int con, int intel, int wis, int cha) :
 //! @param player player of map or campaign
 Enemy* Enemy::randomize(Character* player)
 {
+	srand(time(NULL));
 	//For each stat, the enemy will within a range of +/- 5  of that.
 	//The lvl will be the same.
 	//May change in the future.
