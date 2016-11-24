@@ -350,12 +350,12 @@ void Game::update(sf::Event evt){
 					if ((attackRoll > enemy->getArmorClass() && d20 != 1) || d20 == 20)
 					{
 						//int damage = 
-						enemy->hit(10); // temp.
+						enemy->hit(1); // temp.
 
 						cout << enemy->getHitPoints() << endl; //remains the same before change.
 						if (enemy->getHitPoints() <= 0)
 						{
-							//remove enemy.
+							this->m_map->removeEnemy(enemy);
 						}
 					}
 				}

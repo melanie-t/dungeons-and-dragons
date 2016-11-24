@@ -20,6 +20,7 @@ However, the map needs a path between the begin cell and end cell.
 #include "Markup.h"
 #include "TileTypes.h"
 #include "MathHelper.h"
+#include "GrassTexture.h"
 using namespace std;
 
 //! Default Constructor
@@ -479,5 +480,17 @@ Enemy* Map::getClosestEnemy(Character* origin)
 			}
 		}
 	}
-	return enemies[index];
+	return closest;
+}
+
+void Map::removeEnemy(Enemy* enemy)
+{
+	for (int i = 0; i < enemies.size(); i++)
+	{
+		if (enemies[i]->getName() == enemy->getName())
+		{
+			enemies.erase(enemies.begin() + i);
+		}
+	}
+	fillCell(enemy->getPosition().x, enemy->getPosition().y, new GrassTexture());
 }
