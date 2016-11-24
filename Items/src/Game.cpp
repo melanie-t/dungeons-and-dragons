@@ -349,8 +349,24 @@ void Game::update(sf::Event evt){
 
 					if ((attackRoll > enemy->getArmorClass() && d20 != 1) || d20 == 20)
 					{
-						//int damage = 
-						enemy->hit(1); // temp.
+						// Every character is assumed to have a short sword
+						int swordRoll = dice.roll("1d6");
+						int strengthModifier = m_map->getPlayer()->abilityModifier(m_map->getPlayer()->getSTR());
+						int damage = 0;
+
+						//Formula for basic melee attack is:
+						// 1[W] + strength modifier for under level 21.
+						// 2[W] + strength modifier for level 21 and above.
+						if (m_map->getPlayer()->getLevel() < 21) //Lower than 21
+						{
+							damage = swordRoll + strengthModifier;
+						}
+						else
+						{
+							damage = (2 * swordRoll) + strengthModifier;
+						}
+
+						enemy->hit(damage); // temp.
 
 						cout << enemy->getHitPoints() << endl; //remains the same before change.
 						if (enemy->getHitPoints() <= 0)

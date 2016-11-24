@@ -325,8 +325,6 @@ void Character::secondaryStatCalc() {
 //! @param damage: damage sustained by the character
 void Character::hit(int damage)
 {
-	std::cout << "damage: " << damage << endl;
-	std::cout << "health: " << currentHitPoints << endl;
 	if (currentHitPoints > damage)
 	{
 		this->currentHitPoints -= damage;
