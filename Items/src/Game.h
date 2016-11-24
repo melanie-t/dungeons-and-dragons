@@ -65,7 +65,6 @@ private:
 	void goToNewMap(Map* map); // for the future.
 
 	//Variables for player to move in the map
-	int currentPos;
 	int lastKey;
 	int width;
 	int height;

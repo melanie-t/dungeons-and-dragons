@@ -149,6 +149,8 @@ void Game::update(sf::Event evt){
 		/*int action = m_map->getPlayer()->getStrategy()->execute(m_map->getPlayer()->getPosition(), 
 			m_map->getPlayer()->getPosition(), level, lastKey, &evt);*/
 
+		int currentPos = character->getPosition().y*width + character->getPosition().x;
+
 		switch (action)
 		{
 		case PlayerAction::MOVE_UP:
@@ -468,6 +470,7 @@ void Game::loadTextures(){
 	player.setTexture(playerTexture);
 	player.setTextureRect(sf::IntRect(0, 0, 20, 26));*/
 	//Sets the player to the starting position
+	int currentPos = -1;
 	for (int i = 0; i < width * height; ++i){
 		if (level[i] == TileTypes::START){
 			currentPos = i;
@@ -597,14 +600,6 @@ void Game::goToNewMap(Map* map)
 		m_map = nullptr;
 		this->m_map = map;
 		this->level = map->outputMap();
-		//this->init();
 		loadTextures();
-
-		for (int i = 0; i < width * height; ++i){
-			if (level[i] == TileTypes::START){
-				currentPos = i;
-				break;
-			}
-		}
 	}
 }
