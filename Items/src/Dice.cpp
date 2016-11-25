@@ -115,13 +115,14 @@ bool Dice::parseString(string str) {
 	}
 
 	try {
-		number = stoi(parseResult[0]);		//stoi() std function that casts string to int
-		type = stoi(parseResult[1]);
-		total = stoi(parseResult[2]);
+		//changed to atoi, since stoi was giving exceptions.
+		number = atoi(parseResult[0].c_str());//stoi(parseResult[0]);		//stoi() std function that casts string to int
+		type = atoi(parseResult[1].c_str());//stoi(parseResult[1]);
+		total = atoi(parseResult[2].c_str());//stoi(parseResult[2]);
 		//return true;
 	}
 	catch (exception e) {
-		cout << endl << "exception in parseResult assignment" << endl;
+		cout << endl << e.what() << endl;//"exception in parseResult assignment" << endl;
 	}
 	return true;
 }
