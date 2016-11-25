@@ -391,8 +391,13 @@ bool Game::update(sf::Event* evt){
 				if ((attackRoll > target->getArmorClass() && d20 != 1) || d20 == 20)
 				{
 					// Every character is assumed to have a short sword
-					int swordRoll = dice.roll("1d6");
-					int strengthModifier = character->abilityModifier(character->getSTR());
+					// if holding a weapon.
+					int weaponRoll = 0;
+
+					//TODO check if holding weapon.
+					//= dice.roll("1d6"); // shortSword.
+					//if not holding:
+					weaponRoll = dice.roll("1d4");
 					int damage = 0;
 
 					//Formula for basic melee attack is:
@@ -401,11 +406,11 @@ bool Game::update(sf::Event* evt){
 
 					if (character->getLevel() < 21) //Lower than 21
 					{
-						damage = swordRoll + strengthModifier;
+						damage = weaponRoll + character->getDamageBonus();
 					}
 					else
 					{
-						damage = (2 * swordRoll) + strengthModifier;
+						damage = (2 * weaponRoll) + character->getDamageBonus();
 					}
 
 					target->hit(damage);
