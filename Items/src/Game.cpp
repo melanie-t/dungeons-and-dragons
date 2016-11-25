@@ -15,6 +15,7 @@
 #include "PlayerActionTypes.h"
 #include "MathHelper.h"
 #include "CharacterType.h"
+#include "FileMapBuilder.h"
 
 //! Constructor for Game class
 //! @param tileWidth : width of the tile used
@@ -637,10 +638,15 @@ void Game::go(){
 
 void Game::goToNewMap(Map* map)
 {
+	map->getPlayer()->levelUp();
+	
 	if (map != nullptr)
 	{
+		FileMapBuilder build(map->getPlayer());
+		build.loadMap(map->getID());
+
 		m_map = nullptr;
-		this->m_map = map;
+		this->m_map = build.getMap();
 		this->level = map->outputMap();
 
 		loadTextures();
