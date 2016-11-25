@@ -503,6 +503,18 @@ void Map::removeEnemy(Enemy* enemy)
 	fillCell(enemy->getPosition().x, enemy->getPosition().y, new GrassTexture());
 }
 
+void Map::removeFriend(Friend* frien)
+{
+	for (int i = 0; i < enemies.size(); i++)
+	{
+		if (friends[i]->getName() == frien->getName())
+		{
+			friends.erase(friends.begin() + i);
+		}
+	}
+	fillCell(frien->getPosition().x, frien->getPosition().y, new GrassTexture());
+}
+
 void Map::nextTurn()
 {
 	turn++;

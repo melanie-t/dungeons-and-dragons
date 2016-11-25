@@ -120,6 +120,8 @@ public:
 	int attackRoll(int d20);
 	int attack(int attackRoll);
 
+	string getCharacterType();
+
 private:
 	int abilityScores[6];
 	int currentHitPoints;
@@ -144,6 +146,7 @@ private:
 	Character* List[10];
 	Strategy* strategy;
 	pos position;
+	string characterType;
 
 	sf::Texture* characterTexture;
 	sf::Sprite* characterSprite;

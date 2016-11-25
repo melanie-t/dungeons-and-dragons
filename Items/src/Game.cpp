@@ -14,6 +14,7 @@
 #include "HumanPlayerStrategy.h"
 #include "PlayerActionTypes.h"
 #include "MathHelper.h"
+#include "CharacterType.h"
 
 //! Constructor for Game class
 //! @param tileWidth : width of the tile used
@@ -343,38 +344,40 @@ void Game::update(sf::Event evt){
 		}
 		case PlayerAction::ATTACK:
 		{
-			//TODO: edit this.
-			Dice dice;
-			//int d20 = dice.roll("d20");
-			//int attackRoll = m_map->getPlayer()->attackRoll(d20);
-			//int index = m_map->getClosestEnemy(m_map->getPlayer());
+			Character* target;
 
-			///These don't work.
-			Enemy* enemy = m_map->getClosestEnemy(m_map->getPlayer());
-
-			if (enemy != nullptr)
+			if (character->getCharacterType() == CT_PLAYER || character->getCharacterType() == CT_FRIEND)
 			{
-				int distance = MathHelper::getDistance(m_map->getPlayer()->getPosition(), enemy->getPosition());
+				target = m_map->getClosestEnemy(character);
+			}
+			else
+			{
+				target = m_map->getPlayer();
+			}
 
-				//Character is in range. Must be 1 tile away.
+			if (target != nullptr)
+			{
+				int distance = MathHelper::getDistance(character->getPosition(), target->getPosition());
+
+				//Target character is in range. Must be 1 tile away.
 				if (distance <= 1)
 				{
 					Dice dice;
-					int d20 = dice.roll("1d20"); //dunno.
-					int attackRoll = m_map->getPlayer()->attackRoll(d20);
+					int d20 = dice.roll("1d20");
+					int attackRoll = character->attackRoll(d20);
 
-					if ((attackRoll > enemy->getArmorClass() && d20 != 1) || d20 == 20)
+					if ((attackRoll > target->getArmorClass() && d20 != 1) || d20 == 20)
 					{
 						// Every character is assumed to have a short sword
 						int swordRoll = dice.roll("1d6");
-						int strengthModifier = m_map->getPlayer()->abilityModifier(m_map->getPlayer()->getSTR());
+						int strengthModifier = character->abilityModifier(character->getSTR());
 						int damage = 0;
 
 						//Formula for basic melee attack is:
 						// 1[W] + strength modifier for under level 21.
 						// 2[W] + strength modifier for level 21 and above.
 
-						if (m_map->getPlayer()->getLevel() < 21) //Lower than 21
+						if (character->getLevel() < 21) //Lower than 21
 						{
 							damage = swordRoll + strengthModifier;
 						}
@@ -383,12 +386,22 @@ void Game::update(sf::Event evt){
 							damage = (2 * swordRoll) + strengthModifier;
 						}
 
-						enemy->hit(damage);
+						target->hit(damage);
 
-						cout << enemy->getHitPoints() << endl; //remains the same before change.
-						if (enemy->getHitPoints() <= 0)
+						if (target->getHitPoints() <= 0)
 						{
-							this->m_map->removeEnemy(enemy);
+							if (target->getCharacterType() == CT_ENEMY)
+							{
+								this->m_map->removeEnemy(dynamic_cast<Enemy*>(target));
+							}
+							else if (target->getCharacterType() == CT_FRIEND)
+							{
+								this->m_map->removeFriend(dynamic_cast<Friend*>(target));
+							}
+							else
+							{
+								endGame(); // Game over.
+							}
 						}
 					}
 				}
@@ -468,15 +481,6 @@ void Game::endGame()
 //! Player sprite and map sprites
 //! Exits if unable to load either
 void Game::loadTextures(){
-	//Loads the player's texture
-	/*if (!playerTexture.loadFromFile("hero.png"))
-		EXIT_FAILURE;
-	//Creates the map according to the level
-	else if (!map.load("bkrd.png", sf::Vector2u(32, 32), level, width, height))
-		EXIT_FAILURE;
-	//Sets the player's texture
-	player.setTexture(playerTexture);
-	player.setTextureRect(sf::IntRect(0, 0, 20, 26));*/
 	//Sets the player to the starting position
 	int currentPos = -1;
 	for (int i = 0; i < width * height; ++i){
@@ -485,6 +489,7 @@ void Game::loadTextures(){
 			break;
 		}
 	}
+	//Loads the map's texture
 	map.load("bkrd.png", sf::Vector2u(32, 32), level, width, height);
 	this->m_map->getPlayer()->setPosition((currentPos % width), (currentPos / width));
 	this->m_map->getPlayer()->initSprite(CharacterSpriteType::S_PLAYER);

@@ -52,6 +52,7 @@ public:
 	std::vector<Friend*> getFriends(){ return friends; }
 	Enemy* getClosestEnemy(Character* origin);
 	void removeEnemy(Enemy* enemy);
+	void removeFriend(Friend* frien);
 
 	//setters
 	void setID(int id){ this->ID = id; }

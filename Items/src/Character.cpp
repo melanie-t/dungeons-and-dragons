@@ -13,6 +13,7 @@
 #include "HumanPlayerStrategy.h"
 #include "AgressorStrategy.h"
 #include "FriendlyStrategy.h"
+#include "CharacterType.h"
 
 using namespace std;
 
@@ -130,18 +131,21 @@ void Character::initSprite(CharacterSpriteType type)
 	{
 		characterTexture->loadFromFile("res/character/hero.png");
 		setStrategy(new HumanPlayerStrategy());
+		characterType = CT_PLAYER;
 		break;
 	}
 	case CharacterSpriteType::S_ENEMY:
 	{
 		characterTexture->loadFromFile("res/character/enemy.png");
 		setStrategy(new AgressorStrategy());
+		characterType = CT_ENEMY;
 		break;
 	}
 	case CharacterSpriteType::S_FRIEND:
 	{
 		characterTexture->loadFromFile("res/character/friend.png");
 		setStrategy(new FriendlyStrategy());
+		characterType = CT_FRIEND;
 		break;
 	}
 	}
@@ -1086,6 +1090,11 @@ int Character::attackRoll(int d20)
 int Character::attack(int attackRoll)
 {
 	return attackRoll + getSTR(); //+ size
+}
+
+string Character::getCharacterType()
+{
+	return this->characterType;
 }
 
 //USELESS FOR NOW. IMPLEMENT LATER
