@@ -83,6 +83,7 @@
     <ClInclude Include="src\CharacterCreater.h" />
     <ClInclude Include="src\CharacterEquipEnum.h" />
     <ClInclude Include="src\CharacterSpriteTypes.h" />
+    <ClInclude Include="src\CharacterType.h" />
     <ClInclude Include="src\Chest.h" />
     <ClInclude Include="src\Dice.h" />
     <ClInclude Include="src\Door.h" />

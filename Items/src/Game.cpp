@@ -147,6 +147,11 @@ void Game::update(sf::Event evt){
 		int action = character->getStrategy()->execute(character->getPosition(),
 			m_map->getPlayer()->getPosition(), level, m_map->getWidth(), lastKey, &evt);
 
+		if (character->getCharacterType() == CT_FRIEND)
+		{
+			cout << "action:" << action << endl;
+		}
+
 		/*int action = m_map->getPlayer()->getStrategy()->execute(m_map->getPlayer()->getPosition(), 
 			m_map->getPlayer()->getPosition(), level, lastKey, &evt);*/
 
@@ -440,6 +445,7 @@ void Game::update(sf::Event evt){
 			{
 				//Don't show enemy stats.
 				enemyStats.setString("Enemy/Friend");
+				return;
 			}
 		}
 	}
