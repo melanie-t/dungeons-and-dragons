@@ -159,7 +159,7 @@ void Map::fillCell(int x, int y, GameObject* obj)
 		Friend* frien = static_cast<Friend*>(obj);
 		frien->setName("Friend #" + to_string(friends.size() + 1));
 		friends.push_back(static_cast<Friend*>(obj));
-		//turns.push_back(frien);
+		turns.push_back(frien);
 	}
 
 	map[x][y] = obj;
@@ -511,4 +511,16 @@ void Map::nextTurn()
 Character* Map::getTurn()
 {
 	return turns[turn % turns.size()];
+}
+
+Character* Map::getCharacterAt(int x, int y)
+{
+	for (Character* character : turns)
+	{
+		if (character->getPosition().x == x && character->getPosition().y == y)
+		{
+			return character;
+		}
+	}
+	return nullptr;
 }

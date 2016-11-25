@@ -404,16 +404,24 @@ void Game::update(sf::Event evt){
 
 		if (tileX > 0 && tileY > 0)
 		{
+			Character* c = m_map->getCharacterAt(tileX, tileY);
+			
+			if (c != nullptr)
+			{
+				Enemy* enemy = dynamic_cast<Enemy*>(c);
+				Friend* frien = dynamic_cast<Friend*>(c);
 
-			if (this->m_map->getObject(tileX, tileY)->getObjectType() == OBJ_ENEMY)
-			{
-				Enemy* enemy = static_cast<Enemy*>(this->m_map->getObject(tileX, tileY));
-				enemyStats.setString("Enemy" + enemy->statString());
-			}
-			else if (this->m_map->getObject(tileX, tileY)->getObjectType() == OBJ_FRIEND)
-			{
-				Friend* frien = static_cast<Friend*>(this->m_map->getObject(tileX, tileY));
-				enemyStats.setString("Friend" + frien->statString());
+				if (enemy != nullptr)//this->m_map->getObject(tileX, tileY)->getObjectType() == OBJ_ENEMY)
+				{
+					enemyStats.setString("Enemy" + enemy->statString());
+					return; //So it doesn't do the friend check.
+				}
+
+				if (frien != nullptr)
+				{
+					enemyStats.setString("Friend" + frien->statString());
+					return;
+				}
 			}
 			else
 			{
@@ -600,6 +608,7 @@ void Game::goToNewMap(Map* map)
 		m_map = nullptr;
 		this->m_map = map;
 		this->level = map->outputMap();
+
 		loadTextures();
 	}
 }

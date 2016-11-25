@@ -61,6 +61,7 @@ public:
 
 	void nextTurn();
 	Character* getTurn();
+	Character* getCharacterAt(int x, int y);
 private:
 	//Member variables;
 	//grass, tree, water, brick.

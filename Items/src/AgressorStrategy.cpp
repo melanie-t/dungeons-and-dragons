@@ -1,37 +1,42 @@
 #include "AgressorStrategy.h"
 #include "MathHelper.h"
 #include "PlayerActionTypes.h"
-#include <thread>
+#include "TileTypes.h"
 
 
 int AgressorStrategy::execute(pos characterPos, pos targetPos, std::vector<int> level, int width, int lastkey, sf::Event* evt)
 {
-	//Make program wait 500ms before executing.
-	//To simulate program "thinking"
-	//std::this_thread::sleep_for(std::chrono::milliseconds(50)); 
-
 	if (MathHelper::getDistance(characterPos, targetPos) <= 1)
 	{
 		return PlayerAction::ATTACK;
 	}
 	else
 	{
-		if (characterPos.x > targetPos.x)
+		int currentPos = characterPos.y*width + characterPos.x;
+		if (characterPos.x > targetPos.x && level[currentPos - 1] != TileTypes::WATER
+			&& level[currentPos - 1] != TileTypes::CHEST && level[currentPos - 1] != TileTypes::TREE
+			&& level[currentPos - 1] != TileTypes::END)
 		{
 			return PlayerAction::MOVE_LEFT;
 		}
-		else if (characterPos.x < targetPos.x)
+		else if (characterPos.x < targetPos.x && level[currentPos + 1] != TileTypes::WATER
+			&& level[currentPos + 1] != TileTypes::CHEST && level[currentPos + 1] != TileTypes::TREE
+			&& level[currentPos + 1] != TileTypes::END)
 		{
 			return PlayerAction::MOVE_RIGHT;
 		}
-		else if (characterPos.y > targetPos.y)
+		else if (characterPos.y > targetPos.y && level[currentPos - width] != TileTypes::WATER
+			&& level[currentPos - width] != TileTypes::CHEST && level[currentPos - width] != TileTypes::TREE
+			&& level[currentPos - width] != TileTypes::END)
 		{
 			return PlayerAction::MOVE_UP;
 		}
-		else if (characterPos.y < targetPos.y)
+		else if (characterPos.y < targetPos.y && level[currentPos + width] != TileTypes::WATER
+			&& level[currentPos + width] != TileTypes::CHEST && level[currentPos + width] != TileTypes::TREE
+			&& level[currentPos + width] != TileTypes::END)
 		{
 			return PlayerAction::MOVE_DOWN;
 		}
 	}
-	return 0;
+	return -1;
 }
