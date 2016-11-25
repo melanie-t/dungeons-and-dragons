@@ -390,14 +390,19 @@ bool Game::update(sf::Event* evt){
 
 				if ((attackRoll > target->getArmorClass() && d20 != 1) || d20 == 20)
 				{
-					// Every character is assumed to have a short sword
-					// if holding a weapon.
 					int weaponRoll = 0;
 
-					//TODO check if holding weapon.
-					//= dice.roll("1d6"); // shortSword.
-					//if not holding:
-					weaponRoll = dice.roll("1d4");
+					// Every character is assumed to have a short sword
+					// if holding a weapon.
+					if (character->isHoldingWeapon())
+					{
+						weaponRoll = dice.roll("1d6");
+					}
+					else
+					{
+						//Else, use unarmed attack.
+						weaponRoll = dice.roll("1d4");
+					}
 					int damage = 0;
 
 					//Formula for basic melee attack is:

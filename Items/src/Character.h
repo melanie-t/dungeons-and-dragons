@@ -106,6 +106,8 @@ public:
 	//string retrieveGender();
 	//void setExtraPoints();
 
+	bool isHoldingWeapon(){ return this->weaponEquipped; }
+
 	Strategy* getStrategy();
 	void setStrategy(Strategy* strat);
 
