@@ -52,13 +52,13 @@ private:
 	void render();
 
 	//Processes Inputs
-	void processInput();
+	bool processInput();
 
 	//Load textures
 	void loadTextures();
 
 	//Updates the game
-	void update(sf::Event evt);
+	bool update(sf::Event* evt);
 
 	//Ends the game
 	void endGame();
