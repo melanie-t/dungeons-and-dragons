@@ -9,7 +9,7 @@ class Observable;
 class Observer {
 public:
 	virtual ~Observer();
-	virtual void update() = 0;
+	virtual void Update() = 0;
 protected:
 	Observer();
 };

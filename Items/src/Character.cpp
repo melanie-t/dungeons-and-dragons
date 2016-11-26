@@ -13,7 +13,6 @@
 #include "HumanPlayerStrategy.h"
 #include "AgressorStrategy.h"
 #include "FriendlyStrategy.h"
-#include "CharacterType.h"
 
 using namespace std;
 
@@ -71,12 +70,17 @@ Character::Character(string name, int charclass, int lvl, int str, int dex, int 
 	backpack = bkpack;
 	setEquips(equips);
 	secondaryStatCalc();
-
 }
 
+
+/*
+	Nguyen: 
+	These observer methods are placed into the appropriate Subject class
+*/
 //! notify function
 //! @brief implementation of notify from Observable class
 //! notifies the observer of any changes
+/*
 void Character::notify() {
 	displayStats();
 }
@@ -117,6 +121,7 @@ void Character::detach(Character* player)
 		}
 	}
 }
+*/
 
 //! initSprite function
 //! @brief loads appropirate Sprite for character.
@@ -131,21 +136,18 @@ void Character::initSprite(CharacterSpriteType type)
 	{
 		characterTexture->loadFromFile("res/character/hero.png");
 		setStrategy(new HumanPlayerStrategy());
-		characterType = CT_PLAYER;
 		break;
 	}
 	case CharacterSpriteType::S_ENEMY:
 	{
 		characterTexture->loadFromFile("res/character/enemy.png");
 		setStrategy(new AgressorStrategy());
-		characterType = CT_ENEMY;
 		break;
 	}
 	case CharacterSpriteType::S_FRIEND:
 	{
 		characterTexture->loadFromFile("res/character/friend.png");
 		setStrategy(new FriendlyStrategy());
-		characterType = CT_FRIEND;
 		break;
 	}
 	}
@@ -745,6 +747,17 @@ void Character::removeRing()
 	}
 }
 
+//! displayCurrentState function
+//! @breif displays attack value of last attack
+void Character::displayCurrentState(){
+	
+	cout << "Last attack: ["<< lastAttackValue << "]" << endl;
+	
+	//option to display character stats at notify
+	//displayStats();
+}
+
+
 //! displayStats function
 //! @brief displays the stats of the Character.
 void Character::displayStats()
@@ -1089,12 +1102,10 @@ int Character::attackRoll(int d20)
 //! @return total attack.
 int Character::attack(int attackRoll)
 {
-	return attackRoll + getSTR(); //+ size
-}
-
-string Character::getCharacterType()
-{
-	return this->characterType;
+	lastAttackValue = attackRoll + getSTR();
+	// tells observer an attack has been done
+	notify();	
+	return lastAttackValue; //+ size
 }
 
 //USELESS FOR NOW. IMPLEMENT LATER

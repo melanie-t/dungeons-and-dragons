@@ -47,10 +47,11 @@ public:
 	Character(string name, int charclass, int lvl, int str, int dex, int con, int intel, int wis,
 		int cha, int hp, ItemContainer backpack, Item equips[7]);
 
+	/*
 	void notify();
 	void attach(Character* c);
 	void detach(Character* c);
-
+	*/
 	void initSprite(CharacterSpriteType type);
 
 	bool validateNewCharacter();
@@ -97,6 +98,7 @@ public:
 	void removeWeapon();
 	void removeRing();
 
+	void displayCurrentState(); //method displays information for observer/logger
 	void displayStats();
 	string statString();
 	string classtoString();
@@ -105,8 +107,6 @@ public:
 	void setEquips(Item equips[7]);
 	//string retrieveGender();
 	//void setExtraPoints();
-
-	bool isHoldingWeapon(){ return this->weaponEquipped; }
 
 	Strategy* getStrategy();
 	void setStrategy(Strategy* strat);
@@ -122,8 +122,6 @@ public:
 	int attackRoll(int d20);
 	int attack(int attackRoll);
 
-	string getCharacterType();
-
 private:
 	int abilityScores[6];
 	int currentHitPoints;
@@ -132,6 +130,7 @@ private:
 	int attackBonus;
 	int damageBonus;
 	int charClass;
+	int lastAttackValue;	//logs last attack value for observer
 	
 	bool helmetEquipped = false,
 		armorEquipped = false,
@@ -148,7 +147,6 @@ private:
 	Character* List[10];
 	Strategy* strategy;
 	pos position;
-	string characterType;
 
 	sf::Texture* characterTexture;
 	sf::Sprite* characterSprite;

@@ -15,8 +15,9 @@
 #include "Map.h"
 #include <iostream>
 #include <vector>
+#include "Observable.h"
 
-class Game{
+class Game : public Observable{
 private:
 	//Initializes the window, the player, the font, the text, and creates the map.
 	sf::RenderWindow* window;
@@ -30,6 +31,13 @@ private:
 	sf::RectangleShape enemyStatsBox;
 	TileMap map;
 	std::vector<sf::Sprite> enemies;
+
+	//variables for observable game state
+	bool stateWindow = false;
+	bool stateText = false;
+	bool stateTextures = false;
+	bool stateRendering = false;
+	bool stateEndgame = false;
 
 	//Checks if the map is valid
 	bool validMap();
@@ -52,20 +60,19 @@ private:
 	void render();
 
 	//Processes Inputs
-	bool processInput();
+	void processInput();
 
 	//Load textures
 	void loadTextures();
 
 	//Updates the game
-	bool update(sf::Event* evt);
+	void update(sf::Event evt);
 
 	//Ends the game
 	void endGame();
 	void goToNewMap(Map* map); // for the future.
 
 	//Variables for player to move in the map
-
 	int lastKey;
 	int width;
 	int height;
@@ -79,4 +86,7 @@ public:
 	void go();
 	bool openedChest = false;
 	bool ended;
+
+	// displays current game state
+	void displayCurrentState();
 };

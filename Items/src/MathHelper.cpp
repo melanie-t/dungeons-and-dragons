@@ -8,5 +8,6 @@ int MathHelper::getDistance(pos positionOne, pos positionTwo)
 {
 	double distance = sqrt(pow((double)(positionOne.x - positionTwo.x), 2) + pow((double)(positionOne.y - positionTwo.y), 2));
 
-	return abs(distance); //Absolute value, though I don't think it's needed.
+	// Nguyen - had a hard time compiling because abs() was causing issues, changed it fabs()
+	return fabs(distance); //Absolute value, though I don't think it's needed.
 }

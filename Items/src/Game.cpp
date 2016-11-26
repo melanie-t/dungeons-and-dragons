@@ -14,8 +14,6 @@
 #include "HumanPlayerStrategy.h"
 #include "PlayerActionTypes.h"
 #include "MathHelper.h"
-#include "CharacterType.h"
-#include "FileMapBuilder.h"
 
 //! Constructor for Game class
 //! @param tileWidth : width of the tile used
@@ -113,27 +111,24 @@ bool Game::init(){
 	window->setKeyRepeatEnabled(false);
 	if (!window)
 		return false;
+	notify();
+	stateWindow = true;
 	return true;
 }
 
 //! processInput function
 //! @brief keeps track of event where X is pressed to close window
-bool Game::processInput(){
+void Game::processInput(){
 	//To close the window with x
 	sf::Event evt;
-	bool process = false;
 	//In case there were several events happenning
 	while (window->pollEvent(evt)){
 		if (evt.type == sf::Event::Closed)
 		{
 			window->close();
 		}
-		if (update(&evt))
-		{
-			process = true;
-		}
+		update(evt);
 	}
-	return process;
 }
 
 //! update function
@@ -142,344 +137,293 @@ bool Game::processInput(){
 //! Will not walk through wall, water, tree
 //! Opens chest once
 //! @param evt : event from sfml class
-bool Game::update(sf::Event* evt){
-	Character* character = m_map->getTurn();
-
-	if (character == m_map->getPlayer() && evt == nullptr)
-	{
-		return false;
-	}
-
+void Game::update(sf::Event evt){
 	//Register what was the last key released
-	if (evt != nullptr)
-	{
-		if (evt->type == sf::Event::KeyReleased){
-			lastKey = evt->key.code;
-		}
+	if (evt.type == sf::Event::KeyReleased){
+		lastKey = evt.key.code;
 	}
-	//static_cast<Character*>(m_map->getEnemies()[0]);
-	//Character* character = m_map->getTurn();
+		Character* character = m_map->getTurn();//static_cast<Character*>(m_map->getEnemies()[0]);
+		//Character* character = m_map->getTurn();
 
+		int action = character->getStrategy()->execute(character->getPosition(),
+			m_map->getPlayer()->getPosition(), level, m_map->getWidth(), lastKey, &evt);
 
-	int action = character->getStrategy()->execute(character->getPosition(),
-		m_map->getPlayer()->getPosition(), level, m_map->getWidth(), lastKey, evt);
+		/*int action = m_map->getPlayer()->getStrategy()->execute(m_map->getPlayer()->getPosition(), 
+			m_map->getPlayer()->getPosition(), level, lastKey, &evt);*/
 
-	if (character->getCharacterType() == CT_FRIEND)
-	{
-		cout << "action:" << action << endl;
-	}
+		int currentPos = character->getPosition().y*width + character->getPosition().x;
 
-	/*int action = m_map->getPlayer()->getStrategy()->execute(m_map->getPlayer()->getPosition(),
-		m_map->getPlayer()->getPosition(), level, lastKey, &evt);*/
-
-	int currentPos = character->getPosition().y*width + character->getPosition().x;
-
-	switch (action)
-	{
-	case PlayerAction::MOVE_UP:
-	{
-		character->changeSprite(PlayerMove::UP);
-
-		//Checks if space occupied or out of bounds
-		if (character->getPosition().y <= 0) //todo change to character.
-			break;
-		else if (level[currentPos - width] == TileTypes::WATER) //1 is water
-			break;
-		else if (level[currentPos - width] == TileTypes::TREE) //2 is tree
-			break;
-		else if (level[currentPos - width] == TileTypes::CHEST) //9 is item/chest
+		switch (action)
 		{
-			if (!openedChest) {
-				Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
-				openedChest = true;
-			}
-			else
+		case PlayerAction::MOVE_UP:
+		{
+			character->changeSprite(PlayerMove::UP);
+
+			//Checks if space occupied or out of bounds
+			if (character->getPosition().y <= 0) //todo change to character.
 				break;
-		}
-		else if (level[currentPos - width] == TileTypes::END) // end
-		{
-			int x = currentPos % width;
-			int y = currentPos / width - 1;
-
-			Door* door = static_cast<Door*>(this->m_map->getObject(x, y));
-
-			if (door != nullptr && m_map->getEnemies().empty() && character == m_map->getPlayer())
+			else if (level[currentPos - width] == TileTypes::WATER) //1 is water
+				break;
+			else if (level[currentPos - width] == TileTypes::TREE) //2 is tree
+				break;
+			else if (level[currentPos - width] == TileTypes::CHEST) //9 is item/chest
 			{
-				if (door->getDestination() != nullptr)
-				{
-					this->goToNewMap(door->getDestination());
+				if (!openedChest) {
+					Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
+					openedChest = true;
 				}
 				else
-				{
-					endGame();
-				}
-				break;
+					break;
 			}
-		}
-		character->move(PlayerMove::UP);
-		m_map->nextTurn();
-		currentPos -= width;
-		break;
-	}
-	case PlayerAction::MOVE_DOWN:
-	{
-		character->changeSprite(PlayerMove::DOWN);
-		//player.setTextureRect(sf::IntRect(0, 0, 20, 26)); //Change Sprite
-		//Checks if space occupied or out of bounds
-		if (character->getPosition().y >= m_map->getLength() - 1)
-			break;
-		else if (level[currentPos + width] == TileTypes::WATER) //1 is water
-			break;
-		else if (level[currentPos + width] == TileTypes::TREE) //2 is tree
-			break;
-		else if (level[currentPos + width] == TileTypes::CHEST) //9 is item/chest
-		{
-			if (!openedChest) {
-				Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
-				openedChest = true;
-			}
-			else
-				break;
-		}
-		else if (level[currentPos + width] == TileTypes::END) // end
-		{
-			//m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
-			int x = currentPos % width;
-			int y = currentPos / width + 1;
-			Door* door = static_cast<Door*>(this->m_map->getObject(x, y));
-
-			if (door != nullptr && m_map->getEnemies().empty() && character == m_map->getPlayer())
+			else if (level[currentPos - width] == TileTypes::END) // end
 			{
-				if (door->getDestination() != nullptr)
-				{
-					this->goToNewMap(door->getDestination());
-				}
-				else
-				{
-					endGame();
-				}
-				break;
-			}
-		}
-		character->move(PlayerMove::DOWN);
-		m_map->nextTurn();
-		currentPos += width;
-		break;
-	}
-	case PlayerAction::MOVE_LEFT:
-	{
-		character->changeSprite(PlayerMove::LEFT);
-		//player.setTextureRect(sf::IntRect(40, 0, 20, 26)); //Change Sprite.
-		//Checks if space occupied or out of bounds
-		if (character->getPosition().x <= 0)
-			break;
-		else if (level[currentPos - 1] == TileTypes::WATER) //1 is water
-			break;
-		else if (level[currentPos - 1] == TileTypes::TREE) //2 is tree
-			break;
-		else if (level[currentPos - 1] == TileTypes::CHEST) //9 is item/chest
-		{
-			if (!openedChest) {
-				Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
-				openedChest = true;
-			}
-			else
-				break;
-		}
-		else if (level[currentPos - 1] == TileTypes::END) // end
-		{
-			//m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
-			int x = currentPos % width - 1;
-			int y = currentPos / width;
-			Door* door = static_cast<Door*>(this->m_map->getObject(x, y));
+				int x = currentPos % width;
+				int y = currentPos / width - 1;
 
-			if (door != nullptr && m_map->getEnemies().empty() && character == m_map->getPlayer())
-			{
-				if (door->getDestination() != nullptr)
+				Door* door = static_cast<Door*>(this->m_map->getObject(x, y));
+
+				if (door != nullptr && m_map->getEnemies().empty() && character == m_map->getPlayer())
 				{
-					this->goToNewMap(door->getDestination());
-				}
-				else
-				{
-					endGame();
-				}
-				break;
-			}
-		}
-		//player.move(-32, 0);
-		character->move(PlayerMove::LEFT);
-		m_map->nextTurn();
-		currentPos--;
-		break;
-	}
-	case PlayerAction::MOVE_RIGHT:
-	{
-		character->changeSprite(PlayerMove::RIGHT);
-		//player.setTextureRect(sf::IntRect(60, 0, 20, 26));
-		//Checks if space occupied or out of bounds
-		if (character->getPosition().x >= m_map->getWidth() - 1)
-		{
-			break;
-		}
-		else if (level[currentPos + 1] == TileTypes::WATER) //1 is water
-		{
-			break;
-		}
-		else if (level[currentPos + 1] == TileTypes::TREE) //2 is tree
-		{
-			break;
-		}
-		else if (level[currentPos + 1] == TileTypes::CHEST) //9 is item/chest
-		{
-			if (!openedChest) {
-				Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
-				openedChest = true;
-			}
-			else
-				break;
-		}
-		else if (level[currentPos + 1] == TileTypes::END) // end
-		{
-			//m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
-			int x = currentPos % width + 1;
-			int y = currentPos / width;
-			Door* door = static_cast<Door*>(this->m_map->getObject(x, y));
-
-			if (door != nullptr && m_map->getEnemies().empty() && character == m_map->getPlayer())
-			{
-				if (door->getDestination() != nullptr)
-				{
-					this->goToNewMap(door->getDestination());
-				}
-				else
-				{
-					endGame();
-				}
-				break;
-			}
-		}
-		//player.move(+32, 0);
-		character->move(PlayerMove::RIGHT);
-		m_map->nextTurn();
-		currentPos++;
-		break;
-	}
-	case PlayerAction::ATTACK:
-	{
-		Character* target;
-
-		if (character->getCharacterType() == CT_PLAYER || character->getCharacterType() == CT_FRIEND)
-		{
-			target = m_map->getClosestEnemy(character);
-		}
-		else
-		{
-			target = m_map->getPlayer();
-		}
-
-		if (target != nullptr)
-		{
-			int distance = MathHelper::getDistance(character->getPosition(), target->getPosition());
-
-			//Target character is in range. Must be 1 tile away.
-			if (distance <= 1)
-			{
-				Dice dice;
-				int d20 = dice.roll("1d20");
-				int attackRoll = character->attackRoll(d20);
-
-				if ((attackRoll > target->getArmorClass() && d20 != 1) || d20 == 20)
-				{
-					int weaponRoll = 0;
-
-					// Every character is assumed to have a short sword
-					// if holding a weapon.
-					if (character->isHoldingWeapon())
+					if (door->getDestination() != nullptr)
 					{
-						weaponRoll = dice.roll("1d6");
+						this->goToNewMap(door->getDestination());
 					}
 					else
 					{
-						//Else, use unarmed attack.
-						weaponRoll = dice.roll("1d4");
+						endGame();
 					}
-					int damage = 0;
+					break;
+				}
+			}
+			character->move(PlayerMove::UP);
+			m_map->nextTurn();
+			currentPos -= width;
+			break;
+		}
+		case PlayerAction::MOVE_DOWN:
+		{
+			character->changeSprite(PlayerMove::DOWN);
+			//player.setTextureRect(sf::IntRect(0, 0, 20, 26)); //Change Sprite
+			//Checks if space occupied or out of bounds
+			if (character->getPosition().y >= m_map->getLength() - 1)
+				break;
+			else if (level[currentPos + width] == TileTypes::WATER) //1 is water
+				break;
+			else if (level[currentPos + width] == TileTypes::TREE) //2 is tree
+				break;
+			else if (level[currentPos + width] == TileTypes::CHEST) //9 is item/chest
+			{
+				if (!openedChest) {
+					Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
+					openedChest = true;
+				}
+				else
+					break;
+			}
+			else if (level[currentPos + width] == TileTypes::END) // end
+			{
+				//m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
+				int x = currentPos % width;
+				int y = currentPos / width + 1;
+				Door* door = static_cast<Door*>(this->m_map->getObject(x, y));
 
-					//Formula for basic melee attack is:
-					// 1[W] + strength modifier for under level 21.
-					// 2[W] + strength modifier for level 21 and above.
-
-					if (character->getLevel() < 21) //Lower than 21
+				if (door != nullptr && m_map->getEnemies().empty() && character == m_map->getPlayer())
+				{
+					if (door->getDestination() != nullptr)
 					{
-						damage = weaponRoll + character->getDamageBonus();
+						this->goToNewMap(door->getDestination());
 					}
 					else
 					{
-						damage = (2 * weaponRoll) + character->getDamageBonus();
+						endGame();
 					}
+					break;
+				}
+			}
+			character->move(PlayerMove::DOWN);
+			m_map->nextTurn();
+			currentPos += width;
+			break;
+		}
+		case PlayerAction::MOVE_LEFT:
+		{
+			character->changeSprite(PlayerMove::LEFT);
+			//player.setTextureRect(sf::IntRect(40, 0, 20, 26)); //Change Sprite.
+			//Checks if space occupied or out of bounds
+			if (character->getPosition().x <= 0)
+				break;
+			else if (level[currentPos - 1] == TileTypes::WATER) //1 is water
+				break;
+			else if (level[currentPos - 1] == TileTypes::TREE) //2 is tree
+				break;
+			else if (level[currentPos - 1] == TileTypes::CHEST) //9 is item/chest
+			{
+				if (!openedChest) {
+					Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
+					openedChest = true;
+				}
+				else
+					break;
+			}
+			else if (level[currentPos - 1] == TileTypes::END) // end
+			{
+				//m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
+				int x = currentPos % width - 1;
+				int y = currentPos / width;
+				Door* door = static_cast<Door*>(this->m_map->getObject(x, y));
 
-					target->hit(damage);
-
-					if (target->getHitPoints() <= 0)
+				if (door != nullptr && m_map->getEnemies().empty() && character == m_map->getPlayer())
+				{
+					if (door->getDestination() != nullptr)
 					{
-						if (target->getCharacterType() == CT_ENEMY)
+						this->goToNewMap(door->getDestination());
+					}
+					else
+					{
+						endGame();
+					}
+					break;
+				}
+			}
+			//player.move(-32, 0);
+			character->move(PlayerMove::LEFT);
+			m_map->nextTurn();
+			currentPos--;
+			break;
+		}
+		case PlayerAction::MOVE_RIGHT:
+		{
+			character->changeSprite(PlayerMove::RIGHT);
+			//player.setTextureRect(sf::IntRect(60, 0, 20, 26));
+			//Checks if space occupied or out of bounds
+			if (character->getPosition().x >= m_map->getWidth()-1)
+			{
+				break;
+			}
+			else if (level[currentPos + 1] == TileTypes::WATER) //1 is water
+			{
+				break;
+			}
+			else if (level[currentPos + 1] == TileTypes::TREE) //2 is tree
+			{
+				break;
+			}
+			else if (level[currentPos + 1] == TileTypes::CHEST) //9 is item/chest
+			{
+				if (!openedChest) {
+					Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
+					openedChest = true;
+				}
+				else
+					break;
+			}
+			else if (level[currentPos + 1] == TileTypes::END) // end
+			{
+				//m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
+				int x = currentPos % width + 1;
+				int y = currentPos / width;
+				Door* door = static_cast<Door*>(this->m_map->getObject(x, y));
+
+				if (door != nullptr && m_map->getEnemies().empty() && character == m_map->getPlayer())
+				{
+					if (door->getDestination() != nullptr)
+					{
+						this->goToNewMap(door->getDestination());
+					}
+					else
+					{
+						endGame();
+					}
+					break;
+				}
+			}
+			//player.move(+32, 0);
+			character->move(PlayerMove::RIGHT);
+			m_map->nextTurn();
+			currentPos++;
+			break;
+		}
+		case PlayerAction::ATTACK:
+		{
+			//TODO: edit this.
+			Dice dice;
+			//int d20 = dice.roll("d20");
+			//int attackRoll = m_map->getPlayer()->attackRoll(d20);
+			//int index = m_map->getClosestEnemy(m_map->getPlayer());
+
+			///These don't work.
+			Enemy* enemy = m_map->getClosestEnemy(m_map->getPlayer());
+
+			if (enemy != nullptr)
+			{
+				int distance = MathHelper::getDistance(m_map->getPlayer()->getPosition(), enemy->getPosition());
+
+				//Character is in range. Must be 1 tile away.
+				if (distance <= 1)
+				{
+					Dice dice;
+					int d20 = dice.roll("1d20"); //dunno.
+					int attackRoll = m_map->getPlayer()->attackRoll(d20);
+
+					if ((attackRoll > enemy->getArmorClass() && d20 != 1) || d20 == 20)
+					{
+						// Every character is assumed to have a short sword
+						int swordRoll = dice.roll("1d6");
+						int strengthModifier = m_map->getPlayer()->abilityModifier(m_map->getPlayer()->getSTR());
+						int damage = 0;
+
+						//Formula for basic melee attack is:
+						// 1[W] + strength modifier for under level 21.
+						// 2[W] + strength modifier for level 21 and above.
+
+						if (m_map->getPlayer()->getLevel() < 21) //Lower than 21
 						{
-							this->m_map->removeEnemy(dynamic_cast<Enemy*>(target));
-						}
-						else if (target->getCharacterType() == CT_FRIEND)
-						{
-							this->m_map->removeFriend(dynamic_cast<Friend*>(target));
+							damage = swordRoll + strengthModifier;
 						}
 						else
 						{
-							endGame(); // Game over.
+							damage = (2 * swordRoll) + strengthModifier;
+						}
+
+						enemy->hit(damage);
+
+						cout << enemy->getHitPoints() << endl; //remains the same before change.
+						if (enemy->getHitPoints() <= 0)
+						{
+							this->m_map->removeEnemy(enemy);
 						}
 					}
 				}
 			}
+			m_map->nextTurn();
+			break;
 		}
-		m_map->nextTurn();
-		break;
-	}
-	}
+		}
 	if (sf::Event::MouseMoved)
 	{
-		if (evt != nullptr)
+		int tileY = evt.mouseMove.y / 32;
+		int tileX = evt.mouseMove.x / 32;
+
+		if (tileX > 0 && tileY > 0)
 		{
-			int tileY = evt->mouseMove.y / 32;
-			int tileX = evt->mouseMove.x / 32;
 
-			if (tileX > 0 && tileY > 0)
+			if (this->m_map->getObject(tileX, tileY)->getObjectType() == OBJ_ENEMY)
 			{
-				Character* c = m_map->getCharacterAt(tileX, tileY);
-
-				if (c != nullptr)
-				{
-					Enemy* enemy = dynamic_cast<Enemy*>(c);
-					Friend* frien = dynamic_cast<Friend*>(c);
-
-					if (enemy != nullptr)//this->m_map->getObject(tileX, tileY)->getObjectType() == OBJ_ENEMY)
-					{
-						enemyStats.setString("Enemy" + enemy->statString());
-						return true; //So it doesn't do the friend check.
-					}
-
-					if (frien != nullptr)
-					{
-						enemyStats.setString("Friend" + frien->statString());
-						return true;
-					}
-				}
-				else
-				{
-					//Don't show enemy stats.
-					enemyStats.setString("Enemy/Friend");
-					return true;
-				}
+				Enemy* enemy = static_cast<Enemy*>(this->m_map->getObject(tileX, tileY));
+				enemyStats.setString("Enemy" + enemy->statString());
+			}
+			else if (this->m_map->getObject(tileX, tileY)->getObjectType() == OBJ_FRIEND)
+			{
+				Friend* frien = static_cast<Friend*>(this->m_map->getObject(tileX, tileY));
+				enemyStats.setString("Friend" + frien->statString());
+			}
+			else
+			{
+				//Don't show enemy stats.
+				enemyStats.setString("Enemy/Friend");
 			}
 		}
 	}
-	return true;
 }
 
 //! endGame function
@@ -508,7 +452,8 @@ void Game::endGame()
 		processInput();
 		window->display();
 	}
-
+	notify();
+	stateEndgame = false;
 	//sf::sleep(sf::milliseconds(6000)); // for now. have to change later to exit only when escape/enter
 	//window->close();
 }
@@ -518,6 +463,15 @@ void Game::endGame()
 //! Player sprite and map sprites
 //! Exits if unable to load either
 void Game::loadTextures(){
+	//Loads the player's texture
+	/*if (!playerTexture.loadFromFile("hero.png"))
+		EXIT_FAILURE;
+	//Creates the map according to the level
+	else if (!map.load("bkrd.png", sf::Vector2u(32, 32), level, width, height))
+		EXIT_FAILURE;
+	//Sets the player's texture
+	player.setTexture(playerTexture);
+	player.setTextureRect(sf::IntRect(0, 0, 20, 26));*/
 	//Sets the player to the starting position
 	int currentPos = -1;
 	for (int i = 0; i < width * height; ++i){
@@ -526,7 +480,6 @@ void Game::loadTextures(){
 			break;
 		}
 	}
-	//Loads the map's texture
 	map.load("bkrd.png", sf::Vector2u(32, 32), level, width, height);
 	this->m_map->getPlayer()->setPosition((currentPos % width), (currentPos / width));
 	this->m_map->getPlayer()->initSprite(CharacterSpriteType::S_PLAYER);
@@ -591,6 +544,9 @@ void Game::createText(){
 	enemyStatsBox.setPosition(150, height * 32 + 5);
 	enemyStatsBox.setOutlineColor(sf::Color::Green);
 	enemyStatsBox.setOutlineThickness(3);
+
+	stateText = false;
+	notify();
 }
 
 //! render function
@@ -619,13 +575,12 @@ void Game::render(){
 //! mainLoop function
 //! @brief Runs program while window is open
 void Game::mainLoop(){
+	stateRendering = true;
+	notify();
 	while (window->isOpen()){
 		window->clear();
 		render();
-		if (!processInput())
-		{
-			update(nullptr);
-		}
+		processInput();
 		window->display();
 	}
 }
@@ -638,6 +593,10 @@ void Game::go(){
 	if (validMap()){
 		//Loads the textures to use them first
 		loadTextures();
+		
+		stateTextures = true;
+		notify();
+		
 		mainLoop();
 	}
 	else{
@@ -648,17 +607,31 @@ void Game::go(){
 
 void Game::goToNewMap(Map* map)
 {
-	map->getPlayer()->levelUp();
-	
 	if (map != nullptr)
 	{
-		FileMapBuilder build(map->getPlayer());
-		build.loadMap(map->getID());
-
 		m_map = nullptr;
-		this->m_map = build.getMap();
+		this->m_map = map;
 		this->level = map->outputMap();
-
 		loadTextures();
+	}
+}
+
+void Game::displayCurrentState(){
+	if(stateWindow){
+		cout << "Window initialzed" << endl;
+	}
+	if(stateText){
+		cout << "Text and boxes initalized" << endl;
+	}
+	if(stateTextures){
+		cout << "Textures loaded" << endl;
+	}
+	if(stateRendering){
+		cout << "Game rendered" << endl;
+	}
+	if(stateEndgame){
+		cout << "Game ended" << endl;
+	}else if(!stateEndgame){
+		cout << "Game running" << endl;
 	}
 }

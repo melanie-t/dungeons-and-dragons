@@ -8,6 +8,7 @@ using std::list;
 //circular reference between Observer and Subject
 class Observer;
 
+// the use of a template allows the different Observers of objects to be listed
 class Observable
 {
 public:

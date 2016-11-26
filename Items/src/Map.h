@@ -19,8 +19,9 @@
 #include "Friend.h"
 #include <vector>
 #include "pos.h"
+#include "Observable.h"
 
-class Map {
+class Map : public Observable{
 public:
 	//Constructor
 	Map(const int id, const int length = 20, const int width = 20, Character* player = nullptr);
@@ -44,7 +45,7 @@ public:
 	std::string getName(){ return this->name; }
 	int getWidth(){ return this->width; }
 	int getLength(){ return this->length; }
-	(GameObject*)** getMap(){ return this->map; }
+	GameObject*** getMap(){ return this->map; }			//Nguyen: removed the brackets around GameObject to compile on my end
 	Character* getPlayer(){ return this->player; }
 	GameObject* getObject(int x, int y);
 	std::vector<pos> getDoors(){ return doors;  }
@@ -52,7 +53,9 @@ public:
 	std::vector<Friend*> getFriends(){ return friends; }
 	Enemy* getClosestEnemy(Character* origin);
 	void removeEnemy(Enemy* enemy);
-	void removeFriend(Friend* frien);
+
+	//display information for observerer
+	void displayCurrentState();
 
 	//setters
 	void setID(int id){ this->ID = id; }
@@ -62,7 +65,6 @@ public:
 
 	void nextTurn();
 	Character* getTurn();
-	Character* getCharacterAt(int x, int y);
 private:
 	//Member variables;
 	//grass, tree, water, brick.

@@ -1,10 +1,11 @@
 /* Documentation at tail of file */
 #pragma once
 #include <string>
+#include "Observable.h"
 
 using std::string;
 
-class Dice
+class Dice : public Observable
 {
 public:
 
@@ -17,11 +18,16 @@ public:
 	/* method works the same way but console out the steps involved */
 	int sayRoll(string str);
 
+	/* displays information of dice roll for logger*/
+	void displayCurrentState();
+
 private:
+	int numTemp;		// non-incrementing number for bookkeeping purposes
 	int number;			// number of dice to roll
 	int type;			// type of dice: d4,d8,d10,d12,d20,d100
 	int total = 0;		// total to output to user
-	
+	string lastRoll;
+
 	/* Function to parse the string using regex commands and class */
 	bool parseString(string str);
 	

@@ -159,7 +159,7 @@ void Map::fillCell(int x, int y, GameObject* obj)
 		Friend* frien = static_cast<Friend*>(obj);
 		frien->setName("Friend #" + to_string(friends.size() + 1));
 		friends.push_back(static_cast<Friend*>(obj));
-		turns.push_back(frien);
+		//turns.push_back(frien);
 	}
 
 	map[x][y] = obj;
@@ -503,21 +503,11 @@ void Map::removeEnemy(Enemy* enemy)
 	fillCell(enemy->getPosition().x, enemy->getPosition().y, new GrassTexture());
 }
 
-void Map::removeFriend(Friend* frien)
-{
-	for (int i = 0; i < enemies.size(); i++)
-	{
-		if (friends[i]->getName() == frien->getName())
-		{
-			friends.erase(friends.begin() + i);
-		}
-	}
-	fillCell(frien->getPosition().x, frien->getPosition().y, new GrassTexture());
-}
-
 void Map::nextTurn()
 {
 	turn++;
+	//notifies observer of each map movmement
+	notify();
 }
 
 Character* Map::getTurn()
@@ -525,14 +515,42 @@ Character* Map::getTurn()
 	return turns[turn % turns.size()];
 }
 
-Character* Map::getCharacterAt(int x, int y)
-{
-	for (Character* character : turns)
-	{
-		if (character->getPosition().x == x && character->getPosition().y == y)
-		{
-			return character;
-		}
+void Map::displayCurrentState(){
+	
+	cout << "\nMap hero: " << this->getPlayer()->getName()
+		<< "\nHero position: x[" << this->getPlayer()->getPosition().x << "] y[" << this->getPlayer()->getPosition().y << "]"
+		<< "\nHero number of turns: " << this->turn << endl;
+
+
+	/* excessive output of map information for notify
+	// map information
+	cout << "\n[Map log]"
+	<< "\nMap name: " << getName()
+	<< "\nMap ID: "	<< getID()
+	<< "\nLength: "	<< getLength()
+	<< "\nWidth: "	<< getWidth();
+	
+	for (int i = 0; i < doors.size(); i++) {
+		cout << "\nDoor position: x[" << this->doors[i].x << "] y[" << this->doors[i].y << "]";
 	}
-	return nullptr;
+
+	// character map information	
+	cout << "\nMap hero: " << this->getPlayer()->getName()
+		<< "\nHero position: x[" << this->getPlayer()->getPosition().x << "] y[" << this->getPlayer()->getPosition().y
+		<< "\nHero number of turns: " << this->turns.size();
+	
+	// display map enemies
+	cout << "\nEnemies:";
+	for(int i = 0; i < enemies.size(); i++){
+		cout << "\nName: " << this->enemies[i]->getName() << endl;
+		this->enemies[i]->displayStats();
+	} 
+	
+	// dispay map friends
+	cout << "\nFriends:";
+	for(int i = 0; i < friends.size(); i++){
+		cout << "\nID: " << this->friends[i]->getName() << endl;
+		this->friends[i]->displayStats();
+	} 
+	*/
 }

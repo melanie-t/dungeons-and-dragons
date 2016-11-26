@@ -3,6 +3,7 @@
 */
 #include "Observable.h"
 #include "Observer.h"
+#include <iostream>
 
 //! Observale default constructor.
 Observable::Observable() {
@@ -28,6 +29,7 @@ void Observable::detach(Observer* o) {
 //! tells the observers to update values.
 void Observable::notify() {
 	list<Observer *>::iterator i = observers->begin();
-	for (; i != observers->end(); ++i)
-		(*i)->update();
+	for (; i != observers->end(); ++i) {
+		(*i)->Update();
+	}
 };

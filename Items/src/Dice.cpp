@@ -61,10 +61,12 @@ int Dice::roll(string str) {
 	number = 0;									// reinitialize values
 	type = 0;
 	total = 0;
+	lastRoll = str;
 
 	if (parseString(str)) 
 	{						// parses string and sets values for number/dice/total
 		total = sum(number, type, total);
+		notify();
 		return total;
 	}
 	else {
@@ -78,6 +80,7 @@ int Dice::sayRoll(string str) {
 	number = 0;
 	type = 0;
 	total = 0;
+	lastRoll = str;
 
 	if (parseString(str)) {
 		cout << "number of dice: " << number << endl;
@@ -115,21 +118,21 @@ bool Dice::parseString(string str) {
 	}
 
 	try {
-		//changed to atoi, since stoi was giving exceptions.
-		number = atoi(parseResult[0].c_str());//stoi(parseResult[0]);		//stoi() std function that casts string to int
-		type = atoi(parseResult[1].c_str());//stoi(parseResult[1]);
-		total = atoi(parseResult[2].c_str());//stoi(parseResult[2]);
+		number = stoi(parseResult[0]);		//stoi() std function that casts string to int
+		numTemp = number;
+		type = stoi(parseResult[1]);
+		total = stoi(parseResult[2]);
 		//return true;
 	}
 	catch (exception e) {
-		cout << endl << e.what() << endl;//"exception in parseResult assignment" << endl;
+		cout << endl << "exception in parseResult assignment" << endl;
 	}
 	return true;
 }
 
-
 /* rolls dice based on amount of dice and type of die */
 int Dice::sum(int n, int t, int tot) {
+	numTemp = n;
 	number = n;
 	type = t;
 	total = tot;
@@ -151,6 +154,7 @@ int Dice::sum(int n, int t, int tot) {
 	}
 
 int Dice::saySum(int n, int t, int tot) {
+	numTemp = n;
 	number = n;
 	type = t;
 	total = tot;
@@ -215,6 +219,16 @@ int Dice::getRandom() {
 	}
 	}
 }
+
+void Dice::displayCurrentState(){
+	cout << "\n[Dice log]"
+		<< "\nlast roll input: " << lastRoll
+		<< "\ntype of die: " << type
+		<< "\nnumber of die: " << numTemp
+		<< "\ntotal of last roll: " << total
+		<< endl << endl;
+}
+
 
 // main method for testing
 /*
