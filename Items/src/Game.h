@@ -79,4 +79,6 @@ public:
 	void go();
 	bool openedChest = false;
 	bool ended;
+	bool inventoryOpen;
+	bool equipOpen;
 };

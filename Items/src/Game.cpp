@@ -27,6 +27,8 @@ Game::Game(unsigned int tileWidth, unsigned int tileHeight, Map* map){
 	this->level = map->outputMap();
 	this->m_map = map;
 	this->ended = false;
+	this->inventoryOpen = false;
+	this->equipOpen = false;
 }
 
 //! Deconstructor for Game class
@@ -442,9 +444,9 @@ bool Game::update(sf::Event* evt){
 		break;
 	}
 	}
-	if (sf::Event::MouseMoved)
+	if (evt != nullptr)
 	{
-		if (evt != nullptr)
+		if (evt->type == sf::Event::MouseMoved)
 		{
 			int tileY = evt->mouseMove.y / 32;
 			int tileX = evt->mouseMove.x / 32;
@@ -475,6 +477,37 @@ bool Game::update(sf::Event* evt){
 					//Don't show enemy stats.
 					enemyStats.setString("Enemy/Friend");
 					return true;
+				}
+			}
+		}
+		else if (evt->type == sf::Event::KeyReleased)
+		{
+			if (evt->key.code == sf::Keyboard::I)
+			{
+				if (inventoryOpen)
+				{
+					//Close inventory goes here.
+					inventoryOpen = false;
+				}
+				else
+				{
+					//Open Inventory goes here
+
+					inventoryOpen = true;
+				}
+			}
+			else if (evt->key.code == sf::Keyboard::E)
+			{
+				if (equipOpen)
+				{
+					//Close Equip goes here.
+					equipOpen = false;
+				}
+				else
+				{
+					//Open Equip goes here
+
+					equipOpen = true;
 				}
 			}
 		}
