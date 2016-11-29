@@ -3,9 +3,9 @@
 <type>shield</type>
 <path>res/shield/5.png</path>
 <influence>
-<enhancement>
-<enh_type>armorclass</enh_type>
-<bonus>1</bonus>
-</enhancement>
+	<enhancement>
+		<enh_type>armorclass</enh_type>
+		<bonus>1</bonus>
+	</enhancement>
 </influence>
 </item>

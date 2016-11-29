@@ -5,7 +5,7 @@
 	<path>LoadTest_1.png</path>
 	<influence>
 		<enhancement>
-			<enh_type>strength</enh_type>
+			<enh_type>armorclass</enh_type>
 			<bonus>1</bonus>
 		</enhancement>
 	</influence>
