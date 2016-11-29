@@ -24,6 +24,7 @@ private:
 	//sf::Sprite player;
 	sf::Sprite equipWindow;
 	sf::Sprite inventoryWindow;
+	sf::Sprite inventorySprite[24];
 	sf::Texture equipTexture;
 	sf::Texture inventoryTexture;
 

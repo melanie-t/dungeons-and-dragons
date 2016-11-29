@@ -649,27 +649,6 @@ void Game::createText()
 	enemyStats.setStyle(sf::Text::Bold);
 	enemyStats.setPosition(185, (height * 32 + 8));
 
-	//Inventory text
-	equipText.setString("Equips");
-	equipText.setCharacterSize(12);
-	equipText.setFillColor(sf::Color::Black);
-	equipText.setStyle(sf::Text::Bold);
-	equipText.setPosition(340, (height * 32 + 8));
-
-	inventoryText.setString("Inventory");
-	inventoryText.setCharacterSize(12);
-	inventoryText.setFillColor(sf::Color::Black);
-	inventoryText.setStyle(sf::Text::Bold);
-	inventoryText.setPosition(485, (height * 32 + 8));
-	
-	equipTexture.loadFromFile("res/Equips.png");
-	equipWindow.setPosition(341, height * 32 + 45);
-	equipWindow.setTexture(equipTexture);
-
-	inventoryTexture.loadFromFile("res/Inventory.png");
-	inventoryWindow.setPosition(496, height * 32 + 45);
-	inventoryWindow.setTexture(inventoryTexture);
-
 	//Initializes the text of current position
 	currentPosition.setCharacterSize(12);
 	currentPosition.setFillColor(sf::Color::Black);
@@ -687,10 +666,32 @@ void Game::createText()
 	enemyStatsBox.setOutlineColor(sf::Color::Green);
 	enemyStatsBox.setOutlineThickness(3);
 
+	//Equips
+	equipText.setString("Equips");
+	equipText.setCharacterSize(12);
+	equipText.setFillColor(sf::Color::Black);
+	equipText.setStyle(sf::Text::Bold);
+	equipText.setPosition(340, (height * 32 + 8));
+
+	equipTexture.loadFromFile("res/Equips.png");
+	equipWindow.setPosition(341, height * 32 + 45);
+	equipWindow.setTexture(equipTexture);
+
 	equipBox.setSize(sf::Vector2f(140, 242));
 	equipBox.setPosition(335, height * 32 + 5);
 	equipBox.setOutlineColor(sf::Color::Green);
 	equipBox.setOutlineThickness(3);
+
+	//Inventory
+	inventoryText.setString("Inventory");
+	inventoryText.setCharacterSize(12);
+	inventoryText.setFillColor(sf::Color::Black);
+	inventoryText.setStyle(sf::Text::Bold);
+	inventoryText.setPosition(485, (height * 32 + 8));
+
+	inventoryTexture.loadFromFile("res/Inventory.png");
+	inventoryWindow.setPosition(496, height * 32 + 45);
+	inventoryWindow.setTexture(inventoryTexture);
 
 	inventoryBox.setSize(sf::Vector2f(157, 242));
 	inventoryBox.setPosition(480, height * 32 + 5);
@@ -698,11 +699,23 @@ void Game::createText()
 	inventoryBox.setOutlineThickness(3);
 }
 
-void Game::addItems() {
-	vector<Item> inventory = m_map->getPlayer()->getBackpack().getItems;
-	for (Item i : inventory)
+//! addItems function
+//! loads the items currently in Character's inventory
+void Game::addItems() 
+{
+	int row = 0;
+	vector<Item> items = m_map->getPlayer()->getBackpack().getItems();
+	for (int i = 0; i < m_map->getPlayer()->getBackpack().getItems().size(); i++)
 	{
-		i.
+		sf::Texture texture;
+		texture.loadFromFile(items[i].getItemPath());
+		
+		inventorySprite[i].setTexture(texture);
+		inventorySprite[i].setPosition(496 + ((i%4)*31),height * 32 + 45 + 31*row);
+		window->draw(inventorySprite[i]);
+
+		if ((i + 1) % 4 == 0)
+			row = row + 1;
 	}
 }
 
@@ -740,6 +753,7 @@ void Game::render()
 		window->draw(inventoryBox);
 		window->draw(inventoryText);
 		window->draw(inventoryWindow);
+		addItems();
 	}
 
 	//window->draw(currentPosition);
