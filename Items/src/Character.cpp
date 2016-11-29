@@ -623,9 +623,6 @@ string Character::statString()
 //! classToString function
 //! @brief converts integer to Character class
 //! @return : string containing the class of the Character
-//! classToString function
-//! @brief converts integer to Character class
-//! @return : string containing the class of the Character
 string Character::classtoString()
 {
 	switch (charClass) {
