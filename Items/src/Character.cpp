@@ -633,8 +633,8 @@ string Character::statString()
 	}
 
 	std::ostringstream out;
-	out << "\n" << classtoString()
-		<< "\nName: " << getName()
+	out << "\n" << getName()
+		<< "\n" << classtoString()
 		<< "\nLVL: " << getLevel()
 		<< "\nHP : " << getHitPoints()
 		<< "\nSTR: " << getSTR() << " +" << enh_str

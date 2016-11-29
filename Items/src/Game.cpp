@@ -636,7 +636,7 @@ void Game::createText()
 	std::string heroName = m_map->getPlayer()->getName();
 
 	//Initializes the text
-	text.setString(m_map->getPlayer()->statString());
+	text.setString("Player" + m_map->getPlayer()->statString());
 	text.setCharacterSize(12);
 	text.setFillColor(sf::Color::Black);
 	text.setStyle(sf::Text::Bold);
@@ -696,6 +696,10 @@ void Game::createText()
 	inventoryBox.setPosition(480, height * 32 + 5);
 	inventoryBox.setOutlineColor(sf::Color::Green);
 	inventoryBox.setOutlineThickness(3);
+}
+
+void addItems() {
+
 }
 
 //! render function

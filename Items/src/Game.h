@@ -58,6 +58,9 @@ private:
 	//Load the content
 	void loadContent();
 
+	//Add items to GUI
+	void addItems();
+
 	//Draw onto the game
 	void render();
 

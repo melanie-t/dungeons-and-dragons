@@ -302,7 +302,7 @@ Item* Item::randommize(int lvl)
 {
 	srand(time(NULL));
 	int r = rand() % 7 + 1; //Random number between 1 and 7 for choosing item type.
-	int randomSprite = rand() % 5 + 1; // Random sprite number between 1 to 5 to choose an icon.
+	int randomSprite = rand() % 10 + 1; // Random sprite number between 1 to 10 to choose an icon.
 	string type, itemPath;
 	switch (r)
 	{
