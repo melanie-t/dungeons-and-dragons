@@ -22,12 +22,22 @@ private:
 	sf::RenderWindow* window;
 	//sf::Texture playerTexture;
 	//sf::Sprite player;
+	sf::Sprite equipWindow;
+	sf::Sprite inventoryWindow;
+	sf::Texture equipTexture;
+	sf::Texture inventoryTexture;
+
 	sf::Font font;
 	sf::Text text;
 	sf::Text enemyStats;
+	sf::Text inventoryText;
+	sf::Text equipText;
 	sf::Text currentPosition;
 	sf::RectangleShape textBox;
 	sf::RectangleShape enemyStatsBox;
+	sf::RectangleShape inventoryBox;
+	sf::RectangleShape equipBox;
+
 	TileMap map;
 	std::vector<sf::Sprite> enemies;
 

@@ -55,10 +55,10 @@ Character::Character(int lvl, int str, int dex, int con, int intel, int wis, int
 //! @param hp health points of Character
 //! @param backpack contains all items in backpack inventory
 //! @param equips contains all items that are currently worn
-Character::Character(string name, int charclass, int lvl, int str, int dex, int con, int intel,
+Character::Character(string playerName, int charclass, int lvl, int str, int dex, int con, int intel,
 	int wis, int cha, int hp, ItemContainer bkpack, Item equips[7])
 {
-	name = name;
+	name = playerName;
 	level = lvl;
 	charClass = charclass;
 	abilityScores[Ability::STRENGTH] = str;
@@ -78,6 +78,7 @@ Character::Character(string name, int charclass, int lvl, int str, int dex, int 
 //! @brief implementation of notify from Observable class
 //! notifies the observer of any changes
 void Character::notify() {
+	initEnh();
 	displayStats();
 }
 
@@ -566,15 +567,15 @@ void Character::displayStats()
 		<< "\nClass: " << classtoString()
 		<< "\nLVL: " << getLevel()
 		<< "\nHP : " << getHitPoints()
-		<< "\nSTR: " << getSTR() << " | " << enh_str
-		<< "\nDEX: " << getDEX() << " | " << enh_dex 
-		<< "\nCON: " << getCON() << " | " << enh_con
-		<< "\nINT: " << getINTEL() << " | " << enh_int
-		<< "\nWIS: " << getWIS() << " | " << enh_wis
-		<< "\nCHA: " << getCHA() << " | " << enh_cha
-		<< "\nArmor Class : " << getArmorClass() << " | " << enh_armorclass
-		<< "\nAttack Bonus: " << getAttackBonus() << " | " << enh_attackbonus
-		<< "\nDamage Bonus: " << getDamageBonus() << " | " << enh_damagebonus
+		<< "\nSTR: " << getSTR() << " +" << enh_str
+		<< "\nDEX: " << getDEX() << " +" << enh_dex 
+		<< "\nCON: " << getCON() << " +" << enh_con
+		<< "\nINT: " << getINTEL() << " +" << enh_int
+		<< "\nWIS: " << getWIS() << " +" << enh_wis
+		<< "\nCHA: " << getCHA() << " +" << enh_cha
+		<< "\nArmor Class : " << getArmorClass() << " +" << enh_armorclass
+		<< "\nAttack Bonus: " << getAttackBonus() << " +" << enh_attackbonus
+		<< "\nDamage Bonus: " << getDamageBonus() << " +" << enh_damagebonus
 		<< "\n= Equips =" << items
 		<< "\n= Backpack =" << backpack.toString() << endl;
 }
@@ -601,22 +602,19 @@ string Character::statString()
 	}
 
 	std::ostringstream out;
-	out << "\nName: " << getName()
-		<< "\nClass: " << classtoString()
+	out << "\n" << classtoString()
+		<< "\nName: " << getName()
 		<< "\nLVL: " << getLevel()
 		<< "\nHP : " << getHitPoints()
-		<< "\nSTR: " << getSTR()
-		<< "\nDEX: " << getDEX()
-		<< "\nCON: " << getCON()
-		<< "\nINT: " << getINTEL()
-		<< "\nWIS: " << getWIS()
-		<< "\nCHA: " << getCHA()
-		<< "\nArmor Class: " << getArmorClass()
-		<< "\nAttack Bonus: " << getAttackBonus()
-		<< "\nDamage Bonus: " << getDamageBonus()
-		<< "\n= Equips =" << items
-		<< "\n= Backpack =" << backpack.toString()
-		<< endl;
+		<< "\nSTR: " << getSTR() << " +" << enh_str
+		<< "\nDEX: " << getDEX() << " +" << enh_dex
+		<< "\nCON: " << getCON() << " +" << enh_con
+		<< "\nINT: " << getINTEL() << " +" << enh_int
+		<< "\nWIS: " << getWIS() << " +" << enh_wis
+		<< "\nCHA: " << getCHA() << " +" << enh_cha
+		<< "\nArmor Class : " << getArmorClass() << " +" << enh_armorclass
+		<< "\nAttack Bonus: " << getAttackBonus() << " +" << enh_attackbonus
+		<< "\nDamage Bonus: " << getDamageBonus() << " +" << enh_damagebonus << endl;
 	return out.str();
 }
 
@@ -637,7 +635,7 @@ string Character::classtoString()
 	case 3:
 		return "Tank Fighter";
 	default: {
-		return "N/A";
+		return "";
 		break;
 	}
 	}

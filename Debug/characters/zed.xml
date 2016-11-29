@@ -1,11 +1,11 @@
 <character>
 <level>1</level>
-<strength>15</strength>
-<dexterity>13</dexterity>
-<constitution>17</constitution>
-<intelligence>12</intelligence>
-<wisdom>12</wisdom>
-<charisma>13</charisma>
+<strength>16</strength>
+<dexterity>16</dexterity>
+<constitution>16</constitution>
+<intelligence>11</intelligence>
+<wisdom>14</wisdom>
+<charisma>14</charisma>
 <hp>10</hp>
 <class>1</class>
 <backpack/>

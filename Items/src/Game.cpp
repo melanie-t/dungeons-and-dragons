@@ -449,8 +449,14 @@ bool Game::update(sf::Event* evt){
 		//For enemies or chests would go 
 		// *******************************************
 		// use character->blahblah .......... for accessing characters
+		
+		//! RANDOMLY GENERATED CHEST - TO BE IMPLEMENTED
+		Item chest;
+		m_map->getPlayer()->getBackpack().addItem(chest);
+
 		// each character takes turns in this update method.
 		// Be nice. Let everyone loot.
+		
 		break;
 	}
 	}
@@ -600,9 +606,10 @@ void Game::createText(){
 	text.setFont(font);
 	enemyStats.setFont(font);
 	currentPosition.setFont(font);
+	equipText.setFont(font);
+	inventoryText.setFont(font);
 
 	std::string heroName = m_map->getPlayer()->getName();
-
 
 	//Initializes the text
 	text.setString(m_map->getPlayer()->statString());
@@ -616,7 +623,28 @@ void Game::createText(){
 	enemyStats.setCharacterSize(12);
 	enemyStats.setFillColor(sf::Color::Black);
 	enemyStats.setStyle(sf::Text::Bold);
-	enemyStats.setPosition(165, (height * 32 + 8));
+	enemyStats.setPosition(185, (height * 32 + 8));
+
+	//Inventory text
+	equipText.setString("Equips");
+	equipText.setCharacterSize(12);
+	equipText.setFillColor(sf::Color::Black);
+	equipText.setStyle(sf::Text::Bold);
+	equipText.setPosition(340, (height * 32 + 8));
+
+	inventoryText.setString("Inventory");
+	inventoryText.setCharacterSize(12);
+	inventoryText.setFillColor(sf::Color::Black);
+	inventoryText.setStyle(sf::Text::Bold);
+	inventoryText.setPosition(485, (height * 32 + 8));
+	
+	equipTexture.loadFromFile("res/Equips.png");
+	equipWindow.setPosition(341, height * 32 + 45);
+	equipWindow.setTexture(equipTexture);
+
+	inventoryTexture.loadFromFile("res/Inventory.png");
+	inventoryWindow.setPosition(496, height * 32 + 45);
+	inventoryWindow.setTexture(inventoryTexture);
 
 	//Initializes the text of current position
 	currentPosition.setCharacterSize(12);
@@ -625,15 +653,25 @@ void Game::createText(){
 	currentPosition.setPosition(20, (height * 32 + 56));
 
 	//Initializes the box in which the text will be written in
-	textBox.setSize(sf::Vector2f(150, 240));
+	textBox.setSize(sf::Vector2f(160, 242));
 	textBox.setPosition(5, height * 32 + 5);
 	textBox.setOutlineColor(sf::Color::Green);
 	textBox.setOutlineThickness(3);
 
-	enemyStatsBox.setSize(sf::Vector2f(150, 240));
-	enemyStatsBox.setPosition(150, height * 32 + 5);
+	enemyStatsBox.setSize(sf::Vector2f(160, 242));
+	enemyStatsBox.setPosition(170, height * 32 + 5);
 	enemyStatsBox.setOutlineColor(sf::Color::Green);
 	enemyStatsBox.setOutlineThickness(3);
+
+	equipBox.setSize(sf::Vector2f(140, 242));
+	equipBox.setPosition(335, height * 32 + 5);
+	equipBox.setOutlineColor(sf::Color::Green);
+	equipBox.setOutlineThickness(3);
+
+	inventoryBox.setSize(sf::Vector2f(157, 242));
+	inventoryBox.setPosition(480, height * 32 + 5);
+	inventoryBox.setOutlineColor(sf::Color::Green);
+	inventoryBox.setOutlineThickness(3);
 }
 
 //! render function
@@ -654,8 +692,15 @@ void Game::render(){
 
 	window->draw(textBox);
 	window->draw(enemyStatsBox);
+	window->draw(inventoryBox);
+	window->draw(equipBox);
 	window->draw(text);
 	window->draw(enemyStats);
+	window->draw(equipText);
+	window->draw(inventoryText);
+	window->draw(equipWindow);
+	window->draw(inventoryWindow);
+
 	//window->draw(currentPosition);
 }
 
