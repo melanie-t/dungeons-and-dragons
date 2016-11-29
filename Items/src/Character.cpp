@@ -627,9 +627,15 @@ string Character::classtoString()
 {
 	switch (charClass) {
 	case 1: {
-		return "Fighter";
+		return "Bully Fighter";
 		break;
 	}
+	case 2:{
+		return "Nimble Fighter";
+		break;
+	}
+	case 3:
+		return "Tank Fighter";
 	default: {
 		return "N/A";
 		break;
