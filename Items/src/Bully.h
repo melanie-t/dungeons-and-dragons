@@ -24,5 +24,8 @@ public:
 		m_character->setINTEL(abilityScores[3]);
 		m_character->setCHA(abilityScores[4]);
 		m_character->setWIS(abilityScores[5]);
+
+		//Assigns the charclass
+		m_character->setCharClass(1);
 	}
 };
