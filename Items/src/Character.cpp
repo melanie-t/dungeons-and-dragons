@@ -20,6 +20,7 @@ using namespace std;
 //! Default constructor: initializes level to 1 and generates new character with 0 stats
 Character::Character() : Character(1, 0, 0, 0, 0, 0, 0)
 {
+
 }
 
 //! Constructor: passes values to each ability score and generates hp at level 1
@@ -39,8 +40,9 @@ Character::Character(int lvl, int str, int dex, int con, int intel, int wis, int
 	abilityScores[Ability::INTELLIGENCE] = intel;
 	abilityScores[Ability::WISDOM] = wis;
 	abilityScores[Ability::CHARISMA] = cha;
-	currentHitPoints = 10 + abilityModifier(Ability::CONSTITUTION);
+	currentHitPoints = 10;
 	secondaryStatCalc();
+	initEnh();
 }
 
 //! Constructor: Used to load characters from saved XML files
@@ -69,9 +71,9 @@ Character::Character(string name, int charclass, int lvl, int str, int dex, int 
 	abilityScores[Ability::CHARISMA] = cha;
 	currentHitPoints = hp;
 	backpack = bkpack;
-	setEquips(equips);
+//	setEquips(equips);
 	secondaryStatCalc();
-
+	initEnh();
 }
 
 //! notify function
@@ -308,10 +310,10 @@ int Character::abilityModifier(int abilityScore)
 	// Proper calculation of abilityMod;
 	int abilityMod = (abilityScore - 10) / 2;
 
-	if (abilityMod < 0)
-	{
-		abilityMod = 0;
-	}
+	//if (abilityMod < 0)
+	//{
+	//	abilityMod = 0;
+	//}
 
 	return abilityMod;
 }
@@ -320,7 +322,7 @@ int Character::abilityModifier(int abilityScore)
 //! @brief generates secondary stats based on
 //! primary stats.
 void Character::secondaryStatCalc() {
-	setArmorClass(abilityModifier(getDEX()));
+	setArmorClass(10 + abilityModifier(getDEX()));
 	setAttackBonus(getLevel()*(abilityModifier(getSTR()) + abilityModifier(getDEX())) / 5);
 	setDamageBonus(abilityModifier(getSTR()));
 }
@@ -377,7 +379,7 @@ void Character::setLevel(int currentLevel)
 //! @return int: value of armorClass
 int Character::getArmorClass()
 {
-	return (abilityModifier(getDEX()));
+	return armorClass;
 }
 
 //! Implementation of a setter method for armorClass
@@ -547,203 +549,203 @@ ItemContainer Character::getBackpack()
 {
 	return backpack;
 }
-
-//! Implementation of equip method
-//! @param item: The item that you wish to equip
-void Character::equipItem(Item item) {
-	string type = item.getType();
-
-	if (type == TYPE_HELMET) {
-		if (!helmetEquipped) // Nothing equipped
-		{
-			equips[Equip::HELMET] = item;
-			
-			helmetEquipped = true;
-		}
-		else
-		{
-			//Puts current item into backpack and equips new item
-			backpack.addItem(equips[Equip::HELMET]);
-			equips[Equip::HELMET] = item;
-		}
-	}
-
-	else if (type == TYPE_ARMOR)
-	{
-		if (!armorEquipped)
-		{
-			//Nothing equipped
-			equips[Equip::ARMOR] = item;
-			armorEquipped = true;
-		}
-		else
-		{
-			//Puts current item into backpack and equips new item
-			backpack.addItem(equips[Equip::ARMOR]);
-			equips[Equip::ARMOR] = item;
-		}
-	}
-
-	else if (type == TYPE_BELT)
-	{
-		if (!beltEquipped)
-		{
-			//Nothing equipped
-			equips[Equip::BELT] = item;
-			beltEquipped = true;
-		}
-		else
-		{
-			//Puts current item into backpack and equips new item
-			backpack.addItem(equips[Equip::BELT]);
-			equips[Equip::BELT] = item;
-		}
-	}
-
-	else if (type == TYPE_BOOTS)
-	{
-		if (!bootsEquipped)
-		{
-			//Nothing equipped
-			equips[Equip::BOOTS] = item;
-			bootsEquipped = true;
-		}
-		else
-		{
-			//Puts current item into backpack and equips new item
-			backpack.addItem(equips[Equip::BOOTS]);
-			equips[Equip::BOOTS] = item;
-		}
-	}
-
-	else if (type == TYPE_SHIELD)
-	{
-		if (!bootsEquipped)
-		{
-			//Nothing equipped
-			equips[Equip::BOOTS] = item;
-			bootsEquipped = true;
-		}
-		else
-		{
-			//Puts current item into backpack and equips new item
-			backpack.addItem(equips[Equip::BOOTS]);
-			equips[Equip::BOOTS] = item;
-		}
-	}
-
-	else if (type == TYPE_WEAPON)
-	{
-		if (!weaponEquipped)
-		{
-			//Nothing equipped
-			equips[Equip::WEAPON] = item;
-			weaponEquipped = true;
-		}
-		else
-		{
-			//Puts current item into backpack and equips new item
-			backpack.addItem(equips[Equip::WEAPON]);
-			equips[Equip::WEAPON] = item;
-		}
-	}
-
-	else if (type == TYPE_RING)
-	{
-		if (!ringEquipped)
-		{
-			//Nothing equipped
-			equips[Equip::RING] = item;
-			ringEquipped = true;
-		}
-		else
-		{
-			//Puts current item into backpack and equips new item
-			backpack.addItem(equips[Equip::RING]);
-			equips[Equip::RING] = item;
-		}
-	}
-
-	else
-		cout << "Invalid item type" << endl;
-}
-
-//! Implementation to unequip helmet in equips
-void Character::removeHelmet()
-{
-	if (helmetEquipped)
-	{
-		backpack.addItem(equips[Equip::HELMET]);
-		equips[Equip::HELMET] = Item();
-		helmetEquipped = false;
-	}
-}
-
-//! Implementation to unequip armor in equips
-void Character::removeArmor()
-{
-	if (armorEquipped)
-	{
-		backpack.addItem(equips[Equip::ARMOR]);
-		equips[Equip::ARMOR] = Item();
-		armorEquipped = false;
-	}
-}
-
-//! Implementation to unequip belt in equips
-void Character::removeBelt()
-{
-	if (beltEquipped)
-	{
-		backpack.addItem(equips[Equip::BELT]);
-		equips[Equip::BELT] = Item();
-		beltEquipped = false;
-	}
-}
-
-//! Implementation to unequip boots in equips
-void Character::removeBoots()
-{
-	if (bootsEquipped)
-	{
-		backpack.addItem(equips[Equip::BOOTS]);
-		equips[Equip::BOOTS] = Item();
-		bootsEquipped = false;
-	}
-}
-
-//! Implementation to unequip shield in equips
-void Character::removeShield()
-{
-	if (shieldEquipped)
-	{
-		backpack.addItem(equips[Equip::SHIELD]);
-		equips[Equip::SHIELD] = Item();
-		shieldEquipped = false;
-	}
-}
-
-//! Implementation to unequip weapon in equips
-void Character::removeWeapon()
-{
-	if (weaponEquipped)
-	{
-		backpack.addItem(equips[Equip::WEAPON]);
-		equips[Equip::WEAPON] = Item();
-		weaponEquipped = false;
-	}
-}
-
-//! Implementation to unequip ring in equips
-void Character::removeRing()
-{
-	if (ringEquipped)
-	{
-		backpack.addItem(equips[Equip::RING]);
-		equips[Equip::RING] = Item();
-		ringEquipped = false;
-	}
-}
+//
+////! Implementation of equip method
+////! @param item: The item that you wish to equip
+//void Character::equipItem(Item item) {
+//	string type = item.getType();
+//
+//	if (type == TYPE_HELMET) {
+//		if (!helmetEquipped) // Nothing equipped
+//		{
+//			equips[Equip::HELMET] = item;
+//			
+//			helmetEquipped = true;
+//		}
+//		else
+//		{
+//			//Puts current item into backpack and equips new item
+//			backpack.addItem(equips[Equip::HELMET]);
+//			equips[Equip::HELMET] = item;
+//		}
+//	}
+//
+//	else if (type == TYPE_ARMOR)
+//	{
+//		if (!armorEquipped)
+//		{
+//			//Nothing equipped
+//			equips[Equip::ARMOR] = item;
+//			armorEquipped = true;
+//		}
+//		else
+//		{
+//			//Puts current item into backpack and equips new item
+//			backpack.addItem(equips[Equip::ARMOR]);
+//			equips[Equip::ARMOR] = item;
+//		}
+//	}
+//
+//	else if (type == TYPE_BELT)
+//	{
+//		if (!beltEquipped)
+//		{
+//			//Nothing equipped
+//			equips[Equip::BELT] = item;
+//			beltEquipped = true;
+//		}
+//		else
+//		{
+//			//Puts current item into backpack and equips new item
+//			backpack.addItem(equips[Equip::BELT]);
+//			equips[Equip::BELT] = item;
+//		}
+//	}
+//
+//	else if (type == TYPE_BOOTS)
+//	{
+//		if (!bootsEquipped)
+//		{
+//			//Nothing equipped
+//			equips[Equip::BOOTS] = item;
+//			bootsEquipped = true;
+//		}
+//		else
+//		{
+//			//Puts current item into backpack and equips new item
+//			backpack.addItem(equips[Equip::BOOTS]);
+//			equips[Equip::BOOTS] = item;
+//		}
+//	}
+//
+//	else if (type == TYPE_SHIELD)
+//	{
+//		if (!shieldEquipped)
+//		{
+//			//Nothing equipped
+//			equips[Equip::SHIELD] = item;
+//			shieldEquipped = true;
+//		}
+//		else
+//		{
+//			//Puts current item into backpack and equips new item
+//			backpack.addItem(equips[Equip::SHIELD]);
+//			equips[Equip::SHIELD] = item;
+//		}
+//	}
+//
+//	else if (type == TYPE_WEAPON)
+//	{
+//		if (!weaponEquipped)
+//		{
+//			//Nothing equipped
+//			equips[Equip::WEAPON] = item;
+//			weaponEquipped = true;
+//		}
+//		else
+//		{
+//			//Puts current item into backpack and equips new item
+//			backpack.addItem(equips[Equip::WEAPON]);
+//			equips[Equip::WEAPON] = item;
+//		}
+//	}
+//
+//	else if (type == TYPE_RING)
+//	{
+//		if (!ringEquipped)
+//		{
+//			//Nothing equipped
+//			equips[Equip::RING] = item;
+//			ringEquipped = true;
+//		}
+//		else
+//		{
+//			//Puts current item into backpack and equips new item
+//			backpack.addItem(equips[Equip::RING]);
+//			equips[Equip::RING] = item;
+//		}
+//	}
+//
+//	else
+//		cout << "Invalid item type" << endl;
+//}
+//
+////! Implementation to unequip helmet in equips
+//void Character::removeHelmet()
+//{
+//	if (helmetEquipped)
+//	{
+//		backpack.addItem(equips[Equip::HELMET]);
+//		equips[Equip::HELMET] = Item();
+//		helmetEquipped = false;
+//	}
+//}
+//
+////! Implementation to unequip armor in equips
+////void Character::removeArmor()
+////{
+////	if (armorEquipped)
+////	{
+////		backpack.addItem(equips[Equip::ARMOR]);
+////		equips[Equip::ARMOR] = Item();
+////		armorEquipped = false;
+////	}
+////}
+//
+////! Implementation to unequip belt in equips
+//void Character::removeBelt()
+//{
+//	if (beltEquipped)
+//	{
+//		backpack.addItem(equips[Equip::BELT]);
+//		equips[Equip::BELT] = Item();
+//		beltEquipped = false;
+//	}
+//}
+//
+////! Implementation to unequip boots in equips
+//void Character::removeBoots()
+//{
+//	if (bootsEquipped)
+//	{
+//		backpack.addItem(equips[Equip::BOOTS]);
+//		equips[Equip::BOOTS] = Item();
+//		bootsEquipped = false;
+//	}
+//}
+//
+////! Implementation to unequip shield in equips
+//void Character::removeShield()
+//{
+//	if (shieldEquipped)
+//	{
+//		backpack.addItem(equips[Equip::SHIELD]);
+//		equips[Equip::SHIELD] = Item();
+//		shieldEquipped = false;
+//	}
+//}
+//
+////! Implementation to unequip weapon in equips
+//void Character::removeWeapon()
+//{
+//	if (weaponEquipped)
+//	{
+//		backpack.addItem(equips[Equip::WEAPON]);
+//		equips[Equip::WEAPON] = Item();
+//		weaponEquipped = false;
+//	}
+//}
+//
+////! Implementation to unequip ring in equips
+//void Character::removeRing()
+//{
+//	if (ringEquipped)
+//	{
+//		backpack.addItem(equips[Equip::RING]);
+//		equips[Equip::RING] = Item();
+//		ringEquipped = false;
+//	}
+//}
 
 //! displayStats function
 //! @brief displays the stats of the Character.
@@ -769,15 +771,15 @@ void Character::displayStats()
 		<< "\nClass: " << classtoString()
 		<< "\nLVL: " << getLevel()
 		<< "\nHP : " << getHitPoints()
-		<< "\nSTR: " << getSTR()
-		<< "\nDEX: " << getDEX()
-		<< "\nCON: " << getCON()
-		<< "\nINT: " << getINTEL()
-		<< "\nWIS: " << getWIS()
-		<< "\nCHA: " << getCHA()
-		<< "\nArmor Class: " << getArmorClass()
-		<< "\nAttack Bonus: " << getAttackBonus()
-		<< "\nDamage Bonus: " << getDamageBonus()
+		<< "\nSTR: " << getSTR() << " | " << enh_str
+		<< "\nDEX: " << getDEX() << " | " << enh_dex 
+		<< "\nCON: " << getCON() << " | " << enh_con
+		<< "\nINT: " << getINTEL() << " | " << enh_int
+		<< "\nWIS: " << getWIS() << " | " << enh_wis
+		<< "\nCHA: " << getCHA() << " | " << enh_cha
+		<< "\nArmor Class : " << getArmorClass() << " | " << enh_armorclass
+		<< "\nAttack Bonus: " << getAttackBonus() << " | " << enh_attackbonus
+		<< "\nDamage Bonus: " << getDamageBonus() << " | " << enh_damagebonus
 		<< "\n= Equips =" << items
 		<< "\n= Backpack =" << backpack.toString() << endl;
 }
@@ -967,22 +969,27 @@ Character* Character::loadCharacter(string name)
 					xml.OutOfElem();
 				}
 			}
-			return new Character(name, charclass, level, str, dex, con, intel, 
+			return new Character(name, charclass, level, str, dex, con, intel,
 				wis, cha, hp, backpack, equips);
 		}
 	}
 	return nullptr; //Empty
 }
 
-//! setEquips function
-//! will take in an Item pointer array of length 7 and copy to Character's equips array
-//! @param equips : the equips that's getting passed to Character's equips
-void Character::setEquips(Item newEquips[7]) {
-	for (int i = 0; i < 7; i++)
-	{
-		equips[i] = newEquips[i];
-	}
-}
+////! setEquips function
+////! will take in an Item pointer array of length 7 and copy to Character's equips array
+////! @param equips : the equips that's getting passed to Character's equips
+//void Character::setEquips(Item newEquips[7]) {
+//	for (int i = 0; i < 7; i++)
+//	{
+//		equips[i] = newEquips[i];
+//	}
+//}
+//
+//Item* Character::getEquips()
+//{
+//	return equips;
+//}
 
 //! getStrategy function
 //! @brief returns character strategy.
@@ -1097,125 +1104,192 @@ string Character::getCharacterType()
 	return this->characterType;
 }
 
-//USELESS FOR NOW. IMPLEMENT LATER
-////retrieve the gender of the character and return it
-//string Character::retrieveGender()
-//{
-//	//variables
-//	bool a = false;
-//
-//	//loops until we have an actual gender for the character
-//	while (a == false)
-//	{
-//
-//		//Display message and retrieve the user's input
-//		cout << "Please Enter your gender: \n";
-//		cout << "For a male character, please enter: Male, male, M or m\n";
-//		cout << "For a female character, please enter: Female, female, F or f\n";
-//		cin >> gender;
-//
-//		//if user is male then set gender as male and return it
-//		if (gender == "Male" || gender == "male" || gender == "M" || gender == "m")
-//		{
-//			gender = "male";
-//			a = true;
-//			return gender;
-//		}
-//
-//		//if user is female then set gender as female and return it
-//		else if (gender == "Female" || gender == "female" || gender == "F" || gender == "f")
-//		{
-//			gender = "female";
-//			a = true;
-//			return gender;
-//		}
-//
-//		//if no specific gender has been entered then display error and loop again
-//		else
-//		{
-//			cout << "Error\n";
-//			a = 0;
-//
-//		}
-//	}
-//	return "";
-//}
+Item* Character::getEquip(string equip)
+{
+	if (equip.compare("armor") == 0)
+		return &equips[Equip::ARMOR];
 
-//WILL BE USED LATER TO LEVEL UP STATS
-////! setExtraPoints function
-////set the extraPoints stats
-//void Character::setExtraPoints()
+	else if (equip.compare("helmet") == 0)
+		return &equips[Equip::HELMET];
+
+	else if (equip.compare("shield") == 0)
+		return &equips[Equip::SHIELD];
+
+	else if (equip.compare("ring") == 0)
+		return &equips[Equip::RING];
+
+	else if (equip.compare("belt") == 0)
+		return &equips[Equip::BELT];
+
+	else if (equip.compare("boots") == 0)
+		return &equips[Equip::BOOTS];
+
+	else if (equip.compare("weapon") == 0)
+		return &equips[Equip::WEAPON];
+
+	else
+		return nullptr;
+}
+
+void Character::equip(Item *item)
+{
+	string itemtype = item->getType();
+	if (itemtype.compare("armor") == 0)
+		equips[Equip::ARMOR] = *item;
+
+	else if (itemtype.compare("helmet") == 0)
+		equips[Equip::HELMET] = *item;
+
+	else if (itemtype.compare("shield") == 0)
+		equips[Equip::SHIELD] = *item;
+
+	else if (itemtype.compare("ring") == 0)
+		equips[Equip::RING] = *item;
+
+	else if (itemtype.compare("belt") == 0)
+		equips[Equip::BELT] = *item;
+
+	else if (itemtype.compare("boots") == 0)
+		equips[Equip::BOOTS] = *item;
+
+	else if (itemtype.compare("weapon") == 0)
+		equips[Equip::WEAPON] = *item;
+}
+
+void Character::unequip(Item* item)
+{
+	string equip = item->getType();
+
+	if (equip.compare("armor") == 0)
+	{
+		backpack.addItem(equips[Equip::ARMOR]);
+		equips[Equip::ARMOR] = Item();
+	}
+
+	else if (equip.compare("helmet") == 0)
+	{
+		backpack.addItem(equips[Equip::HELMET]);
+		equips[Equip::HELMET] = Item();
+	}
+
+	else if (equip.compare("shield") == 0)
+	{
+		backpack.addItem(equips[Equip::SHIELD]);
+		equips[Equip::SHIELD] = Item();
+	}
+
+	else if (equip.compare("ring") == 0)
+	{
+		backpack.addItem(equips[Equip::RING]);
+		equips[Equip::RING] = Item();
+	}
+
+	else if (equip.compare("belt") == 0)
+	{
+		backpack.addItem(equips[Equip::BELT]);
+		equips[Equip::BELT] = Item();
+	}
+
+	else if (equip.compare("boots") == 0)
+	{
+		backpack.addItem(equips[Equip::BOOTS]);
+		equips[Equip::BOOTS] = Item();
+	}
+
+	else if (equip.compare("weapon") == 0)
+	{
+		backpack.addItem(equips[Equip::WEAPON]);
+		equips[Equip::WEAPON] = Item();
+	}
+}
+
+void Character::setEnh(string type, int bonus)
+{
+	if (type.compare("strength") == 0)
+		enh_str = enh_str + bonus;
+
+	else if (type.compare("dexterity") == 0)
+		enh_dex = enh_dex + bonus;
+
+	else if (type.compare("constitution") == 0)
+		enh_con = enh_con + bonus;
+
+	else if (type.compare("intelligence") == 0)
+		enh_int = enh_int + bonus;
+
+	else if (type.compare("wisdom") == 0)
+		enh_wis = enh_wis + bonus;
+
+	else if (type.compare("charisma") == 0)
+		enh_cha = enh_cha + bonus;
+
+	else if (type.compare("armorclass") == 0)
+		enh_armorclass = enh_armorclass + bonus;
+
+	else if (type.compare("attackbonus") == 0)
+		enh_attackbonus = enh_attackbonus + bonus;
+
+	else if (type.compare("damagebonus") == 0)
+		enh_damagebonus = enh_damagebonus + bonus;
+}
+
+void Character::initEnh()
+{
+	enh_str = abilityModifier(getSTR());
+	enh_dex = abilityModifier(getDEX());
+	enh_con = abilityModifier(getCON());
+	enh_int = abilityModifier(getINTEL());
+	enh_wis = abilityModifier(getWIS());
+	enh_cha = abilityModifier(getCHA());
+	enh_armorclass = abilityModifier(getDEX());
+	enh_attackbonus = 0;
+	enh_damagebonus = 0;
+}
+
+//bool Character::getEquipped(string item)
 //{
-//	int ExtraPoints = 2;
-//	while (ExtraPoints != 0)
-//	{
-//		//Display message and retrieve the user's input
-//		int choice;
-//		cout << "\nYou have: " << ExtraPoints << " upgrade(s) available. What would you like to upgrade?\n";
-//		cout << "1. STR (Strength)\n";
-//		cout << "2. DEX (Dexterity)\n";
-//		cout << "3. CON (Constitution)\n";
-//		cout << "4. INT (Intelligence)\n";
-//		cout << "5. WIS (Wisdom)\n";
-//		cout << "6. CHA (Charisma)\n";
-//		cin >> choice;
+//	if (item.compare("helmet") == 0)
+//		return helmetEquipped;
 //
-//		//if user whishes to improve strength
-//		if (choice == 1)
-//		{
-//			setSTR(getSTR() + 1);
-//			ExtraPoints--;
-//			cout << "Strength: " << getSTR() << "\n";
-//		}
+//	else if (item.compare("armor") == 0)
+//		return armorEquipped;
 //
-//		//if user whishes to improve Dexterity
-//		else if (choice == 2)
-//		{
-//			setDEX(getDEX() + 1);
-//			ExtraPoints--;
-//			cout << "Dexterity: " << getDEX() << "\n";
+//	else if (item.compare("belt") == 0)
+//		return beltEquipped;
 //
-//		}
+//	else if (item.compare("ring") == 0)
+//		return ringEquipped;
 //
-//		//if user whishes to improve Constitution
-//		else if (choice == 3)
-//		{
-//			setCON(getCON() + 1);
-//			ExtraPoints--;
-//			cout << "Constitution: " << getCON() << "\n";
-//		}
+//	else if (item.compare("weapon") == 0)
+//		return weaponEquipped;
 //
-//		//if user whishes to improve Intelligence
-//		else if (choice == 4)
-//		{
-//			setINTEL(getINTEL() + 1);
-//			ExtraPoints--;
-//			cout << "Intelligence: " << getINTEL() << "\n";
-//		}
+//	else if (item.compare("boots") == 0)
+//		return bootsEquipped;
 //
-//		//if user whishes to improve Wisdom
-//		else if (choice == 5)
-//		{
-//			setWIS(getWIS() + 1);
-//			ExtraPoints--;
-//			cout << "Wisdom: " << getWIS() << "\n";
-//		}
+//	else if (item.compare("shield") == 0)
+//		return shieldEquipped;
+//}
 //
-//		//if user whishes to improve Luck
-//		else if (choice == 6)
-//		{
-//			setCHA(getCHA() + 1);
-//			ExtraPoints--;
-//			cout << "Luck: " << getCHA() << "\n";
-//		}
+//void Character::setEquipped(string item, bool tf)
+//{
+//	if (item.compare("helmet") == 0)
+//		helmetEquipped = tf;
 //
-//		//if no specific bonus has been entered then display error and loop again
-//		else
-//		{
-//			cout << "Error, invalid choice. Please try again.\n";
-//		}
+//	else if (item.compare("armor") == 0)
+//		armorEquipped = tf;
 //
-//		notify();
-//	}
+//	else if (item.compare("belt") == 0)
+//		beltEquipped = tf;
 //
+//	else if (item.compare("ring") == 0)
+//		ringEquipped = tf;
+//
+//	else if (item.compare("weapon") == 0)
+//		weaponEquipped = tf;
+//
+//	else if (item.compare("boots") == 0)
+//		bootsEquipped = tf;
+//
+//	else if (item.compare("shield") == 0)
+//		shieldEquipped = tf;
 //}

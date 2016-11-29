@@ -72,6 +72,17 @@ vector<Enhancement> Item::getInfluences()
 	return influence;
 }
 
+int Item::getEnhancement(string bonus)
+{
+	for (int i = 0; i != influence.size(); i++)
+	{
+		if (bonus.compare(influence[i].getType()) == 0)
+			return influence[i].getBonus();
+	}
+
+	return 0;
+}
+
 //! method to validate an item, e.g. verify that an new item of a certain type only enhances a character statistic valid for this item type
 //! @return : true if the enhancement list is valid according to the rules, false if not
 bool Item::validateItem()
@@ -660,10 +671,10 @@ string Item::toString() {
 	if (id != 0)
 	{
 		std::ostringstream out;
-		out << "\nType: " << type
-			<< "\nID: " << id
-			<< "\nItem path: " << itemPath
-			<< "\nEnhancements\n" << enhancementString();
+		out << "\n [" << type << "] | "
+			//<< "\nID: " << id
+			//<< "\nItem path: " << itemPath
+			<< enhancementString();
 		return out.str();
 	}
 }

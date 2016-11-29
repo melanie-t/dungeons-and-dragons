@@ -53,6 +53,8 @@ public:
 	string toString();
 	string enhancementString();
 
+	int getEnhancement(string bonus);
+
 private:
 	int id;
 	string type;

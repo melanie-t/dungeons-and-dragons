@@ -88,21 +88,15 @@ public:
 	ItemContainer getBackpack();
 
 	bool gameover = false;
-	void equipItem(Item item);
-	void removeHelmet();
-	void removeArmor();
-	void removeBelt();
-	void removeBoots();
-	void removeShield();
-	void removeWeapon();
-	void removeRing();
 
 	void displayStats();
 	string statString();
 	string classtoString();
 	void saveCharacter();
 	static Character* loadCharacter(string name);
-	void setEquips(Item equips[7]);
+	//void setEquips(Item equips[7]);
+	//Item* getEquips();
+
 	//string retrieveGender();
 	//void setExtraPoints();
 
@@ -123,6 +117,24 @@ public:
 	int attack(int attackRoll);
 
 	string getCharacterType();
+
+	Item* getEquip(string type);
+	void equip(Item* item);
+	void unequip(Item* item);
+
+	void setEnh(string type, int bonus);
+	void initEnh();
+
+	//bool setEquipped(string item);
+	//bool getEquipped(string item);
+
+	//Decorator pattern virtual methods
+	//virtual int totalSTR() = 0;
+	//virtual int totalDEX() = 0;
+	//virtual int totalCON() = 0;
+	//virtual int totalINTEL() = 0;
+	//virtual int totalWIS() = 0;
+	//virtual int totalCHA() = 0;
 
 private:
 	int abilityScores[6];
@@ -152,4 +164,8 @@ private:
 
 	sf::Texture* characterTexture;
 	sf::Sprite* characterSprite;
+
+protected:
+	int enh_str, enh_dex, enh_con, enh_int, enh_wis, enh_cha, enh_armorclass, enh_damagebonus, enh_attackbonus;
 };
+

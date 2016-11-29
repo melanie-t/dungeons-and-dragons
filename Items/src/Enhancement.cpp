@@ -55,6 +55,6 @@ string Enhancement::toString()
 {
 	std::ostringstream out;
 	if (!(type.compare("") == 0))
-		out << type << ": " << bonus << endl;	
+		out << type << ": " << bonus << " | ";	
 	return out.str();
 }
