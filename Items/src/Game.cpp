@@ -448,6 +448,9 @@ bool Game::update(sf::Event* evt){
 		//This is where looting items
 		//For enemies or chests would go 
 		// *******************************************
+		// use character->blahblah .......... for accessing characters
+		// each character takes turns in this update method.
+		// Be nice. Let everyone loot.
 		break;
 	}
 	}
