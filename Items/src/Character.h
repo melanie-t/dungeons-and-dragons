@@ -8,10 +8,12 @@
 *	2. Ability scores range from 3 to 18
 *	3. Ability modifiers are calculated as (abilityScore-10)/2
 *	4. Secondary stats are calculated using ability modifiers (armor class, hit points, attack bonus, damage bonus)
-*		4a. Armor Class is calculated as the Dexterity Modifier
-*		4b. Hit Points are calculated as 10 + Dexterity Modifier * Level
-*		4c. Attack Bonus is calculated as Level * (Strength Modifier + Dexterity Modifier), all divided by 5
-*		4d. Damage Bonus is calculated as the Strength Modifier
+*		4a. Armor Class is calculated as the 10 + armor bonus + shield bonus + Dexterity modifier
+*		4b. Hit Points are calculated at level 1 as 10 + Constitution modifier. Any level after that is 1d10 + Constitution Modifier
+*		4c. Attack Bonus (AB) increases as characters level up (+1, +2, +3, +4, +5, etc.)
+*			see http://www.dandwiki.com/wiki/SRD:Fighter
+*		4d. Number of Attacks increase every 5 levels (LV 1-5: 1 ATT. LV 6-10: 2 ATT., etc.)
+*		4e. Damage Bonus is calculated as the Strength Modifier
 *	5. Ability to equip items
 * 
 * In order to generate random ability scores, I used the rand() and srand() function from <stdlib.h> coupled with time from <time.h>.
