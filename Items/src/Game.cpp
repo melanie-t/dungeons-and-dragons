@@ -120,7 +120,7 @@ bool Game::validate(int start, int end)
 //! @return true if game window was initialized successfully
 bool Game::init()
 {
-	window = new sf::RenderWindow(sf::VideoMode(m_map->getWidth() * 32, m_map->getLength() * 32 + 250), "D&D 2.0");
+	window = new sf::RenderWindow(sf::VideoMode(m_map->getWidth() * 32 + 250, m_map->getLength() * 32 + 250), "D&D 2.0");
 	//Puts the window at the top left of the monitor screen
 	window->setPosition(sf::Vector2i(0, 0));
 	//Prevent multiple key presses
@@ -161,6 +161,7 @@ bool Game::processInput()
 bool Game::update(sf::Event* evt)
 {
 	Character* character = m_map->getTurn();
+	int attackNum = 0;
 
 	if (character == m_map->getPlayer() && evt == nullptr)
 	{
@@ -406,6 +407,7 @@ bool Game::update(sf::Event* evt)
 			//Target character is in range. Must be 1 tile away.
 			if (distance <= 1)
 			{
+				attackNum++;
 				Dice dice;
 				int d20 = dice.roll("1d20");
 				int attackRoll = character->attackRoll(d20);
@@ -457,6 +459,11 @@ bool Game::update(sf::Event* evt)
 							endGame(); // Game over.
 						}
 					}
+				}
+				if (attackNum == (1 + character->getLevel() % 5))
+				{
+					m_map->nextTurn();
+					break;
 				}
 			}
 		}
