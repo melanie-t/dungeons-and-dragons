@@ -1,7 +1,12 @@
+//! @file ItemDecorator.h 
+//! @brief Header file for the ItemDecorator class  
+//!
+
 #pragma once
 #include "Character.h"
 #include "Item.h"
 
+// Class that implements Decorator pattern for equipping items in Characters
 class ItemDecorator : public Character {
 
 protected:

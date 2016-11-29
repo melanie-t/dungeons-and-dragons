@@ -85,56 +85,35 @@ public:
 	int getCharClass();
 	void setCharClass(int classOfChar);
 	void levelUp();
-	ItemContainer getBackpack();
-
-	bool gameover = false;
 
 	void displayStats();
 	string statString();
 	string classtoString();
 	void saveCharacter();
 	static Character* loadCharacter(string name);
-	//void setEquips(Item equips[7]);
-	//Item* getEquips();
 
-	//string retrieveGender();
-	//void setExtraPoints();
-
-	bool isHoldingWeapon(){ return this->weaponEquipped; }
-
-	Strategy* getStrategy();
-	void setStrategy(Strategy* strat);
-
-	pos getPosition();
-	void setPosition(int x, int y);
-
-	void move(PlayerMove move);
-	void changeSprite(PlayerMove move);
-
-	sf::Sprite* getSprite() { return this->characterSprite; }
-
-	int attackRoll(int d20);
-	int attack(int attackRoll);
-
-	string getCharacterType();
-
+	//Methods for Item
+	ItemContainer getBackpack();
+	void setEquips(Item equips[7]);
 	Item* getEquip(string type);
 	void equip(Item* item);
 	void unequip(Item* item);
-
 	void setEnh(string type, int bonus);
 	void initEnh();
 
-	//bool setEquipped(string item);
-	//bool getEquipped(string item);
+	//Methods for Strategy
+	bool isHoldingWeapon(){ return this->weaponEquipped; }
+	Strategy* getStrategy();
+	void setStrategy(Strategy* strat);
+	pos getPosition();
+	void setPosition(int x, int y);
+	void move(PlayerMove move);
+	void changeSprite(PlayerMove move);
+	sf::Sprite* getSprite() { return this->characterSprite; }
+	int attackRoll(int d20);
+	int attack(int attackRoll);
+	string getCharacterType();
 
-	//Decorator pattern virtual methods
-	//virtual int totalSTR() = 0;
-	//virtual int totalDEX() = 0;
-	//virtual int totalCON() = 0;
-	//virtual int totalINTEL() = 0;
-	//virtual int totalWIS() = 0;
-	//virtual int totalCHA() = 0;
 
 private:
 	int abilityScores[6];
@@ -144,6 +123,7 @@ private:
 	int attackBonus;
 	int damageBonus;
 	int charClass;
+	bool gameover = false;
 	
 	bool helmetEquipped = false,
 		armorEquipped = false,
