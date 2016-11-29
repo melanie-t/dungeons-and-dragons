@@ -102,6 +102,8 @@ public:
 	void unequip(Item* item);
 	void setEnh(string type, int bonus);
 	void initEnh();
+	void setEquipTF(Item* item, bool T_F);
+	bool isEquipped(Item* item);
 
 	//Methods for Strategy
 	bool isHoldingWeapon(){ return this->weaponEquipped; }

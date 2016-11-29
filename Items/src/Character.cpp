@@ -941,6 +941,64 @@ void Character::initEnh()
 	enh_damagebonus = 0;
 }
 
+//! setEquipTF function
+//! sets the item's itemEquipped value as true or false, depending on parameter
+//! @param item : item that is being modified
+//! @param boolean : true represents the item as equipped and false represents the item as unequipped
+void Character::setEquipTF(Item* item, bool T_F)
+{
+	string type = item->getType();
+	if (type == TYPE_HELMET)
+		helmetEquipped = T_F;
+
+	else if (type == TYPE_SHIELD)
+		shieldEquipped = T_F;
+
+	else if (type == TYPE_RING)
+		ringEquipped = T_F;
+
+	else if (type == TYPE_ARMOR)
+		armorEquipped = T_F;
+
+	else if (type == TYPE_BELT)
+		beltEquipped = T_F;
+
+	else if (type == TYPE_BOOTS)
+		bootsEquipped = T_F;
+
+	else if (type == TYPE_WEAPON)
+		weaponEquipped = T_F;
+}
+
+//! isEquipped function
+//! checks if the item type passed as a parameter is already equipped
+//! @param item : item that is being checked if it's already worn
+//! @return true if it is already equipped, false otherwise
+bool Character::isEquipped(Item* item)
+{
+	string type = item->getType();
+	if (type == TYPE_HELMET)
+		return helmetEquipped;
+
+	else if (type == TYPE_SHIELD)
+		return shieldEquipped;
+
+	else if (type == TYPE_RING)
+		return ringEquipped;
+
+	else if (type == TYPE_ARMOR)
+		return armorEquipped;
+
+	else if (type == TYPE_BELT)
+		return beltEquipped;
+
+	else if (type == TYPE_BOOTS)
+		return bootsEquipped;
+
+	else if (type == TYPE_WEAPON)
+		return weaponEquipped;
+}
+
 //! getStrategy function
 //! @brief returns character strategy.
 Strategy* Character::getStrategy() {

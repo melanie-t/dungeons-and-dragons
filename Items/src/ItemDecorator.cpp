@@ -75,7 +75,7 @@ int ItemDecorator::getDamageBonus(){
 void ItemDecorator::wear(Item* item) 
 {
 	// Item not equipped
-	if (!itemEquipped(item))
+	if (!isEquipped(item))
 	{
 		decoratedCharacter->equip(item);
 		setEquipTF(item, true);
@@ -97,71 +97,13 @@ void ItemDecorator::wear(Item* item)
 	}
 }
 
-//! itemEquipped function
-//! checks if the item type passed as a parameter is already equipped
-//! @param item : item that is being checked if it's already worn
-//! @return true if it is already equipped, false otherwise
-bool ItemDecorator::itemEquipped(Item* item)
-{
-	string type = item->getType();
-	if (type == TYPE_HELMET)
-		return helmetEquipped;
-
-	else if (type == TYPE_SHIELD)
-		return shieldEquipped;
-
-	else if (type == TYPE_RING)
-		return ringEquipped;
-
-	else if (type == TYPE_ARMOR)
-		return armorEquipped;
-
-	else if (type == TYPE_BELT)
-		return beltEquipped;
-
-	else if (type == TYPE_BOOTS)
-		return bootsEquipped;
-
-	else if (type == TYPE_WEAPON)
-		return weaponEquipped;
-}
-
-//! setEquipTF function
-//! sets the item's itemEquipped value as true or false, depending on parameter
-//! @param item : item that is being modified
-//! @param boolean : true represents the item as equipped and false represents the item as unequipped
-void ItemDecorator::setEquipTF(Item* item, bool boolean)
-{
-	string type = item->getType();
-	if (type == TYPE_HELMET)
-		helmetEquipped = boolean;
-
-	else if (type == TYPE_SHIELD)
-		shieldEquipped = boolean;
-
-	else if (type == TYPE_RING)
-		ringEquipped = boolean;
-
-	else if (type == TYPE_ARMOR)
-		armorEquipped = boolean;
-
-	else if (type == TYPE_BELT)
-		beltEquipped = boolean;
-
-	else if (type == TYPE_BOOTS)
-		bootsEquipped = boolean;
-
-	else if (type == TYPE_WEAPON)
-		weaponEquipped = boolean;
-}
-
 //! remove function
 //! unequips the item passed as a parameter
 //! @param item : item that will be unequiped
 void ItemDecorator::remove(Item* item)
 {
 	// Item equipped
-	if (itemEquipped(item))
+	if (isEquipped(item))
 	{
 		cout << "\n------------------------------------------------" << endl;
 		cout << item->getType() << " removed !" << endl;
