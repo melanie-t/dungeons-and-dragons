@@ -805,6 +805,8 @@ Character* Character::loadCharacter(string name)
 						int id = atoi(xml.GetData().c_str());
 						if (id != 0)
 							equips[i] = *Item::load(id);
+						else // id = 0, empty
+							equips[i] = Item();
 						i++;
 					}
 					xml.OutOfElem();
@@ -828,8 +830,14 @@ void Character::setEquips(Item newEquips[7])
 	}
 }
 
+//! getEquips function
+//! @return : Pointer to Item array of size 7 with equips
+Item* Character::getEquips()
+{
+	return equips;
+}
 
-Item* Character::getEquip(string equip)
+Item* Character::getEquipType(string equip)
 {
 	if (equip.compare("armor") == 0)
 		return &equips[Equip::ARMOR];
