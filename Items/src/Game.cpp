@@ -719,17 +719,17 @@ void Game::render()
 	window->draw(enemyStatsBox);
 	window->draw(text);
 	window->draw(enemyStats);
-	window->draw(equipBox);
-	window->draw(inventoryBox);
 
 	if (this->equipOpen)
 	{
+		window->draw(equipBox);
 		window->draw(equipText);
 		window->draw(equipWindow);
-		window->draw(equipBox);
+
 	}
 	if (this->inventoryOpen)
 	{
+		window->draw(inventoryBox);
 		window->draw(inventoryText);
 		window->draw(inventoryWindow);
 	}
