@@ -2,7 +2,7 @@
 	<id>1</id>
 	<type>armor</type>
 	<level>1</level>
-	<path>LoadTest_1.png</path>
+	<path>res/armor/3.png</path>
 	<influence>
 		<enhancement>
 			<enh_type>armorclass</enh_type>
