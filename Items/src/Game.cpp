@@ -723,18 +723,24 @@ void Game::addItems()
 //! loads the items currently equipped by Character
 void Game::addEquips()
 {
-	Item *equipPointer[7];
-	*equipPointer = (m_map->getPlayer()->getEquips());
+	vector <Item> items;
+	for (int i = 0; i < 7; i++)
+	{
+		items.push_back(*m_map->getPlayer()->getEquipAtIndex(i));
+	}
 
 	for (int i = 0; i < 7; i++)
 	{
+		Item* equipPointer;
+		equipPointer = m_map->getPlayer()->getEquipAtIndex(i);
+
 		// If an item is equipped, then load sprite to GUI
-		if (equipPointer[i]->getID() != 0)
+		if (items[i].getID() != 0)
 		{
 			sf::Texture texture;
-			texture.loadFromFile(equipPointer[i]->getItemPath());
+			texture.loadFromFile(items[i].getItemPath());
 			equipSprite[i].setTexture(texture);
-			
+
 			// Switch statement will set the sprite position depending on which item it is
 			switch (i)
 			{
@@ -782,8 +788,8 @@ void Game::addEquips()
 			}
 			default:
 				break;
-			} // end switch	
-		} // end if statement	
+			} // end switch
+		}
 	} // end for loop
 }
 

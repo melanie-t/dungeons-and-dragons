@@ -837,6 +837,11 @@ Item* Character::getEquips()
 	return equips;
 }
 
+Item* Character::getEquipAtIndex(int i)
+{
+	return &equips[i];
+}
+
 Item* Character::getEquipType(string equip)
 {
 	if (equip.compare("armor") == 0)

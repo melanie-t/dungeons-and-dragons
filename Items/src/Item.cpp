@@ -11,7 +11,7 @@
 #include <time.h>
 
 //! default constructor
-Item::Item() : Item(0, "", vector<Enhancement>(), "")
+Item::Item() : Item(0, "", vector<Enhancement>(), "res/0.png")
 {
 }
 

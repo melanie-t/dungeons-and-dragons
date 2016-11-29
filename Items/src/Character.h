@@ -99,6 +99,7 @@ public:
 	void addBackpack(Item* item);
 	void setEquips(Item equips[7]);
 	Item* getEquips();
+	Item* getEquipAtIndex(int i);
 	Item* getEquipType(string type);
 	void equip(Item* item);
 	void unequip(Item* item);
@@ -119,7 +120,6 @@ public:
 	int attackRoll(int d20);
 	int attack(int attackRoll);
 	string getCharacterType();
-
 
 private:
 	int abilityScores[6];
