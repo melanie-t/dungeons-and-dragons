@@ -88,6 +88,15 @@ Enemy* Enemy::randomize(Character* player)
 	{
 		cha = 18;
 	}
+	
+	Enemy* newEnemy = new Enemy(player->getLevel(), str, dex, con, intel, wis, cha);
 
-	return new Enemy(player->getLevel(), str, dex,con,intel,wis,cha);
+	int r = rand() % 2; 
+	//50/50 chance of enemy have an item.
+	if (r == 0)
+	{
+		newEnemy->addBackpack(Item::randommize(newEnemy->getLevel()));
+	}
+
+	return newEnemy;
 }
