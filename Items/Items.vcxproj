@@ -100,6 +100,7 @@
     <ClInclude Include="src\HumanPlayerStrategy.h" />
     <ClInclude Include="src\Item.h" />
     <ClInclude Include="src\ItemContainer.h" />
+    <ClInclude Include="src\ItemDecorator.h" />
     <ClInclude Include="src\ItemPanel.h" />
     <ClInclude Include="src\ItemTypes.h" />
     <ClInclude Include="src\Map.h" />
@@ -141,6 +142,7 @@
     <ClCompile Include="src\HumanPlayerStartegy.cpp" />
     <ClCompile Include="src\Item.cpp" />
     <ClCompile Include="src\ItemContainer.cpp" />
+    <ClCompile Include="src\ItemDecorator.cpp" />
     <ClCompile Include="src\ItemPanel.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Map.cpp" />
