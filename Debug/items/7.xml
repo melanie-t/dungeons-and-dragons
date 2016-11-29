@@ -1,0 +1,15 @@
+<item>
+<id>7</id>
+<type>belt</type>
+<path>res/ring/4.png</path>
+<influence>
+	<enhancement>
+		<enh_type>strength</enh_type>
+		<bonus>5</bonus>
+	</enhancement>
+	<enhancement>
+		<enh_type>constitution</enh_type>
+		<bonus>5</bonus>
+	</enhancement>
+</influence>
+</item>
