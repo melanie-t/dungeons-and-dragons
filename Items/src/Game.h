@@ -11,7 +11,6 @@
 
 #include <SFML\Graphics.hpp>
 #include "TileMap.h"
-#include "ItemPanel.h"
 #include "Map.h"
 #include <iostream>
 #include <vector>
