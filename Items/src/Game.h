@@ -25,6 +25,7 @@ private:
 	sf::Sprite equipWindow;
 	sf::Sprite inventoryWindow;
 	sf::Sprite inventorySprite[24];
+	sf::Sprite equipSprite[7];
 	sf::Texture equipTexture;
 	sf::Texture inventoryTexture;
 
@@ -61,6 +62,9 @@ private:
 
 	//Add items to GUI
 	void addItems();
+
+	//Add equips to GUI
+	void addEquips();
 
 	//Draw onto the game
 	void render();

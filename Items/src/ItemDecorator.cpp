@@ -139,7 +139,7 @@ void ItemDecorator::removeEnh(string enh)
 //! @param statUpdate : true if item is being equipped, false if item is being unequipped
 void ItemDecorator::update(Item* item, bool statUpdate)
 {
-	equip = decoratedCharacter->getEquip(item->getType());
+	equip = decoratedCharacter->getEquipType(item->getType());
 
 	// Equip added: update stats
 	if (statUpdate)

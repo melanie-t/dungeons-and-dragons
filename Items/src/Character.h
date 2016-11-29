@@ -98,7 +98,8 @@ public:
 	ItemContainer getBackpack();
 	void addBackpack(Item* item);
 	void setEquips(Item equips[7]);
-	Item* getEquip(string type);
+	Item* getEquips();
+	Item* getEquipType(string type);
 	void equip(Item* item);
 	void unequip(Item* item);
 	void setEnh(string type, int bonus);

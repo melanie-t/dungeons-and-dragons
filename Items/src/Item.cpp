@@ -629,7 +629,7 @@ Item* Item::load(int id)
 
 			xml.OutOfElem(); // out of <item> element
 		}
-		return nullptr; //return null
+		//return nullptr; //return null
 	}
 	else
 	{

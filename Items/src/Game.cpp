@@ -726,6 +726,74 @@ void Game::addItems()
 	}
 }
 
+//! addEquips function
+//! loads the items currently equipped by Character
+void Game::addEquips()
+{
+	Item *equipPointer[7];
+	*equipPointer = (m_map->getPlayer()->getEquips());
+
+	for (int i = 0; i < 7; i++)
+	{
+		// If an item is equipped, then load sprite to GUI
+		if (equipPointer[i]->getID() != 0)
+		{
+			sf::Texture texture;
+			texture.loadFromFile(equipPointer[i]->getItemPath());
+			equipSprite[i].setTexture(texture);
+			
+			// Switch statement will set the sprite position depending on which item it is
+			switch (i)
+			{
+			case 0: //helmet
+			{
+				equipSprite[i].setPosition(341 + 48, height * 32 + 45 + 4);
+				window->draw(equipSprite[i]);
+				break;
+			}
+			case 1: //armor
+			{
+				equipSprite[i].setPosition(341 + 85, height * 32 + 45 + 42);
+				window->draw(equipSprite[i]);
+				break;
+			}
+			case 2: //belt
+			{
+				equipSprite[i].setPosition(341 + 10, height * 32 + 45 + 108);
+				window->draw(equipSprite[i]);
+				break;
+			}
+			case 3: //boots
+			{
+				equipSprite[i].setPosition(341 + 47, height * 32 + 45 + 121);
+				window->draw(equipSprite[i]);
+				break;
+			}
+			case 4: //shield
+			{
+				equipSprite[i].setPosition(341 + 10, height * 32 + 45 + 68);
+				window->draw(equipSprite[i]);
+				break;
+			}
+			case 5: //weapon
+			{
+				equipSprite[i].setPosition(341 + 85, height * 32 + 45 + 84);
+				window->draw(equipSprite[i]);
+				break;
+			}
+			case 6: //ring
+			{
+				equipSprite[i].setPosition(341 + 10, height * 32 + 45 + 28);
+				window->draw(equipSprite[i]);
+				break;
+			}
+			default:
+				break;
+			} // end switch	
+		} // end if statement	
+	} // end for loop
+}
+
 //! render function
 //! @brief Draws everything onto the window
 void Game::render()
@@ -753,7 +821,7 @@ void Game::render()
 		window->draw(equipBox);
 		window->draw(equipText);
 		window->draw(equipWindow);
-
+		addEquips();
 	}
 	if (this->inventoryOpen)
 	{
