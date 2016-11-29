@@ -7,7 +7,8 @@
 #include "Item.h"
 
 // Class that implements Decorator pattern for equipping items in Characters
-class ItemDecorator : public Character {
+class ItemDecorator : public Character 
+{
 
 protected:
 	Character* decoratedCharacter;

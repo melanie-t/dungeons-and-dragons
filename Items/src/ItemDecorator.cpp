@@ -11,61 +11,71 @@ ItemDecorator::ItemDecorator()
 
 //! Constructor that initializes ItemDecorated to the Character pointer passed as a parameter
 //! @param decorator : Pointer to Character
-ItemDecorator::ItemDecorator(Character *decorator) {
+ItemDecorator::ItemDecorator(Character *decorator)
+{
 	this->decoratedCharacter = decorator;
 }
 
 //! Implementation of a getter method for strength
 //! @return int: value of decoratedCharacter's strength
-int ItemDecorator::getSTR() { 
+int ItemDecorator::getSTR()
+{ 
 	return decoratedCharacter->getSTR(); 
 }
 
 //! Implementation of a getter method for constitution
 //! @return int: value of decoratedCharacter's constitution
-int ItemDecorator::getCON() {
+int ItemDecorator::getCON()
+{
 	return decoratedCharacter->getCON();
 }
 
 //! Implementation of a getter method for dexterity
 //! @return int: value of decoratedCharacter's dexterity
-int ItemDecorator::getDEX() {
+int ItemDecorator::getDEX()
+{
 	return decoratedCharacter->getDEX();
 }
 
 //! Implementation of a getter method for wisdom
 //! @return int: value of decoratedCharacter's wisdom
-int ItemDecorator::getWIS() {
+int ItemDecorator::getWIS()
+{
 	return decoratedCharacter->getWIS();
 }
 
 //! Implementation of a getter method for intelligence
 //! @return int: value of decoratedCharacter's intelligence
-int ItemDecorator::getINTEL() {
+int ItemDecorator::getINTEL()
+{
 	return decoratedCharacter->getINTEL();
 }
 
 //! Implementation of a getter method for charisma
 //! @return int: value of decoratedCharacter's charisma
-int ItemDecorator::getCHA() {
+int ItemDecorator::getCHA()
+{
 	return decoratedCharacter->getCHA();
 }
 
 //! Implementation of a getter method for armorclass
 //! @return int: value of decoratedCharacter's armorclass
-int ItemDecorator::getArmorClass(){
+int ItemDecorator::getArmorClass()
+{
 	return decoratedCharacter->getArmorClass();
 }
 
 //! Implementation of a getter method for attackbonus
 //! @return int: value of decoratedCharacter's attackbonus
-int ItemDecorator::getAttackBonus(){
+int ItemDecorator::getAttackBonus()
+{
 	return decoratedCharacter->getAttackBonus();
 }
 
 //! Implementation of a getter method for damagebonus
 //! @return int: value of decoratedCharacter's damagebonus
-int ItemDecorator::getDamageBonus(){
+int ItemDecorator::getDamageBonus()
+{
 	return decoratedCharacter->getDamageBonus();
 }
 

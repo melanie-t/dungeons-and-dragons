@@ -6,7 +6,8 @@
 //circular reference between Observer and Subject
 class Observable;
 
-class Observer {
+class Observer 
+{
 public:
 	virtual ~Observer();
 	virtual void update() = 0;

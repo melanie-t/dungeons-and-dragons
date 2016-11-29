@@ -21,7 +21,8 @@
 //! @param tileWidth : width of the tile used
 //! @param tileHeight : height of the tiled used
 //! @param map : Map object that we are loading
-Game::Game(unsigned int tileWidth, unsigned int tileHeight, Map* map){
+Game::Game(unsigned int tileWidth, unsigned int tileHeight, Map* map)
+{
 	this->width = tileWidth;
 	this->height = tileHeight;
 	this->level = map->outputMap();
@@ -33,7 +34,8 @@ Game::Game(unsigned int tileWidth, unsigned int tileHeight, Map* map){
 
 //! Deconstructor for Game class
 //! @brief Deletes the window and map
-Game::~Game(){
+Game::~Game()
+{
 	//Destroys the window & map
 	delete window;
 	//delete m_map;
@@ -42,12 +44,15 @@ Game::~Game(){
 //! validMap function
 //! @brief tells us if the map created is valid or not (based on conditions))
 //! @return true if the map is valid/fulfills conditions
-bool Game::validMap(){
+bool Game::validMap()
+{
 	int startPoint = -1;
 	int endPoint = -1;
 	//finds the starting point in the array
-	for (unsigned int i = 0; i < level.size(); ++i){
-		if (level[i] == TileTypes::START){
+	for (unsigned int i = 0; i < level.size(); ++i)
+	{
+		if (level[i] == TileTypes::START)
+		{
 			startPoint = i;
 			break;
 		}
@@ -56,10 +61,13 @@ bool Game::validMap(){
 	{
 		return false;
 	}
-	else{
+	else
+	{
 		//Finds the ending point in the array
-		for (unsigned int i = 0; i < level.size(); ++i){
-			if (level[i] == TileTypes::END){
+		for (unsigned int i = 0; i < level.size(); ++i)
+		{
+			if (level[i] == TileTypes::END)
+			{
 				endPoint = i;
 				break;
 			}
@@ -68,7 +76,8 @@ bool Game::validMap(){
 		{
 			return false;
 		}
-		else{
+		else
+		{
 			return validate(startPoint, endPoint);
 		}
 	}
@@ -79,7 +88,8 @@ bool Game::validMap(){
 //! @param start : beginning of map
 //!	@param end : end of map
 //! @return true if the map is valid
-bool Game::validate(int start, int end){
+bool Game::validate(int start, int end)
+{
 	if (start == end)
 		return true;
 	//checks if its out of bounds
@@ -98,7 +108,8 @@ bool Game::validate(int start, int end){
 		return false;
 	}
 	//Else checks right,left,top,bottom
-	else{
+	else
+	{
 		positionChecked.push_back(start);
 		return validate(start + 1, end) || validate(start - 1, end) || validate(start - width, end) || validate(start + width, end);
 	}
@@ -107,7 +118,8 @@ bool Game::validate(int start, int end){
 //! init function
 //! @brief intializes the game window 
 //! @return true if game window was initialized successfully
-bool Game::init(){
+bool Game::init()
+{
 	window = new sf::RenderWindow(sf::VideoMode(m_map->getWidth() * 32, m_map->getLength() * 32 + 250), "D&D 2.0");
 	//Puts the window at the top left of the monitor screen
 	window->setPosition(sf::Vector2i(0, 0));
@@ -120,12 +132,14 @@ bool Game::init(){
 
 //! processInput function
 //! @brief keeps track of event where X is pressed to close window
-bool Game::processInput(){
+bool Game::processInput()
+{
 	//To close the window with x
 	sf::Event evt;
 	bool process = false;
 	//In case there were several events happenning
-	while (window->pollEvent(evt)){
+	while (window->pollEvent(evt))
+	{
 		if (evt.type == sf::Event::Closed)
 		{
 			window->close();
@@ -144,7 +158,8 @@ bool Game::processInput(){
 //! Will not walk through wall, water, tree
 //! Opens chest once
 //! @param evt : event from sfml class
-bool Game::update(sf::Event* evt){
+bool Game::update(sf::Event* evt)
+{
 	Character* character = m_map->getTurn();
 
 	if (character == m_map->getPlayer() && evt == nullptr)
@@ -155,7 +170,8 @@ bool Game::update(sf::Event* evt){
 	//Register what was the last key released
 	if (evt != nullptr)
 	{
-		if (evt->type == sf::Event::KeyReleased){
+		if (evt->type == sf::Event::KeyReleased)
+		{
 			lastKey = evt->key.code;
 		}
 	}
@@ -191,7 +207,8 @@ bool Game::update(sf::Event* evt){
 			break;
 		else if (level[currentPos - width] == TileTypes::CHEST) //9 is item/chest
 		{
-			if (!openedChest) {
+			if (!openedChest) 
+			{
 				Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
 				openedChest = true;
 			}
@@ -236,7 +253,8 @@ bool Game::update(sf::Event* evt){
 			break;
 		else if (level[currentPos + width] == TileTypes::CHEST) //9 is item/chest
 		{
-			if (!openedChest) {
+			if (!openedChest) 
+			{
 				Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
 				openedChest = true;
 			}
@@ -281,7 +299,8 @@ bool Game::update(sf::Event* evt){
 			break;
 		else if (level[currentPos - 1] == TileTypes::CHEST) //9 is item/chest
 		{
-			if (!openedChest) {
+			if (!openedChest) 
+			{
 				Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
 				openedChest = true;
 			}
@@ -333,7 +352,8 @@ bool Game::update(sf::Event* evt){
 		}
 		else if (level[currentPos + 1] == TileTypes::CHEST) //9 is item/chest
 		{
-			if (!openedChest) {
+			if (!openedChest) 
+			{
 				Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
 				openedChest = true;
 			}
@@ -540,7 +560,8 @@ void Game::endGame()
 	//window->display();
 	ended = true;
 
-	while (window->isOpen()){
+	while (window->isOpen())
+	{
 		window->clear();
 
 		text.setString(m_map->getPlayer()->statString());
@@ -564,11 +585,14 @@ void Game::endGame()
 //! @brief loads up the sprites for the map 
 //! Player sprite and map sprites
 //! Exits if unable to load either
-void Game::loadTextures(){
+void Game::loadTextures()
+{
 	//Sets the player to the starting position
 	int currentPos = -1;
-	for (int i = 0; i < width * height; ++i){
-		if (level[i] == TileTypes::START){
+	for (int i = 0; i < width * height; ++i)
+	{
+		if (level[i] == TileTypes::START)
+		{
 			currentPos = i;
 			break;
 		}
@@ -594,9 +618,11 @@ void Game::loadTextures(){
 //! @brief Initializes text that displays in Game GUI
 //! Loads font and intializes text for character stats display
 //! Creates textbox with white background for character stats display
-void Game::createText(){
+void Game::createText()
+{
 	//Loads the text's fonts
-	if (!font.loadFromFile("font.ttf")){
+	if (!font.loadFromFile("font.ttf"))
+	{
 		std::cout << "Loading fonts failed" << std::endl;
 		EXIT_FAILURE;
 	}
@@ -674,7 +700,8 @@ void Game::createText(){
 
 //! render function
 //! @brief Draws everything onto the window
-void Game::render(){
+void Game::render()
+{
 	//currentPosition.setString("Current position: " + std::to_string((currentPos - 1) % width));
 	window->draw(map);
 	window->draw(*this->m_map->getPlayer()->getSprite());
@@ -712,8 +739,10 @@ void Game::render(){
 
 //! mainLoop function
 //! @brief Runs program while window is open
-void Game::mainLoop(){
-	while (window->isOpen()){
+void Game::mainLoop()
+{
+	while (window->isOpen())
+	{
 		window->clear();
 		render();
 		if (!processInput())
@@ -726,15 +755,18 @@ void Game::mainLoop(){
 
 //! go function
 //! @brief Checks if the map is valid and able to open window
-void Game::go(){
+void Game::go()
+{
 	if (!init())
 		throw "Could not initialize the window";
-	if (validMap()){
+	if (validMap())
+	{
 		//Loads the textures to use them first
 		loadTextures();
 		mainLoop();
 	}
-	else{
+	else
+	{
 		std::cout << "Invalid Map";
 		EXIT_FAILURE;
 	}

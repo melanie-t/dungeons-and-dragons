@@ -38,16 +38,19 @@ void runGame(Map* chosenMap)
 
 	Game* game = new Game(chosenMap->getWidth(), chosenMap->getLength(), chosenMap);
 
-	try {
+	try 
+	{
 		game->go();
 	}
-	catch (char* e) {
+	catch (char* e) 
+	{
 		MessageBoxA(NULL, e, "EXCEPTION OCCURED", MB_OK | MB_ICONERROR);
 	}
 	runGameThread.detach();
 }
 
-inline void toLower(basic_string<char>& s) {
+inline void toLower(basic_string<char>& s)
+{
 	for (basic_string<char>::iterator p = s.begin(); p != s.end(); ++p) 
 	{
 		*p = tolower(*p);
@@ -308,7 +311,8 @@ int main()
 					fighterPointer = Character::loadCharacter(name);
 
 					// Select modifying category
-					while (modifycontinue) {
+					while (modifycontinue) 
+					{
 						fighterPointer->notify();
 						cout << "Which category do you wish to modify?"
 							<< "\n1. STR (Strength)"
@@ -320,13 +324,15 @@ int main()
 							<< "\n7. Name"
 							<< "\n8. Exit to previous menu" << endl;
 						cin >> modifycmd;
-						switch (modifycmd) {
+						switch (modifycmd)
+						{
 						case 1: //STR
 						{
 							int value;
 							cout << "Enter new STR value:" << endl;
 							cin >> value;
-							if (value >= 3 && value <= 18) {
+							if (value >= 3 && value <= 18)
+							{
 								fighterPointer->setSTR(value);
 								change = true;
 							}
@@ -340,7 +346,8 @@ int main()
 							int value;
 							cout << "Enter new DEX value:" << endl;
 							cin >> value;
-							if (value >= 3 && value <= 18) {
+							if (value >= 3 && value <= 18)
+							{
 								fighterPointer->setDEX(value);
 								change = true;
 							}
@@ -354,7 +361,8 @@ int main()
 							int value;
 							cout << "Enter new CON value:" << endl;
 							cin >> value;
-							if (value >= 3 && value <= 18) {
+							if (value >= 3 && value <= 18)
+							{
 								fighterPointer->setCON(value);
 								change = true;
 							}
@@ -368,7 +376,8 @@ int main()
 							int value;
 							cout << "Enter new INT value:" << endl;
 							cin >> value;
-							if (value >= 3 && value <= 18) {
+							if (value >= 3 && value <= 18)
+							{
 								fighterPointer->setINTEL(value);
 								change = true;
 							}
@@ -382,7 +391,8 @@ int main()
 							int value;
 							cout << "Enter new WIS value:" << endl;
 							cin >> value;
-							if (value >= 3 && value <= 18) {
+							if (value >= 3 && value <= 18)
+							{
 								fighterPointer->setWIS(value);
 								change = true;
 							}
@@ -396,7 +406,8 @@ int main()
 							int value;
 							cout << "Enter new CHA value:" << endl;
 							cin >> value;
-							if (value >= 3 && value <= 18) {
+							if (value >= 3 && value <= 18)
+							{
 								fighterPointer->setCHA(value);
 								change = true;
 							}
@@ -423,7 +434,8 @@ int main()
 					} //end modify ability while loop
 
 					//Asks user to save stats if change has occured
-					if (change) {
+					if (change)
+					{
 						cout << "Would you like to save your new stats (Y/N)?" << endl;
 						cin >> save;
 						if (save == 'Y' || save == 'y')

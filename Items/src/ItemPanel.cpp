@@ -136,7 +136,8 @@ void ItemPanel::createInventories()
 		sf::Event event;
 		while (window.pollEvent(event) || equipWindow.pollEvent(event))
 		{
-			if (event.type == sf::Event::Closed) {
+			if (event.type == sf::Event::Closed) 
+			{
 				window.close();
 				equipWindow.close();
 			}
@@ -147,7 +148,8 @@ void ItemPanel::createInventories()
 				if (event.key.code == sf::Keyboard::Num1 || event.key.code == sf::Keyboard::Numpad1)
 				{
 					//When it's empty, set it to item
-					if (armor.getTextureRect() == empty.getTextureRect()) {
+					if (armor.getTextureRect() == empty.getTextureRect()) 
+					{
 						armor.setTextureRect(IntRect(0, 0, 70, 70));
 						armorEquip.setTexture(emptySlots);
 					}

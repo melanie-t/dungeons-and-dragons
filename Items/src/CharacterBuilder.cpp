@@ -5,12 +5,14 @@
 
 //! method to get the built Character from the builder
 //! @return : Character* type of the characterBuilder
-Character* CharacterBuilder::getCharacter(){
+Character* CharacterBuilder::getCharacter()
+{
 	return m_character;
 }
 
 //! method to build generic Empty Character
-void CharacterBuilder::createNewCharacter(){
+void CharacterBuilder::createNewCharacter()
+{
 	m_character = new Character;
 }
 

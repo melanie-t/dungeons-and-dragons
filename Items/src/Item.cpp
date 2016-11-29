@@ -45,7 +45,8 @@ Item::Item(int id, string type_name, vector<Enhancement> influences, string path
 //! Empties the enhacement container
 Item::~Item()
 {
-	while (!influence.empty()) {
+	while (!influence.empty())
+	{
 		//delete influence.back();
 		influence.pop_back();
 	}
@@ -253,17 +254,19 @@ bool Item::saveItem()
 	xml.AddElem("id", id);
 	xml.AddElem("type", this->type);
 	xml.AddElem("path", this->itemPath);
-		xml.AddElem("influence");
+	xml.AddElem("influence");
+	xml.IntoElem();
+
+	for (int i = 0; i != influence.size(); i++)
+	{
+		xml.AddElem("enhancement");
 		xml.IntoElem();
-		for (int i = 0; i != influence.size(); i++)
-		{
-			xml.AddElem("enhancement");
-			xml.IntoElem();
-			xml.AddElem("enh_type", influence[i].getType());
-			xml.AddElem("bonus", influence[i].getBonus());
-			xml.OutOfElem();
-		}
+		xml.AddElem("enh_type", influence[i].getType());
+		xml.AddElem("bonus", influence[i].getBonus());
 		xml.OutOfElem();
+	}
+	xml.OutOfElem();
+
 	char di[20];
 	sprintf_s(di, 20, "items/%d.xml", id);
 	xml.Save(string(di));

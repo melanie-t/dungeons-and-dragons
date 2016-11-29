@@ -24,9 +24,11 @@ TileMap::~TileMap()
 //! @param vector of the tile numbers.
 //! @width # of tiles per row
 //! @height # of tiles per column
-bool TileMap::load(const std::string& tileset, sf::Vector2u tileSize, std::vector<int>& tiles, unsigned int width, unsigned int height){
+bool TileMap::load(const std::string& tileset, sf::Vector2u tileSize, std::vector<int>& tiles, unsigned int width, unsigned int height)
+{
 	//Load the tileset texture
-	if (!m_tileset.loadFromFile("bkrd.png")){
+	if (!m_tileset.loadFromFile("bkrd.png"))
+	{
 		return false;
 	}
 
@@ -34,7 +36,8 @@ bool TileMap::load(const std::string& tileset, sf::Vector2u tileSize, std::vecto
 	m_vertices.resize(width*height * 4);
 
 	for (unsigned int i = 0; i < width; ++i)
-		for (unsigned int j = 0; j < height; ++j){
+		for (unsigned int j = 0; j < height; ++j)
+		{
 			//get the current tile number (1d array)
 			int tileNumber = tiles[i + j*width];
 
@@ -64,7 +67,8 @@ bool TileMap::load(const std::string& tileset, sf::Vector2u tileSize, std::vecto
 //! @brief draws the tiles.
 //! @param target the window to draw the tilemap to
 //! @param the state of the window.
-void TileMap::draw(sf::RenderTarget& target, sf::RenderStates states) const{
+void TileMap::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
 	//apply the transform
 	states.transform *= getTransform();
 	//apply the tileset texture

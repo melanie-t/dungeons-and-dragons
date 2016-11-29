@@ -5,13 +5,16 @@
 #include "CharacterBuilder.h"
 #include <algorithm>
 //! Class for the Bully, inherit from the CharacterBuilder
-class Bully : public CharacterBuilder{
+class Bully : public CharacterBuilder
+{
 public:
 	//! Method to set the ability scores to the character
-	virtual void buildAbilityScores(){
+	virtual void buildAbilityScores()
+	{
 		Dice dice;
 		int abilityScores[6];
-		for (int i = 0; i < 6; i++){
+		for (int i = 0; i < 6; i++)
+		{
 			abilityScores[i] = dice.roll("4d6[0]");
 		}
 		//Sorting the ability Scores

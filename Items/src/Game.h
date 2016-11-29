@@ -16,7 +16,8 @@
 #include <iostream>
 #include <vector>
 
-class Game{
+class Game
+{
 private:
 	//Initializes the window, the player, the font, the text, and creates the map.
 	sf::RenderWindow* window;

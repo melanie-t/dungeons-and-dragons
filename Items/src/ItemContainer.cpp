@@ -45,13 +45,15 @@ Item ItemContainer::getItem(string itemType)
 }
 
 vector<int> ItemContainer::getIDs() {
-	for (auto it = Items.begin(); it != Items.end(); ++it) {
+	for (auto it = Items.begin(); it != Items.end(); ++it)
+	{
 		itemIDs.push_back(it->getID());
 	}
 	return itemIDs;
 }
 
-string ItemContainer::toString() {
+string ItemContainer::toString()
+{
 	std::ostringstream out;
 	
 	for (auto it = Items.begin(); it != Items.end(); ++it)

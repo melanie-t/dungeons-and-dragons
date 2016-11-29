@@ -44,12 +44,15 @@ Map::Map(const int id, const int length, const int width, Character* player)
 	this->player = player;
 	//Creating an array that will serve as our map.
 	map = new GameObject**[width];
-	for (int i = 0; i < width; ++i){
+	for (int i = 0; i < width; ++i)
+	{
 		map[i] = new GameObject*[length];
 	}
 
-	for (int i = 0; i < width; ++i){
-		for (int j = 0; j < length; ++j){
+	for (int i = 0; i < width; ++i)
+	{
+		for (int j = 0; j < length; ++j)
+		{
 			map[i][j] = new GameObject();
 		}
 	}
@@ -75,10 +78,14 @@ Map::~Map()
 //! Method to set an element in the array (in order to create the map)
 void Map::setElement(char** map, int row, int column, char element)
 {
-	for (int i = 0; i <= row; i++) {
-		if (i == row) {
-			for (int j = 0; j <= column; j++) {
-				if (j == column) {
+	for (int i = 0; i <= row; i++)
+	{
+		if (i == row) 
+		{
+			for (int j = 0; j <= column; j++) 
+			{
+				if (j == column) 
+				{
 					map[i][j] = element;
 				}
 			}
@@ -95,8 +102,10 @@ bool Map::validatePath()
 	int startx, starty;
 	int endx, endy;
 	//check if there's a start point and end point
-	for (int i = 0; i < width; ++i) {
-		for (int j = 0; j < length; ++j) {
+	for (int i = 0; i < width; ++i) 
+	{
+		for (int j = 0; j < length; ++j)
+		{
 			if (map[i][j]->getObjectType() == OBJ_DOOR)
 			{
 				/*if (i != 0 && j != 0 && i != row - 1 && j != column - 1)
@@ -106,12 +115,14 @@ bool Map::validatePath()
 				}*/
 				Door* door = static_cast<Door*> (map[i][j]);
 
-				if (door->getStart()) { //start
+				if (door->getStart()) //start
+				{ 
 					startpoint = true;
 					startx = i;
 					starty = j;
 				}
-				if (!door->getStart()) { // end
+				if (!door->getStart()) // end
+				{
 					endpoint = true;
 					endx = i;
 					endy = j;
@@ -120,10 +131,12 @@ bool Map::validatePath()
 		}
 	}
 	//if there is a starpoint and endpoint, then you can check if there is a valid path on the map. 
-	if (startpoint && endpoint) {
+	if (startpoint && endpoint) 
+	{
 		return recursiveSearch(startx, starty, endx, endy);
 	}
-	else {
+	else
+	{
 		return false;
 	}
 }
@@ -170,7 +183,8 @@ void Map::fillCell(int x, int y, GameObject* obj)
 //! @param y the y coordinate of the cell.
 bool Map::isOccupied(int x, int y)
 {
-	if (map[x][y]->getObjectType() == "") {
+	if (map[x][y]->getObjectType() == "")
+	{
 		return false;
 	}
 	else
@@ -186,23 +200,31 @@ bool Map::recursiveSearch(int posx, int posy, int endposx, int endposy)
 	
 	//cur and end point to the same reference,
 	//therefore, they're the same object.
-	if (cur == end) {
+	if (cur == end)
+	{
 		return true;
 	}
 	//find a way to keep track of where ive already visited.
-	else if (mapSearch[posx][posy]) { //Check if the flag is on, on that posx and posy in order to avoid infinite loop.
+	else if (mapSearch[posx][posy])//Check if the flag is on, on that posx and posy in order to avoid infinite loop.
+	{
 		return false;
 	}
-	else if (posx < 0 || posy < 0 || posx > width || posy > length) {
+	else if (posx < 0 || posy < 0 || posx > width || posy > length)
+	{
 		return false;
 	}
-	else if (&map[posx][posy] == nullptr) {
+	else if (&map[posx][posy] == nullptr)
+	{
 		return false;
 	}
 	//Recursion to check down,up,left,right
-	else{
+	else
+	{
 		mapSearch[posx][posy] = 1; //turn the flag on
-		return recursiveSearch(posx - 1, posy, endposx, endposy) || recursiveSearch(posx + 1, posy, endposx, endposy) || recursiveSearch(posx, posy - 1, endposx, endposy) || recursiveSearch(posx, posy + 1, endposx, endposy);
+		return recursiveSearch(posx - 1, posy, endposx, endposy) 
+			|| recursiveSearch(posx + 1, posy, endposx, endposy) 
+			|| recursiveSearch(posx, posy - 1, endposx, endposy) 
+			|| recursiveSearch(posx, posy + 1, endposx, endposy);
 	}
 }
 

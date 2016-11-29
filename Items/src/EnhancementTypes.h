@@ -11,12 +11,12 @@
 #define EN_ARMOR_CLASS "armorclass"
 #define EN_INTELLIGENCE "intelligence"
 
-								/*
-								Helmet (intelligence, wisdom, armorclass)
-								Armor (armorclass)
-								Shield (armorclass)
-								Ring (strength, constitution, wisdom, charisma, armorclass)
-								Belt (constitution, strength)
-								Boots (dexterity, armorclass)
-								Weapon (attackbonus, damagebonus)
-								*/
+/*
+Helmet (intelligence, wisdom, armorclass)
+Armor (armorclass)
+Shield (armorclass)
+Ring (strength, constitution, wisdom, charisma, armorclass)
+Belt (constitution, strength)
+Boots (dexterity, armorclass)
+Weapon (attackbonus, damagebonus)
+*/

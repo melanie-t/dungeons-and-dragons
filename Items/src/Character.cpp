@@ -41,6 +41,15 @@ Character::Character(int lvl, int str, int dex, int con, int intel, int wis, int
 	currentHitPoints = 10;
 	secondaryStatCalc();
 	initEnh();
+
+	this->gameover = false;
+	this->helmetEquipped = false;
+	this->armorEquipped = false;
+	this->beltEquipped = false;
+	this->bootsEquipped = false;
+	this->shieldEquipped = false;
+	this->weaponEquipped = false;
+	this->ringEquipped = false;
 }
 
 //! Constructor: Used to load characters from saved XML files
@@ -77,7 +86,8 @@ Character::Character(string playerName, int charclass, int lvl, int str, int dex
 //! notify function
 //! @brief implementation of notify from Observable class
 //! notifies the observer of any changes
-void Character::notify() {
+void Character::notify()
+{
 	initEnh();
 	displayStats();
 }
@@ -170,7 +180,8 @@ bool Character::validateNewCharacter()
 
 //! statGenerator function
 //! @brief generates random stats for the character using 4d6
-void Character::statGenerator() {
+void Character::statGenerator()
+{
 	srand(time(NULL));
 	Dice dice;
 	int choice;
@@ -183,14 +194,18 @@ void Character::statGenerator() {
 		chaSet = false;
 
 	//Initializes all 6 rolls (4d6)
-	for (int i = 0; i < 6; i++) {
+	for (int i = 0; i < 6; i++)
+	{
 		totalScores[i] = dice.roll("4d6[0]");
 	}
 
-	for (int i = 0; i < 6; i++) {
-		do {
+	for (int i = 0; i < 6; i++)
+	{
+		do
+		{
 			cout << "Scores leftover: ";
-			for (int j = i; j < 6; j++) {
+			for (int j = i; j < 6; j++)
+			{
 				cout << totalScores[j] << " ";
 			}
 			cout << "\nChoose ability to set as " << totalScores[i]
@@ -202,8 +217,10 @@ void Character::statGenerator() {
 				<< "\n6. CHA" << endl;
 			cin >> choice;
 
-			switch (choice) {
-			case 1: {
+			switch (choice)
+			{
+			case 1:
+			{
 				if (!strSet)
 				{
 					setSTR(totalScores[i]);
@@ -211,14 +228,16 @@ void Character::statGenerator() {
 					strSet = true;
 					displayStats();
 				}
-				else {
+				else
+				{
 					cout << "Already set. Please choose another ability." << endl;
 					if (i != 0)
 						i--;
 				}
 				break;
 			}
-			case 2: {
+			case 2:
+			{
 				if (!dexSet)
 				{
 					setDEX(totalScores[i]);
@@ -226,14 +245,16 @@ void Character::statGenerator() {
 					dexSet = true;
 					displayStats();
 				}
-				else {
+				else
+				{
 					cout << "Already set. Please choose another ability." << endl;
 					if (i != 0)
 						i--;
 				}
 				break;
 			}
-			case 3: {
+			case 3:
+			{
 				if (!conSet)
 				{
 					setCON(totalScores[i]);
@@ -241,56 +262,65 @@ void Character::statGenerator() {
 					conSet = true;
 					displayStats();
 				}
-				else {
+				else
+				{
 					cout << "Already set. Please choose another ability." << endl;
 					if (i != 0)
 						i--;
 				}
 				break;
 			}
-			case 4: {
-				if (!intSet) {
+			case 4:
+			{
+				if (!intSet)
+				{
 					setINTEL(totalScores[i]);
 					cout << "INTEL: " << totalScores[i] << endl;
 					intSet = true;
 					displayStats();
 				}
-				else {
+				else
+				{
 					cout << "Already set. Please choose another ability." << endl;
 					if (i != 0)
 						i--;
 				}
 				break;
 			}
-			case 5: {
+			case 5:
+			{
 				if (!wisSet) {
 					setWIS(totalScores[i]);
 					cout << "WIS: " << totalScores[i] << endl;
 					wisSet = true;
 					displayStats();
 				}
-				else {
+				else
+				{
 					cout << "Already set. Please choose another ability." << endl;
 					if (i != 0)
 						i--;
 				}
 				break;
 			}
-			case 6: {
+			case 6:
+			{
 				if (!chaSet) {
 					setCHA(totalScores[i]);
 					cout << "CHA: " << totalScores[i] << endl;
 					chaSet = true;
 					displayStats();
 				}
-				else {
+				else
+				{
 					cout << "Already set. Please choose another ability." << endl;
 					if (i != 0)
 						i--;
 				}
 				break;
 			}
-			default: {
+			default:
+			{
 				cout << "Invalid choice. Choose between 1-6" << endl;
 				if (i != 0)
 					i--;
@@ -314,7 +344,8 @@ int Character::abilityModifier(int abilityScore)
 //! secondaryStatCalc function
 //! @brief generates secondary stats based on
 //! primary stats.
-void Character::secondaryStatCalc() {
+void Character::secondaryStatCalc()
+{
 	setArmorClass(10);
 	setAttackBonus(getLevel()*(abilityModifier(getSTR()) + abilityModifier(getDEX())) / 5);
 	setDamageBonus(abilityModifier(getSTR()));
@@ -624,17 +655,20 @@ string Character::statString()
 string Character::classtoString()
 {
 	switch (charClass) {
-	case 1: {
+	case 1:
+	{
 		return "Bully Fighter";
 		break;
 	}
-	case 2: {
+	case 2:
+	{
 		return "Nimble Fighter";
 		break;
 	}
 	case 3:
 		return "Tank Fighter";
-	default: {
+	default:
+	{
 		return "";
 		break;
 	}
@@ -669,7 +703,8 @@ void Character::saveCharacter()
 	xml.IntoElem();
 	
 	//Iterate through equips
-	for (Item i : equips) {
+	for (Item i : equips)
+	{
 		if (i.getID() == 0)
 			xml.AddElem("equip", 0); // nothing equipped
 		else
@@ -778,7 +813,8 @@ Character* Character::loadCharacter(string name)
 //! setEquips function
 //! will take in an Item pointer array of length 7 and copy to Character's equips array
 //! @param equips : the equips that's getting passed to Character's equips
-void Character::setEquips(Item newEquips[7]) {
+void Character::setEquips(Item newEquips[7])
+{
 	for (int i = 0; i < 7; i++)
 	{
 		equips[i] = newEquips[i];
@@ -999,14 +1035,16 @@ bool Character::isEquipped(Item* item)
 
 //! getStrategy function
 //! @brief returns character strategy.
-Strategy* Character::getStrategy() {
+Strategy* Character::getStrategy()
+{
 	return this->strategy;
 }
 
 //! setStrategy function
 //! setter for the strategy field.
 //! @param strat stategy to set
-void Character::setStrategy(Strategy* strat) {
+void Character::setStrategy(Strategy* strat)
+{
 	this->strategy = strat; 
 }
 

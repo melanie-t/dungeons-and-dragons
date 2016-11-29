@@ -7,7 +7,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-class ItemPanel {
+class ItemPanel 
+{
 public:
 	static void createInventories();
 };

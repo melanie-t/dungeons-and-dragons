@@ -127,15 +127,15 @@ private:
 	int attackBonus;
 	int damageBonus;
 	int charClass;
-	bool gameover = false;
+	bool gameover;
 	
-	bool helmetEquipped = false,
-		armorEquipped = false,
-		beltEquipped = false,
-		bootsEquipped = false,
-		shieldEquipped = false,
-		weaponEquipped = false,
-		ringEquipped = false;
+	bool helmetEquipped,
+		armorEquipped,
+		beltEquipped,
+		bootsEquipped,
+		shieldEquipped,
+		weaponEquipped,
+		ringEquipped;
 
 	ItemContainer backpack;
 	Item equips[7]; //(0)helmet, (1)armor, (2)belt, (3)boots, (4)shield, (5)weapon, (6)ring

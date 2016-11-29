@@ -18,7 +18,8 @@
 #include "GameObject.h"
 #include "ItemContainer.h"
 
-class Fighter: public Character, public GameObject {
+class Fighter: public Character, public GameObject 
+{
 public:
 	Fighter();
 	Fighter(string name);

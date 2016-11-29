@@ -10,7 +10,8 @@ using sf::Sprite;
 //! displayChest function
 //! @brief Implementation of Chest GUI when Character encounters a chest on the Map
 //! @param inputItem : Item pointer for finding out what type of item it is
-void Chest::displayChest(Item* inputItem){
+void Chest::displayChest(Item* inputItem)
+{
 
 	sf::RenderWindow chestPopup(sf::VideoMode(285, 274), "Hover to reveal item!");
 	sf::Texture goldChest;
@@ -23,7 +24,8 @@ void Chest::displayChest(Item* inputItem){
 		sf::Event event;
 		while (chestPopup.pollEvent(event))
 		{
-			if (event.type == sf::Event::Closed) {
+			if (event.type == sf::Event::Closed)
+			{
 				chestPopup.close();
 			}
 			//switch (inputItem->getItemType()) {

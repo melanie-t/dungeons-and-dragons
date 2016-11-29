@@ -4,8 +4,10 @@
 #include "Observer.h"
 
 //! Observer constructor
-Observer::Observer() {
+Observer::Observer() 
+{
 };
 //! Observer destructor
-Observer::~Observer(){
+Observer::~Observer()
+{
 };

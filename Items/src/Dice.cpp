@@ -57,7 +57,8 @@ Dice::Dice()
 
 
 /* function will parse string and caclulate rolls */
-int Dice::roll(string str) {
+int Dice::roll(string str)
+{
 	number = 0;									// reinitialize values
 	type = 0;
 	total = 0;
@@ -67,36 +68,42 @@ int Dice::roll(string str) {
 		total = sum(number, type, total);
 		return total;
 	}
-	else {
+	else
+	{
 		cout << "String parse error. Dice roll = 0" << endl;
 		return 0;
 	}
 }
 
 /* method works the same way but console out the steps involved */
-int Dice::sayRoll(string str) {
+int Dice::sayRoll(string str)
+{
 	number = 0;
 	type = 0;
 	total = 0;
 
-	if (parseString(str)) {
+	if (parseString(str))
+	{
 		cout << "number of dice: " << number << endl;
 		cout << "type of die: " << type << endl;
 		cout << "given total: " << total << endl << endl;
 		return saySum(number, type, total);
 	}
-	else{
+	else
+	{
 		cout << "String parse error. Dice roll = 0" << endl;
 		return 0;
 	}
 }
 
 /* Function to parse the string using regex commands and class */
-bool Dice::parseString(string str) {
+bool Dice::parseString(string str)
+{
 	string hand = str;									//user string to parse
 	string parseResult[3];								//array holds parse values
 
-	try {
+	try
+	{
 		int iterateArr = 0;
 		regex searchParam("\\d+");						//search parameters of string, grabs digits only
 		sregex_iterator nextInt(hand.begin(), hand.end(), searchParam);		//defines individual elements found in string
@@ -114,14 +121,16 @@ bool Dice::parseString(string str) {
 		cout << "error in regex: " << e.code() << endl;
 	}
 
-	try {
+	try
+	{
 		//changed to atoi, since stoi was giving exceptions.
 		number = atoi(parseResult[0].c_str());//stoi(parseResult[0]);		//stoi() std function that casts string to int
 		type = atoi(parseResult[1].c_str());//stoi(parseResult[1]);
 		total = atoi(parseResult[2].c_str());//stoi(parseResult[2]);
 		//return true;
 	}
-	catch (exception e) {
+	catch (exception e)
+	{
 		cout << endl << e.what() << endl;//"exception in parseResult assignment" << endl;
 	}
 	return true;
@@ -129,11 +138,12 @@ bool Dice::parseString(string str) {
 
 
 /* rolls dice based on amount of dice and type of die */
-int Dice::sum(int n, int t, int tot) {
+int Dice::sum(int n, int t, int tot)
+{
 	number = n;
 	type = t;
 	total = tot;
-	int temp;		
+	int temp;
 	int lowest = 6;
 	cout << "[Your Rolls] ";
 	while (number != 0)
@@ -148,15 +158,17 @@ int Dice::sum(int n, int t, int tot) {
 	total = total - lowest;
 	cout << " Removed (" << lowest << ")  Total " << total << endl;
 	return total;
-	}
+}
 
-int Dice::saySum(int n, int t, int tot) {
+int Dice::saySum(int n, int t, int tot)
+{
 	number = n;
 	type = t;
 	total = tot;
 	int temp;
 
-	while (number != 0) {
+	while (number != 0)
+	{
 		temp = getRandom();
 		total += temp;
 		cout << "random number: " << temp << " running total: " << total << endl;
@@ -167,34 +179,42 @@ int Dice::saySum(int n, int t, int tot) {
 }
 
 /* generates random number based on size of die */
-int Dice::getRandom() {
-	switch (type) {
-	case 4: {
+int Dice::getRandom() 
+{
+	switch (type)
+	{
+	case 4:
+	{
 		//cout << "selected 4 die" <<endl;
 		return  (rand() % 4 + 1);
 		break;
 	}
-	case 6: {
+	case 6:
+	{
 		//cout <<"selected 6 die" <<endl;
 		return (rand() % 6 + 1);
 		break;
 	}
-	case 8: {
+	case 8:
+	{
 		//cout << "selected 8 die" << endl;
 		return  (rand() % 8 + 1);
 		break;
 	}
-	case 10: {
+	case 10:
+	{
 		//cout << "selected 10 die" << endl;
 		return  (rand() % 10 + 1);
 		break;
 	}
-	case 12: {
+	case 12:
+	{
 		//cout << "selected 12 die" << endl;
 		return  (rand() % 12 + 1);
 		break;
 	}
-	case 20: {
+	case 20:
+	{
 		//cout << "selected 20 die" << endl;
 		return  (rand() % 20 + 1);
 		break;
@@ -215,19 +235,5 @@ int Dice::getRandom() {
 	}
 	}
 }
-
-// main method for testing
-/*
-int main() {
-Dice dice;								//creating dice object
-string a = "4d6[0]";
-cout << "Final total: " << dice.roll(a) << endl;
-cout << "Final total: " << dice.roll(a) << endl;
-cout << "Final total: " << dice.roll(a) << endl;
-cout << "Final total: " << dice.roll(a) << endl;
-cin >> a;
-return 0;
-}
-*/
 
 

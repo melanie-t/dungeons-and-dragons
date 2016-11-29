@@ -20,7 +20,8 @@
 #include <vector>
 #include "pos.h"
 
-class Map {
+class Map 
+{
 public:
 	//Constructor
 	Map(const int id, const int length = 20, const int width = 20, Character* player = nullptr);
