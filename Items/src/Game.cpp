@@ -502,13 +502,12 @@ bool Game::update(sf::Event* evt){
 			{
 				if (inventoryOpen)
 				{
-					//Close inventory goes here.
+					//Close inventory
 					inventoryOpen = false;
 				}
 				else
 				{
-					//Open Inventory goes here
-
+					//Open Inventory
 					inventoryOpen = true;
 				}
 			}
@@ -516,13 +515,12 @@ bool Game::update(sf::Event* evt){
 			{
 				if (equipOpen)
 				{
-					//Close Equip goes here.
+					//Close Equip
 					equipOpen = false;
 				}
 				else
 				{
-					//Open Equip goes here
-
+					//Open Equip
 					equipOpen = true;
 				}
 			}
@@ -692,14 +690,22 @@ void Game::render(){
 
 	window->draw(textBox);
 	window->draw(enemyStatsBox);
-	window->draw(inventoryBox);
-	window->draw(equipBox);
 	window->draw(text);
 	window->draw(enemyStats);
-	window->draw(equipText);
-	window->draw(inventoryText);
-	window->draw(equipWindow);
-	window->draw(inventoryWindow);
+	window->draw(equipBox);
+	window->draw(inventoryBox);
+
+	if (this->equipOpen)
+	{
+		window->draw(equipText);
+		window->draw(equipWindow);
+		window->draw(equipBox);
+	}
+	if (this->inventoryOpen)
+	{
+		window->draw(inventoryText);
+		window->draw(inventoryWindow);
+	}
 
 	//window->draw(currentPosition);
 }
