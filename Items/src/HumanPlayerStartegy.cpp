@@ -33,6 +33,10 @@ int HumanPlayerStrategy::execute(pos characterPos, pos targetPos, std::vector<in
 			{
 				return PlayerAction::ATTACK;
 			}
+			case sf::Keyboard::Z:
+			{
+				return PlayerAction::LOOTING;
+			}
 			}
 		}
 	}

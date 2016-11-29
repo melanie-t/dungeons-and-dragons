@@ -443,6 +443,13 @@ bool Game::update(sf::Event* evt){
 		m_map->nextTurn();
 		break;
 	}
+	case PlayerAction::LOOTING:
+	{
+		//This is where looting items
+		//For enemies or chests would go 
+		// *******************************************
+		break;
+	}
 	}
 	if (evt != nullptr)
 	{

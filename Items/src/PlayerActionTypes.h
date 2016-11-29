@@ -15,5 +15,5 @@ enum PlayerAction
 	MOVE_LEFT,
 	MOVE_UP,
 	MOVE_DOWN,
-	FREEACTION
+	LOOTING
 };
