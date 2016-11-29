@@ -18,8 +18,36 @@
 #include "Friend.h"
 #include "StatisticsHelper.h"
 #include "Campaign.h"
+
 using namespace std;
 
+////Creating Character for GUI testing
+//#include "Item.h"
+//#include "ItemDecorator.h"
+//int main()
+//{
+//	Character* player = Character::loadCharacter("zed");
+//	
+//	/*Item* armor = Item::load(1);
+//	Item* helmet = Item::load(2);
+//	Item* shield = Item::load(3);
+//	Item* ring = Item::load(4);
+//	Item* weapon = Item::load(5);
+//	Item* boots = Item::load(6);
+//	Item* belt = Item::load(7);
+//
+//	ItemDecorator itemManager(player);
+//	itemManager.wear(armor);
+//	itemManager.wear(weapon);
+//
+//	player->addBackpack(ring);
+//	player->addBackpack(belt);
+//*/
+//	player->displayStats();
+//	string hi;
+//	cin >> hi;
+//	player->saveCharacter();
+//}
 
 std::thread runGameThread;
 /**
@@ -56,6 +84,7 @@ inline void toLower(basic_string<char>& s)
 		*p = tolower(*p);
 	}
 }
+
 
 /**
 Main function.

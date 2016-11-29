@@ -666,6 +666,11 @@ void Item::setItemPath(string path)
 	itemPath = path;
 }
 
+string Item::getItemPath()
+{
+	return itemPath;
+}
+
 int Item::getID() {
 	return id;
 }

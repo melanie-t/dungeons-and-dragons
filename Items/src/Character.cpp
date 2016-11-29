@@ -574,6 +574,13 @@ ItemContainer Character::getBackpack()
 	return backpack;
 }
 
+//! addBackpack function to add items to backpack
+//! @param item : pointer to item added to backpack
+void Character::addBackpack(Item* item)
+{
+	backpack.addItem(*item);
+}
+
 //! displayStats function
 //! @brief displays the stats of the Character.
 void Character::displayStats()
@@ -793,7 +800,7 @@ Character* Character::loadCharacter(string name)
 				{
 					xml.IntoElem();
 					int i = 0;
-					while (xml.FindElem("item"))
+					while (xml.FindElem("equip"))
 					{
 						int id = atoi(xml.GetData().c_str());
 						if (id != 0)

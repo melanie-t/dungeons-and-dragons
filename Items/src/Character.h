@@ -96,6 +96,7 @@ public:
 
 	//Methods for Item
 	ItemContainer getBackpack();
+	void addBackpack(Item* item);
 	void setEquips(Item equips[7]);
 	Item* getEquip(string type);
 	void equip(Item* item);

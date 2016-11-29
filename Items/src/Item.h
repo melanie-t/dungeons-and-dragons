@@ -49,6 +49,7 @@ public:
 	//remove enhancement
 	void removeEnhancement(string type);
 	void setItemPath(string path);
+	string getItemPath();
 	int getID();
 	string toString();
 	string enhancementString();

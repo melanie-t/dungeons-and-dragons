@@ -698,8 +698,12 @@ void Game::createText()
 	inventoryBox.setOutlineThickness(3);
 }
 
-void addItems() {
-
+void Game::addItems() {
+	vector<Item> inventory = m_map->getPlayer()->getBackpack().getItems;
+	for (Item i : inventory)
+	{
+		i.
+	}
 }
 
 //! render function
