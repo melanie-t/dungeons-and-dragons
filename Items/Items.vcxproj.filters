@@ -232,7 +232,7 @@
       <Filter>Header Files\log</Filter>
     </ClInclude>
     <ClInclude Include="src\GameObjectLogger.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\log</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -336,7 +336,7 @@
       <Filter>Source Files\Log</Filter>
     </ClCompile>
     <ClCompile Include="src\GameObjectLogger.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Log</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
