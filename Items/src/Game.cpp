@@ -450,8 +450,8 @@ bool Game::update(sf::Event* evt)
 							this->m_map->removeEnemy(dynamic_cast<Enemy*>(target));
 
 							//Drop Items
-							Chest* chest = new Chest(target->getBackpack());
-							this->m_map->fillCell(target->getPosition().x, target->getPosition().y, chest);
+						//	Chest* chest = new Chest(target->getBackpack());
+						//	this->m_map->fillCell(target->getPosition().x, target->getPosition().y, chest);
 							level = m_map->outputMap();
 							loadTextures();
 						}
@@ -569,24 +569,32 @@ bool Game::update(sf::Event* evt)
 			if (evt->mouseButton.button == sf::Mouse::Right)
 			{
 				//Equips
-				for (int i = 0; i < 8; i++)
+				for (int i = 0; i < 7; i++)
 				{
 					if (isSpriteClicked(equipSprite[i]))
 					{
 						//Decorator pattern used to unequips equips
-						cout << "Sprite clicked" << endl;
-						ItemDecorator equipManager(m_map->getPlayer());
-						equipManager.remove(m_map->getPlayer()->getEquipAtIndex(i));
-						cout << "Item: " << (m_map->getPlayer()->getEquipAtIndex(i)->toString()) << endl;
+						Item* equip = m_map->getPlayer()->getEquipAtIndex(i);
+						m_map->getPlayer()->unequip(equip);
 						m_map->getPlayer()->displayStats();
+						m_map->getPlayer()->saveCharacter();
 						//reload equips
-						//drawEquips();
+						drawEquips();
+						updatePlayerStats();
 					}
 				}
 			}
 		}
 	}
 	return true;
+}
+
+
+//Initializes the text
+void Game::updatePlayerStats()
+{
+	text.setString("Player" + m_map->getPlayer()->statString());
+	window->draw(text);
 }
 
 //! endGame function
