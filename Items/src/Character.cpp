@@ -681,6 +681,25 @@ void Character::addBackpack(Item* item)
 	backpack.addItem(*item);
 }
 
+//! getBackpackItems function to return vector of Item objects
+//! @return : vector containing Item objects in backpack
+vector <Item> Character::getBackpackItems()
+{
+	return backpack.getItems();
+}
+
+
+Item* Character::getItemAtIndex(int i)
+{
+	vector <Item> Items = getBackpackItems();
+	cout << " Item Type: " << Items[i].getType() << endl;
+	cout << "Influences: " << Items[i].getInfluences()[i].toString() << endl;
+	cout << "Item Path: " << Items[i].getItemPath() << endl;
+	Item item(Items[i].getID(), Items[i].getType(), Items[i].getInfluences(), Items[i].getItemPath());
+	return &item;
+}
+
+
 //! displayStats function
 //! @brief displays the stats of the Character.
 void Character::displayStats()
@@ -1003,45 +1022,75 @@ Item* Character::getEquipType(string equip)
 //! @param item : item that will be equipped
 void Character::equip(Item *item)
 {
-	string itemtype = item->getType();
-	if (itemtype.compare("armor") == 0)
+	string type = item->getType();
+	if (type.compare("armor") == 0)
 	{
+		// If item is already equipped, unequip first.
+		if (armorEquipped)
+			unequip(&equips[Equip::ARMOR]);
+		
 		equips[Equip::ARMOR] = *item;
 		armorEquipped = true;
 	}
 
-	else if (itemtype.compare("helmet") == 0)
+	else if (type.compare("helmet") == 0)
 	{
+		if (helmetEquipped)
+			unequip(&equips[Equip::HELMET]);
+
 		equips[Equip::HELMET] = *item;
 		helmetEquipped = true;
 	}
 
-	else if (itemtype.compare("shield") == 0)
+	else if (type.compare("shield") == 0)
 	{
+		if (shieldEquipped)
+			unequip(&equips[Equip::SHIELD]);
+		
 		equips[Equip::SHIELD] = *item;
 		shieldEquipped = true;
 	}
-	else if (itemtype.compare("ring") == 0)
+	else if (type.compare("ring") == 0)
 	{
+		if (ringEquipped)
+			unequip(&equips[Equip::RING]);
+
+		cout << "Ring clicked on" << endl;
 		equips[Equip::RING] = *item;
 		ringEquipped = true;
 	}
-	else if (itemtype.compare("belt") == 0)
+	else if (type.compare("belt") == 0)
 	{
+		if (beltEquipped)
+			unequip(&equips[Equip::BELT]);
+
 		equips[Equip::BELT] = *item;
 		beltEquipped = true;
 	}
 
-	else if (itemtype.compare("boots") == 0)
+	else if (type.compare("boots") == 0)
 	{
+		if (bootsEquipped)
+			unequip(&equips[Equip::BOOTS]);
+
 		equips[Equip::BOOTS] = *item;
 		bootsEquipped = true;
 	}
-	else if (itemtype.compare("weapon") == 0)
+	else if (type.compare("weapon") == 0)
 	{
+		if (weaponEquipped)
+			unequip(&equips[Equip::WEAPON]);
+
 		equips[Equip::WEAPON] = *item;
 		weaponEquipped = true;
 	}
+
+	else
+	{
+		cout << "Item type unknown" << endl;
+	}
+
+	totalEnhancement();
 }
 
 //! unequip function used by ItemDecorator
@@ -1098,6 +1147,12 @@ void Character::unequip(Item* item)
 		equips[Equip::WEAPON] = Item();
 		weaponEquipped = false;
 	}
+
+	else
+	{
+		cout << "Item type unknown" << endl;
+	}
+
 	totalEnhancement();
 }
 
@@ -1105,7 +1160,6 @@ void Character::unequip(Item* item)
 //! initializes the ability modifier bonus
 void Character::totalEnhancement()
 {
-
 	enh_str = abilityModifier(abilityScores[Ability::STRENGTH]),
 	enh_dex = abilityModifier(abilityScores[Ability::DEXTERITY]),
 	enh_con = abilityModifier(abilityScores[Ability::CONSTITUTION]),

@@ -489,8 +489,8 @@ bool Game::update(sf::Event* evt)
 		// use character->blahblah .......... for accessing characters
 		
 		//! RANDOMLY GENERATED CHEST - TO BE IMPLEMENTED
-		Item chest;
-		m_map->getPlayer()->getBackpack().addItem(chest);
+		//Item chest;
+		//m_map->getPlayer()->getBackpack().addItem(chest);
 
 		// each character takes turns in this update method.
 		// Be nice. Let everyone loot.
@@ -563,26 +563,49 @@ bool Game::update(sf::Event* evt)
 				}
 			}
 		}
-		else if (evt->type == sf::Event::MouseButtonPressed && equipOpen)
+		else if (evt->type == sf::Event::MouseButtonPressed)
 		{
 			// If mouse is right clicked, check if it's over items
 			if (evt->mouseButton.button == sf::Mouse::Right)
 			{
-				//Equips
-				for (int i = 0; i < 7; i++)
+				if (equipOpen && isSpriteClicked(equipWindow))
 				{
-					if (isSpriteClicked(equipSprite[i]))
+					//Equips
+					for (int i = 0; i < 7; i++)
 					{
-						//Decorator pattern used to unequips equips
-						Item* equip = m_map->getPlayer()->getEquipAtIndex(i);
-						m_map->getPlayer()->unequip(equip);
-						m_map->getPlayer()->displayStats();
-						m_map->getPlayer()->saveCharacter();
-						//reload equips
-						drawEquips();
-						updatePlayerStats();
+						if (isSpriteClicked(equipSprite[i]))
+						{
+							//Decorator pattern used to unequips equips
+							Item* equip = m_map->getPlayer()->getEquipAtIndex(i);
+							m_map->getPlayer()->unequip(equip);
+							m_map->getPlayer()->displayStats();
+							//m_map->getPlayer()->saveCharacter();
+							//reload equips
+							updatePlayerStats();
+						}
 					}
 				}
+
+				else if (inventoryOpen && isSpriteClicked(inventoryWindow))
+				{
+					for (int i = 0; i < 24; i++)
+					{
+						if (isSpriteClicked(inventorySprite[i]))
+						{
+							// Equip item
+							Item item = m_map->getPlayer()->getBackpack().itemAtIndex(i);
+							cout << "Item " << i << " clicked" << endl;
+							cout << "Item type: " << item.getType() << endl;
+							m_map->getPlayer()->equip(&item);
+							m_map->getPlayer()->getBackpack().removeItemAtIndex(i);
+							m_map->getPlayer()->displayStats();
+							//m_map->getPlayer()->saveCharacter();
+							updatePlayerStats();
+						}
+					}
+				}
+				drawEquips();
+				drawItems();
 			}
 		}
 	}
@@ -869,11 +892,6 @@ bool Game::isSpriteClicked(sf::Sprite &sprite) {
 
 	//Otherwise, don't do anything
 	return false;
-}
-
-void Game::eventOnClick()
-{
-
 }
 
 //! render function
