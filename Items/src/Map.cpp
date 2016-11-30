@@ -21,6 +21,7 @@ However, the map needs a path between the begin cell and end cell.
 #include "TileTypes.h"
 #include "MathHelper.h"
 #include "GrassTexture.h"
+#include "GameObjectLogger.h"
 using namespace std;
 
 //! Default Constructor
@@ -526,7 +527,7 @@ void Map::removeEnemy(Enemy* enemy)
 	{
 		if (turns[i]->getName() == enemy->getName())
 		{
-			friends.erase(friends.begin() + i);
+			turns.erase(turns.begin() + i);
 		}
 	}
 }
@@ -543,7 +544,7 @@ void Map::removeFriend(Friend* frien)
 	{
 		if (turns[i]->getName() == frien->getName())
 		{
-			friends.erase(friends.begin() + i);
+			turns.erase(turns.begin() + i);
 		}
 	}
 	fillCell(frien->getPosition().x, frien->getPosition().y, new GrassTexture());
@@ -552,6 +553,7 @@ void Map::removeFriend(Friend* frien)
 void Map::nextTurn()
 {
 	turn++;
+	GameObjectLogger::getInstance()->UpdateTurn(getTurn()->getName());
 }
 
 Character* Map::getTurn()

@@ -20,6 +20,7 @@
 #include "ItemDecorator.h"
 #include "GameLogger.h"
 #include "DiceLogger.h"
+#include "GameObjectLogger.h"
 
 //! Constructor for Game class
 //! @param tileWidth : width of the tile used
@@ -482,7 +483,7 @@ bool Game::update(sf::Event* evt)
 						}
 						else
 						{
-							endGame(); // Game over.
+							endGame(false); // Game over.
 						}
 					}
 					characterlogger.Update(character->getName(), target->getName(), true);
@@ -603,6 +604,10 @@ bool Game::update(sf::Event* evt)
 			{
 				this->maplogger.toggle();
 			}
+			else if (evt->key.code == sf::Keyboard::Num4)
+			{
+				GameObjectLogger::getInstance()->toggle();
+			}
 		}
 
 		// If sprite hovers over inventoryWindow
@@ -705,12 +710,12 @@ void Game::updatePlayerStats()
 //! @brief Ends the game by showing the player they won.
 //! Levels up the Character by 1 on each ability score and level and displays new stats
 //! Closes the Game window after 6 seconds to be able to see the changes
-void Game::endGame()
+void Game::endGame(bool won)
 {
-	m_map->getPlayer()->levelUp();
-
 	//window->display();
 	ended = true;
+	window->clear();
+	GameObjectLogger::getInstance()->UpdateEnd(won);
 
 	while (window->isOpen())
 	{
@@ -724,6 +729,8 @@ void Game::endGame()
 
 		window->clear(sf::Color(255, 255, 255, 255));
 		window->draw(text);
+
+		GameLogger::getInstance()->draw(window);
 
 		processInput();
 		window->display();
