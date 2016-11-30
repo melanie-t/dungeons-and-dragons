@@ -13,6 +13,7 @@
 #include "TileMap.h"
 #include "Map.h"
 #include "CharacterLogger.h"
+#include "MapLogger.h"
 #include <iostream>
 #include <vector>
 
@@ -103,6 +104,7 @@ private:
 	int attackNum;
 
 	CharacterLogger characterlogger;
+	MapLogger maplogger;
 public:
 	Game(unsigned int tileWidth, unsigned int tileHeight, Map* map);
 	~Game();

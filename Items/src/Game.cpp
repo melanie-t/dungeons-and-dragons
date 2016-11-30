@@ -236,6 +236,7 @@ bool Game::update(sf::Event* evt)
 				break;
 			}
 		}
+		maplogger.Update(character->getName(), PlayerMove::UP);
 		character->move(PlayerMove::UP);
 		m_map->nextTurn();
 		currentPos -= width;
@@ -282,6 +283,7 @@ bool Game::update(sf::Event* evt)
 				break;
 			}
 		}
+		maplogger.Update(character->getName(), PlayerMove::DOWN);
 		character->move(PlayerMove::DOWN);
 		m_map->nextTurn();
 		currentPos += width;
@@ -329,6 +331,7 @@ bool Game::update(sf::Event* evt)
 			}
 		}
 		//player.move(-32, 0);
+		maplogger.Update(character->getName(), PlayerMove::LEFT);
 		character->move(PlayerMove::LEFT);
 		m_map->nextTurn();
 		currentPos--;
@@ -382,6 +385,7 @@ bool Game::update(sf::Event* evt)
 			}
 		}
 		//player.move(+32, 0);
+		maplogger.Update(character->getName(), PlayerMove::RIGHT);
 		character->move(PlayerMove::RIGHT);
 		m_map->nextTurn();
 		currentPos++;
@@ -594,6 +598,10 @@ bool Game::update(sf::Event* evt)
 			else if (evt->key.code == sf::Keyboard::Num2)
 			{
 				DiceLogger::getInstance()->toggle();
+			}
+			else if (evt->key.code == sf::Keyboard::Num3)
+			{
+				this->maplogger.toggle();
 			}
 		}
 		else if (evt->type == sf::Event::MouseButtonPressed)
