@@ -97,6 +97,7 @@ public:
 	//Methods for Item
 	ItemContainer getBackpack();
 	void addBackpack(Item* item);
+	void removeBackpackIndex(int i);
 	void setEquips(Item equips[7]);
 	Item* getEquips();
 	Item* getEquipAtIndex(int i);

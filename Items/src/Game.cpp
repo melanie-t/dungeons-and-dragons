@@ -594,14 +594,19 @@ bool Game::update(sf::Event* evt)
 						if (isSpriteClicked(inventorySprite[i]))
 						{
 							// Equip item
+							m_map->getPlayer()->displayStats();
+
 							Item item = m_map->getPlayer()->getBackpack().itemAtIndex(i);
+							m_map->getPlayer()->removeBackpackIndex(i);
+
+							ItemContainer debug = m_map->getPlayer()->getBackpack();
+
 							cout << "Item " << i << " clicked" << endl;
 							cout << "Item type: " << item.getType() << endl;
 							m_map->getPlayer()->equip(&item);
-							m_map->getPlayer()->getBackpack().removeItemAtIndex(i);
-							m_map->getPlayer()->displayStats();
 							//m_map->getPlayer()->saveCharacter();
 							updatePlayerStats();
+							m_map->getPlayer()->displayStats();
 						}
 					}
 				}
@@ -796,15 +801,19 @@ void Game::drawItems()
 	vector<Item> items = m_map->getPlayer()->getBackpack().getItems();
 	for (int i = 0; i < m_map->getPlayer()->getBackpack().getItems().size(); i++)
 	{
-		sf::Texture texture;
-		texture.loadFromFile(items[i].getItemPath());
-		
-		inventorySprite[i].setTexture(texture);
-		inventorySprite[i].setPosition(496 + ((i%4)*31),height * 32 + 45 + 31*row);
-		window->draw(inventorySprite[i]);
+		if (items[i].getID() != 0)
+		{
+			sf::Texture texture;
+			texture.loadFromFile(items[i].getItemPath());
 
-		if ((i + 1) % 4 == 0)
-			row = row + 1;
+			inventorySprite[i].setTexture(texture);
+			inventorySprite[i].setPosition(496 + ((i % 4) * 31), height * 32 + 45 + 31 * row);
+			window->draw(inventorySprite[i]);
+
+			if ((i + 1) % 4 == 0)
+				row = row + 1;
+		}
+
 	}
 }
 
