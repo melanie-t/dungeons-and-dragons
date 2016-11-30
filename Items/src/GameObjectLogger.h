@@ -7,10 +7,10 @@ class GameObjectLogger
 {
 public:
 	GameObjectLogger();
-	void UpdateSetup();
-	void UpdateMap();
+	void UpdateSetup(int id);
+	void UpdateMap(int id);
 	void UpdateTurn(string character);
-	void UpdateEnd();
+	void UpdateEnd(bool won = true);
 	void toggle();
 
 	static GameObjectLogger* getInstance();

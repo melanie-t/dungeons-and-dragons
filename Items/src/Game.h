@@ -89,7 +89,7 @@ private:
 	bool update(sf::Event* evt);
 
 	//Ends the game
-	void endGame();
+	void endGame(bool won = true);
 	void goToNewMap(Map* map); // for the future.
 
 	//Variables for player to move in the map

@@ -483,7 +483,7 @@ bool Game::update(sf::Event* evt)
 						}
 						else
 						{
-							endGame(); // Game over.
+							endGame(false); // Game over.
 						}
 					}
 					characterlogger.Update(character->getName(), target->getName(), true);
@@ -604,6 +604,10 @@ bool Game::update(sf::Event* evt)
 			{
 				this->maplogger.toggle();
 			}
+			else if (evt->key.code == sf::Keyboard::Num4)
+			{
+				GameObjectLogger::getInstance()->toggle();
+			}
 		}
 		else if (evt->type == sf::Event::MouseButtonPressed)
 		{
@@ -658,11 +662,12 @@ void Game::updatePlayerStats()
 //! @brief Ends the game by showing the player they won.
 //! Levels up the Character by 1 on each ability score and level and displays new stats
 //! Closes the Game window after 6 seconds to be able to see the changes
-void Game::endGame()
+void Game::endGame(bool won)
 {
 	//window->display();
 	ended = true;
 	window->clear();
+	GameObjectLogger::getInstance()->UpdateEnd(won);
 
 	while (window->isOpen())
 	{

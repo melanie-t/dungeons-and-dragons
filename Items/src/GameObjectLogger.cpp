@@ -22,15 +22,44 @@ void GameObjectLogger::toggle() {
 	}
 }
 
-//reacts to Observable class notify
+void GameObjectLogger::UpdateSetup(int id)
+{
+	if (showLog)
+	{
+		GameLogger::getInstance()->writeLine("Object on map #" + std::to_string(id) + "setup.");
+	}
+}
+
+void GameObjectLogger::UpdateMap(int id)
+{
+	if (showLog)
+	{
+		GameLogger::getInstance()->writeLine("Loaded map #" + std::to_string(id));
+	} 
+}
+
 void GameObjectLogger::UpdateTurn(string character)
 {
-	//calls the method in the class which displys the state of the object
 	if (showLog)
 	{
 		GameLogger::getInstance()->writeLine("It is now " + character + "'s turn.");
 	}
-};
+}
+
+void GameObjectLogger::UpdateEnd(bool won)
+{
+	if (showLog)
+	{
+		if (won)
+		{
+			GameLogger::getInstance()->writeLine("You won the game, congradulations! Thanks For Playing.");
+		}
+		else
+		{
+			GameLogger::getInstance()->writeLine("Better luck next time! Thanks For Playing.");
+		}
+	}
+}
 
 GameObjectLogger* GameObjectLogger::instance;
 

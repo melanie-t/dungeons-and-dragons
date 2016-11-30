@@ -17,6 +17,7 @@
 #include "StatisticsHelper.h"
 #include "CharacterSpriteTypes.h"
 #include "Chest.h"
+#include "GameObjectLogger.h"
 using namespace std;
 
 //! Default Constructor
@@ -257,6 +258,8 @@ bool FileMapBuilder::loadMap(int id)
 				}
 			}
 
+			GameObjectLogger::getInstance()->UpdateSetup(map->getID());
+			GameObjectLogger::getInstance()->UpdateMap(map->getID());
 			this->m_Map = map;
 			return true;
 		}

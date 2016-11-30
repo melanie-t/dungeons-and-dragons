@@ -527,7 +527,7 @@ void Map::removeEnemy(Enemy* enemy)
 	{
 		if (turns[i]->getName() == enemy->getName())
 		{
-			friends.erase(friends.begin() + i);
+			turns.erase(turns.begin() + i);
 		}
 	}
 }
@@ -544,7 +544,7 @@ void Map::removeFriend(Friend* frien)
 	{
 		if (turns[i]->getName() == frien->getName())
 		{
-			friends.erase(friends.begin() + i);
+			turns.erase(turns.begin() + i);
 		}
 	}
 	fillCell(frien->getPosition().x, frien->getPosition().y, new GrassTexture());
