@@ -409,9 +409,9 @@ bool Game::update(sf::Event* evt)
 				Dice dice;
 				int d20 = dice.roll("1d20");
 				int attackRoll = character->attackRoll(d20);
-				int bonus = character->getAttackBonus();
+				int realBonus = character->getAttackBonus() - (5 * attackNum);
 
-				if (((attackRoll + bonus) > target->getArmorClass() && d20 != 1) || d20 == 20)
+				if (((attackRoll + realBonus) > target->getArmorClass() && d20 != 1) || d20 == 20)
 				{
 					int weaponRoll = 0;
 
