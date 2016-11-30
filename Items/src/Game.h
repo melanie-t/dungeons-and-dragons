@@ -72,7 +72,6 @@ private:
 	void drawEquips();
 
 	//Checks if items are clicked
-	void eventOnClick();
 	bool isSpriteClicked(sf::Sprite &sprite);
 
 	//Draw onto the game

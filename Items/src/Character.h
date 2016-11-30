@@ -101,6 +101,8 @@ public:
 	Item* getEquips();
 	Item* getEquipAtIndex(int i);
 	Item* getEquipType(string type);
+	vector <Item> Character::getBackpackItems();
+	Item* getItemAtIndex(int i);
 	void equip(Item* item);
 	void unequip(Item* item);
 	void totalEnhancement();

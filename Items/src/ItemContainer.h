@@ -25,6 +25,8 @@ public:
 	Item getItem(string itemType);
 	vector<int> getIDs();
 	string toString();
+	Item itemAtIndex(int i);
+	void removeItemAtIndex(int i);
 
 private:
 	vector<Item> Items;

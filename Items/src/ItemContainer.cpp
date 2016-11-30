@@ -22,7 +22,18 @@ ItemContainer::ItemContainer( vector<Item> containeritems)
 //! @return : return the vector of items contained in the ItemContainer
 vector<Item> ItemContainer::getItems()
 {
-	return Items;
+	int i = 0;
+	vector <Item> inventory;
+	for (int i = 0; i < Items.size(); i++)
+	{
+		if (Items[i].getID() != 0)
+		{
+			inventory.push_back(Items[i]);
+		}
+		i++;
+	}
+	return inventory;
+	//Returning nothing
 }
 
 //! method to add an item to the item container
@@ -64,3 +75,15 @@ string ItemContainer::toString()
 
 	return out.str();
 }
+
+Item ItemContainer::itemAtIndex(int i)
+{
+	Item item = Item(Items[i].getID(), Items[i].getType(), Items[i].getInfluences(), Items[i].getItemPath());
+	return item;
+}
+
+void ItemContainer::removeItemAtIndex(int i)
+{
+	Items.erase(Items.begin() + i);
+}
+
