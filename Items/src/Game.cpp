@@ -449,8 +449,8 @@ bool Game::update(sf::Event* evt)
 							this->m_map->removeEnemy(dynamic_cast<Enemy*>(target));
 
 							//Drop Items
-							Chest* chest = new Chest(target->getBackpack());
-							this->m_map->fillCell(target->getPosition().x, target->getPosition().y, chest);
+						//	Chest* chest = new Chest(target->getBackpack());
+						//	this->m_map->fillCell(target->getPosition().x, target->getPosition().y, chest);
 							level = m_map->outputMap();
 							loadTextures();
 						}
@@ -576,6 +576,7 @@ bool Game::update(sf::Event* evt)
 						Item* equip = m_map->getPlayer()->getEquipAtIndex(i);
 						m_map->getPlayer()->unequip(equip);
 						m_map->getPlayer()->displayStats();
+						m_map->getPlayer()->saveCharacter();
 						//reload equips
 						drawEquips();
 						updatePlayerStats();
