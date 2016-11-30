@@ -19,6 +19,7 @@
 #include "FileMapBuilder.h"
 #include "ItemDecorator.h"
 #include "GameLogger.h"
+#include "DiceLogger.h"
 
 //! Constructor for Game class
 //! @param tileWidth : width of the tile used
@@ -584,6 +585,10 @@ bool Game::update(sf::Event* evt)
 			else if (evt->key.code == sf::Keyboard::Num1)
 			{
 				this->characterlogger.toggle();
+			}
+			else if (evt->key.code == sf::Keyboard::Num2)
+			{
+				DiceLogger::getInstance()->toggle();
 			}
 		}
 		else if (evt->type == sf::Event::MouseButtonPressed)
