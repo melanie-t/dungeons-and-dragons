@@ -686,6 +686,11 @@ void Character::removeBackpackIndex(int i)
 	backpack.removeItemAtIndex(i);
 }
 
+int Character::getBackpackSize()
+{
+	return backpack.getItems().size();
+}
+
 //! getBackpackItems function to return vector of Item objects
 //! @return : vector containing Item objects in backpack
 vector <Item> Character::getBackpackItems()

@@ -157,7 +157,8 @@ int Dice::sum(int n, int t, int tot)
 		//cout << temp << " ";
 		number--;
 	}
-	total = total - lowest;
+	if (number == 4 && type == 6)
+		total = total - lowest;
 	//cout << " Removed (" << lowest << ")  Total " << total << endl;
 	return total;
 }
