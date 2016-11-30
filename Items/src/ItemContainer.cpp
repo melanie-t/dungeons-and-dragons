@@ -25,7 +25,6 @@ vector<Item> ItemContainer::getItems()
 {
 	int i = 0;
 	vector <Item> inventory;
-	std::cout << "size: " << Items.size() << endl;
 	for (int i = 0; i < Items.size(); i++)
 	{
 		if (Items[i].getID() != 0)
@@ -83,8 +82,20 @@ Item ItemContainer::itemAtIndex(int i)
 	return item;
 }
 
+//void ItemContainer::removeItemByID(int id)
+//{
+//	for (auto it = Items.begin(); it != Items.end(); ++it)
+//	{
+//		if (it->getID() == id)
+//			*it = Item();
+//	}
+//}
+
 void ItemContainer::removeItemAtIndex(int i)
 {
-	Items.erase(Items.begin() + i);
+	if (i == 0)
+		Items.erase(Items.begin());
+	else
+		Items.erase(Items.begin() + i);
 }
 

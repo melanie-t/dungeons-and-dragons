@@ -681,6 +681,11 @@ void Character::addBackpack(Item* item)
 	backpack.addItem(*item);
 }
 
+void Character::removeBackpackIndex(int i)
+{
+	backpack.removeItemAtIndex(i);
+}
+
 //! getBackpackItems function to return vector of Item objects
 //! @return : vector containing Item objects in backpack
 vector <Item> Character::getBackpackItems()
@@ -1027,16 +1032,18 @@ void Character::equip(Item *item)
 	{
 		// If item is already equipped, unequip first.
 		if (armorEquipped)
-			unequip(&equips[Equip::ARMOR]);
+			unequip(item);
 		
 		equips[Equip::ARMOR] = *item;
 		armorEquipped = true;
+		//remove item from backpack
+
 	}
 
 	else if (type.compare("helmet") == 0)
 	{
 		if (helmetEquipped)
-			unequip(&equips[Equip::HELMET]);
+			unequip(item);
 
 		equips[Equip::HELMET] = *item;
 		helmetEquipped = true;
@@ -1045,7 +1052,7 @@ void Character::equip(Item *item)
 	else if (type.compare("shield") == 0)
 	{
 		if (shieldEquipped)
-			unequip(&equips[Equip::SHIELD]);
+			unequip(item);
 		
 		equips[Equip::SHIELD] = *item;
 		shieldEquipped = true;
@@ -1053,7 +1060,7 @@ void Character::equip(Item *item)
 	else if (type.compare("ring") == 0)
 	{
 		if (ringEquipped)
-			unequip(&equips[Equip::RING]);
+			unequip(item);
 
 		cout << "Ring clicked on" << endl;
 		equips[Equip::RING] = *item;
@@ -1062,7 +1069,7 @@ void Character::equip(Item *item)
 	else if (type.compare("belt") == 0)
 	{
 		if (beltEquipped)
-			unequip(&equips[Equip::BELT]);
+			unequip(item);
 
 		equips[Equip::BELT] = *item;
 		beltEquipped = true;
@@ -1071,7 +1078,7 @@ void Character::equip(Item *item)
 	else if (type.compare("boots") == 0)
 	{
 		if (bootsEquipped)
-			unequip(&equips[Equip::BOOTS]);
+			unequip(item);
 
 		equips[Equip::BOOTS] = *item;
 		bootsEquipped = true;
@@ -1079,7 +1086,7 @@ void Character::equip(Item *item)
 	else if (type.compare("weapon") == 0)
 	{
 		if (weaponEquipped)
-			unequip(&equips[Equip::WEAPON]);
+			unequip(item);
 
 		equips[Equip::WEAPON] = *item;
 		weaponEquipped = true;
