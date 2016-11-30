@@ -7,11 +7,13 @@
 #pragma once
 #include "ItemContainer.h"
 
-class Chest 
+class Chest : public GameObject
 {
 public:
 	static void displayChest(Item* inputItem);
 
+	Chest();
+	Chest(ItemContainer chestItems);
 private:
 	ItemContainer chestItems;
 };

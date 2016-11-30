@@ -522,14 +522,26 @@ void Map::removeEnemy(Enemy* enemy)
 			enemies.erase(enemies.begin() + i);
 		}
 	}
-	fillCell(enemy->getPosition().x, enemy->getPosition().y, new GrassTexture());
+	for (int i = 0; i < turns.size(); i++)
+	{
+		if (turns[i]->getName() == enemy->getName())
+		{
+			friends.erase(friends.begin() + i);
+		}
+	}
 }
-
 void Map::removeFriend(Friend* frien)
 {
 	for (int i = 0; i < enemies.size(); i++)
 	{
 		if (friends[i]->getName() == frien->getName())
+		{
+			friends.erase(friends.begin() + i);
+		}
+	}
+	for (int i = 0; i < turns.size(); i++)
+	{
+		if (turns[i]->getName() == frien->getName())
 		{
 			friends.erase(friends.begin() + i);
 		}

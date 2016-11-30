@@ -7,6 +7,16 @@
 #include <SFML\Graphics.hpp>
 using sf::Sprite;
 
+//! default constructor
+Chest::Chest() : GameObject(OBJ_CHEST)
+{
+}
+
+Chest::Chest(ItemContainer container) : GameObject(OBJ_CHEST)
+{
+	this->chestItems = container;
+}
+
 //! displayChest function
 //! @brief Implementation of Chest GUI when Character encounters a chest on the Map
 //! @param inputItem : Item pointer for finding out what type of item it is

@@ -32,6 +32,7 @@ Game::Game(unsigned int tileWidth, unsigned int tileHeight, Map* map)
 	this->ended = false;
 	this->inventoryOpen = false;
 	this->equipOpen = false;
+	this->attackNum = 0;
 }
 
 //! Deconstructor for Game class
@@ -163,7 +164,6 @@ bool Game::processInput()
 bool Game::update(sf::Event* evt)
 {
 	Character* character = m_map->getTurn();
-	int attackNum = 0;
 
 	if (character == m_map->getPlayer() && evt == nullptr)
 	{
@@ -447,6 +447,12 @@ bool Game::update(sf::Event* evt)
 						if (target->getCharacterType() == CT_ENEMY)
 						{
 							this->m_map->removeEnemy(dynamic_cast<Enemy*>(target));
+
+							//Drop Items
+							Chest* chest = new Chest(target->getBackpack());
+							this->m_map->fillCell(target->getPosition().x, target->getPosition().y, chest);
+							level = m_map->outputMap();
+							loadTextures();
 						}
 						else if (target->getCharacterType() == CT_FRIEND)
 						{
@@ -460,14 +466,18 @@ bool Game::update(sf::Event* evt)
 				}
 				if (attackNum == (1 + character->getLevel() % 5))
 				{
+					std::cout << "attack 1" << endl;
 					m_map->nextTurn();
+					attackNum = 0;
+					break;
 				}
-				break;
 			}
+			std::cout << "attack 2" << endl;
 			m_map->nextTurn();
+			attackNum = 0;
 			break;
 		}
-		m_map->nextTurn();
+		//std::cout << "attack 3" << endl;
 		break;
 	}
 	case PlayerAction::LOOTING:
@@ -614,22 +624,25 @@ void Game::endGame()
 //! @brief loads up the sprites for the map 
 //! Player sprite and map sprites
 //! Exits if unable to load either
-void Game::loadTextures()
+void Game::loadTextures(bool resetStart)
 {
 	//Sets the player to the starting position
-	int currentPos = -1;
-	for (int i = 0; i < width * height; ++i)
+	if (resetStart)
 	{
-		if (level[i] == TileTypes::START)
+		int currentPos = -1;
+		for (int i = 0; i < width * height; ++i)
 		{
-			currentPos = i;
-			break;
+			if (level[i] == TileTypes::START)
+			{
+				currentPos = i;
+				break;
+			}
 		}
+		this->m_map->getPlayer()->setPosition((currentPos % width), (currentPos / width));
+		this->m_map->getPlayer()->initSprite(CharacterSpriteType::S_PLAYER);
 	}
 	//Loads the map's texture
 	map.load("bkrd.png", sf::Vector2u(32, 32), level, width, height);
-	this->m_map->getPlayer()->setPosition((currentPos % width), (currentPos / width));
-	this->m_map->getPlayer()->initSprite(CharacterSpriteType::S_PLAYER);
 
 	for (Enemy* enemy : m_map->getEnemies())
 	{

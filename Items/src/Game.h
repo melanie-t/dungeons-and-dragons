@@ -79,7 +79,7 @@ private:
 	bool processInput();
 
 	//Load textures
-	void loadTextures();
+	void loadTextures(bool resetStart = true);
 
 	//Updates the game
 	bool update(sf::Event* evt);
@@ -96,6 +96,8 @@ private:
 	std::vector<int> level;
 
 	Map* m_map;
+
+	int attackNum;
 public:
 	Game(unsigned int tileWidth, unsigned int tileHeight, Map* map);
 	~Game();
