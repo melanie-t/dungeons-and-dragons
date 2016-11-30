@@ -581,7 +581,6 @@ bool Game::update(sf::Event* evt)
 							m_map->getPlayer()->displayStats();
 							//m_map->getPlayer()->saveCharacter();
 							//reload equips
-							drawEquips();
 							updatePlayerStats();
 						}
 					}
@@ -593,19 +592,20 @@ bool Game::update(sf::Event* evt)
 					{
 						if (isSpriteClicked(inventorySprite[i]))
 						{
-							//// Equip item
-							//Item item = m_map->getPlayer()->getBackpack().itemAtIndex(i);
-							//cout << "Item " << i << " clicked" << endl;
-							//cout << "Item type: " << item.getType() << endl;
-							//m_map->getPlayer()->equip(&item);
-							//m_map->getPlayer()->getBackpack().removeItemAtIndex(i);
-							//m_map->getPlayer()->displayStats();
-							////m_map->getPlayer()->saveCharacter();
-							drawItems();
+							// Equip item
+							Item item = m_map->getPlayer()->getBackpack().itemAtIndex(i);
+							cout << "Item " << i << " clicked" << endl;
+							cout << "Item type: " << item.getType() << endl;
+							m_map->getPlayer()->equip(&item);
+							m_map->getPlayer()->getBackpack().removeItemAtIndex(i);
+							m_map->getPlayer()->displayStats();
+							//m_map->getPlayer()->saveCharacter();
 							updatePlayerStats();
 						}
 					}
 				}
+				drawEquips();
+				drawItems();
 			}
 		}
 	}
