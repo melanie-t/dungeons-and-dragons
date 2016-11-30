@@ -337,7 +337,7 @@ void Character::statGenerator()
 int Character::abilityModifier(int abilityScore)
 {
 	// Proper calculation of abilityMod;
-	int abilityMod = (abilityScore - 10) / 2;
+	int abilityMod = (abilityScore / 2) - 5;
 	return abilityMod;
 }
 
@@ -558,13 +558,22 @@ void Character::setCharClass(int classOfChar)
 //  Using if-else shortcut: (condition) ? (if_true) : (if_false)
 void Character::levelUp()
 {
+	Dice dice;
+	string constitutionString = this->abilityScores[Ability::CONSTITUTION] +"";
 	level = level + 1;
+	//should roll 1d10[constitution]
+	currentHitPoints = currentHitPoints + dice.roll("1d10[" + constitutionString + "]");
+	//Sets the enhancement attack bonus as the level
+	this->enh_attackbonus = level;
+
+
+	/*
 	abilityScores[Ability::STRENGTH] < 18 ? setSTR(abilityScores[Ability::STRENGTH] + 1) : false;
 	abilityScores[Ability::DEXTERITY] < 18 ? setSTR(abilityScores[Ability::DEXTERITY] + 1) : false;
 	abilityScores[Ability::CONSTITUTION] < 18 ? setSTR(abilityScores[Ability::CONSTITUTION] + 1) : false;
 	abilityScores[Ability::INTELLIGENCE] < 18 ? setSTR(abilityScores[Ability::INTELLIGENCE] + 1) : false;
 	abilityScores[Ability::WISDOM] < 18 ? setSTR(abilityScores[Ability::WISDOM] + 1) : false;
-	abilityScores[Ability::CHARISMA] < 18 ? setSTR(abilityScores[Ability::CHARISMA] + 1) : false;
+	abilityScores[Ability::CHARISMA] < 18 ? setSTR(abilityScores[Ability::CHARISMA] + 1) : false;*/
 }
 
 //! Getter method to get the ItemContainer backpack
