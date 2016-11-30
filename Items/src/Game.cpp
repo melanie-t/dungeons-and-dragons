@@ -20,6 +20,7 @@
 #include "ItemDecorator.h"
 #include "GameLogger.h"
 #include "DiceLogger.h"
+#include "GameObjectLogger.h"
 
 //! Constructor for Game class
 //! @param tileWidth : width of the tile used
@@ -672,10 +673,9 @@ void Game::updatePlayerStats()
 //! Closes the Game window after 6 seconds to be able to see the changes
 void Game::endGame()
 {
-	m_map->getPlayer()->levelUp();
-
 	//window->display();
 	ended = true;
+	window->clear();
 
 	while (window->isOpen())
 	{
