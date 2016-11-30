@@ -406,13 +406,18 @@ bool Game::update(sf::Event* evt)
 			//Target character is in range. Must be 1 tile away.
 			if (distance <= 1)
 			{
-				attackNum++;
 				Dice dice;
 				int d20 = dice.roll("1d20");
 				int attackRoll = character->attackRoll(d20);
 				int realBonus = character->getAttackBonus() - (5 * attackNum);
+				attackNum++;
 
-				if (((attackRoll + realBonus) > target->getArmorClass() && d20 != 1) || d20 == 20)
+				if (d20 == 1)
+				{
+					break;
+				}
+
+				if (((attackRoll + realBonus) > target->getArmorClass()) || d20 == 20)
 				{
 					int weaponRoll = 0;
 
@@ -444,6 +449,11 @@ bool Game::update(sf::Event* evt)
 
 					target->hit(damage);
 
+					if (target == m_map->getPlayer())
+					{
+						this->updatePlayerStats();
+					}
+
 					if (target->getHitPoints() <= 0)
 					{
 						if (target->getCharacterType() == CT_ENEMY)
@@ -465,18 +475,24 @@ bool Game::update(sf::Event* evt)
 							endGame(); // Game over.
 						}
 					}
+					characterlogger.Update(character->getName(), target->getName(), true);
 				}
+				else
+				{
+					characterlogger.Update(character->getName(), target->getName(), false);
+				}
+
 				if (attackNum == (1 + character->getLevel()/5))
 				{
-					std::cout << "attack 1" << endl;
-					m_map->nextTurn();
+					std::cout << "attack 1" << character->getLevel() / 5 << endl;
 					attackNum = 0;
+					m_map->nextTurn();
 					break;
 				}
 			}
 			std::cout << "attack 2" << endl;
-			m_map->nextTurn();
 			attackNum = 0;
+			m_map->nextTurn();
 			break;
 		}
 		//std::cout << "attack 3" << endl;
@@ -491,7 +507,9 @@ bool Game::update(sf::Event* evt)
 		
 		//! RANDOMLY GENERATED CHEST - TO BE IMPLEMENTED
 		//Item chest;
-		//m_map->getPlayer()->getBackpack().addItem(chest);
+		pos position = character->getPosition();
+		Chest* chest = static_cast<Chest*>(m_map->getObject(position.x, position.y));
+		//character->getBackpack().addItem(chest);
 
 		// each character takes turns in this update method.
 		// Be nice. Let everyone loot.
@@ -562,6 +580,10 @@ bool Game::update(sf::Event* evt)
 					//Open Equip
 					equipOpen = true;
 				}
+			}
+			else if (evt->key.code == sf::Keyboard::Num1)
+			{
+				this->characterlogger.toggle();
 			}
 		}
 		else if (evt->type == sf::Event::MouseButtonPressed)

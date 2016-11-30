@@ -12,6 +12,7 @@
 #include <SFML\Graphics.hpp>
 #include "TileMap.h"
 #include "Map.h"
+#include "CharacterLogger.h"
 #include <iostream>
 #include <vector>
 
@@ -100,6 +101,8 @@ private:
 	Map* m_map;
 
 	int attackNum;
+
+	CharacterLogger characterlogger;
 public:
 	Game(unsigned int tileWidth, unsigned int tileHeight, Map* map);
 	~Game();
