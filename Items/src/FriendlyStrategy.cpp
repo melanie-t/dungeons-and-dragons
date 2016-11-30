@@ -1,3 +1,4 @@
+#include <thread>
 #include <iostream>
 #include "FriendlyStrategy.h"
 #include "MathHelper.h"
@@ -6,7 +7,6 @@
 
 int FriendlyStrategy::execute(pos characterPos, pos targetPos, std::vector<int> level, int width, int lastkey, sf::Event* evt)
 {
-	std::cout << "friendly" << std::endl;
 	if (MathHelper::getDistance(characterPos, targetPos) <= 1)
 	{
 		return PlayerAction::ATTACK;

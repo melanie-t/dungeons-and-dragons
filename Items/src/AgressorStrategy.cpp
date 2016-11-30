@@ -1,3 +1,4 @@
+#include <thread>
 #include "AgressorStrategy.h"
 #include "MathHelper.h"
 #include "PlayerActionTypes.h"
@@ -6,6 +7,7 @@
 
 int AgressorStrategy::execute(pos characterPos, pos targetPos, std::vector<int> level, int width, int lastkey, sf::Event* evt)
 {
+	//std::this_thread::sleep_for(std::chrono::seconds(1));
 	if (MathHelper::getDistance(characterPos, targetPos) <= 1)
 	{
 		return PlayerAction::ATTACK;
