@@ -685,6 +685,8 @@ void Game::endGame()
 		window->clear(sf::Color(255, 255, 255, 255));
 		window->draw(text);
 
+		GameLogger::getInstance()->draw(window);
+
 		processInput();
 		window->display();
 	}
