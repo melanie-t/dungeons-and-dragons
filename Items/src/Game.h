@@ -61,10 +61,14 @@ private:
 	void loadContent();
 
 	//Add items to GUI
-	void addItems();
+	void drawItems();
 
 	//Add equips to GUI
-	void addEquips();
+	void drawEquips();
+
+	//Checks if items are clicked
+	void eventOnClick();
+	bool isSpriteClicked(sf::Sprite &sprite);
 
 	//Draw onto the game
 	void render();

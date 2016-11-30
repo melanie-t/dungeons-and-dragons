@@ -16,6 +16,7 @@
 #include "MathHelper.h"
 #include "CharacterType.h"
 #include "FileMapBuilder.h"
+#include "ItemDecorator.h"
 
 //! Constructor for Game class
 //! @param tileWidth : width of the tile used
@@ -552,6 +553,28 @@ bool Game::update(sf::Event* evt)
 				}
 			}
 		}
+		else if (evt->type == sf::Event::MouseButtonPressed && equipOpen)
+		{
+			// If mouse is right clicked, check if it's over items
+			if (evt->mouseButton.button == sf::Mouse::Right)
+			{
+				//Equips
+				for (int i = 0; i < 8; i++)
+				{
+					if (isSpriteClicked(equipSprite[i]))
+					{
+						//Decorator pattern used to unequips equips
+						cout << "Sprite clicked" << endl;
+						ItemDecorator equipManager(m_map->getPlayer());
+						equipManager.remove(m_map->getPlayer()->getEquipAtIndex(i));
+						cout << "Item: " << (m_map->getPlayer()->getEquipAtIndex(i)->toString()) << endl;
+						m_map->getPlayer()->displayStats();
+						//reload equips
+						//drawEquips();
+					}
+				}
+			}
+		}
 	}
 	return true;
 }
@@ -708,7 +731,7 @@ void Game::createText()
 
 //! addItems function
 //! loads the items currently in Character's inventory
-void Game::addItems() 
+void Game::drawItems() 
 {
 	int row = 0;
 	vector<Item> items = m_map->getPlayer()->getBackpack().getItems();
@@ -728,7 +751,7 @@ void Game::addItems()
 
 //! addEquips function
 //! loads the items currently equipped by Character
-void Game::addEquips()
+void Game::drawEquips()
 {
 	vector <Item> items;
 	for (int i = 0; i < 7; i++)
@@ -800,6 +823,24 @@ void Game::addEquips()
 	} // end for loop
 }
 
+bool Game::isSpriteClicked(sf::Sprite &sprite) {
+
+	sf::IntRect rect(sprite.getPosition().x, sprite.getPosition().y, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height);
+	//If mouse position is in the rectangle do whatever
+	if (rect.contains(sf::Mouse::getPosition(*window)))
+	{
+		return true;
+	}
+
+	//Otherwise, don't do anything
+	return false;
+}
+
+void Game::eventOnClick()
+{
+
+}
+
 //! render function
 //! @brief Draws everything onto the window
 void Game::render()
@@ -827,14 +868,14 @@ void Game::render()
 		window->draw(equipBox);
 		window->draw(equipText);
 		window->draw(equipWindow);
-		addEquips();
+		drawEquips();
 	}
 	if (this->inventoryOpen)
 	{
 		window->draw(inventoryBox);
 		window->draw(inventoryText);
 		window->draw(inventoryWindow);
-		addItems();
+		drawItems();
 	}
 
 	//window->draw(currentPosition);
