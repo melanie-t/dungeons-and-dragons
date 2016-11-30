@@ -409,8 +409,9 @@ bool Game::update(sf::Event* evt)
 				Dice dice;
 				int d20 = dice.roll("1d20");
 				int attackRoll = character->attackRoll(d20);
+				int bonus = character->getAttackBonus();
 
-				if ((attackRoll > target->getArmorClass() && d20 != 1) || d20 == 20)
+				if (((attackRoll + bonus) > target->getArmorClass() && d20 != 1) || d20 == 20)
 				{
 					int weaponRoll = 0;
 
@@ -464,7 +465,7 @@ bool Game::update(sf::Event* evt)
 						}
 					}
 				}
-				if (attackNum == (1 + character->getLevel() % 5))
+				if (attackNum == (1 + character->getLevel()/5))
 				{
 					std::cout << "attack 1" << endl;
 					m_map->nextTurn();
