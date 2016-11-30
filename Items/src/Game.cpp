@@ -448,6 +448,11 @@ bool Game::update(sf::Event* evt)
 						damage = (2 * weaponRoll) + character->getDamageBonus();
 					}
 
+					if (damage < 1)
+					{
+						damage = 1;
+					}
+
 					target->hit(damage);
 
 					if (target == m_map->getPlayer())
