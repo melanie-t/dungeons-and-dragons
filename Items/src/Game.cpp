@@ -18,6 +18,7 @@
 #include "CharacterType.h"
 #include "FileMapBuilder.h"
 #include "ItemDecorator.h"
+#include "GameLogger.h"
 
 //! Constructor for Game class
 //! @param tileWidth : width of the tile used
@@ -757,11 +758,6 @@ void Game::createText()
 	equipBox.setOutlineColor(sf::Color::Green);
 	equipBox.setOutlineThickness(3);
 
-	turnBox.setSize(sf::Vector2f(250, 242));
-	turnBox.setPosition(32 * m_map->getWidth() - 3, 0);
-	turnBox.setOutlineColor(sf::Color::Green);
-	turnBox.setOutlineThickness(3);
-
 	//Inventory
 	inventoryText.setString("Inventory");
 	inventoryText.setCharacterSize(12);
@@ -784,6 +780,11 @@ void Game::createText()
 	turnText.setFillColor(sf::Color::Black);
 	turnText.setStyle(sf::Text::Bold);
 	turnText.setPosition(32 * m_map->getWidth(), 0);
+
+	turnBox.setSize(sf::Vector2f(250, 242));
+	turnBox.setPosition(32 * m_map->getWidth() - 3, 0);
+	turnBox.setOutlineColor(sf::Color::Green);
+	turnBox.setOutlineThickness(3);
 
 }
 
@@ -932,6 +933,8 @@ void Game::render()
 		window->draw(inventoryWindow);
 		drawItems();
 	}
+
+	GameLogger::getInstance()->draw(window);
 
 	//window->draw(currentPosition);
 }

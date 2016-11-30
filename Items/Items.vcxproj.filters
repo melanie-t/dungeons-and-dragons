@@ -64,15 +64,15 @@
     <Filter Include="Source Files\Character Strategy">
       <UniqueIdentifier>{90cbc0c3-f31d-4239-a7ce-cc0cfc67c21d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Items">
+      <UniqueIdentifier>{f546c804-cdce-4a13-8691-24c39eac17cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Items">
+      <UniqueIdentifier>{e93297cf-56ab-4724-885e-3c63e31f8818}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Map.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ItemContainer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Enhancement.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\GrassTexture.h">
@@ -134,9 +134,6 @@
     </ClInclude>
     <ClInclude Include="src\StatisticsHelper.h">
       <Filter>Header Files\Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ItemPanel.h">
-      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="src\Item.h">
       <Filter>Header Files</Filter>
@@ -210,21 +207,21 @@
     <ClInclude Include="src\CharacterType.h">
       <Filter>Header Files\Constants</Filter>
     </ClInclude>
-    <ClInclude Include="src\ItemDecorator.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\GameLogger.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ItemContainer.h">
+      <Filter>Header Files\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Enhancement.h">
+      <Filter>Header Files\Items</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Map.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\ItemContainer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Character.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Enhancement.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Fighter.cpp">
@@ -275,12 +272,6 @@
     <ClCompile Include="src\Markup.cpp">
       <Filter>Source Files\Helpers</Filter>
     </ClCompile>
-    <ClCompile Include="src\ItemPanel.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Item.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Friend.cpp">
       <Filter>Source Files\GameObjects</Filter>
     </ClCompile>
@@ -305,8 +296,17 @@
     <ClCompile Include="src\MathHelper.cpp">
       <Filter>Source Files\Helpers</Filter>
     </ClCompile>
-    <ClCompile Include="src\ItemDecorator.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\GameLogger.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Item.cpp">
+      <Filter>Source Files\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ItemContainer.cpp">
+      <Filter>Source Files\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Enhancement.cpp">
+      <Filter>Source Files\Items</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

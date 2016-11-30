@@ -95,6 +95,7 @@
     <ClInclude Include="src\Friend.h" />
     <ClInclude Include="src\FriendlyStrategy.h" />
     <ClInclude Include="src\Game.h" />
+    <ClInclude Include="src\GameLogger.h" />
     <ClInclude Include="src\GameObject.h" />
     <ClInclude Include="src\GrassTexture.h" />
     <ClInclude Include="src\HumanPlayerStrategy.h" />
@@ -136,6 +137,7 @@
     <ClCompile Include="src\Friend.cpp" />
     <ClCompile Include="src\FriendlyStrategy.cpp" />
     <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\GameLogger.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="src\HumanPlayerStartegy.cpp" />
     <ClCompile Include="src\Item.cpp" />
