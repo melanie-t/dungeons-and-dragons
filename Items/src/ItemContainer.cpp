@@ -4,6 +4,7 @@
 
 #include "ItemContainer.h"
 #include <sstream>
+#include <iostream>
 
 //! default constructor
 ItemContainer::ItemContainer()
@@ -24,13 +25,13 @@ vector<Item> ItemContainer::getItems()
 {
 	int i = 0;
 	vector <Item> inventory;
+	std::cout << "size: " << Items.size() << endl;
 	for (int i = 0; i < Items.size(); i++)
 	{
 		if (Items[i].getID() != 0)
 		{
 			inventory.push_back(Items[i]);
 		}
-		i++;
 	}
 	return inventory;
 	//Returning nothing
