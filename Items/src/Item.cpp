@@ -80,7 +80,6 @@ int Item::getEnhancement(string bonus)
 		if (bonus.compare(influence[i].getType()) == 0)
 			return influence[i].getBonus();
 	}
-
 	return 0;
 }
 
