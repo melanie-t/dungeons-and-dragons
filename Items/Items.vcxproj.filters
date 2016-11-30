@@ -231,6 +231,9 @@
     <ClInclude Include="src\MapLogger.h">
       <Filter>Header Files\log</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameObjectLogger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Map.cpp">
@@ -331,6 +334,9 @@
     </ClCompile>
     <ClCompile Include="src\MapLogger.cpp">
       <Filter>Source Files\Log</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObjectLogger.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

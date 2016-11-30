@@ -97,6 +97,7 @@
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\GameLogger.h" />
     <ClInclude Include="src\GameObject.h" />
+    <ClInclude Include="src\GameObjectLogger.h" />
     <ClInclude Include="src\GrassTexture.h" />
     <ClInclude Include="src\HumanPlayerStrategy.h" />
     <ClInclude Include="src\Item.h" />
@@ -142,6 +143,7 @@
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\GameLogger.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
+    <ClCompile Include="src\GameObjectLogger.cpp" />
     <ClCompile Include="src\HumanPlayerStartegy.cpp" />
     <ClCompile Include="src\Item.cpp" />
     <ClCompile Include="src\ItemContainer.cpp" />
