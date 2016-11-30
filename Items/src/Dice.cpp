@@ -145,18 +145,18 @@ int Dice::sum(int n, int t, int tot)
 	total = tot;
 	int temp;
 	int lowest = 6;
-	cout << "[Your Rolls] ";
+	//cout << "[Your Rolls] ";
 	while (number != 0)
 	{
 		temp = getRandom();
 		if (temp < lowest)
 			lowest = temp;
 		total += temp;
-		cout << temp << " ";
+		//cout << temp << " ";
 		number--;
 	}
 	total = total - lowest;
-	cout << " Removed (" << lowest << ")  Total " << total << endl;
+	//cout << " Removed (" << lowest << ")  Total " << total << endl;
 	return total;
 }
 
@@ -171,7 +171,7 @@ int Dice::saySum(int n, int t, int tot)
 	{
 		temp = getRandom();
 		total += temp;
-		cout << "random number: " << temp << " running total: " << total << endl;
+		//cout << "random number: " << temp << " running total: " << total << endl;
 		number--;
 	}
 
@@ -227,8 +227,8 @@ int Dice::getRandom()
 	}
 	default:
 	{
-		cout << endl << "getRandom() switch default, returning total of 0. Something went wrong yo." << endl;
-		cout << "Please choose a supported die type. (d4,d8,d10,d12,d20,d100)" << endl;
+		//cout << endl << "getRandom() switch default, returning total of 0. Something went wrong yo." << endl;
+		//cout << "Please choose a supported die type. (d4,d8,d10,d12,d20,d100)" << endl;
 		total = 0;
 		return total;
 		break;

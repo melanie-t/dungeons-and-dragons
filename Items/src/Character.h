@@ -103,10 +103,7 @@ public:
 	Item* getEquipType(string type);
 	void equip(Item* item);
 	void unequip(Item* item);
-	void setEnh(string type, int bonus);
-	void initEnh();
-	void setEquipTF(Item* item, bool T_F);
-	bool isEquipped(Item* item);
+	void totalEnhancement();
 
 	//Methods for Strategy
 	bool isHoldingWeapon(){ return this->weaponEquipped; }
@@ -131,13 +128,13 @@ private:
 	int charClass;
 	bool gameover;
 	
-	bool helmetEquipped,
-		armorEquipped,
-		beltEquipped,
-		bootsEquipped,
-		shieldEquipped,
-		weaponEquipped,
-		ringEquipped;
+	bool helmetEquipped = false,
+		armorEquipped = false,
+		beltEquipped = false,
+		bootsEquipped = false,
+		shieldEquipped = false,
+		weaponEquipped = false,
+		ringEquipped = false;
 
 	ItemContainer backpack;
 	Item equips[7]; //(0)helmet, (1)armor, (2)belt, (3)boots, (4)shield, (5)weapon, (6)ring
@@ -152,6 +149,14 @@ private:
 	sf::Sprite* characterSprite;
 
 protected:
-	int enh_str, enh_dex, enh_con, enh_int, enh_wis, enh_cha, enh_armorclass, enh_damagebonus, enh_attackbonus;
+	int enh_str,
+		enh_dex,
+		enh_con,
+		enh_int,
+		enh_wis,
+		enh_cha,
+		enh_armorclass,
+		enh_damagebonus,
+		enh_attackbonus;
 };
 

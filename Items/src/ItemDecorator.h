@@ -30,8 +30,8 @@ public:
 
 	void wear(Item* item);
 	void remove(Item* item);
-	void removeEnh(string enh);
-	void update(Item* item, bool statUpdate);
+	//void update(Item* item, bool statUpdate);
 
 	Item Equips[7];
+
 };

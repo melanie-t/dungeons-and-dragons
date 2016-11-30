@@ -61,6 +61,9 @@ private:
 
 	//Load the content
 	void loadContent();
+	
+	//Updates player stats
+	void updatePlayerStats();
 
 	//Add items to GUI
 	void drawItems();

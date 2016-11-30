@@ -40,16 +40,7 @@ Character::Character(int lvl, int str, int dex, int con, int intel, int wis, int
 	abilityScores[Ability::CHARISMA] = cha;
 	currentHitPoints = 10;
 	secondaryStatCalc();
-	initEnh();
-
-	this->gameover = false;
-	this->helmetEquipped = false;
-	this->armorEquipped = false;
-	this->beltEquipped = false;
-	this->bootsEquipped = false;
-	this->shieldEquipped = false;
-	this->weaponEquipped = false;
-	this->ringEquipped = false;
+	totalEnhancement();
 }
 
 //! Constructor: Used to load characters from saved XML files
@@ -80,7 +71,7 @@ Character::Character(string playerName, int charclass, int lvl, int str, int dex
 	backpack = bkpack;
 	setEquips(equips);
 	secondaryStatCalc();
-	initEnh();
+	totalEnhancement();
 }
 
 //! notify function
@@ -88,7 +79,6 @@ Character::Character(string playerName, int charclass, int lvl, int str, int dex
 //! notifies the observer of any changes
 void Character::notify()
 {
-	initEnh();
 	displayStats();
 }
 
@@ -833,9 +823,38 @@ Character* Character::loadCharacter(string name)
 //! @param equips : the equips that's getting passed to Character's equips
 void Character::setEquips(Item newEquips[7])
 {
+	// Make equipped items true if player has equips
 	for (int i = 0; i < 7; i++)
 	{
 		equips[i] = newEquips[i];
+		if (equips[i].getType() == "helmet")
+		{
+			helmetEquipped = true;
+		}
+		else if (equips[i].getType() == "armor")
+		{
+			armorEquipped = true;
+		}
+		else if (equips[i].getType() == "shield")
+		{
+			shieldEquipped = true;
+		}
+		else if (equips[i].getType() == "ring")
+		{
+			ringEquipped = true;
+		}
+		else if (equips[i].getType() == "belt")
+		{
+			beltEquipped = true;
+		}
+		else if (equips[i].getType() == "boots")
+		{
+			bootsEquipped = true;
+		}
+		else if (equips[i].getType() == "weapon")		
+		{
+			weaponEquipped = true;
+		}
 	}
 }
 
@@ -885,25 +904,43 @@ void Character::equip(Item *item)
 {
 	string itemtype = item->getType();
 	if (itemtype.compare("armor") == 0)
+	{
 		equips[Equip::ARMOR] = *item;
+		armorEquipped = true;
+	}
 
 	else if (itemtype.compare("helmet") == 0)
+	{
 		equips[Equip::HELMET] = *item;
+		helmetEquipped = true;
+	}
 
 	else if (itemtype.compare("shield") == 0)
+	{
 		equips[Equip::SHIELD] = *item;
-
+		shieldEquipped = true;
+	}
 	else if (itemtype.compare("ring") == 0)
+	{
 		equips[Equip::RING] = *item;
-
+		ringEquipped = true;
+	}
 	else if (itemtype.compare("belt") == 0)
+	{
 		equips[Equip::BELT] = *item;
+		beltEquipped = true;
+	}
 
 	else if (itemtype.compare("boots") == 0)
+	{
 		equips[Equip::BOOTS] = *item;
-
+		bootsEquipped = true;
+	}
 	else if (itemtype.compare("weapon") == 0)
+	{
 		equips[Equip::WEAPON] = *item;
+		weaponEquipped = true;
+	}
 }
 
 //! unequip function used by ItemDecorator
@@ -916,150 +953,80 @@ void Character::unequip(Item* item)
 	{
 		backpack.addItem(equips[Equip::ARMOR]);
 		equips[Equip::ARMOR] = Item();
+		armorEquipped = false;
 	}
 
 	else if (equip.compare("helmet") == 0)
 	{
 		backpack.addItem(equips[Equip::HELMET]);
 		equips[Equip::HELMET] = Item();
+		helmetEquipped = false;
 	}
 
 	else if (equip.compare("shield") == 0)
 	{
 		backpack.addItem(equips[Equip::SHIELD]);
 		equips[Equip::SHIELD] = Item();
+		shieldEquipped = false;
 	}
 
 	else if (equip.compare("ring") == 0)
 	{
 		backpack.addItem(equips[Equip::RING]);
 		equips[Equip::RING] = Item();
+		ringEquipped = false;
 	}
 
 	else if (equip.compare("belt") == 0)
 	{
 		backpack.addItem(equips[Equip::BELT]);
 		equips[Equip::BELT] = Item();
+		beltEquipped = false;
 	}
 
 	else if (equip.compare("boots") == 0)
 	{
 		backpack.addItem(equips[Equip::BOOTS]);
 		equips[Equip::BOOTS] = Item();
+		bootsEquipped = false;
 	}
 
 	else if (equip.compare("weapon") == 0)
 	{
 		backpack.addItem(equips[Equip::WEAPON]);
 		equips[Equip::WEAPON] = Item();
+		weaponEquipped = false;
 	}
-}
-
-//! setEnh function
-//! sets the enhancement and ability modifier bonus
-//! @param type : string of the enhancement type
-//! @param bonus : value of enhancement
-void Character::setEnh(string type, int bonus)
-{
-	if (type.compare("strength") == 0)
-		enh_str = enh_str + bonus;
-
-	else if (type.compare("dexterity") == 0)
-		enh_dex = enh_dex + bonus;
-
-	else if (type.compare("constitution") == 0)
-		enh_con = enh_con + bonus;
-
-	else if (type.compare("intelligence") == 0)
-		enh_int = enh_int + bonus;
-
-	else if (type.compare("wisdom") == 0)
-		enh_wis = enh_wis + bonus;
-
-	else if (type.compare("charisma") == 0)
-		enh_cha = enh_cha + bonus;
-
-	else if (type.compare("armorclass") == 0)
-		enh_armorclass = enh_armorclass + bonus;
-
-	else if (type.compare("attackbonus") == 0)
-		enh_attackbonus = enh_attackbonus + bonus;
-
-	else if (type.compare("damagebonus") == 0)
-		enh_damagebonus = enh_damagebonus + bonus;
+	totalEnhancement();
 }
 
 //! initEnh function
 //! initializes the ability modifier bonus
-void Character::initEnh()
+void Character::totalEnhancement()
 {
-	enh_str = abilityModifier(getSTR());
-	enh_dex = abilityModifier(getDEX());
-	enh_con = abilityModifier(getCON());
-	enh_int = abilityModifier(getINTEL());
-	enh_wis = abilityModifier(getWIS());
-	enh_cha = abilityModifier(getCHA());
-	enh_armorclass = abilityModifier(getDEX());
+
+	enh_str = abilityModifier(abilityScores[Ability::STRENGTH]),
+	enh_dex = abilityModifier(abilityScores[Ability::DEXTERITY]),
+	enh_con = abilityModifier(abilityScores[Ability::CONSTITUTION]),
+	enh_int = abilityModifier(abilityScores[Ability::INTELLIGENCE]),
+	enh_wis = abilityModifier(abilityScores[Ability::WISDOM]),
+	enh_cha = abilityModifier(abilityScores[Ability::CHARISMA]),
+	enh_armorclass = abilityModifier(abilityScores[Ability::DEXTERITY]),
+	enh_damagebonus = 0,
 	enh_attackbonus = 0;
-	enh_damagebonus = 0;
-}
 
-//! setEquipTF function
-//! sets the item's itemEquipped value as true or false, depending on parameter
-//! @param item : item that is being modified
-//! @param boolean : true represents the item as equipped and false represents the item as unequipped
-void Character::setEquipTF(Item* item, bool T_F)
-{
-	string type = item->getType();
-	if (type == TYPE_HELMET)
-		helmetEquipped = T_F;
-
-	else if (type == TYPE_SHIELD)
-		shieldEquipped = T_F;
-
-	else if (type == TYPE_RING)
-		ringEquipped = T_F;
-
-	else if (type == TYPE_ARMOR)
-		armorEquipped = T_F;
-
-	else if (type == TYPE_BELT)
-		beltEquipped = T_F;
-
-	else if (type == TYPE_BOOTS)
-		bootsEquipped = T_F;
-
-	else if (type == TYPE_WEAPON)
-		weaponEquipped = T_F;
-}
-
-//! isEquipped function
-//! checks if the item type passed as a parameter is already equipped
-//! @param item : item that is being checked if it's already worn
-//! @return true if it is already equipped, false otherwise
-bool Character::isEquipped(Item* item)
-{
-	string type = item->getType();
-	if (type == TYPE_HELMET)
-		return helmetEquipped;
-
-	else if (type == TYPE_SHIELD)
-		return shieldEquipped;
-
-	else if (type == TYPE_RING)
-		return ringEquipped;
-
-	else if (type == TYPE_ARMOR)
-		return armorEquipped;
-
-	else if (type == TYPE_BELT)
-		return beltEquipped;
-
-	else if (type == TYPE_BOOTS)
-		return bootsEquipped;
-
-	else if (type == TYPE_WEAPON)
-		return weaponEquipped;
+	for (Item i : equips)
+	{
+		enh_str = enh_str + i.getEnhancement("strength");
+		enh_dex = enh_dex + i.getEnhancement("dexterity");
+		enh_con = enh_con + i.getEnhancement("constitution");
+		enh_int = enh_int + i.getEnhancement("intelligence");
+		enh_wis = enh_wis + i.getEnhancement("wisdom");
+		enh_cha = enh_cha + i.getEnhancement("charisma");
+		enh_armorclass = enh_armorclass + i.getEnhancement("armorclass");
+		enh_attackbonus = enh_attackbonus + i.getEnhancement("attackbonus");
+		enh_damagebonus = enh_damagebonus + i.getEnhancement("damagebonus");
+	}
 }
 
 //! getStrategy function
