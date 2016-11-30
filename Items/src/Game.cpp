@@ -609,6 +609,20 @@ bool Game::update(sf::Event* evt)
 				GameObjectLogger::getInstance()->toggle();
 			}
 		}
+
+		// If sprite hovers over inventoryWindow
+		//else if (evt->type == sf::Event:: && isSpriteClicked(inventoryWindow))
+		//{
+		//	for (int i = 0; i < m_map->getPlayer()->getBackpackSize(); i++)
+		//	{
+		//		if (isSpriteClicked(inventorySprite[i]))
+		//		{
+		//			cout << "Item stats: \n " << m_map->getPlayer()->getBackpack().itemAtIndex(i).toString() << endl;
+		//			drawItemStats(m_map->getPlayer()->getBackpack().itemAtIndex(i).toString());
+		//		}
+		//	}
+		//}
+
 		else if (evt->type == sf::Event::MouseButtonPressed)
 		{
 			// If mouse is right clicked, check if it's over items
@@ -644,6 +658,40 @@ bool Game::update(sf::Event* evt)
 				}
 				drawEquips();
 				drawItems();
+			}
+			
+			if (evt->mouseButton.button == sf::Mouse::Left)
+			{
+				// Equips clicked
+				if (equipOpen && isSpriteClicked(equipWindow))
+				{
+					for (int i = 0; i < 7; i++)
+					{
+						if (isSpriteClicked(equipSprite[i]))
+						{
+							cout << "Equip stats: \n" << m_map->getPlayer()->getEquipAtIndex(i)->toString() << endl;
+							itemText.setString(m_map->getPlayer()->getEquipAtIndex(i)->toString());
+							itemStatOpen = true;
+						}
+					}
+				}
+
+				// Inventory clicked
+				else if (inventoryOpen && isSpriteClicked(inventoryWindow))
+				{
+					for (int i = 0; i < m_map->getPlayer()->getBackpackSize(); i++)
+					{
+						if (isSpriteClicked(inventorySprite[i]))
+						{
+							cout << "Item stats: \n " << m_map->getPlayer()->getBackpack().itemAtIndex(i).toString() << endl;
+							itemText.setString(m_map->getPlayer()->getBackpack().itemAtIndex(i).toString());
+							itemStatOpen = true;
+						}
+					}
+				}
+
+				else
+					itemStatOpen = false;
 			}
 		}
 	}
@@ -747,6 +795,7 @@ void Game::createText()
 	equipText.setFont(font);
 	turnText.setFont(font);
 	inventoryText.setFont(font);
+	itemText.setFont(font);
 
 	std::string heroName = m_map->getPlayer()->getName();
 
@@ -797,6 +846,17 @@ void Game::createText()
 	equipBox.setOutlineColor(sf::Color::Green);
 	equipBox.setOutlineThickness(3);
 
+//	itemText.setString("");
+	itemText.setCharacterSize(12);
+	itemText.setFillColor(sf::Color::Blue);
+	itemText.setStyle(sf::Text::Style::Regular);
+	itemText.setPosition(485, (height * 32 - 97));
+
+	itemStatBox.setSize(sf::Vector2f(152, 100));
+	itemStatBox.setPosition(479, height * 32 - 102);
+	itemStatBox.setOutlineColor(sf::Color::Blue);
+	itemStatBox.setOutlineThickness(3);
+
 	//Inventory
 	inventoryText.setString("Inventory");
 	inventoryText.setCharacterSize(12);
@@ -824,7 +884,6 @@ void Game::createText()
 	turnBox.setPosition(32 * m_map->getWidth() - 3, 0);
 	turnBox.setOutlineColor(sf::Color::Green);
 	turnBox.setOutlineThickness(3);
-
 }
 
 //! addItems function
@@ -924,6 +983,10 @@ void Game::drawEquips()
 	} // end for loop
 }
 
+//! isSpriteClicked function
+//! Checks if mouse hovers over sprite
+//! @param : sprite that's checked for hover
+//! @return : true if mouse is over sprite
 bool Game::isSpriteClicked(sf::Sprite &sprite) {
 
 	sf::IntRect rect(sprite.getPosition().x, sprite.getPosition().y, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height);
@@ -932,7 +995,6 @@ bool Game::isSpriteClicked(sf::Sprite &sprite) {
 	{
 		return true;
 	}
-
 	//Otherwise, don't do anything
 	return false;
 }
@@ -968,12 +1030,19 @@ void Game::render()
 		window->draw(equipWindow);
 		drawEquips();
 	}
+
 	if (this->inventoryOpen)
 	{
 		window->draw(inventoryBox);
 		window->draw(inventoryText);
 		window->draw(inventoryWindow);
 		drawItems();
+	}
+
+	if (this->itemStatOpen && this->inventoryOpen)
+	{
+		window->draw(itemStatBox);
+		window->draw(itemText);
 	}
 
 	GameLogger::getInstance()->draw(window);

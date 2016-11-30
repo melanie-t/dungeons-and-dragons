@@ -25,10 +25,11 @@ private:
 	//sf::Texture playerTexture;
 	//sf::Sprite player;
 	sf::Sprite equipWindow;
-	sf::Sprite inventoryWindow;
-	sf::Sprite inventorySprite[24];
 	sf::Sprite equipSprite[7];
 	sf::Texture equipTexture;
+
+	sf::Sprite inventoryWindow;
+	sf::Sprite inventorySprite[24];
 	sf::Texture inventoryTexture;
 
 	sf::Font font;
@@ -36,6 +37,7 @@ private:
 	sf::Text enemyStats;
 	sf::Text inventoryText;
 	sf::Text equipText;
+	sf::Text itemText;
 	sf::Text turnText;
 	sf::Text currentPosition;
 	sf::RectangleShape textBox;
@@ -43,6 +45,7 @@ private:
 	sf::RectangleShape inventoryBox;
 	sf::RectangleShape equipBox;
 	sf::RectangleShape turnBox;
+	sf::RectangleShape itemStatBox;
 
 	TileMap map;
 	std::vector<sf::Sprite> enemies;
@@ -114,4 +117,5 @@ public:
 	bool ended;
 	bool inventoryOpen;
 	bool equipOpen;
+	bool itemStatOpen;
 };

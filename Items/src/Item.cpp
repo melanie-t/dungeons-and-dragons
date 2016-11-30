@@ -678,7 +678,7 @@ string Item::toString() {
 	if (id != 0)
 	{
 		std::ostringstream out;
-		out << "\n [" << type << "] | "
+		out  << "[" << type << " stats]\n"
 			//<< "\nID: " << id
 			//<< "\nItem path: " << itemPath
 			<< enhancementString();
