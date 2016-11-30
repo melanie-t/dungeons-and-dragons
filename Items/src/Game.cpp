@@ -616,12 +616,9 @@ bool Game::update(sf::Event* evt)
 					{
 						if (isSpriteClicked(equipSprite[i]))
 						{
-							//Decorator pattern used to unequips equips
 							Item* equip = m_map->getPlayer()->getEquipAtIndex(i);
 							m_map->getPlayer()->unequip(equip);
 							m_map->getPlayer()->displayStats();
-							//m_map->getPlayer()->saveCharacter();
-							//reload equips
 							updatePlayerStats();
 						}
 					}
@@ -629,24 +626,14 @@ bool Game::update(sf::Event* evt)
 
 				else if (inventoryOpen && isSpriteClicked(inventoryWindow))
 				{
-					for (int i = 0; i < 24; i++)
+					for (int i = 0; i < m_map->getPlayer()->getBackpackSize(); i++)
 					{
 						if (isSpriteClicked(inventorySprite[i]))
 						{
-							// Equip item
-							m_map->getPlayer()->displayStats();
-
 							Item item = m_map->getPlayer()->getBackpack().itemAtIndex(i);
 							m_map->getPlayer()->removeBackpackIndex(i);
-
-							ItemContainer debug = m_map->getPlayer()->getBackpack();
-
-							cout << "Item " << i << " clicked" << endl;
-							cout << "Item type: " << item.getType() << endl;
 							m_map->getPlayer()->equip(&item);
-							//m_map->getPlayer()->saveCharacter();
 							updatePlayerStats();
-							m_map->getPlayer()->displayStats();
 						}
 					}
 				}
@@ -853,7 +840,6 @@ void Game::drawItems()
 			if ((i + 1) % 4 == 0)
 				row = row + 1;
 		}
-
 	}
 }
 
