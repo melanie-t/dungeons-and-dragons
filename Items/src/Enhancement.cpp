@@ -51,6 +51,8 @@ void Enhancement::setBonus(int bonus)
 	this->bonus = bonus;
 }
 
+//! toString function
+//! @brief converts enhancement to string.
 string Enhancement::toString() 
 {
 	std::ostringstream out;

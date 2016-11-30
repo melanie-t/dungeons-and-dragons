@@ -1,21 +1,21 @@
+//! @file CharacterLogger.cpp 
+//! @brief Implementation file for the Character class  
+//!
+
 #include "CharacterLogger.h"
 #include "GameLogger.h"
 #include "Character.h"
 #include <iostream>
 using namespace std;
 
+//! DEFAULT CONSTRUCTOR
 CharacterLogger::CharacterLogger()
 {
 	this->showLog = true;
 };
 
-CharacterLogger::~CharacterLogger()
-{
-	//Upon destruction, detaches itself from its Character      
-	//subject->detach(this);
-};
-
-//toggles loggin of game data
+//! toggle function
+//! toggles logger on/off.
 void CharacterLogger::toggle() 
 {
 	if (showLog) 

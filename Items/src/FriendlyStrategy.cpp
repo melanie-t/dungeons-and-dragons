@@ -5,6 +5,10 @@
 #include "PlayerActionTypes.h"
 #include "TileTypes.h"
 
+//! execute function
+//! determines move of friendly character
+//! @param characterPos position of character
+//! @parama targetPos posiiton of target character
 int FriendlyStrategy::execute(pos characterPos, pos targetPos, std::vector<int> level, int width, int lastkey, sf::Event* evt)
 {
 	if (MathHelper::getDistance(characterPos, targetPos) <= 1)

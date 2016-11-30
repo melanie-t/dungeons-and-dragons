@@ -1,18 +1,24 @@
 #include <iostream>
 #include "GameLogger.h"
 
+//! default constructor
 GameLogger::GameLogger()
 {
 	this->lineNum = 0;
 	init();
 }
 
+//! draw function
+//! @brief draws Gamelogger.
 void GameLogger::draw(sf::RenderWindow* window)
 {
 	window->draw(logBox);
 	window->draw(logText);
 }
 
+//! writeLine function
+//! @brief writes lines to log
+//! @param line line to write.
 void GameLogger::writeLine(string line)
 {
 	if (lineNum%MAX_LINE == 0)
@@ -27,6 +33,8 @@ void GameLogger::writeLine(string line)
 	lineNum++;
 }
 
+//! init function
+//! initializes log GUI.
 void GameLogger::init()
 {
 	if (!font.loadFromFile("font.ttf"))
@@ -50,6 +58,8 @@ void GameLogger::init()
 }
 GameLogger* GameLogger::singleton;
 
+//! getInstance function
+//! @brief get singleton instance.
 GameLogger* GameLogger::getInstance()
 {
 	if (singleton == nullptr)

@@ -699,7 +699,8 @@ bool Game::update(sf::Event* evt)
 }
 
 
-//Initializes the text
+//! updatePlayerStats function
+//! @brief updates character stats
 void Game::updatePlayerStats()
 {
 	text.setString("Player" + m_map->getPlayer()->statString());
@@ -1085,6 +1086,9 @@ void Game::go()
 	}
 }
 
+//! goToNewMap function
+//! goes to new map
+//! @param map map to go to.
 void Game::goToNewMap(Map* map)
 {
 	map->getPlayer()->levelUp();

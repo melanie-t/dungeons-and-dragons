@@ -55,6 +55,8 @@ Item ItemContainer::getItem(string itemType)
 	return Item(); //return empty Item.
 }
 
+//! getIDs function
+//! @return array of Items IDs.
 vector<int> ItemContainer::getIDs() {
 	for (auto it = Items.begin(); it != Items.end(); ++it)
 	{
@@ -63,6 +65,8 @@ vector<int> ItemContainer::getIDs() {
 	return itemIDs;
 }
 
+//! toString function
+//! @brief Item Container to string.
 string ItemContainer::toString()
 {
 	std::ostringstream out;
@@ -76,6 +80,9 @@ string ItemContainer::toString()
 	return out.str();
 }
 
+//! itemAtIndex function
+//! @brief gets items at index.
+//! @brief i index of item.
 Item ItemContainer::itemAtIndex(int i)
 {
 	Item item = Item(Items[i].getID(), Items[i].getType(), Items[i].getInfluences(), Items[i].getItemPath());
@@ -91,6 +98,9 @@ Item ItemContainer::itemAtIndex(int i)
 //	}
 //}
 
+//! removeItemAtIndex function
+//! @brief removes item
+//! @param i idnex of item.
 void ItemContainer::removeItemAtIndex(int i)
 {
 	if (i == 0)

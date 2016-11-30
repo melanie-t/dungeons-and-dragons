@@ -3,12 +3,14 @@
 #include <iostream>
 using namespace std;
 
+//! default constructor
 GameObjectLogger::GameObjectLogger() 
 {
 	this->showLog = true;
 };
 
-//toggles loggin of game data
+//! toggle function
+//! @brief turns GameObjectLogger on and off.
 void GameObjectLogger::toggle() {
 	if (showLog) 
 	{
@@ -22,6 +24,8 @@ void GameObjectLogger::toggle() {
 	}
 }
 
+//! UpdateSetup function
+//! @param id id of the map that was setup.
 void GameObjectLogger::UpdateSetup(int id)
 {
 	if (showLog)
@@ -30,6 +34,8 @@ void GameObjectLogger::UpdateSetup(int id)
 	}
 }
 
+//! UpdateMap function
+//! @param id id of map that was loaded
 void GameObjectLogger::UpdateMap(int id)
 {
 	if (showLog)
@@ -38,6 +44,8 @@ void GameObjectLogger::UpdateMap(int id)
 	} 
 }
 
+//! UpdateTurn function
+//! @character name of character who's turn it is.
 void GameObjectLogger::UpdateTurn(string character)
 {
 	if (showLog)
@@ -46,6 +54,8 @@ void GameObjectLogger::UpdateTurn(string character)
 	}
 }
 
+//! UpdateEnd function
+//! @param won Did the player win when they won?
 void GameObjectLogger::UpdateEnd(bool won)
 {
 	if (showLog)
@@ -63,6 +73,8 @@ void GameObjectLogger::UpdateEnd(bool won)
 
 GameObjectLogger* GameObjectLogger::instance;
 
+//! getInstance function
+//! @brief gets singleton instance.
 GameObjectLogger* GameObjectLogger::getInstance()
 {
 	if (instance == nullptr)

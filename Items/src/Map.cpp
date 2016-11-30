@@ -9,6 +9,7 @@ The map can also be a blank map,
 However, the map needs a path between the begin cell and end cell.
 
 */
+
 //! @file 
 //! @brief Implementation file for the Map class  
 //!
@@ -30,6 +31,7 @@ Map::Map()
 {
 	Map(0, 0, 0, nullptr);
 }
+
 //! Constructor method for the map.
 //! @param is the id of the map
 //! @param length the length of the map
@@ -69,12 +71,14 @@ Map::Map(const int id, const int length, const int width, Character* player)
 		turn = 0;
 	}
 }
+
 //! destructor of the map class
 //! @brief deletes the player with the map.
 Map::~Map()
 {
 	if (player != nullptr) delete player;
 }
+
 //! setElement function
 //! Method to set an element in the array (in order to create the map)
 void Map::setElement(char** map, int row, int column, char element)
@@ -93,6 +97,7 @@ void Map::setElement(char** map, int row, int column, char element)
 		}
 	}
 }
+
 //! validatePath function
 //! checks if there's a valid path
 //! between the start point and the end point
@@ -141,6 +146,7 @@ bool Map::validatePath()
 		return false;
 	}
 }
+
 //! fillCell function
 //! fill the cell with a GameObject
 //! @param obj the GameObject to fill the cell with.
@@ -178,6 +184,7 @@ void Map::fillCell(int x, int y, GameObject* obj)
 
 	map[x][y] = obj;
 }
+
 //! isOccupied function
 //! Checks to see if the cell is occupied
 //! @param x the x coordinate of the cell.
@@ -191,6 +198,7 @@ bool Map::isOccupied(int x, int y)
 	else
 		return true;
 }
+
 //! recursiveSearch function
 //! recurive search...
 bool Map::recursiveSearch(int posx, int posy, int endposx, int endposy)
@@ -419,6 +427,7 @@ bool Map::saveMap()
 	sprintf_s(di, 20, "maps/%d.xml", ID);
 	return xml.Save(string(di));
 }
+
 //! printMap function
 //! Method to print the map array
 void Map::printMap()
@@ -480,11 +489,18 @@ void Map::printMap()
 	cout << endl;
 }
 
+//! getObject function
+//! gets GameObject at posiiton
+//! @param x x position
+//! @param y y position
 GameObject* Map::getObject(int x, int y)
 {
 	return map[x][y];
 }
 
+//! getClosestEnemy function
+//! @brief gets closest enemy to character.
+//! @origin find closest enemy from this character
 Enemy* Map::getClosestEnemy(Character* origin)
 {
 	Enemy* closest = nullptr;
@@ -514,6 +530,9 @@ Enemy* Map::getClosestEnemy(Character* origin)
 	return closest;
 }
 
+//! removeEnemy function
+//! @brief remove enemy
+//! @param enemy enemy to remove
 void Map::removeEnemy(Enemy* enemy)
 {
 	for (int i = 0; i < enemies.size(); i++)
@@ -531,6 +550,10 @@ void Map::removeEnemy(Enemy* enemy)
 		}
 	}
 }
+
+//! @removeFriend function
+//! @brief removes friend from array + turns.
+//! @parama frien friend to remove.
 void Map::removeFriend(Friend* frien)
 {
 	for (int i = 0; i < enemies.size(); i++)
@@ -550,17 +573,25 @@ void Map::removeFriend(Friend* frien)
 	fillCell(frien->getPosition().x, frien->getPosition().y, new GrassTexture());
 }
 
+//! nextTurn function
+//! @brief goes to next turn.
 void Map::nextTurn()
 {
 	turn++;
 	GameObjectLogger::getInstance()->UpdateTurn(getTurn()->getName());
 }
 
+//! getTurn function
+//! @brief gets character who's turn it is.
 Character* Map::getTurn()
 {
 	return turns[turn % turns.size()];
 }
 
+//! getCharacterAt function
+//! @brief gets characater at position
+//! @param x x position
+//! @param y y position
 Character* Map::getCharacterAt(int x, int y)
 {
 	for (Character* character : turns)

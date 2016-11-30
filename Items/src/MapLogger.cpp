@@ -3,12 +3,14 @@
 #include "GameLogger.h"
 using namespace std;
 
+//! default constructor
 MapLogger::MapLogger() 
 {
 	this->showLog = true;
 };
 
-// toggles showing the map log information
+//! toggle function
+//! @brief toggle MapLogger on/off
 void MapLogger::toggle() 
 {
 	if (showLog) 
@@ -24,7 +26,9 @@ void MapLogger::toggle()
 	}
 }
 
-//reacts to Observable class notify
+//! Update function
+//! @param character name of character
+//! @param move type of move.
 void MapLogger::Update(string character, PlayerMove move) {
 	//calls the method in the class which displys the state of the object
 	if (showLog) 

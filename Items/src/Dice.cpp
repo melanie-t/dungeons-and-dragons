@@ -40,6 +40,10 @@ need to occur outside of the Dice class.
 
 */
 
+//! @file Dice.cpp 
+//! @brief Implementation file for the Character class  
+//!
+
 #include <iostream>
 #include <iterator>
 #include <regex>		// to parses strings
@@ -50,6 +54,7 @@ need to occur outside of the Dice class.
 #include "DiceLogger.h"
 using namespace std;
 
+//! constructor
 Dice::Dice() 
 {
 		number, type, total = 0;
@@ -57,7 +62,9 @@ Dice::Dice()
 };
 
 
-/* function will parse string and caclulate rolls */
+//! roll function
+//! @brief rolls a dice, according to str
+//! @str dice notation.
 int Dice::roll(string str)
 {
 	number = 0;									// reinitialize values
@@ -77,7 +84,9 @@ int Dice::roll(string str)
 	}
 }
 
-/* method works the same way but console out the steps involved */
+//! sayRoll function
+//! @brief rolls a dice and says steps involved.
+//! @param str dice notation
 int Dice::sayRoll(string str)
 {
 	number = 0;
@@ -98,7 +107,9 @@ int Dice::sayRoll(string str)
 	}
 }
 
-/* Function to parse the string using regex commands and class */
+//! parseString function
+//! @brief parses dice notation
+//! @brief dice notation
 bool Dice::parseString(string str)
 {
 	string hand = str;									//user string to parse
@@ -139,7 +150,8 @@ bool Dice::parseString(string str)
 }
 
 
-/* rolls dice based on amount of dice and type of die */
+//! sum function
+//! @brief sums dice rolls.
 int Dice::sum(int n, int t, int tot)
 {
 	number = n;
@@ -163,6 +175,8 @@ int Dice::sum(int n, int t, int tot)
 	return total;
 }
 
+//! sum function
+//! @brief sums dice rolls and says steps.
 int Dice::saySum(int n, int t, int tot)
 {
 	number = n;
@@ -181,7 +195,8 @@ int Dice::saySum(int n, int t, int tot)
 	return total;
 }
 
-/* generates random number based on size of die */
+//! getRandom function
+//! @brief generate random number based on  dice rolls.
 int Dice::getRandom() 
 {
 	switch (type)

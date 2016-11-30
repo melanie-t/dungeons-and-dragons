@@ -1,6 +1,8 @@
 #include "StatisticsHelper.h"
 #include <iostream>
 
+//! getNumMaps function
+//! @retunr # of maps.
 int Statistics::getNumMaps()
 {
 	xml.Load("stats.xml");
@@ -17,6 +19,8 @@ int Statistics::getNumMaps()
 	}
 }
 
+//! getNumItems function
+//! @return # of items.
 int Statistics::getNumItems()
 {
 	xml.Load("stats.xml");
@@ -32,6 +36,9 @@ int Statistics::getNumItems()
 		return -1; //Not a stats file.
 	}
 }
+
+//! getNumCampaigns function
+//! @retunr # of campaigns
 int Statistics::getNumCampaigns()
 {
 	xml.Load("stats.xml");
@@ -48,6 +55,8 @@ int Statistics::getNumCampaigns()
 	}
 }
 
+//! getCharacterList function
+//! gets list of characters
 std::vector<std::string> Statistics::getCharacterList()
 {
 	std::vector<std::string> characterlist;
@@ -73,6 +82,9 @@ std::vector<std::string> Statistics::getCharacterList()
 	}
 }
 
+//! setNumMaps functions
+//! sets number of maps in stats file
+//! @num number of maps.
 void Statistics::setNumMaps(int num)
 {
 	xml.Load("stats.xml");
@@ -86,6 +98,9 @@ void Statistics::setNumMaps(int num)
 	xml.Save("stats.xml");
 }
 
+//! setNumItems function
+//! sets number of items
+//! @param num, number of items
 void Statistics::setNumItems(int num)
 {
 	xml.Load("stats.xml");
@@ -99,6 +114,9 @@ void Statistics::setNumItems(int num)
 	xml.Save("stats.xml");
 }
 
+//! setNumCampaigns function 
+//! sets number of campaigns
+//! @param num number of campaigns
 void Statistics::setNumCampaigns(int num)
 {
 	xml.Load("stats.xml");
@@ -112,6 +130,9 @@ void Statistics::setNumCampaigns(int num)
 	xml.Save("stats.xml");
 }
 
+//! addCharacter function
+//! adds character to file.
+//! @param name character name.
 void Statistics::addCharacter(std::string name)
 {
 	xml.Load("stats.xml");
@@ -129,6 +150,8 @@ void Statistics::addCharacter(std::string name)
 
 Statistics* Statistics::singleton;
 
+//! getInstance function
+//! gets singleton object
 Statistics* Statistics::getInstance()
 {
 	if (singleton == nullptr)

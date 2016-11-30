@@ -1,14 +1,19 @@
+//! @file DiceLogger.cpp 
+//! @brief Implementation file for the Character class  
+//!
 #include "DiceLogger.h"
 #include "Dice.h"
 #include "GameLogger.h"
 using namespace std;
 
+//! defualt constructor.
 DiceLogger::DiceLogger() 
 {
 	this->showLog = true;
 };
 
-//toggles loggin of game data
+//! toggle function
+//! toggles DiceLogger on/off
 void DiceLogger::toggle()
 {
 	if (showLog) 
@@ -23,7 +28,9 @@ void DiceLogger::toggle()
 	}
 }
 
-//reacts to Observable class notify
+//! Update function
+//! @brief roll roll notation
+//! @param result result of roll
 void DiceLogger::Update(string roll, int result)
 {
 	//calls the method in the class which displys the state of the object
@@ -35,6 +42,8 @@ void DiceLogger::Update(string roll, int result)
 
 DiceLogger* DiceLogger::instance;
 
+//! getInstance function
+//! @brief gets singleton instance.
 DiceLogger* DiceLogger::getInstance()
 {
 	if (instance == nullptr)

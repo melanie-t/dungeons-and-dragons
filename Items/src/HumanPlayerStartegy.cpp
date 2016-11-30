@@ -5,6 +5,14 @@
 #include "TileTypes.h"
 #include "PlayerActionTypes.h"
 
+//! execute function
+//! determines move of human character
+//! @param characterPos position of character
+//! @parama targetPos posiiton of target character
+//! @parama level array of levle
+//! @prama width of map
+//! @param lastKey last key entered
+//! @param evt event
 int HumanPlayerStrategy::execute(pos characterPos, pos targetPos, std::vector<int> level, int width, int lastkey, sf::Event* evt)
 {
 	if (evt != nullptr)

@@ -5,6 +5,10 @@
 #include "TileTypes.h"
 
 
+//! execute function
+//! determines move of agressive character
+//! @param characterPos position of character
+//! @parama targetPos posiiton of target character
 int AgressorStrategy::execute(pos characterPos, pos targetPos, std::vector<int> level, int width, int lastkey, sf::Event* evt)
 {
 	//std::this_thread::sleep_for(std::chrono::seconds(1));

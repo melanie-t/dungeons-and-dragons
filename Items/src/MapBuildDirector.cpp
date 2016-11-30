@@ -9,6 +9,7 @@ Map* MapBuildDirector::getMap()
 {
 	return this->mapBuilder->getMap();
 }
+
 //! setMapBuilder function
 //! sets the map builder to use. So we cans witch between FileMapBuilder and SavedMapBuilder
 void MapBuildDirector::setMapBuilder(MapBuilder* mapBuilder)

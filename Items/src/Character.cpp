@@ -681,11 +681,15 @@ void Character::addBackpack(Item* item)
 	backpack.addItem(*item);
 }
 
+//! removeBackpackIndex FUNCTION
+//! @param i index of to deleted.
 void Character::removeBackpackIndex(int i)
 {
 	backpack.removeItemAtIndex(i);
 }
 
+//! getBackpackSize function
+//! @return # of items in backpack
 int Character::getBackpackSize()
 {
 	return backpack.getItems().size();
@@ -699,6 +703,9 @@ vector <Item> Character::getBackpackItems()
 }
 
 
+//! getItemAtIndex function
+//! @brief get backpack item at index.
+//! @param i index of item.
 Item* Character::getItemAtIndex(int i)
 {
 	vector <Item> Items = getBackpackItems();
@@ -995,11 +1002,17 @@ Item* Character::getEquips()
 	return equips;
 }
 
+//! getEquipAtIndex function
+//! @brief gets equip item at index.
+//! @param i index of equiped item.
 Item* Character::getEquipAtIndex(int i)
 {
 	return &equips[i];
 }
 
+//! getEquipType function
+//! @brief returns Equipped of of type.
+//! @param equip type of item.
 Item* Character::getEquipType(string equip)
 {
 	if (equip.compare("armor") == 0)

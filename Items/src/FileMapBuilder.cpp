@@ -24,18 +24,21 @@ using namespace std;
 FileMapBuilder::FileMapBuilder() : FileMapBuilder(nullptr)
 {
 }
+
 //! constructor that receives a Character class as a parameter
 //! @param player the player of the map.
 FileMapBuilder::FileMapBuilder(Character* player)
 {
 	this->player = player;
 }
+
 //! Destructor of the FileMapBUilder class
 //! @brief Deletes the player variable when the builder is deleted.
 FileMapBuilder::~FileMapBuilder()
 {
 	//delete player;
 }
+
 //! loadMap function
 //! @brief loads and parse the xml file of map corresponding the unique id given
 //! then creates random Items and Enemies based on player, if the map has any.

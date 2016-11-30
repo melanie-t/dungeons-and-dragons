@@ -1,4 +1,6 @@
-//#include <map>
+//! @file campaign.cpp 
+//! @brief Implementation file for the Character class  
+//!
 #include <queue>
 
 #include "Campaign.h"
@@ -8,6 +10,10 @@
 #include "Door.h"
 #include "MapBuildDirector.h"
 
+//! Default constructor
+//! @parama start start map of the campaign
+//! @param setup whether or not to setup the campaign.
+//! @id id of the campaign
 Campaign::Campaign(Map* start, bool setup, int id)
 {
 	this->begin = start;
@@ -18,10 +24,16 @@ Campaign::Campaign(Map* start, bool setup, int id)
 		this->setupCampaign();
 	}
 }
+
+//! setupCampaign function
+//! @brief begins linking doors.
 void Campaign::setupCampaign()
 {
 	this->setup(begin);
 }
+
+//! setup function
+//! recursive sets up the doors on each map.
 void Campaign::setup(Map* map)
 {
 	std::vector<pos> doors = map->getDoors();
@@ -63,6 +75,9 @@ void Campaign::setup(Map* map)
 		}
 	}
 }
+
+//! creatCampagin function
+//! creates a new campaign.
 Campaign* Campaign::createCampaign()
 {
 	cout << "Pick a Starting map ID " << Statistics::getInstance()->getNumMaps() << " or under and above 0; ";
@@ -83,6 +98,10 @@ Campaign* Campaign::createCampaign()
 	return new Campaign(startMap);
 }
 
+//! loadCampaign function
+//! loads campaign by id
+//! @param id of the camapaign
+//! @player player that will play the campaign
 Campaign* Campaign::loadCampaign(int id, Character* player)
 {
 	CMarkup xml;
@@ -173,6 +192,8 @@ Campaign* Campaign::loadCampaign(int id, Character* player)
 	return nullptr;
 }
 
+//! saveCampaign function
+//! Save current campagin to xml file.
 void Campaign::saveCampaign()
 {
 	CMarkup xml;
@@ -238,6 +259,8 @@ void Campaign::saveCampaign()
 	xml.Save(string(di));
 }
 
+//! setBeginningMap function
+//! @param map beginning map.
 void Campaign::setBeginningMap(Map* map)
 {
 	this->begin = map;

@@ -73,6 +73,8 @@ vector<Enhancement> Item::getInfluences()
 	return influence;
 }
 
+//! getEnhancement function
+//! @param bonus type of bonus
 int Item::getEnhancement(string bonus)
 {
 	for (int i = 0; i != influence.size(); i++)
@@ -660,20 +662,28 @@ void Item::removeEnhancement(string type)
 	}
 }
 
+//! setItemPath function
+//! @para path path of Item img.
 void Item::setItemPath(string path)
 {
 	itemPath = path;
 }
 
+//! getItemPath function
+//! @return path of Item img.
 string Item::getItemPath()
 {
 	return itemPath;
 }
 
+//! getId function
+//! @return id of item.
 int Item::getID() {
 	return id;
 }
 
+//! toString functions
+//! @return Item parameters in string form.
 string Item::toString() {
 	if (id != 0)
 	{
