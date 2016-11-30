@@ -116,6 +116,9 @@
     <ClInclude Include="src\ObjectTypes.h" />
     <ClInclude Include="src\StatisticsHelper.h" />
     <ClInclude Include="src\Strategy.h" />
+    <ClInclude Include="src\CharacterLogger.h" />
+    <ClInclude Include="src\DiceLogger.h" />
+    <ClInclude Include="src\MapLogger.h" />
     <ClInclude Include="src\Tank.h" />
     <ClInclude Include="src\TileMap.h" />
     <ClInclude Include="src\TileTypes.h" />
@@ -152,6 +155,9 @@
     <ClCompile Include="src\SavedMapBuilder.cpp" />
     <ClCompile Include="src\MapBuildDirector.cpp" />
     <ClCompile Include="src\StatisticsHelper.cpp" />
+    <ClCompile Include="src\CharacterLogger.cpp" />
+    <ClCompile Include="src\DiceLogger.cpp" />
+    <ClCompile Include="src\MapLogger.cpp" />
     <ClCompile Include="src\TileMap.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

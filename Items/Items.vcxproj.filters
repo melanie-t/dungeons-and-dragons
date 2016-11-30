@@ -70,6 +70,12 @@
     <Filter Include="Header Files\Items">
       <UniqueIdentifier>{e93297cf-56ab-4724-885e-3c63e31f8818}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Log">
+      <UniqueIdentifier>{126b2295-23fa-47b4-94cf-6a02d8b0a451}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\log">
+      <UniqueIdentifier>{c53c6fe3-bf42-4abd-8831-8ba9ebade6a8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Map.h">
@@ -216,6 +222,15 @@
     <ClInclude Include="src\Enhancement.h">
       <Filter>Header Files\Items</Filter>
     </ClInclude>
+    <ClInclude Include="src\CharacterLogger.h">
+      <Filter>Header Files\log</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DiceLogger.h">
+      <Filter>Header Files\log</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MapLogger.h">
+      <Filter>Header Files\log</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Map.cpp">
@@ -307,6 +322,15 @@
     </ClCompile>
     <ClCompile Include="src\Enhancement.cpp">
       <Filter>Source Files\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CharacterLogger.cpp">
+      <Filter>Source Files\Log</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DiceLogger.cpp">
+      <Filter>Source Files\Log</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MapLogger.cpp">
+      <Filter>Source Files\Log</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

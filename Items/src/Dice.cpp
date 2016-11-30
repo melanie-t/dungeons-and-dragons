@@ -40,13 +40,14 @@ need to occur outside of the Dice class.
 
 */
 
-#include "Dice.h"
 #include <iostream>
 #include <iterator>
 #include <regex>		// to parses strings
 #include <stdlib.h>     // for random numbers
 #include <time.h>       // helps initializes rand generator
 
+#include "Dice.h"
+#include "DiceLogger.h"
 using namespace std;
 
 Dice::Dice() 
@@ -66,6 +67,7 @@ int Dice::roll(string str)
 	if (parseString(str)) 
 	{						// parses string and sets values for number/dice/total
 		total = sum(number, type, total);
+		DiceLogger::getInstance()->Update(str, total);
 		return total;
 	}
 	else
