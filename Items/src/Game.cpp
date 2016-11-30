@@ -2,6 +2,7 @@
 //! @brief Implementation file for the Game class  
 //!
 #include <SFML\Graphics.hpp>
+#include <thread>
 
 #include "Game.h"
 #include "Map.h"
@@ -177,20 +178,16 @@ bool Game::update(sf::Event* evt)
 			lastKey = evt->key.code;
 		}
 	}
-	//static_cast<Character*>(m_map->getEnemies()[0]);
-	//Character* character = m_map->getTurn();
 
+	if (character != m_map->getPlayer())
+	{
+		std::this_thread::sleep_for(std::chrono::seconds(1));
+	}
+
+	turnText.setString("Turn: " + character->getName());
 
 	int action = character->getStrategy()->execute(character->getPosition(),
 		m_map->getPlayer()->getPosition(), level, m_map->getWidth(), lastKey, evt);
-
-	if (character->getCharacterType() == CT_FRIEND)
-	{
-		cout << "action:" << action << endl;
-	}
-
-	/*int action = m_map->getPlayer()->getStrategy()->execute(m_map->getPlayer()->getPosition(),
-		m_map->getPlayer()->getPosition(), level, lastKey, &evt);*/
 
 	int currentPos = character->getPosition().y*width + character->getPosition().x;
 
@@ -464,9 +461,11 @@ bool Game::update(sf::Event* evt)
 				if (attackNum == (1 + character->getLevel() % 5))
 				{
 					m_map->nextTurn();
-					break;
 				}
+				break;
 			}
+			m_map->nextTurn();
+			break;
 		}
 		m_map->nextTurn();
 		break;
@@ -661,6 +660,7 @@ void Game::createText()
 	enemyStats.setFont(font);
 	currentPosition.setFont(font);
 	equipText.setFont(font);
+	turnText.setFont(font);
 	inventoryText.setFont(font);
 
 	std::string heroName = m_map->getPlayer()->getName();
@@ -712,6 +712,11 @@ void Game::createText()
 	equipBox.setOutlineColor(sf::Color::Green);
 	equipBox.setOutlineThickness(3);
 
+	turnBox.setSize(sf::Vector2f(250, 242));
+	turnBox.setPosition(32 * m_map->getWidth() - 3, 0);
+	turnBox.setOutlineColor(sf::Color::Green);
+	turnBox.setOutlineThickness(3);
+
 	//Inventory
 	inventoryText.setString("Inventory");
 	inventoryText.setCharacterSize(12);
@@ -727,6 +732,14 @@ void Game::createText()
 	inventoryBox.setPosition(480, height * 32 + 5);
 	inventoryBox.setOutlineColor(sf::Color::Green);
 	inventoryBox.setOutlineThickness(3);
+
+	//Turn
+	turnText.setString("Turn: " + m_map->getTurn()->getName());
+	turnText.setCharacterSize(24);
+	turnText.setFillColor(sf::Color::Black);
+	turnText.setStyle(sf::Text::Bold);
+	turnText.setPosition(32 * m_map->getWidth(), 0);
+
 }
 
 //! addItems function
@@ -862,6 +875,8 @@ void Game::render()
 	window->draw(enemyStatsBox);
 	window->draw(text);
 	window->draw(enemyStats);
+	window->draw(turnBox);
+	window->draw(turnText);
 
 	if (this->equipOpen)
 	{
@@ -888,11 +903,11 @@ void Game::mainLoop()
 	while (window->isOpen())
 	{
 		window->clear();
-		render();
 		if (!processInput())
 		{
 			update(nullptr);
 		}
+		render();
 		window->display();
 	}
 }

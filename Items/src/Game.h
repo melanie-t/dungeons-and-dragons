@@ -34,11 +34,13 @@ private:
 	sf::Text enemyStats;
 	sf::Text inventoryText;
 	sf::Text equipText;
+	sf::Text turnText;
 	sf::Text currentPosition;
 	sf::RectangleShape textBox;
 	sf::RectangleShape enemyStatsBox;
 	sf::RectangleShape inventoryBox;
 	sf::RectangleShape equipBox;
+	sf::RectangleShape turnBox;
 
 	TileMap map;
 	std::vector<sf::Sprite> enemies;
