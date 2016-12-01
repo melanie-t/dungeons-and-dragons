@@ -7,6 +7,7 @@
 <wisdom>10</wisdom>
 <charisma>10</charisma>
 <hp>10</hp>
+<maxhp>10</maxhp>
 <class>1</class>
 <backpack>
 <item>4</item>
