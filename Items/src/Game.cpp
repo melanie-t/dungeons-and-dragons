@@ -659,6 +659,7 @@ bool Game::update(sf::Event* evt)
 						if (isSpriteClicked(equipSprite[i]))
 						{
 							//cout << "Equip stats: \n" << m_map->getPlayer()->getEquipAtIndex(i)->toString() << endl;
+							enhancementText.setString("");
 							itemText.setString(m_map->getPlayer()->getEquipAtIndex(i)->toString());
 							itemStatOpen = true;
 						}
@@ -674,6 +675,8 @@ bool Game::update(sf::Event* evt)
 						{
 							//cout << "Item stats: \n " << m_map->getPlayer()->getBackpack().itemAtIndex(i).toString() << endl;
 							itemText.setString(m_map->getPlayer()->getBackpack().itemAtIndex(i).toString());
+							//DISPLAY ENHANCEMENT TEXT
+							enhancementText.setString("\n" + enhancementString(m_map->getPlayer()->getBackpack().itemAtIndex(i).getType(), i));
 							itemStatOpen = true;
 						}
 					}
@@ -686,7 +689,6 @@ bool Game::update(sf::Event* evt)
 	}
 	return true;
 }
-
 
 //! updatePlayerStats function
 //! @brief updates character stats
@@ -797,6 +799,7 @@ void Game::createText()
 	turnText.setFont(font);
 	inventoryText.setFont(font);
 	itemText.setFont(font);
+	enhancementText.setFont(font);
 
 	std::string heroName = m_map->getPlayer()->getName();
 
@@ -852,6 +855,11 @@ void Game::createText()
 	itemText.setFillColor(sf::Color::Blue);
 	itemText.setStyle(sf::Text::Style::Regular);
 	itemText.setPosition(485, (height * 32 - 97));
+
+	enhancementText.setCharacterSize(12);
+	enhancementText.setFillColor(sf::Color::Blue);
+	enhancementText.setStyle(sf::Text::Style::Regular);
+	enhancementText.setPosition(588, (height * 32 - 97));
 
 	itemStatBox.setSize(sf::Vector2f(152, 100));
 	itemStatBox.setPosition(479, height * 32 - 102);
@@ -1056,22 +1064,23 @@ void Game::render()
 	if (this->equipOpen)
 	{
 		window->draw(equipBox);
-		window->draw(equipText);
 		window->draw(equipWindow);
+		window->draw(equipText);
 		drawEquips();
 	}
 
 	if (this->inventoryOpen)
 	{
 		window->draw(inventoryBox);
-		window->draw(inventoryText);
 		window->draw(inventoryWindow);
+		window->draw(inventoryText);
 		drawItems();
 	}
 
 	if (this->itemStatOpen && this->inventoryOpen)
 	{
 		window->draw(itemStatBox);
+		window->draw(enhancementText);
 		window->draw(itemText);
 	}
 
@@ -1142,3 +1151,231 @@ void Game::goToNewMap(Map* map)
 	}
 }
 
+string Game::enhancementString(string type, int itemIndex)
+{
+	int equipIndex;
+
+	Item hoverItem = m_map->getPlayer()->getBackpack().itemAtIndex(itemIndex);
+
+	if (type == "helmet")
+	{
+		equipIndex = 0; // helmet
+		Item* equippedItem = m_map->getPlayer()->getEquipAtIndex(equipIndex);
+
+		string intS = "";
+		string wisS = "";
+		string acS = "";
+
+		int intel = hoverItem.getEnhancement("intelligence");
+		int wis = hoverItem.getEnhancement("wisdom");
+		int armorclass = hoverItem.getEnhancement("armorclass");
+
+		if (intel > 0)
+		{
+			intel = intel - equippedItem->getEnhancement("intelligence");
+			if (intel >= 0)
+				intS = "+";
+			intS = std::to_string(intel) + "\n";
+		}
+
+		if (wis > 0)
+		{
+			wis = wis - equippedItem->getEnhancement("wisdom");
+			if (wis >= 0)
+				wisS = "+";
+			wisS = wisS + std::to_string(wis) + "\n";
+		}
+
+		if (armorclass > 0)
+		{
+			armorclass = armorclass - equippedItem->getEnhancement("armorclass");
+			if (armorclass >= 0)
+				acS = "+";
+			acS = acS + std::to_string(armorclass) + "\n";
+		}
+		return (intS + wisS + acS);
+	}
+	else if (type == "armor")
+	{
+		equipIndex = 1;
+		Item* equippedItem = m_map->getPlayer()->getEquipAtIndex(equipIndex);
+		string acS;
+		int armorclass = hoverItem.getEnhancement("armorclass");
+
+		if (armorclass > 0)
+		{
+			armorclass = armorclass - equippedItem->getEnhancement("armorclass");
+			if (armorclass >= 0)
+				acS = "+";
+			acS = acS + std::to_string(armorclass) + "\n";
+		}
+		return (acS);
+	}
+	else if (type == "shield")
+	{
+		equipIndex = 2;
+		Item* equippedItem = m_map->getPlayer()->getEquipAtIndex(equipIndex);
+		string acS;
+		int armorclass = hoverItem.getEnhancement("armorclass");
+
+		if (armorclass > 0)
+		{
+			armorclass = armorclass - equippedItem->getEnhancement("armorclass");
+			if (armorclass >= 0)
+				acS = "+";
+			acS = acS + std::to_string(armorclass) + "\n";
+		}
+		return (acS);
+	}
+
+	else if (type == "ring")
+	{
+		equipIndex = 3;
+		Item* equippedItem = m_map->getPlayer()->getEquipAtIndex(equipIndex);
+
+		string strS = "";
+		string conS = "";
+		string wisS = "";
+		string chaS = "";
+		string acS = "";
+
+		int str = hoverItem.getEnhancement("strength");
+		int con = hoverItem.getEnhancement("constitution");
+		int wis = hoverItem.getEnhancement("wisdom");
+		int cha = hoverItem.getEnhancement("charisma");
+		int armorclass = hoverItem.getEnhancement("armorclass");
+
+		if (str > 0)
+		{
+			str = str - equippedItem->getEnhancement("strength");
+			if (str >= 0)
+				strS = "+";
+			strS = strS + std::to_string(str) + "\n";
+		}
+
+		if (con > 0)
+		{
+			con = con - equippedItem->getEnhancement("constitution");
+			if (con >= 0)
+				conS = "+";
+			conS = conS + std::to_string(con) + "\n";
+		}
+
+		if (wis > 0)
+		{
+			wis = wis - equippedItem->getEnhancement("wisdom");
+			if (wis >= 0)
+				wisS = "+";
+			wisS = wisS + std::to_string(wis) + "\n";
+		}
+
+		if (cha > 0)
+		{
+			cha = cha - equippedItem->getEnhancement("charisma");
+			if (cha >= 0)
+				chaS = "+";
+			chaS = chaS + std::to_string(cha) + "\n";
+		}
+
+		if (armorclass > 0)
+		{
+			armorclass = armorclass - equippedItem->getEnhancement("armorclass");
+			if (armorclass >= 0)
+				acS = "+";
+			acS = acS + std::to_string(armorclass) + "\n";
+		}
+
+		return (strS + conS + wisS + chaS + acS);
+	}
+
+	else if (type == "belt")
+	{
+		equipIndex = 4;
+		Item* equippedItem = m_map->getPlayer()->getEquipAtIndex(equipIndex);
+
+		string strS = "";
+		string conS = "";
+
+		int str = hoverItem.getEnhancement("strength");
+		int con = hoverItem.getEnhancement("constitution");
+
+		if (con > 0)
+		{
+			con = con - equippedItem->getEnhancement("constitution");
+			if (con >= 0)
+				conS = "+";
+			conS = conS + std::to_string(con) + "\n";
+		}
+
+		if (str > 0)
+		{
+			str = str - equippedItem->getEnhancement("strength");
+			if (str >= 0)
+				strS = "+";
+			strS = strS + std::to_string(str) + "\n";
+		}
+
+		return (conS + strS);
+	}
+
+	else if (type == "boots")
+	{
+		equipIndex = 5;
+		Item* equippedItem = m_map->getPlayer()->getEquipAtIndex(equipIndex);
+
+		string dexS = "";
+		string acS = "";
+		
+		int armorclass = hoverItem.getEnhancement("armorclass");
+		int dex = hoverItem.getEnhancement("dexterity");
+
+		if (dex > 0)
+		{
+			dex = dex - equippedItem->getEnhancement("dexterity");
+			if (dex >= 0)
+				dexS = "+";
+			dexS = dexS + std::to_string(dex) + "\n";
+		}
+
+		if (armorclass > 0)
+		{
+			armorclass = armorclass - equippedItem->getEnhancement("armorclass");
+			if (armorclass >= 0)
+				acS = "+";
+			acS = acS + std::to_string(armorclass) + "\n";
+		}
+		return (dexS + acS);
+	}
+
+	else if (type == "weapon")
+	{
+		equipIndex = 6;
+		Item* equippedItem = m_map->getPlayer()->getEquipAtIndex(equipIndex);
+
+		string attackbonusS = "";
+		string damagebonusS = "";
+
+		int attackbonus = hoverItem.getEnhancement("attackbonus");
+		int damagebonus = hoverItem.getEnhancement("damagebonus");
+
+		if (attackbonus > 0)
+		{
+			attackbonus = attackbonus - equippedItem->getEnhancement("attackbonus");
+			if (attackbonus >= 0)
+				attackbonusS = "+";
+			attackbonusS = attackbonusS + std::to_string(attackbonus) + "\n";
+		}
+
+		if (damagebonus > 0)
+		{
+			damagebonus = damagebonus - equippedItem->getEnhancement("damagebonus");
+			if (damagebonus >= 0)
+				damagebonusS = "+";
+			damagebonusS = damagebonusS + std::to_string(damagebonus) + "\n";
+		}
+
+		return (attackbonusS + damagebonusS);
+
+	}
+
+}
