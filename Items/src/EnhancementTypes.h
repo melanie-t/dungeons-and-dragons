@@ -1,3 +1,6 @@
+//! @file 
+//! @brief Header file for the enhancement type constants
+//!
 #pragma once
 
 //Enhancement types

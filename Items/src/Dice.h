@@ -1,4 +1,6 @@
-/* Documentation at tail of file */
+//! @file Dice.h
+//! @brief Header file for Dice Class
+//!
 #pragma once
 #include <string>
 

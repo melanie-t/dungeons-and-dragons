@@ -1,3 +1,6 @@
+//! @file MapLogger.h
+//! @brief Header file for MapLogger Class
+//!
 #pragma once
 
 #include "PlayerActionTypes.h"

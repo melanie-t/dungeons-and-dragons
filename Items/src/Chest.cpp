@@ -99,6 +99,8 @@ void Chest::transferItems(Character* character)
 	}
 }
 
+//! getChestContent function
+//! @return chestItems
 ItemContainer Chest::getChestContent()
 {
 	return this->chestItems;

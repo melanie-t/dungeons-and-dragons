@@ -1,3 +1,6 @@
+//! @file 
+//! @brief Header file for the character type constants
+//!
 #pragma once
 
 #define CT_PLAYER "player"

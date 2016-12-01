@@ -1,3 +1,6 @@
+//! @file GameObjectLogger.h
+//! @brief Header file for GameObjectLogger Class
+//!
 #pragma 
 
 #include <string>

@@ -1,3 +1,6 @@
+//! @file 
+//! @brief Header file for the Equip Enum
+//!
 #pragma once
 
 enum Equip

@@ -1,3 +1,6 @@
+//! @file 
+//! @brief Header file for the TileTypes enum
+//!
 #pragma once
 
 //Tile Types

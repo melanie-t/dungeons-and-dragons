@@ -1,3 +1,6 @@
+//! @file DiceLogger.h
+//! @brief Header file for DiceLogger Class
+//!
 #pragma once
 
 #include <string>

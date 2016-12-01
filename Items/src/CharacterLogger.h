@@ -1,4 +1,9 @@
+//! @file CharacterLogger.h
+//! @brief Header file for CharacterLogger Class
+//!
+
 #pragma once
+
 #include "Observer.h"
 #include <string>
 using namespace std;
