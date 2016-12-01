@@ -38,7 +38,7 @@ Character::Character(int lvl, int str, int dex, int con, int intel, int wis, int
 	abilityScores[Ability::INTELLIGENCE] = intel;
 	abilityScores[Ability::WISDOM] = wis;
 	abilityScores[Ability::CHARISMA] = cha;
-	currentHitPoints = 10;
+	currentHitPoints = 10 + abilityModifier(getCON());
 	secondaryStatCalc();
 	totalEnhancement();
 }
