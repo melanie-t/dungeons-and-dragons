@@ -464,13 +464,11 @@ bool Game::update(sf::Event* evt)
 
 				if (attackNum == (1 + character->getLevel()/5))
 				{
-					std::cout << "attack 1" << character->getLevel() / 5 << endl;
 					attackNum = 0;
 					m_map->nextTurn();
 					break;
 				}
 			}
-			std::cout << "attack 2" << endl;
 			attackNum = 0;
 			m_map->nextTurn();
 			break;
@@ -604,6 +602,13 @@ bool Game::update(sf::Event* evt)
 			else if (evt->key.code == sf::Keyboard::Num4)
 			{
 				GameObjectLogger::getInstance()->toggle();
+			}
+			else if (evt->key.code == sf::Keyboard::Escape)
+			{
+				if (ended)
+				{
+					window->close();
+				}
 			}
 		}
 
