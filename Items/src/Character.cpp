@@ -334,7 +334,11 @@ void Character::statGenerator()
 int Character::abilityModifier(int abilityScore)
 {
 	// Proper calculation of abilityMod;
-	int abilityMod = std::floor((abilityScore - 10) / 2);
+	int abilityMod;
+	if(abilityScore < 10) //To get the right negative values
+		abilityMod = std::ceil((abilityScore-10) / 2);
+	if(abilityScore >= 10) //To get the right positive values
+		abilityMod = std::floor((abilityScore-10) / 2);
 	// int abilityMod = (abilityScore / 2) - 5;
 	return abilityMod;
 }
