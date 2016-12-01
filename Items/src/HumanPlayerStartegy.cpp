@@ -13,7 +13,7 @@
 //! @prama width of map
 //! @param lastKey last key entered
 //! @param evt event
-int HumanPlayerStrategy::execute(pos characterPos, pos targetPos, std::vector<int> level, int width, int lastkey, sf::Event* evt)
+int HumanPlayerStrategy::execute(pos characterPos, pos targetPos, std::vector<int> level, int width, int length, int lastkey, sf::Event* evt)
 {
 	if (evt != nullptr)
 	{

@@ -194,7 +194,7 @@ bool Game::update(sf::Event* evt)
 	turnText.setString("Turn: " + character->getName());
 
 	int action = character->getStrategy()->execute(character->getPosition(),
-		m_map->getPlayer()->getPosition(), level, m_map->getWidth(), lastKey, evt);
+		m_map->getPlayer()->getPosition(), level, m_map->getWidth(),m_map->getLength(), lastKey, evt);
 
 	int currentPos = character->getPosition().y*width + character->getPosition().x;
 
