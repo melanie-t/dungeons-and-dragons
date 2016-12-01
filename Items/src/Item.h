@@ -56,6 +56,8 @@ public:
 
 	int getEnhancement(string bonus);
 
+	int randomNumber();
+
 private:
 	int id;
 	string type;

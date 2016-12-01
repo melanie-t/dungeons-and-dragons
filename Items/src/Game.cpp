@@ -211,7 +211,7 @@ bool Game::update(sf::Event* evt)
 		{
 			if (!openedChest) 
 			{
-				Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
+				//Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
 				openedChest = true;
 			}
 			else
@@ -258,7 +258,7 @@ bool Game::update(sf::Event* evt)
 		{
 			if (!openedChest) 
 			{
-				Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
+				//Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
 				openedChest = true;
 			}
 			else
@@ -305,7 +305,7 @@ bool Game::update(sf::Event* evt)
 		{
 			if (!openedChest) 
 			{
-				Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
+				//Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
 				openedChest = true;
 			}
 			else
@@ -359,7 +359,7 @@ bool Game::update(sf::Event* evt)
 		{
 			if (!openedChest) 
 			{
-				Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
+				//Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
 				openedChest = true;
 			}
 			else

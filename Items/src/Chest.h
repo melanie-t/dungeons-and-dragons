@@ -10,10 +10,14 @@
 class Chest : public GameObject
 {
 public:
-	static void displayChest(Item* inputItem);
-
+	static void displayChest();
 	Chest();
+	Chest(int level);
 	Chest(ItemContainer chestItems);
+
+	int generateNumber();
+	void printChest();
+
 private:
 	ItemContainer chestItems;
 };

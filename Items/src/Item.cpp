@@ -301,7 +301,7 @@ inline int givePlusFiveBonus(int lvl)
 //! @param lvl the level of the character
 Item* Item::randommize(int lvl)
 {
-	srand(time(NULL));
+	srand((unsigned)time(NULL));
 	int r = rand() % 7 + 1; //Random number between 1 and 7 for choosing item type.
 	int randomSprite = rand() % 10 + 1; // Random sprite number between 1 to 10 to choose an icon.
 	string type, itemPath;
@@ -688,10 +688,10 @@ string Item::toString() {
 	if (id != 0)
 	{
 		std::ostringstream out;
-		out  << "[" << type << " stats]\n"
+		out  << "[" << type << " stats]"
 			//<< "\nID: " << id
-			//<< "\nItem path: " << itemPath
-			<< enhancementString();
+			//<< "\nItem path: " << itemPath 
+			<< "\n" << enhancementString();
 		return out.str();
 	}
 }
