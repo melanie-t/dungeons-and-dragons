@@ -1,0 +1,35 @@
+<Campaign>
+	<start>4</start>
+	<map>
+		<ID>4</ID>
+		<doors>
+			<door>
+				<doorid>2</doorid>
+				<x>19</x>
+				<y>3</y>
+			</door>
+		<door/>
+		</doors>
+	</map>
+	<map>
+		<ID>2</ID>
+		<doors>
+			<door>
+				<doorid>1</doorid>
+				<x>2</x>
+				<y>5</y>
+			</door>
+		</doors>
+	</map>
+	<map>
+		<ID>1</ID>
+		<doors>
+			<door>
+				<doorid>0</doorid>
+				<x>2</x>
+				<y>2</y>
+			</door>
+		<door/>
+		</doors>
+	</map>
+</Campaign>
