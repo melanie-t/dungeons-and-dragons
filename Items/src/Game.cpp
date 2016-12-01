@@ -498,8 +498,7 @@ bool Game::update(sf::Event* evt)
 
 		m_map->fillCell(position.x, position.y, new GrassTexture());
 		level = m_map->outputMap();
-		window->clear();
-		loadTextures(false);
+		map.load("bkrd.png", sf::Vector2u(32, 32), level, width, height);
 
 		// each character takes turns in this update method.
 		// Be nice. Let everyone loot.
