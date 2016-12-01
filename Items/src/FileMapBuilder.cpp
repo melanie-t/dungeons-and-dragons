@@ -269,5 +269,4 @@ bool FileMapBuilder::loadMap(int id)
 		cout << xml.GetError() << endl;
 		return false;
 	}
-	return false;
 }

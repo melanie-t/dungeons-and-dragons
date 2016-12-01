@@ -189,7 +189,11 @@ Campaign* Campaign::loadCampaign(int id, Character* player)
 		return new Campaign(start, false, id);
 
 	}
-	return nullptr;
+	else
+	{
+		cout << xml.GetError() << endl;
+		return nullptr;
+	}
 }
 
 //! saveCampaign function

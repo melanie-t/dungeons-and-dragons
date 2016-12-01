@@ -24,6 +24,9 @@
 #include "StatisticsHelper.h"
 #include "Campaign.h"
 #include "LevelUpWindow.h"
+#include "WaterTexture.h"
+#include "BrickTexture.h"
+#include "TreeTexture.h"
 
 using namespace std;
 
@@ -192,15 +195,16 @@ int main()
 						cout << "What would you like to do with the map?" << endl;
 						cout << "1. Add Door" << endl;
 						cout << "2. Add Chest" << endl;
-						cout << "3. Add Enemy" << endl;
-						cout << "4. Add Friend" << endl;
-						cout << "5. Exit & Save" << endl;
-						cout << "6. Exit & Don't Save" << endl;
+						cout << "3. Add Wall" << endl;
+						cout << "4. Add Enemy" << endl;
+						cout << "5. Add Friend" << endl;
+						cout << "6. Exit & Save" << endl;
+						cout << "7. Exit & Don't Save" << endl;
 						int editcmd;
 						cin >> editcmd;
 
 						int x, y;
-						if (editcmd != 4 && editcmd != 5)
+						if (editcmd != 6 && editcmd != 7)
 						{
 							do
 							{
@@ -229,17 +233,41 @@ int main()
 							map->fillCell(x, y, new GameObject(OBJ_CHEST));
 							break;
 						}
-						case 3: //add enemy in this area
+						case 3: //Add Wall
+						{
+							cout << "What kind of wall would you like to add? (1 - TREE, 2 - WATER, 3 - BRICK" << endl;
+							
+							int type = -1;
+							do
+							{
+
+							} while (type != 1 && type != 2 && type != 3);
+
+							if (type == 1)
+							{
+								map->fillCell(x, y, new TreeTexture());
+							}
+							else if (type == 2)
+							{
+								map->fillCell(x, y, new WaterTexture());
+							}
+							else if (type == 3)
+							{
+								map->fillCell(x, y, new BrickTexture());
+							}
+							break;
+						}
+						case 4: //add enemy in this area
 						{
 							map->fillCell(x, y, new Enemy());
 							break;
 						}
-						case 4: //add friend in this area
+						case 5: //add friend in this area
 						{
 							map->fillCell(x, y, new Friend());
 							break;
 						}
-						case 5: // exit + save, no break function
+						case 6: // exit + save, no break function
 						{
 							if (!map->saveMap())
 							{
@@ -257,7 +285,7 @@ int main()
 								Statistics::getInstance()->setNumMaps(numMap + 1);
 							}
 						}
-						case 6: //exit without saving.
+						case 7: //exit without saving.
 						{
 							changeMap = false;
 							break;

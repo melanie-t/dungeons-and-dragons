@@ -4,9 +4,25 @@
 		<ID>4</ID>
 		<doors>
 			<door>
-				<doorid>2</doorid>
+				<doorid>5</doorid>
 				<x>19</x>
 				<y>3</y>
+			</door>
+		<door/>
+		</doors>
+	</map>
+	<map>
+		<ID>5</ID>
+		<doors>
+			<door>
+				<doorid>0</doorid>
+				<x>0</x>
+				<y>3</y>
+			</door>
+			<door>
+				<doorid>1</doorid>
+				<x>0</x>
+				<y>4</y>
 			</door>
 		<door/>
 		</doors>

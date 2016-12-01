@@ -319,7 +319,7 @@ bool Map::saveMap()
 	xml.IntoElem();
 	xml.AddElem("id", this->ID);
 	xml.AddElem("width", this->width);
-	xml.AddElem("column", this->length);
+	xml.AddElem("length", this->length);
 
 	xml.SavePos("map");
 
@@ -452,6 +452,7 @@ void Map::printMap()
 {
 	cout << "Map: " << endl << endl;
 	cout << "C: Chest" << endl;
+	cout << "B: Brick" << endl;
 	cout << "-: Grass" << endl;
 	cout << "M: Enemy" << endl;
 	cout << "W: Water" << endl;
@@ -485,6 +486,10 @@ void Map::printMap()
 			else if (this->map[i][k]->getObjectType() == OBJ_TREE)
 			{
 				cout << "T ";
+			}
+			else if (this->map[i][k]->getObjectType() == OBJ_BRICK)
+			{
+				cout << "B ";
 			}
 			else if (this->map[i][k]->getObjectType() == OBJ_DOOR)
 			{
