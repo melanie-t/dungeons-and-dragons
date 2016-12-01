@@ -1,4 +1,5 @@
 #include <thread>
+#include <iostream>
 #include "AgressorStrategy.h"
 #include "MathHelper.h"
 #include "PlayerActionTypes.h"
@@ -19,27 +20,106 @@ int AgressorStrategy::execute(pos characterPos, pos targetPos, std::vector<int> 
 	else
 	{
 		int currentPos = characterPos.y*width + characterPos.x;
+
+		//Left
 		if (characterPos.x > targetPos.x && level[currentPos - 1] != TileTypes::WATER
 			&& level[currentPos - 1] != TileTypes::CHEST && level[currentPos - 1] != TileTypes::TREE
 			&& level[currentPos - 1] != TileTypes::END)
 		{
 			return PlayerAction::MOVE_LEFT;
 		}
-		else if (characterPos.x < targetPos.x && level[currentPos + 1] != TileTypes::WATER
-			&& level[currentPos + 1] != TileTypes::CHEST && level[currentPos + 1] != TileTypes::TREE
-			&& level[currentPos + 1] != TileTypes::END)
-		{
-			return PlayerAction::MOVE_RIGHT;
-		}
-		else if (characterPos.y > targetPos.y && level[currentPos - width] != TileTypes::WATER
+		else if (characterPos.x > targetPos.x && level[currentPos - width] != TileTypes::WATER
 			&& level[currentPos - width] != TileTypes::CHEST && level[currentPos - width] != TileTypes::TREE
 			&& level[currentPos - width] != TileTypes::END)
 		{
 			return PlayerAction::MOVE_UP;
 		}
-		else if (characterPos.y < targetPos.y && level[currentPos + width] != TileTypes::WATER
+		else if (characterPos.x > targetPos.x && level[currentPos + width] != TileTypes::WATER
 			&& level[currentPos + width] != TileTypes::CHEST && level[currentPos + width] != TileTypes::TREE
 			&& level[currentPos + width] != TileTypes::END)
+		{
+			return PlayerAction::MOVE_DOWN;
+		}
+		else if (characterPos.x > targetPos.x && level[currentPos + 1] != TileTypes::WATER
+			&& level[currentPos + 1] != TileTypes::CHEST && level[currentPos + 1] != TileTypes::TREE
+			&& level[currentPos + 1] != TileTypes::END)
+		{
+			return PlayerAction::MOVE_RIGHT;
+		}
+
+		//Move right
+		if (characterPos.x < targetPos.x && level[currentPos + 1] != TileTypes::WATER
+			&& level[currentPos + 1] != TileTypes::CHEST && level[currentPos + 1] != TileTypes::TREE
+			&& level[currentPos + 1] != TileTypes::END)
+		{
+			return PlayerAction::MOVE_RIGHT;
+		}
+		else if (characterPos.x < targetPos.x && level[currentPos - width] != TileTypes::WATER
+			&& level[currentPos - width] != TileTypes::CHEST && level[currentPos - width] != TileTypes::TREE
+			&& level[currentPos - width] != TileTypes::END)
+		{
+			return PlayerAction::MOVE_UP;
+		}
+		else if (characterPos.x < targetPos.x && level[currentPos + width] != TileTypes::WATER
+			&& level[currentPos + width] != TileTypes::CHEST && level[currentPos + width] != TileTypes::TREE
+			&& level[currentPos + width] != TileTypes::END)
+		{
+			return PlayerAction::MOVE_DOWN;
+		}
+		else if (characterPos.x < targetPos.x && level[currentPos - 1] != TileTypes::WATER
+			&& level[currentPos - 1] != TileTypes::CHEST && level[currentPos - 1] != TileTypes::TREE
+			&& level[currentPos - 1] != TileTypes::END)
+		{
+			return PlayerAction::MOVE_LEFT;
+		}
+
+		//Move up
+		if (characterPos.y > targetPos.y && level[currentPos - width] != TileTypes::WATER
+			&& level[currentPos - width] != TileTypes::CHEST && level[currentPos - width] != TileTypes::TREE
+			&& level[currentPos - width] != TileTypes::END)
+		{
+			return PlayerAction::MOVE_UP;
+		}
+		else if (characterPos.y > targetPos.y && level[currentPos - 1] != TileTypes::WATER
+			&& level[currentPos - 1] != TileTypes::CHEST && level[currentPos - 1] != TileTypes::TREE
+			&& level[currentPos - 1] != TileTypes::END)
+		{
+			return PlayerAction::MOVE_LEFT;
+		}
+		else if (characterPos.y > targetPos.y && level[currentPos + 1] != TileTypes::WATER
+			&& level[currentPos + 1] != TileTypes::CHEST && level[currentPos + 1] != TileTypes::TREE
+			&& level[currentPos + 1] != TileTypes::END)
+		{
+			return PlayerAction::MOVE_RIGHT;
+		}
+		else if (characterPos.y > targetPos.y && level[currentPos + width] != TileTypes::WATER
+			&& level[currentPos + width] != TileTypes::CHEST && level[currentPos + width] != TileTypes::TREE
+			&& level[currentPos + width] != TileTypes::END)
+		{
+			return PlayerAction::MOVE_DOWN;
+		}
+		//Move down.
+		if (characterPos.y < targetPos.y && level[currentPos + width] != TileTypes::WATER
+			&& level[currentPos + width] != TileTypes::CHEST && level[currentPos + width] != TileTypes::TREE
+			&& level[currentPos + width] != TileTypes::END)
+		{
+			return PlayerAction::MOVE_DOWN;
+		}
+		else if (characterPos.y < targetPos.y && level[currentPos - 1] != TileTypes::WATER
+			&& level[currentPos - 1] != TileTypes::CHEST && level[currentPos - 1] != TileTypes::TREE
+			&& level[currentPos - 1] != TileTypes::END)
+		{
+			return PlayerAction::MOVE_LEFT;
+		}
+		else if (characterPos.y < targetPos.y && level[currentPos + 1] != TileTypes::WATER
+			&& level[currentPos + 1] != TileTypes::CHEST && level[currentPos + 1] != TileTypes::TREE
+			&& level[currentPos + 1] != TileTypes::END)
+		{
+			return PlayerAction::MOVE_RIGHT;
+		}
+		else if (characterPos.y < targetPos.y && level[currentPos - width] != TileTypes::WATER
+			&& level[currentPos - width] != TileTypes::CHEST && level[currentPos - width] != TileTypes::TREE
+			&& level[currentPos - width] != TileTypes::END)
 		{
 			return PlayerAction::MOVE_DOWN;
 		}
