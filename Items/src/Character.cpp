@@ -39,7 +39,7 @@ Character::Character(int lvl, int str, int dex, int con, int intel, int wis, int
 	abilityScores[Ability::WISDOM] = wis;
 	abilityScores[Ability::CHARISMA] = cha;
 	currentHitPoints = 10 + abilityModifier(getCON());
-	secondaryStatCalc();
+	attackBonus = lvl;
 	totalEnhancement();
 }
 
@@ -71,7 +71,7 @@ Character::Character(string playerName, int charclass, int lvl, int str, int dex
 	currentHitPoints = hp;
 	backpack = bkpack;
 	setEquips(equips);
-	secondaryStatCalc();
+	attackBonus = lvl;
 	totalEnhancement();
 }
 
@@ -752,17 +752,37 @@ void Character::displayStats()
 			items = items + equips[i].toString();
 	}
 
+	string STRplus = " ";
+	string DEXplus = " ";
+	string CONplus = " ";
+	string INTELplus = " ";
+	string WISplus = " ";
+	string CHAplus = " ";
+
+	if (enh_str >= 0)
+		STRplus = " +";
+	if (enh_dex >= 0)
+		DEXplus = " +";
+	if (enh_con >= 0)
+		CONplus = " +";
+	if (enh_int >= 0)
+		INTELplus = " +";
+	if (enh_wis >= 0)
+		WISplus = " +";
+	if (enh_cha >= 0)
+		CHAplus = " +";
+
 	cout << "\n= PLAYER STATS ="
 		<< "\nName: " << getName()
 		<< "\nClass: " << classtoString()
 		<< "\nLVL: " << getLevel()
 		<< "\nHP : " << getHitPoints() << "/" << maxHP
-		<< "\nSTR: " << getSTR() << " +" << enh_str
-		<< "\nDEX: " << getDEX() << " +" << enh_dex 
-		<< "\nCON: " << getCON() << " +" << enh_con
-		<< "\nINT: " << getINTEL() << " +" << enh_int
-		<< "\nWIS: " << getWIS() << " +" << enh_wis
-		<< "\nCHA: " << getCHA() << " +" << enh_cha
+		<< "\nSTR: " << getSTR() << STRplus << enh_str
+		<< "\nDEX: " << getDEX() << DEXplus << enh_dex
+		<< "\nCON: " << getCON() << CONplus << enh_con
+		<< "\nINT: " << getINTEL() << INTELplus << enh_int
+		<< "\nWIS: " << getWIS() << WISplus << enh_wis
+		<< "\nCHA: " << getCHA() << CHAplus << enh_cha
 		<< "\nArmor Class : " << getArmorClass() << " +" << enh_armorclass
 		<< "\nAttack Bonus: " << getAttackBonus() << " +" << enh_attackbonus
 		<< "\nDamage Bonus: " << getDamageBonus() << " +" << enh_damagebonus
@@ -791,17 +811,38 @@ string Character::statString()
 			items = items + i.toString() + "\n";
 	}
 
+	string STRplus = "";
+	string DEXplus = "";
+	string CONplus = "";
+	string INTELplus = "";
+	string WISplus = "";
+	string CHAplus = "";
+
+	if (enh_str >= 0)
+		STRplus = " +";
+	if (enh_dex >= 0)
+		DEXplus = " +";
+	if (enh_con >= 0)
+		CONplus = " +";
+	if (enh_int >= 0)
+		INTELplus = " +";
+	if (enh_wis >= 0)
+		WISplus = " +";
+	if (enh_cha >= 0)
+		CHAplus = " +";
+
 	std::ostringstream out;
 	out << "\n" << getName()
 		<< "\n" << classtoString()
 		<< "\nLVL: " << getLevel()
 		<< "\nHP : " << getHitPoints() << "/" << maxHP
-		<< "\nSTR: " << getSTR() << " +" << enh_str
-		<< "\nDEX: " << getDEX() << " +" << enh_dex
-		<< "\nCON: " << getCON() << " +" << enh_con
-		<< "\nINT: " << getINTEL() << " +" << enh_int
-		<< "\nWIS: " << getWIS() << " +" << enh_wis
-		<< "\nCHA: " << getCHA() << " +" << enh_cha
+		<< "\nHP : " << getHitPoints() << "/" << maxHP
+		<< "\nSTR: " << getSTR() << STRplus << enh_str
+		<< "\nDEX: " << getDEX() << DEXplus << enh_dex
+		<< "\nCON: " << getCON() << CONplus << enh_con
+		<< "\nINT: " << getINTEL() << INTELplus << enh_int
+		<< "\nWIS: " << getWIS() << WISplus << enh_wis
+		<< "\nCHA: " << getCHA() << CHAplus << enh_cha
 		<< "\nArmor Class : " << getArmorClass() << " +" << enh_armorclass
 		<< "\nAttack Bonus: " << getAttackBonus() << " +" << enh_attackbonus
 		<< "\nDamage Bonus: " << getDamageBonus() << " +" << enh_damagebonus << endl;

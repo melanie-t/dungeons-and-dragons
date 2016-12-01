@@ -74,6 +74,7 @@ int Dice::roll(string str)
 	if (parseString(str)) 
 	{						// parses string and sets values for number/dice/total
 		total = sum(number, type, total);
+		//cout << "Total rolled: " << total << endl;
 		DiceLogger::getInstance()->Update(str, total);
 		return total;
 	}
@@ -157,21 +158,30 @@ int Dice::sum(int n, int t, int tot)
 	number = n;
 	type = t;
 	total = tot;
+
+	//cout << "Summing n: " << n << " | Type: " << type << endl;
 	int temp;
 	int lowest = 6;
-	//cout << "[Your Rolls] ";
+	cout << "Rolls : ";
 	while (number != 0)
 	{
 		temp = getRandom();
 		if (temp < lowest)
 			lowest = temp;
 		total += temp;
-		//cout << temp << " ";
+		cout << temp << ", ";
+			//<< "lowest: " << lowest << " | ";
 		number--;
 	}
-	if (number == 4 && type == 6)
+
+	if (type == 6)
+	{
 		total = total - lowest;
-	//cout << " Removed (" << lowest << ")  Total " << total << endl;
+		cout << " Removed (" << lowest << ")  Total " << total << endl;
+	}
+
+	//cout << "Total: " << total << endl;
+
 	return total;
 }
 

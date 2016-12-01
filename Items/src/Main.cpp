@@ -9,6 +9,11 @@
 #include "Game.h"
 #include "FileMapBuilder.h"
 #include "SavedMapBuilder.h"
+#include "CharacterBuilder.h"
+#include "CharacterCreater.h"
+#include "Bully.h"
+#include "Tank.h"
+#include "Nimble.h"
 #include "Character.h"
 #include "Fighter.h"
 #include "Enemy.h"
@@ -300,15 +305,44 @@ int main()
 						cin >> charClass;
 					} while (charClass != 1 && charClass != 2 && charClass != 3);
 
-					Fighter newFighter(name, charClass);
-					newFighter.notify();
+					Character* newFighter = nullptr;
+					CharacterCreater creater;
+
+					switch (charClass)
+					{
+					case 1: // bully
+					{
+						CharacterBuilder* BullyFighter = new Bully;
+						creater.setCharacterBuild(BullyFighter);
+						creater.constructCharacter();
+						newFighter = creater.getCharacter();
+						break;
+					}
+					case 2: //nimble
+					{
+						CharacterBuilder* NimbleFighter = new Nimble;
+						creater.setCharacterBuild(NimbleFighter);
+						creater.constructCharacter();
+						newFighter = creater.getCharacter();
+						break;
+					}
+					case 3: // tank
+					{
+						CharacterBuilder* TankFighter = new Tank;
+						creater.setCharacterBuild(TankFighter);
+						creater.constructCharacter();
+						newFighter = creater.getCharacter();
+						break;
+					}
+					}
+					newFighter->notify();
 
 					//Ask if player wants to save this character
 					cout << "Do you want to save this Fighter (Y/N)?" << endl;
 					cin >> decision;
 					if (decision == 'Y' || decision == 'y')
 					{
-						newFighter.saveCharacter();
+						newFighter->saveCharacter();
 						cout << "Fighter " << name << " saved. Returning to menu.\n" << endl;
 						Statistics::getInstance()->addCharacter(name);
 					}

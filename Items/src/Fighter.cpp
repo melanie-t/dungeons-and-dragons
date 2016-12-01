@@ -4,6 +4,7 @@
 #include "Character.h"
 #include "Fighter.h"
 #include "Markup.h"
+#include "CharacterBuilder.h"
 #include <iostream> /* cout */
 
 using std::cout;
@@ -39,8 +40,8 @@ Fighter::Fighter(string name, int charClass)
 	setName(name);
 	setCharClass(charClass);
 	setLevel(1);
-	setCharClass(1);
-	statGenerator();
+	//statGenerator();
+	setHitPoints(10 + abilityModifier(getCON()));
 	secondaryStatCalc();
 }
 

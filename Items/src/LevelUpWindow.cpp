@@ -29,8 +29,6 @@ LevelUpWindow::LevelUpWindow(Character* character)
 
 void LevelUpWindow::init()
 {
-	// 15 px between every button height
-
 	window = new sf::RenderWindow(sf::VideoMode(550, 450), "D&D 2.0 - Level up", sf::Style::Close);
 	
 	//Font
