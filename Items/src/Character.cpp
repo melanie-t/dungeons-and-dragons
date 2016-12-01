@@ -13,6 +13,7 @@
 #include "AgressorStrategy.h"
 #include "FriendlyStrategy.h"
 #include "CharacterType.h"
+#include "LevelUpWindow.h"
 
 using namespace std;
 
@@ -549,7 +550,7 @@ void Character::setCharClass(int classOfChar)
 void Character::levelUp()
 {
 	Dice dice;
-	string constitutionString = this->abilityScores[Ability::CONSTITUTION] +"";
+	string constitutionString = this->abilityScores[Ability::CONSTITUTION] + "";
 	level = level + 1;
 	//should roll 1d10[constitution]
 	int hpIncrease = dice.roll("1d10[" + constitutionString + "]");
@@ -557,105 +558,11 @@ void Character::levelUp()
 	//Sets the enhancement attack bonus as the level
 	this->enh_attackbonus = level;
 
-	cout << "Congratulations on leveling up!" << endl;
-	cout << "Your Maximum hitpoints has increased by " << dice.roll("1d10[" + constitutionString + "]") << endl;
-	int availablePoints = 2;
-	while (availablePoints > 0){
-		int currentStr = this->getSTR();
-		int currentDex = this->getDEX();
-		int currentCon = this->getCON();
-		int currentInt = this->getINTEL();
-		int currentWis = this->getWIS();
-		int currentCha = this->getCHA();
-		if (currentStr + currentDex + currentCon + currentInt + currentWis + currentCha == 120)
-			break;
-		int choice;
-		cout << "You have " << availablePoints << " available,"
-			<< "\n1. STR"
-			<< "\n2. DEX"
-			<< "\n3. CON"
-			<< "\n4. INTEL"
-			<< "\n5. WIS"
-			<< "\n6. CHA" << endl;
-		cin >> choice;
-		switch (choice){
-		case 1:{
-			int x = this->getSTR();
-			if (x < 20){
-				this->setSTR(x + 1);
-				cout << "Strength set to " << x << endl;
-				availablePoints--;
-			}
-			else{
-				cout << "Strength is at max level, please choose something else" << endl;
-			}
-			break;
-		}
-		case 2:{
-			int x = this->getDEX();
-			if (x < 20){
-				this->setSTR(x + 1);
-				cout << "Dexterity set to " << x << endl;
-				availablePoints--;
-			}
-			else{
-				cout << "Dexterity is at max level, please choose something else" << endl;
-			}
-			break;
-		}
-		case 3:{
-			int x = this->getCON();
-			if (x < 20){
-				this->setCON(x + 1);
-				cout << "Constitution set to " << x << endl;
-				availablePoints--;
-			}
-			else{
-				cout << "Constitution is at max level, please choose something else" << endl;
-			}
-			break;
-		}
-		case 4:{
-			int x = this->getINTEL();
-			if (x < 20){
-				this->setINTEL(x + 1);
-				cout << "Intelligence set to " << x << endl;
-				availablePoints--;
-			}
-			else{
-				cout << "Intelligence is at max level, please choose something else" << endl;
-			}
-			break;
-		}
-		case 5:{
-			int x = this->getWIS();
-			if (x < 20){
-				this->setWIS(x + 1);
-				cout << "Wisdom set to " << x << endl;
-				availablePoints--;
-			}
-			else{
-				cout << "Wisdom is at max level, please choose something else" << endl;
-			}
-			break;
-		}
-		case 6:{
-			int x = this->getCHA();
-			if (x < 20){
-				this->setCHA(x + 1);
-				cout << "Charisma set to " << x << endl;
-				availablePoints--;
-			}
-			else{
-				cout << "Charisma is at max level, please choose something else" << endl;
-			}
-			break;
-		}
-		default:{
-			cout << "Enter a valid option" << endl;
-		}
-		}
+	if (level % 4 == 0)
+	{
+		LevelUpWindow window(this);
 	}
+}
 		
 	
 	/*

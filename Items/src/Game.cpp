@@ -1127,8 +1127,8 @@ void Game::go()
 //! @param map map to go to.
 void Game::goToNewMap(Map* map)
 {
-	//map->getPlayer()->levelUp();
-	LevelUpWindow level(map->getPlayer());
+	map->getPlayer()->levelUp();
+	//LevelUpWindow level(map->getPlayer());
 
 	if (map != nullptr)
 	{

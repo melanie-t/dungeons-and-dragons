@@ -5,7 +5,7 @@ using namespace std;
 LevelUpWindow::LevelUpWindow(Character* character)
 {
 	this->character = character;
-	this->availablePoints = 2;
+	this->availablePoints = 1;
 	this->STR = character->getSTR();
 	this->DEX = character->getDEX();
 	this->CON = character->getCON();
