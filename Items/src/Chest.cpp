@@ -82,6 +82,8 @@ int Chest::generateNumber()
 	return rand() % 3 + 1; // returns random number between 1 and 3
 }
 
+//! printChest function
+//! displays chest items and their stats
 void Chest::printChest()
 {
 	vector <Item> items = chestItems.getItems();

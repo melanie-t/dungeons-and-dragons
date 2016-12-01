@@ -696,6 +696,8 @@ string Item::toString() {
 	}
 }
 
+//! enhancementString function
+//! @return : string with all the enhancements
 string Item::enhancementString()
 {
 	std::ostringstream out;
