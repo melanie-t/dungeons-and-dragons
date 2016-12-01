@@ -18,8 +18,8 @@ using std::endl;
 //! @param wis wisdom of Fighter
 //! @param cha charisma of Fighter
 //! @param name name of Fighter
-Fighter::Fighter(string name, int level, int str, int dex, int con, int intel, int wis, int cha, int hp, 
-		ItemContainer backpack, Item equips[7]) : Character(name, 1, level, str, dex, con, intel, wis, cha, hp, backpack, equips)
+Fighter::Fighter(string name, int charClass, int level, int str, int dex, int con, int intel, int wis, int cha, int hp, 
+	ItemContainer backpack, Item equips[7]) : Character(name, charClass, level, str, dex, con, intel, wis, cha, hp, backpack, equips)
 {
 	//1 represents character class Fighter
 }
@@ -34,9 +34,10 @@ Fighter::Fighter()
 
 //! Constructor for Fighter
 //! @param name name of fighter
-Fighter::Fighter(string name)
+Fighter::Fighter(string name, int charClass)
 {
 	setName(name);
+	setCharClass(charClass);
 	setLevel(1);
 	setCharClass(1);
 	statGenerator();

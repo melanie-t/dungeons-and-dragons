@@ -22,8 +22,8 @@ class Fighter: public Character, public GameObject
 {
 public:
 	Fighter();
-	Fighter(string name);
-	Fighter(string name, int level, int str, int dex, int con, int intel, int wis, int cha, int hp, 
+	Fighter(string name, int charclass);
+	Fighter(string name, int charclass, int level, int str, int dex, int con, int intel, int wis, int cha, int hp,
 		ItemContainer backpack, Item equips[7]);
 	bool validateNewFighter();
 };

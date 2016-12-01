@@ -288,7 +288,19 @@ int main()
 					cout << "Enter name of your character: " << endl;
 					cin >> name;
 					toLower(name);  //will convert to lowercase
-					Fighter newFighter(name);
+
+					int charClass;
+					cout << "What type of fighter would you like to be? " << endl;
+					cout << "1. Bully" << endl;
+					cout << "2. Nimble" << endl;
+					cout << "3. Tank" << endl;
+					
+					do
+					{
+						cin >> charClass;
+					} while (charClass != 1 && charClass != 2 && charClass != 3);
+
+					Fighter newFighter(name, charClass);
 					newFighter.notify();
 
 					//Ask if player wants to save this character
