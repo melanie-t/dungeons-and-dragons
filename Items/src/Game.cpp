@@ -641,6 +641,7 @@ bool Game::update(sf::Event* evt)
 							Item item = m_map->getPlayer()->getBackpack().itemAtIndex(i);
 							m_map->getPlayer()->removeBackpackIndex(i);
 							m_map->getPlayer()->equip(&item);
+							m_map->getPlayer()->displayStats();
 							updatePlayerStats();
 						}
 					}
@@ -711,8 +712,11 @@ void Game::endGame(bool won)
 	GameObjectLogger::getInstance()->UpdateEnd(won);
 
 	//Levels up
-	if (won)
+	if (won) {
 		LevelUpWindow level(m_map->getPlayer());
+		//Saves player's progress - Bug with saving items now
+		m_map->getPlayer()->saveCharacter();
+	}
 
 	while (window->isOpen())
 	{
@@ -732,9 +736,6 @@ void Game::endGame(bool won)
 			window->draw(textBox);
 			window->draw(win);
 			window->draw(text);
-
-			//Saves player's progress - Bug with saving items now
-			//m_map->getPlayer()->saveCharacter();
 
 			GameLogger::getInstance()->draw(window);
 			processInput();
