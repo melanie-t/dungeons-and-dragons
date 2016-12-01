@@ -12,6 +12,7 @@
 #include "Friend.h"
 #include "Door.h"
 #include "Dice.h"
+#include "LevelUpWindow.h"
 #include "HumanPlayerStrategy.h"
 #include "PlayerActionTypes.h"
 #include "MathHelper.h"
@@ -1096,7 +1097,8 @@ void Game::go()
 void Game::goToNewMap(Map* map)
 {
 	map->getPlayer()->levelUp();
-	
+	LevelUpWindow level(map->getPlayer());
+
 	if (map != nullptr)
 	{
 		FileMapBuilder build(map->getPlayer());

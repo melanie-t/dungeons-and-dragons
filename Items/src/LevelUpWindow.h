@@ -3,32 +3,42 @@
 #include <SFML\Graphics.hpp>
 #include "Character.h"
 
-class LevelupWindow
+class LevelUpWindow
 {
 public:
-	LevelupWindow(Character* character);
+	LevelUpWindow(Character* character);
+	bool spriteHovered(sf::Sprite &sprite);
+
 private:
+	sf::Event evt;
 	Character* character;
 	void init();
 	void loop();
-	int availblePoints;
+	int availablePoints;
+	int STR, DEX, CON, INTEL, WIS, CHA;
+	bool strUP = false, 
+		dexUP = false,
+		conUP = false,
+		intUP = false,
+		wisUP = false,
+		chaUP = false;
+
 	sf::Font font;
 	sf::RenderWindow* window;
 	sf::Texture background;
 	sf::Texture rightButtonReg;
-	sf::Texture rightButtonHover;
 	sf::Texture rightButtonClick;
 
-	sf::Texture leftButtonReg;
-	sf::Texture leftButtonHover;
-	sf::Texture leftButtonClick;
-
 	sf::Texture OKButtonReg;
-	sf::Texture OKButtonHover;
 	sf::Texture OKButtonClick;
+	sf::Texture resetButtonReg;
+	sf::Texture resetButtonClick;
 
 	sf::Sprite backgroundSprite;
 	sf::Sprite OKButton;
+	sf::Sprite resetButton;
+
+	sf::Text availablePT;
 
 	sf::Text STR_label;
 	sf::Text STR_modifier;
@@ -50,4 +60,13 @@ private:
 	sf::Sprite leftButton_INTEL;
 	sf::Sprite rightButton_INTEL;
 
+	sf::Text WIS_label;
+	sf::Text WIS_modifier;
+	sf::Sprite leftButton_WIS;
+	sf::Sprite rightButton_WIS;
+
+	sf::Text CHA_label;
+	sf::Text CHA_modifier;
+	sf::Sprite leftButton_CHA;
+	sf::Sprite rightButton_CHA;
 };

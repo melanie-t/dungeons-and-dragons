@@ -64,6 +64,10 @@ Main function.
 */
 int main()
 {
+	//Test Level Up GUI
+	//Character* character = Character::loadCharacter("Dylan");
+	//LevelUpWindow* window = new LevelUpWindow(character);
+
 	cout << "Welcome To Our Dnd demo!" << endl;
 
 	bool run = true;
