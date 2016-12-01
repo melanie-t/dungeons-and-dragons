@@ -41,6 +41,7 @@ Character::Character(int lvl, int str, int dex, int con, int intel, int wis, int
 	abilityScores[Ability::WISDOM] = wis;
 	abilityScores[Ability::CHARISMA] = cha;
 	currentHitPoints = 10 + abilityModifier(getCON());
+	maxHP = currentHitPoints;
 	attackBonus = lvl;
 	totalEnhancement();
 	secondaryStatCalc();
@@ -71,7 +72,7 @@ Character::Character(string playerName, int charclass, int lvl, int str, int dex
 	abilityScores[Ability::INTELLIGENCE] = intel;
 	abilityScores[Ability::WISDOM] = wis;
 	abilityScores[Ability::CHARISMA] = cha;
-	maxHP = maxhp;
+	maxHP = hp;
 	currentHitPoints = hp;
 	backpack = bkpack;
 	setEquips(equips);
