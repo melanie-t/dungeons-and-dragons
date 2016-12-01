@@ -241,7 +241,12 @@ int main()
 								cout << "Invalid map." << endl;
 								break;
 							}
-							else if (created)
+							else
+							{
+								cout << "Map Saved." << endl;
+							}
+
+							if (created)
 							{
 								int numMap = Statistics::getInstance()->getNumMaps();
 								Statistics::getInstance()->setNumMaps(numMap+1);

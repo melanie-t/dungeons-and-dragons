@@ -144,6 +144,7 @@ bool Map::validatePath()
 	}
 	else
 	{
+		std::cout << "Missing door" << endl;
 		return false;
 	}
 }
@@ -204,9 +205,13 @@ bool Map::isOccupied(int x, int y)
 //! recurive search...
 bool Map::recursiveSearch(int posx, int posy, int endposx, int endposy)
 {
+	if (posx < 0 || posy < 0 || endposx < 0 || endposy < 0)
+	{
+		return true;
+	}
 	//Current position is the end position.
-	GameObject* cur = map[posx][posy];
-	GameObject* end = map[endposx][endposy];
+	GameObject* cur = getObject(posx, posy);//map[posx][posy];
+	GameObject* end = getObject(endposx, endposy);//map[endposx][endposy];
 	
 	//cur and end point to the same reference,
 	//therefore, they're the same object.
@@ -215,7 +220,8 @@ bool Map::recursiveSearch(int posx, int posy, int endposx, int endposy)
 		return true;
 	}
 	//find a way to keep track of where ive already visited.
-	else if (mapSearch[posx][posy])//Check if the flag is on, on that posx and posy in order to avoid infinite loop.
+	//Check if the flag is on, on that posx and posy in order to avoid infinite loop.
+	else if (mapSearch[posx][posy] == 1)
 	{
 		return false;
 	}
@@ -223,7 +229,7 @@ bool Map::recursiveSearch(int posx, int posy, int endposx, int endposy)
 	{
 		return false;
 	}
-	else if (&map[posx][posy] == nullptr)
+	else if (map[posx][posy] == nullptr)
 	{
 		return false;
 	}
@@ -291,6 +297,17 @@ vector<int> Map::outputMap()
 //! @brief Saves the map object into an xml file.
 bool Map::saveMap()
 {
+	for (int i = 0; i != getWidth(); i++)
+	{
+		for (int k = 0; k != getLength(); k++)
+		{
+			if (!isOccupied(i, k))
+			{
+				fillCell(i, k, new GrassTexture());
+			}
+		}
+	}
+
 	if (!this->validatePath())
 	{
 		//Invlaid map.
@@ -306,17 +323,17 @@ bool Map::saveMap()
 
 	xml.SavePos("map");
 
-	for (int i = 0; i != this->length; i++)
+	for (int k = 0; k != this->length; k++)
 	{
-		for (int k = 0; k != this->width; k++)
+		for (int i = 0; i != this->width; i++)
 		{
-			if (&this->map[i][k] == nullptr)
+			if (this->map[i][k] == nullptr)
 			{
 				continue;
 			}
 			else
 			{
-				if (this->map[i][k]->getObjectType().empty()) continue;
+				//if (this->map[i][k]->getObjectType().empty()) continue;
 
 				if (this->map[i][k]->getObjectType() == OBJ_CHEST)
 				{
