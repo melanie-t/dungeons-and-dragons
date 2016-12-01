@@ -32,6 +32,7 @@ Character::Character() : Character(1, 0, 0, 0, 0, 0, 0)
 //! @param cha charisma of Character
 Character::Character(int lvl, int str, int dex, int con, int intel, int wis, int cha) 
 {
+	charClass = 1;
 	level = lvl;
 	abilityScores[Ability::STRENGTH] = str;
 	abilityScores[Ability::DEXTERITY] = dex;
@@ -198,12 +199,12 @@ void Character::statGenerator()
 	{
 		do
 		{
-			cout << "Scores leftover: ";
+			std::cout << "Scores leftover: ";
 			for (int j = i; j < 6; j++)
 			{
-				cout << totalScores[j] << " ";
+				std::cout << totalScores[j] << " ";
 			}
-			cout << "\nChoose ability to set as " << totalScores[i]
+			std::cout << "\nChoose ability to set as " << totalScores[i]
 				<< "\n1. STR"
 				<< "\n2. DEX"
 				<< "\n3. CON"
@@ -219,13 +220,13 @@ void Character::statGenerator()
 				if (!strSet)
 				{
 					setSTR(totalScores[i]);
-					cout << "STR: " << totalScores[i] << endl;
+					std::cout << "STR: " << totalScores[i] << endl;
 					strSet = true;
 					displayStats();
 				}
 				else
 				{
-					cout << "Already set. Please choose another ability." << endl;
+					std::cout << "Already set. Please choose another ability." << endl;
 					if (i != 0)
 						i--;
 				}
@@ -236,13 +237,13 @@ void Character::statGenerator()
 				if (!dexSet)
 				{
 					setDEX(totalScores[i]);
-					cout << "DEX: " << totalScores[i] << endl;
+					std::cout << "DEX: " << totalScores[i] << endl;
 					dexSet = true;
 					displayStats();
 				}
 				else
 				{
-					cout << "Already set. Please choose another ability." << endl;
+					std::cout << "Already set. Please choose another ability." << endl;
 					if (i != 0)
 						i--;
 				}
@@ -253,13 +254,13 @@ void Character::statGenerator()
 				if (!conSet)
 				{
 					setCON(totalScores[i]);
-					cout << "CON: " << totalScores[i] << endl;
+					std::cout << "CON: " << totalScores[i] << endl;
 					conSet = true;
 					displayStats();
 				}
 				else
 				{
-					cout << "Already set. Please choose another ability." << endl;
+					std::cout << "Already set. Please choose another ability." << endl;
 					if (i != 0)
 						i--;
 				}
@@ -270,13 +271,13 @@ void Character::statGenerator()
 				if (!intSet)
 				{
 					setINTEL(totalScores[i]);
-					cout << "INTEL: " << totalScores[i] << endl;
+					std::cout << "INTEL: " << totalScores[i] << endl;
 					intSet = true;
 					displayStats();
 				}
 				else
 				{
-					cout << "Already set. Please choose another ability." << endl;
+					std::cout << "Already set. Please choose another ability." << endl;
 					if (i != 0)
 						i--;
 				}
@@ -286,13 +287,13 @@ void Character::statGenerator()
 			{
 				if (!wisSet) {
 					setWIS(totalScores[i]);
-					cout << "WIS: " << totalScores[i] << endl;
+					std::cout << "WIS: " << totalScores[i] << endl;
 					wisSet = true;
 					displayStats();
 				}
 				else
 				{
-					cout << "Already set. Please choose another ability." << endl;
+					std::cout << "Already set. Please choose another ability." << endl;
 					if (i != 0)
 						i--;
 				}
@@ -302,13 +303,13 @@ void Character::statGenerator()
 			{
 				if (!chaSet) {
 					setCHA(totalScores[i]);
-					cout << "CHA: " << totalScores[i] << endl;
+					std::cout << "CHA: " << totalScores[i] << endl;
 					chaSet = true;
 					displayStats();
 				}
 				else
 				{
-					cout << "Already set. Please choose another ability." << endl;
+					std::cout << "Already set. Please choose another ability." << endl;
 					if (i != 0)
 						i--;
 				}
@@ -316,7 +317,7 @@ void Character::statGenerator()
 			}
 			default:
 			{
-				cout << "Invalid choice. Choose between 1-6" << endl;
+				std::cout << "Invalid choice. Choose between 1-6" << endl;
 				if (i != 0)
 					i--;
 				break;
@@ -590,7 +591,6 @@ void Character::levelUp()
 	abilityScores[Ability::INTELLIGENCE] < 18 ? setSTR(abilityScores[Ability::INTELLIGENCE] + 1) : false;
 	abilityScores[Ability::WISDOM] < 18 ? setSTR(abilityScores[Ability::WISDOM] + 1) : false;
 	abilityScores[Ability::CHARISMA] < 18 ? setSTR(abilityScores[Ability::CHARISMA] + 1) : false;*/
-}
 
 //! Getter method to get the ItemContainer backpack
 //! @return backpack: the backpack (itemcontainer vector) inventory
