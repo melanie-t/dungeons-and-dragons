@@ -739,7 +739,7 @@ void Game::endGame(bool won)
 
 			GameLogger::getInstance()->draw(window);
 			processInput();
-			window->display();
+			//window->display();
 		}
 	}
 }
