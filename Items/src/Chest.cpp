@@ -95,5 +95,6 @@ void Chest::transferItems(Character* character)
 	for (int i = 0; i < chestItems.getItems().size(); i++)
 	{
 		character->addBackpack(&chestItems.itemAtIndex(i));
+		this->chestItems.removeItemAtIndex(i);
 	}
 }

@@ -21,6 +21,7 @@
 #include "GameLogger.h"
 #include "DiceLogger.h"
 #include "GameObjectLogger.h"
+#include "GrassTexture.h"
 
 //! Constructor for Game class
 //! @param tileWidth : width of the tile used
@@ -207,17 +208,6 @@ bool Game::update(sf::Event* evt)
 			break;
 		else if (level[currentPos - width] == TileTypes::TREE) //2 is tree
 			break;
-		else if (level[currentPos - width] == TileTypes::CHEST) //9 is item/chest
-		{
-			if (!openedChest)
-			{
-				// Character picks up chest items (into backpack)
-				m_map->getChest().transferItems(m_map->getPlayer());
-				openedChest = true;
-			}
-			else
-				break;
-		}
 		else if (level[currentPos - width] == TileTypes::END) // end
 		{
 			int x = currentPos % width;
@@ -255,17 +245,6 @@ bool Game::update(sf::Event* evt)
 			break;
 		else if (level[currentPos + width] == TileTypes::TREE) //2 is tree
 			break;
-		else if (level[currentPos + width] == TileTypes::CHEST) //9 is item/chest
-		{
-			if (!openedChest) 
-			{
-				// Character picks up chest items (into backpack)
-				m_map->getChest().transferItems(m_map->getPlayer());
-				openedChest = true;
-			}
-			else
-				break;
-		}
 		else if (level[currentPos + width] == TileTypes::END) // end
 		{
 			//m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
@@ -303,17 +282,6 @@ bool Game::update(sf::Event* evt)
 			break;
 		else if (level[currentPos - 1] == TileTypes::TREE) //2 is tree
 			break;
-		else if (level[currentPos - 1] == TileTypes::CHEST) //9 is item/chest
-		{
-			if (!openedChest)
-			{
-				// Character picks up chest items (into backpack)
-				m_map->getChest().transferItems(m_map->getPlayer());
-				openedChest = true;
-			}
-			else
-				break;
-		}
 		else if (level[currentPos - 1] == TileTypes::END) // end
 		{
 			//m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
@@ -357,17 +325,6 @@ bool Game::update(sf::Event* evt)
 		else if (level[currentPos + 1] == TileTypes::TREE) //2 is tree
 		{
 			break;
-		}
-		else if (level[currentPos + 1] == TileTypes::CHEST) //9 is item/chest
-		{
-			if (!openedChest)
-			{
-				// Character picks up chest items (into backpack)
-				m_map->getChest().transferItems(m_map->getPlayer());
-				openedChest = true;
-			}
-			else
-				break;
 		}
 		else if (level[currentPos + 1] == TileTypes::END) // end
 		{
@@ -478,8 +435,10 @@ bool Game::update(sf::Event* evt)
 							//Drop Items
 							Chest* chest = new Chest(target->getBackpack());
 							this->m_map->fillCell(target->getPosition().x, target->getPosition().y, chest);
-							level = m_map->outputMap();
-							loadTextures();
+							int chestPos = target->getPosition().y*width + target->getPosition().x;
+							level[chestPos] = TileTypes::CHEST;
+							map.load("bkrd.png", sf::Vector2u(32, 32), level, width, height);
+							//loadTextures(false);
 						}
 						else if (target->getCharacterType() == CT_FRIEND)
 						{
@@ -510,6 +469,10 @@ bool Game::update(sf::Event* evt)
 			m_map->nextTurn();
 			break;
 		}
+		else
+		{
+			m_map->nextTurn();
+		}
 		//std::cout << "attack 3" << endl;
 		break;
 	}
@@ -524,7 +487,16 @@ bool Game::update(sf::Event* evt)
 		//Item chest;
 		pos position = character->getPosition();
 		Chest* chest = static_cast<Chest*>(m_map->getObject(position.x, position.y));
-		//character->getBackpack().addItem(chest);
+		
+		if (character == m_map->getPlayer())
+		{
+			chest->transferItems(character);
+		}
+
+		m_map->fillCell(position.x, position.y, new GrassTexture());
+		level = m_map->outputMap();
+		window->clear();
+		loadTextures(false);
 
 		// each character takes turns in this update method.
 		// Be nice. Let everyone loot.

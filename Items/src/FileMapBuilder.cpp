@@ -174,7 +174,7 @@ bool FileMapBuilder::loadMap(int id)
 
 						//Why is this line called twice?
 						//cout << "CHEST CREATED" << endl;
-						Chest* obj = new Chest(/*player->getLevel()*/);
+						Chest* obj = new Chest(player->getLevel());
 
 						while (xml.FindElem())
 						{
