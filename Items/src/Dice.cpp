@@ -162,14 +162,16 @@ int Dice::sum(int n, int t, int tot)
 	//cout << "Summing n: " << n << " | Type: " << type << endl;
 	int temp;
 	int lowest = 6;
-	cout << "Rolls : ";
+	if (type == 6)
+		cout << "Rolls : ";
 	while (number != 0)
 	{
 		temp = getRandom();
 		if (temp < lowest)
 			lowest = temp;
 		total += temp;
-		cout << temp << ", ";
+		if (type == 6)
+			cout << temp << ", ";
 			//<< "lowest: " << lowest << " | ";
 		number--;
 	}

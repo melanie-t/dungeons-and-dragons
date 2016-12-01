@@ -41,6 +41,8 @@ Character::Character(int lvl, int str, int dex, int con, int intel, int wis, int
 	currentHitPoints = 10 + abilityModifier(getCON());
 	attackBonus = lvl;
 	totalEnhancement();
+	secondaryStatCalc();
+	addBackpack(Item::load(1));
 }
 
 //! Constructor: Used to load characters from saved XML files
@@ -73,6 +75,7 @@ Character::Character(string playerName, int charclass, int lvl, int str, int dex
 	setEquips(equips);
 	attackBonus = lvl;
 	totalEnhancement();
+	secondaryStatCalc();
 }
 
 //! notify function
@@ -338,8 +341,7 @@ int Character::abilityModifier(int abilityScore)
 void Character::secondaryStatCalc()
 {
 	setArmorClass(10);
-	setAttackBonus(getLevel()*(abilityModifier(getSTR()) + abilityModifier(getDEX())) / 5);
-	setDamageBonus(abilityModifier(getSTR()));
+	setAttackBonus(level);
 }
 
 //! Implementation of fill cell, set any cell to anything it might eventually contain
@@ -785,9 +787,8 @@ void Character::displayStats()
 		<< "\nCHA: " << getCHA() << CHAplus << enh_cha
 		<< "\nArmor Class : " << getArmorClass() << " +" << enh_armorclass
 		<< "\nAttack Bonus: " << getAttackBonus() << " +" << enh_attackbonus
-		<< "\nDamage Bonus: " << getDamageBonus() << " +" << enh_damagebonus
-		<< "\n= Equips =" << items
-		<< "\n= Backpack =" << backpack.toString() << endl;
+		<< "\n= Equips =\n" << items
+		<< "\n= Backpack =\n" << backpack.toString() << endl;
 }
 
 //! statString function
@@ -811,12 +812,12 @@ string Character::statString()
 			items = items + i.toString() + "\n";
 	}
 
-	string STRplus = "";
-	string DEXplus = "";
-	string CONplus = "";
-	string INTELplus = "";
-	string WISplus = "";
-	string CHAplus = "";
+	string STRplus = " ";
+	string DEXplus = " ";
+	string CONplus = " ";
+	string INTELplus = " ";
+	string WISplus = " ";
+	string CHAplus = " ";
 
 	if (enh_str >= 0)
 		STRplus = " +";
@@ -836,7 +837,6 @@ string Character::statString()
 		<< "\n" << classtoString()
 		<< "\nLVL: " << getLevel()
 		<< "\nHP : " << getHitPoints() << "/" << maxHP
-		<< "\nHP : " << getHitPoints() << "/" << maxHP
 		<< "\nSTR: " << getSTR() << STRplus << enh_str
 		<< "\nDEX: " << getDEX() << DEXplus << enh_dex
 		<< "\nCON: " << getCON() << CONplus << enh_con
@@ -844,8 +844,7 @@ string Character::statString()
 		<< "\nWIS: " << getWIS() << WISplus << enh_wis
 		<< "\nCHA: " << getCHA() << CHAplus << enh_cha
 		<< "\nArmor Class : " << getArmorClass() << " +" << enh_armorclass
-		<< "\nAttack Bonus: " << getAttackBonus() << " +" << enh_attackbonus
-		<< "\nDamage Bonus: " << getDamageBonus() << " +" << enh_damagebonus << endl;
+		<< "\nAttack Bonus: " << getAttackBonus() << " +" << enh_attackbonus << endl;
 	return out.str();
 }
 

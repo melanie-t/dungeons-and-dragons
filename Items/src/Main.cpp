@@ -316,6 +316,7 @@ int main()
 						creater.setCharacterBuild(BullyFighter);
 						creater.constructCharacter();
 						newFighter = creater.getCharacter();
+						newFighter->setName(name);
 						break;
 					}
 					case 2: //nimble
@@ -324,6 +325,7 @@ int main()
 						creater.setCharacterBuild(NimbleFighter);
 						creater.constructCharacter();
 						newFighter = creater.getCharacter();
+						newFighter->setName(name);
 						break;
 					}
 					case 3: // tank
@@ -332,6 +334,7 @@ int main()
 						creater.setCharacterBuild(TankFighter);
 						creater.constructCharacter();
 						newFighter = creater.getCharacter();
+						newFighter->setName(name);
 						break;
 					}
 					}

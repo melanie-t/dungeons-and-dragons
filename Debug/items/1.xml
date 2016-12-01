@@ -1,11 +1,11 @@
 <item>
 	<id>1</id>
-	<type>armor</type>
+	<type>weapon</type>
 	<level>1</level>
-	<path>res/armor/3.png</path>
+	<path>res/weapon/0.png</path>
 	<influence>
 		<enhancement>
-			<enh_type>armorclass</enh_type>
+			<enh_type>attackbonus</enh_type>
 			<bonus>1</bonus>
 		</enhancement>
 	</influence>

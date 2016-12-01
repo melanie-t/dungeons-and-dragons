@@ -32,8 +32,7 @@ public:
 		m_character->setCharClass(3);
 		m_character->setHitPoints(10 + m_character->abilityModifier(m_character->getCON()));
 		m_character->setMaxHP(10 + m_character->abilityModifier(m_character->getCON()));
-		m_character->setAttackBonus(m_character->getLevel());
-		m_character->setArmorClass(10);
+		m_character->secondaryStatCalc();
 		m_character->totalEnhancement();
 	}
 };
