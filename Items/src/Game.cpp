@@ -477,7 +477,7 @@ bool Game::update(sf::Event* evt)
 
 							//Drop Items
 							Chest* chest = new Chest(target->getBackpack());
-						//	this->m_map->fillCell(target->getPosition().x, target->getPosition().y, chest);
+							this->m_map->fillCell(target->getPosition().x, target->getPosition().y, chest);
 							level = m_map->outputMap();
 							loadTextures();
 						}
