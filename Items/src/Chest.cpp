@@ -98,3 +98,8 @@ void Chest::transferItems(Character* character)
 		this->chestItems.removeItemAtIndex(i);
 	}
 }
+
+ItemContainer Chest::getChestContent()
+{
+	return this->chestItems;
+}

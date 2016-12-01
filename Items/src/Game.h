@@ -32,6 +32,9 @@ private:
 	sf::Sprite inventorySprite[24];
 	sf::Texture inventoryTexture;
 
+	sf::Sprite chestWindow;
+	sf::Sprite chestSprite[3];
+
 	sf::Font font;
 	sf::Text text;
 	sf::Text enemyStats;
@@ -76,6 +79,9 @@ private:
 	//Add equips to GUI
 	void drawEquips();
 
+	//Add Chest Items ot GUI
+	void drawChest(Chest* chest);
+
 	//Checks if items are clicked
 	bool isSpriteClicked(sf::Sprite &sprite);
 
@@ -108,14 +114,18 @@ private:
 
 	CharacterLogger characterlogger;
 	MapLogger maplogger;
-public:
-	Game(unsigned int tileWidth, unsigned int tileHeight, Map* map);
-	~Game();
-	//Method to start the game
-	void go();
+
 	bool openedChest = false;
 	bool ended;
 	bool inventoryOpen;
 	bool equipOpen;
 	bool itemStatOpen;
+	bool showChest;
+
+	Chest* selectedChest;
+public:
+	Game(unsigned int tileWidth, unsigned int tileHeight, Map* map);
+	~Game();
+	//Method to start the game
+	void go();
 };

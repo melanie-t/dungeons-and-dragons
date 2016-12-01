@@ -36,6 +36,8 @@ Game::Game(unsigned int tileWidth, unsigned int tileHeight, Map* map)
 	this->ended = false;
 	this->inventoryOpen = false;
 	this->equipOpen = false;
+	this->showChest = false;
+	this->selectedChest = nullptr;
 	this->attackNum = 0;
 }
 
@@ -536,8 +538,24 @@ bool Game::update(sf::Event* evt)
 				}
 				else
 				{
-					//Don't show enemy stats.
-					enemyStats.setString("Enemy/Friend");
+					if (tileX < m_map->getWidth() && tileY < m_map->getLength())
+					{
+						if (m_map->getObject(tileX, tileY)->getObjectType() == OBJ_CHEST)
+						{
+							Chest* chest = static_cast<Chest*>(m_map->getObject(tileX, tileY));
+							//Display Chest contents here
+							enemyStats.setString("Chest");
+							selectedChest = chest;
+							this->drawChest(chest);
+							this->showChest = true;
+						}
+						else
+						{
+							//Don't show enemy stats.
+							enemyStats.setString("Enemy/Friend/Chest");
+							this->showChest = false;
+						}
+					}
 					return true;
 				}
 			}
@@ -847,6 +865,10 @@ void Game::createText()
 	inventoryWindow.setPosition(496, height * 32 + 45);
 	inventoryWindow.setTexture(inventoryTexture);
 
+	//Chest
+	chestWindow.setPosition(186, height * 32 + 45);
+	chestWindow.setTexture(inventoryTexture);
+
 	inventoryBox.setSize(sf::Vector2f(157, 242));
 	inventoryBox.setPosition(480, height * 32 + 5);
 	inventoryBox.setOutlineColor(sf::Color::Green);
@@ -962,6 +984,30 @@ void Game::drawEquips()
 	} // end for loop
 }
 
+
+//! addItems function
+//! loads the items currently in Character's inventory
+void Game::drawChest(Chest* chest)
+{
+	int row = 0;
+	vector<Item> items = chest->getChestContent().getItems();
+	for (int i = 0; i < items.size(); i++)
+	{
+		if (items[i].getID() != 0)
+		{
+			sf::Texture texture;
+			texture.loadFromFile(items[i].getItemPath());
+
+			chestSprite[i].setTexture(texture);
+			chestSprite[i].setPosition(186 + ((i % 4) * 31), height * 32 + 45 + 31 * row);
+			window->draw(chestSprite[i]);
+
+			if ((i + 1) % 4 == 0)
+				row = row + 1;
+		}
+	}
+}
+
 //! isSpriteClicked function
 //! Checks if mouse hovers over sprite
 //! @param : sprite that's checked for hover
@@ -1024,6 +1070,12 @@ void Game::render()
 		window->draw(itemText);
 	}
 
+	if (this->showChest)
+	{
+		window->draw(chestWindow);
+		drawChest(selectedChest);
+	}
+
 	GameLogger::getInstance()->draw(window);
 
 	//window->draw(currentPosition);
@@ -1069,18 +1121,17 @@ void Game::go()
 //! @param map map to go to.
 void Game::goToNewMap(Map* map)
 {
-	map->getPlayer()->levelUp();
+	//map->getPlayer()->levelUp();
 	
 	if (map != nullptr)
 	{
 		FileMapBuilder build(map->getPlayer());
 		build.loadMap(map->getID());
 
-		m_map = nullptr;
 		this->m_map = build.getMap();
 		this->level = map->outputMap();
 
-		loadTextures();
+		loadTextures(true);
 	}
 }
 
