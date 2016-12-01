@@ -103,6 +103,7 @@
     <ClInclude Include="src\Item.h" />
     <ClInclude Include="src\ItemContainer.h" />
     <ClInclude Include="src\ItemTypes.h" />
+    <ClInclude Include="src\LevelUpWindow.h" />
     <ClInclude Include="src\Map.h" />
     <ClInclude Include="src\MapBuildDirector.h" />
     <ClInclude Include="src\MapBuilder.h" />
@@ -147,6 +148,7 @@
     <ClCompile Include="src\HumanPlayerStartegy.cpp" />
     <ClCompile Include="src\Item.cpp" />
     <ClCompile Include="src\ItemContainer.cpp" />
+    <ClCompile Include="src\LevelUpWindow.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Map.cpp" />
     <ClCompile Include="src\Markup.cpp" />

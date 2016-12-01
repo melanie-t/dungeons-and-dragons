@@ -18,6 +18,7 @@
 #include "Friend.h"
 #include "StatisticsHelper.h"
 #include "Campaign.h"
+#include "LevelUpWindow.h"
 
 using namespace std;
 
@@ -91,7 +92,6 @@ Main function.
 */
 int main()
 {
-
 	cout << "Welcome To Our Dnd demo!" << endl;
 
 	bool run = true;

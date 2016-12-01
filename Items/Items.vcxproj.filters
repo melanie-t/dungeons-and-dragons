@@ -234,6 +234,9 @@
     <ClInclude Include="src\GameObjectLogger.h">
       <Filter>Header Files\log</Filter>
     </ClInclude>
+    <ClInclude Include="src\LevelUpWindow.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Map.cpp">
@@ -337,6 +340,9 @@
     </ClCompile>
     <ClCompile Include="src\GameObjectLogger.cpp">
       <Filter>Source Files\Log</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LevelUpWindow.cpp">
+      <Filter>Source Files\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
