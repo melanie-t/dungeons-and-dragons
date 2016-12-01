@@ -741,6 +741,7 @@ void Game::endGame(bool won)
 			processInput();
 			//window->display();
 		}
+		window->display();
 	}
 }
 
