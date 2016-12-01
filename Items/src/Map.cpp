@@ -445,9 +445,9 @@ void Map::printMap()
 
 	cout << endl << endl; //skip two lines.
 
-	for (int i = 0; i != this->getLength(); i++)
+	for (int k = 0; k != this->getLength(); k++)
 	{
-		for (int k = 0; k != this->getWidth(); k++)
+		for (int i = 0; i != this->getWidth(); i++)
 		{
 			if (this->map[i][k]->getObjectType() == OBJ_CHEST)
 			{
