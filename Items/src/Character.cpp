@@ -56,7 +56,7 @@ Character::Character(int lvl, int str, int dex, int con, int intel, int wis, int
 //! @param backpack contains all items in backpack inventory
 //! @param equips contains all items that are currently worn
 Character::Character(string playerName, int charclass, int lvl, int str, int dex, int con, int intel,
-	int wis, int cha, int hp, ItemContainer bkpack, Item equips[7])
+	int wis, int cha, int hp, ItemContainer bkpack, Item equips[7], int maxhp)
 {
 	name = playerName;
 	level = lvl;
@@ -67,6 +67,7 @@ Character::Character(string playerName, int charclass, int lvl, int str, int dex
 	abilityScores[Ability::INTELLIGENCE] = intel;
 	abilityScores[Ability::WISDOM] = wis;
 	abilityScores[Ability::CHARISMA] = cha;
+	maxHP = maxhp;
 	currentHitPoints = hp;
 	backpack = bkpack;
 	setEquips(equips);
@@ -529,6 +530,20 @@ void Character::setName(string newName)
 	name = newName;
 }
 
+//! Implementation of a getter method for maxHP
+//! @param newHP : new HP value
+int Character::getMaxHP()
+{
+	return maxHP;
+}
+
+//! Implementation of a getter method for maxHP
+//! @param newHP : new HP value
+void Character::setMaxHP(int newHP)
+{
+	maxHP = newHP;
+}
+
 //! Implementation of getter method for charClass
 //! @return charClass: the class of character in terms of int (Ex: 1 = Fighter)
 int Character::getCharClass()
@@ -554,6 +569,7 @@ void Character::levelUp()
 	//should roll 1d10[constitution]
 	int hpIncrease = dice.roll("1d10[" + constitutionString + "]");
 	currentHitPoints = currentHitPoints + hpIncrease;
+	maxHP = maxHP + hpIncrease;
 	//Sets the enhancement attack bonus as the level
 	this->enh_attackbonus = level;
 
@@ -740,7 +756,7 @@ void Character::displayStats()
 		<< "\nName: " << getName()
 		<< "\nClass: " << classtoString()
 		<< "\nLVL: " << getLevel()
-		<< "\nHP : " << getHitPoints()
+		<< "\nHP : " << getHitPoints() << "/" << maxHP
 		<< "\nSTR: " << getSTR() << " +" << enh_str
 		<< "\nDEX: " << getDEX() << " +" << enh_dex 
 		<< "\nCON: " << getCON() << " +" << enh_con
@@ -779,7 +795,7 @@ string Character::statString()
 	out << "\n" << getName()
 		<< "\n" << classtoString()
 		<< "\nLVL: " << getLevel()
-		<< "\nHP : " << getHitPoints()
+		<< "\nHP : " << getHitPoints() << "/" << maxHP
 		<< "\nSTR: " << getSTR() << " +" << enh_str
 		<< "\nDEX: " << getDEX() << " +" << enh_dex
 		<< "\nCON: " << getCON() << " +" << enh_con
@@ -833,6 +849,7 @@ void Character::saveCharacter()
 	xml.AddElem("wisdom", getWIS());
 	xml.AddElem("charisma", getCHA());
 	xml.AddElem("hp", getHitPoints());
+	xml.AddElem("maxhp", getMaxHP());
 	xml.AddElem("class", getCharClass());
 	xml.AddElem("backpack");
 	xml.IntoElem();
@@ -878,7 +895,7 @@ Character* Character::loadCharacter(string name)
 		else
 		{
 			xml.IntoElem();
-			int level, charclass, str, dex, con, intel, wis, cha, hp;
+			int level, charclass, str, dex, con, intel, wis, cha, hp, maxhp;
 			ItemContainer backpack;
 			Item equips[7];
 
@@ -921,6 +938,10 @@ Character* Character::loadCharacter(string name)
 				{
 					charclass = atoi(xml.GetData().c_str());
 				}
+				else if (tag == "maxhp")
+				{
+					maxhp = atoi(xml.GetData().c_str());
+				}
 				else if (tag == "backpack")
 				{
 					xml.IntoElem();
@@ -949,7 +970,7 @@ Character* Character::loadCharacter(string name)
 				}
 			}
 			return new Character(name, charclass, level, str, dex, con, intel,
-				wis, cha, hp, backpack, equips);
+				wis, cha, hp, backpack, equips, maxhp);
 		}
 	}
 	return nullptr; //Empty

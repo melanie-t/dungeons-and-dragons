@@ -47,7 +47,7 @@ public:
 	Character();
 	Character(int lvl, int str, int dex, int con, int intel, int wis, int cha);
 	Character(string name, int charclass, int lvl, int str, int dex, int con, int intel, int wis,
-		int cha, int hp, ItemContainer backpack, Item equips[7]);
+		int cha, int hp, ItemContainer backpack, Item equips[7], int maxhp);
 
 	void notify();
 	void attach(Character* c);
@@ -84,6 +84,8 @@ public:
 	void setCHA(int CHA);
 	string getName();
 	void setName(string newName);
+	int getMaxHP();
+	void setMaxHP(int newHP);
 	int getCharClass();
 	void setCharClass(int classOfChar);
 	void levelUp();
@@ -131,6 +133,7 @@ private:
 	int damageBonus;
 	int charClass;
 	bool gameover;
+	int maxHP;
 	
 	bool helmetEquipped = false,
 		armorEquipped = false,

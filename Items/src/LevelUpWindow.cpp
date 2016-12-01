@@ -1,9 +1,21 @@
 #include "LevelUpWindow.h"
+#include "Dice.h"
 #include <iostream>
 using namespace std;
 
 LevelUpWindow::LevelUpWindow(Character* character)
 {
+	Dice dice;
+	string constitutionString = character->getCON() + "";
+	character->setLevel(character->getLevel() + 1);
+
+	//should roll 1d10[constitution]
+	int hpIncrease = dice.roll("1d10[" + constitutionString + "]");
+	character->setHitPoints(character->getHitPoints() + hpIncrease);
+	character->setMaxHP(character->getMaxHP() + hpIncrease);
+	//Sets the enhancement attack bonus as the level
+	character->setAttackBonus(character->getLevel());
+
 	this->character = character;
 	this->availablePoints = 2;
 	this->STR = character->getSTR();

@@ -188,7 +188,7 @@ bool Game::update(sf::Event* evt)
 
 	if (character != m_map->getPlayer())
 	{
-		std::this_thread::sleep_for(std::chrono::seconds(1));
+		//std::this_thread::sleep_for(std::chrono::seconds(1));
 	}
 
 	turnText.setString("Turn: " + character->getName());
@@ -612,19 +612,6 @@ bool Game::update(sf::Event* evt)
 			}
 		}
 
-		// If sprite hovers over inventoryWindow
-		//else if (evt->type == sf::Event:: && isSpriteClicked(inventoryWindow))
-		//{
-		//	for (int i = 0; i < m_map->getPlayer()->getBackpackSize(); i++)
-		//	{
-		//		if (isSpriteClicked(inventorySprite[i]))
-		//		{
-		//			cout << "Item stats: \n " << m_map->getPlayer()->getBackpack().itemAtIndex(i).toString() << endl;
-		//			drawItemStats(m_map->getPlayer()->getBackpack().itemAtIndex(i).toString());
-		//		}
-		//	}
-		//}
-
 		else if (evt->type == sf::Event::MouseButtonPressed)
 		{
 			// If mouse is right clicked, check if it's over items
@@ -671,7 +658,7 @@ bool Game::update(sf::Event* evt)
 					{
 						if (isSpriteClicked(equipSprite[i]))
 						{
-							cout << "Equip stats: \n" << m_map->getPlayer()->getEquipAtIndex(i)->toString() << endl;
+							//cout << "Equip stats: \n" << m_map->getPlayer()->getEquipAtIndex(i)->toString() << endl;
 							itemText.setString(m_map->getPlayer()->getEquipAtIndex(i)->toString());
 							itemStatOpen = true;
 						}
@@ -685,7 +672,7 @@ bool Game::update(sf::Event* evt)
 					{
 						if (isSpriteClicked(inventorySprite[i]))
 						{
-							cout << "Item stats: \n " << m_map->getPlayer()->getBackpack().itemAtIndex(i).toString() << endl;
+							//cout << "Item stats: \n " << m_map->getPlayer()->getBackpack().itemAtIndex(i).toString() << endl;
 							itemText.setString(m_map->getPlayer()->getBackpack().itemAtIndex(i).toString());
 							itemStatOpen = true;
 						}
@@ -717,30 +704,41 @@ void Game::endGame(bool won)
 {
 	//window->display();
 	ended = true;
+	
 	window->clear();
 	GameObjectLogger::getInstance()->UpdateEnd(won);
+
+	//Levels up
+	if (won)
+		LevelUpWindow level(m_map->getPlayer());
 
 	while (window->isOpen())
 	{
 		window->clear();
 
-		text.setString(m_map->getPlayer()->statString());
-		text.setCharacterSize(12);
-		text.setFillColor(sf::Color::Black);
-		text.setStyle(sf::Text::Bold);
-		text.setPosition(20, (height * 32 + 8));
+		sf::Texture winImage;
+		winImage.loadFromFile("res/win.png");
+		sf::Sprite win(winImage);
+		win.setPosition(width/2 + 60, height/2 + 10);
+
+		updatePlayerStats();
 
 		window->clear(sf::Color(255, 255, 255, 255));
-		window->draw(text);
 
-		GameLogger::getInstance()->draw(window);
+		if (won)
+		{
+			window->draw(textBox);
+			window->draw(win);
+			window->draw(text);
 
-		processInput();
-		window->display();
+			//Saves player's progress - Bug with saving items now
+			//m_map->getPlayer()->saveCharacter();
+
+			GameLogger::getInstance()->draw(window);
+			processInput();
+			window->display();
+		}
 	}
-
-	//sf::sleep(sf::milliseconds(6000)); // for now. have to change later to exit only when escape/enter
-	//window->close();
 }
 
 //! loadTextures function
@@ -1049,9 +1047,10 @@ void Game::render()
 
 	window->draw(textBox);
 	window->draw(enemyStatsBox);
+	window->draw(turnBox);
+
 	window->draw(text);
 	window->draw(enemyStats);
-	window->draw(turnBox);
 	window->draw(turnText);
 
 	if (this->equipOpen)
@@ -1129,6 +1128,7 @@ void Game::goToNewMap(Map* map)
 {
 	//map->getPlayer()->levelUp();
 	LevelUpWindow level(map->getPlayer());
+	updatePlayerStats();
 
 	if (map != nullptr)
 	{

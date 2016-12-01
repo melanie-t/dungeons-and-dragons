@@ -24,7 +24,7 @@ public:
 	Fighter();
 	Fighter(string name, int charclass);
 	Fighter(string name, int charclass, int level, int str, int dex, int con, int intel, int wis, int cha, int hp,
-		ItemContainer backpack, Item equips[7]);
+		ItemContainer backpack, Item equips[7], int maxhp);
 	bool validateNewFighter();
 };
 
