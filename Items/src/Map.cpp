@@ -45,6 +45,7 @@ Map::Map(const int id, const int length, const int width, Character* player)
 	this->length = length;
 	//Player on the map.
 	this->player = player;
+	this->itemChest = Chest(player->getLevel());
 	//Creating an array that will serve as our map.
 	map = new GameObject**[width];
 	for (int i = 0; i < width; ++i)

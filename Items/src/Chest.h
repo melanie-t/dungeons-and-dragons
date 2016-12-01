@@ -6,6 +6,7 @@
 */
 #pragma once
 #include "ItemContainer.h"
+#include "Character.h"
 
 class Chest : public GameObject
 {
@@ -17,6 +18,7 @@ public:
 
 	int generateNumber();
 	void printChest();
+	void transferItems(Character *character);
 
 private:
 	ItemContainer chestItems;

@@ -53,15 +53,6 @@ void Chest::displayChest()
 			{
 				chestPopup.close();
 			}
-			//switch (inputItem->getItemType()) {
-			//	case 1: item.loadFromFile("res/armor2.png"); break;
-			//	case 2: item.loadFromFile("res/belt2.png"); break;
-			//	case 3: item.loadFromFile("res/helmet2.png"); break;
-			//	case 4: item.loadFromFile("res/ring2.png"); break;
-			//	case 5: item.loadFromFile("res/shield2.png"); break;
-			//	case 6: item.loadFromFile("res/boots2.png"); break;
-			//	case 7: item.loadFromFile("res/sword2.png"); break;
-			//}
 
 			sf::Sprite displayItem(item);
 			displayItem.setPosition(80, 100);
@@ -91,5 +82,18 @@ void Chest::printChest()
 	for (Item i : items)
 	{
 		cout << i.toString();
+	}
+}
+
+//! transferItems function
+//! transfers chest items to the character
+//! @param character : pointer to character
+void Chest::transferItems(Character* character)
+{
+	//vector <Item> chest = chestItems.getItems();
+
+	for (int i = 0; i < chestItems.getItems().size(); i++)
+	{
+		character->addBackpack(&chestItems.itemAtIndex(i));
 	}
 }

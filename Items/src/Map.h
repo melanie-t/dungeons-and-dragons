@@ -17,6 +17,7 @@
 #include "Character.h"
 #include "Enemy.h"
 #include "Friend.h"
+#include "Chest.h"
 #include <vector>
 #include "pos.h"
 
@@ -51,10 +52,11 @@ public:
 	std::vector<pos> getDoors(){ return doors;  }
 	std::vector<Enemy*> getEnemies(){ return enemies; }
 	std::vector<Friend*> getFriends(){ return friends; }
+	Chest getChest() {	return itemChest; }
 	Enemy* getClosestEnemy(Character* origin);
 	void removeEnemy(Enemy* enemy);
 	void removeFriend(Friend* frien);
-
+	
 	//setters
 	void setID(int id){ this->ID = id; }
 	void setName(std::string name){ this->name = name; }
@@ -80,4 +82,5 @@ private:
 	vector<Friend*> friends;
 	vector<Character*> turns;
 	Character* player;
+	Chest itemChest;
 };
