@@ -334,7 +334,8 @@ void Character::statGenerator()
 int Character::abilityModifier(int abilityScore)
 {
 	// Proper calculation of abilityMod;
-	int abilityMod = (abilityScore / 2) - 5;
+	int abilityMod = std::floor((abilityScore - 10) / 2);
+	// int abilityMod = (abilityScore / 2) - 5;
 	return abilityMod;
 }
 
@@ -774,6 +775,7 @@ string Character::classtoString()
 	}
 	case 3:
 		return "Tank Fighter";
+		break;
 	default:
 	{
 		return "";
