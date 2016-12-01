@@ -1,3 +1,6 @@
+//! @file 
+//! @brief Header file for the player move constants
+//!
 #pragma once
 
 enum PlayerMove

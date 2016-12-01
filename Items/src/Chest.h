@@ -19,6 +19,7 @@ public:
 	int generateNumber();
 	void printChest();
 	void transferItems(Character *character);
+	ItemContainer getChestContent();
 
 private:
 	ItemContainer chestItems;

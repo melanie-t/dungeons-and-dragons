@@ -1,3 +1,6 @@
+//! @file 
+//! @brief Header file for the item type constants
+//!
 #pragma once
 
 //Item types

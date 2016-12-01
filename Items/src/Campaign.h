@@ -1,3 +1,6 @@
+//! @file Campaign.h
+//! @brief Header file for Campaign Class
+//!
 #pragma once
 
 #include "Map.h"

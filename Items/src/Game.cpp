@@ -22,6 +22,7 @@
 #include "GameLogger.h"
 #include "DiceLogger.h"
 #include "GameObjectLogger.h"
+#include "GrassTexture.h"
 
 //! Constructor for Game class
 //! @param tileWidth : width of the tile used
@@ -36,6 +37,8 @@ Game::Game(unsigned int tileWidth, unsigned int tileHeight, Map* map)
 	this->ended = false;
 	this->inventoryOpen = false;
 	this->equipOpen = false;
+	this->showChest = false;
+	this->selectedChest = nullptr;
 	this->attackNum = 0;
 }
 
@@ -208,17 +211,6 @@ bool Game::update(sf::Event* evt)
 			break;
 		else if (level[currentPos - width] == TileTypes::TREE) //2 is tree
 			break;
-		else if (level[currentPos - width] == TileTypes::CHEST) //9 is item/chest
-		{
-			if (!openedChest)
-			{
-				// Character picks up chest items (into backpack)
-				m_map->getChest().transferItems(m_map->getPlayer());
-				openedChest = true;
-			}
-			else
-				break;
-		}
 		else if (level[currentPos - width] == TileTypes::END) // end
 		{
 			int x = currentPos % width;
@@ -256,17 +248,6 @@ bool Game::update(sf::Event* evt)
 			break;
 		else if (level[currentPos + width] == TileTypes::TREE) //2 is tree
 			break;
-		else if (level[currentPos + width] == TileTypes::CHEST) //9 is item/chest
-		{
-			if (!openedChest) 
-			{
-				// Character picks up chest items (into backpack)
-				m_map->getChest().transferItems(m_map->getPlayer());
-				openedChest = true;
-			}
-			else
-				break;
-		}
 		else if (level[currentPos + width] == TileTypes::END) // end
 		{
 			//m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
@@ -304,17 +285,6 @@ bool Game::update(sf::Event* evt)
 			break;
 		else if (level[currentPos - 1] == TileTypes::TREE) //2 is tree
 			break;
-		else if (level[currentPos - 1] == TileTypes::CHEST) //9 is item/chest
-		{
-			if (!openedChest)
-			{
-				// Character picks up chest items (into backpack)
-				m_map->getChest().transferItems(m_map->getPlayer());
-				openedChest = true;
-			}
-			else
-				break;
-		}
 		else if (level[currentPos - 1] == TileTypes::END) // end
 		{
 			//m_map->getPlayer()->setLevel(m_map->getPlayer()->getLevel() + 1);
@@ -358,17 +328,6 @@ bool Game::update(sf::Event* evt)
 		else if (level[currentPos + 1] == TileTypes::TREE) //2 is tree
 		{
 			break;
-		}
-		else if (level[currentPos + 1] == TileTypes::CHEST) //9 is item/chest
-		{
-			if (!openedChest)
-			{
-				// Character picks up chest items (into backpack)
-				m_map->getChest().transferItems(m_map->getPlayer());
-				openedChest = true;
-			}
-			else
-				break;
 		}
 		else if (level[currentPos + 1] == TileTypes::END) // end
 		{
@@ -476,11 +435,16 @@ bool Game::update(sf::Event* evt)
 						{
 							this->m_map->removeEnemy(dynamic_cast<Enemy*>(target));
 
+							if (target->getBackpackSize() > 0)
+							{
 							//Drop Items
 							Chest* chest = new Chest(target->getBackpack());
 							this->m_map->fillCell(target->getPosition().x, target->getPosition().y, chest);
-							level = m_map->outputMap();
-							loadTextures();
+								int chestPos = target->getPosition().y*width + target->getPosition().x;
+								level[chestPos] = TileTypes::CHEST;
+								map.load("bkrd.png", sf::Vector2u(32, 32), level, width, height);
+						}
+							//loadTextures(false);
 						}
 						else if (target->getCharacterType() == CT_FRIEND)
 						{
@@ -511,6 +475,10 @@ bool Game::update(sf::Event* evt)
 			m_map->nextTurn();
 			break;
 		}
+		else
+		{
+			m_map->nextTurn();
+		}
 		//std::cout << "attack 3" << endl;
 		break;
 	}
@@ -525,7 +493,15 @@ bool Game::update(sf::Event* evt)
 		//Item chest;
 		pos position = character->getPosition();
 		Chest* chest = static_cast<Chest*>(m_map->getObject(position.x, position.y));
-		//character->getBackpack().addItem(chest);
+		
+		if (character == m_map->getPlayer())
+		{
+			chest->transferItems(character);
+		}
+
+		m_map->fillCell(position.x, position.y, new GrassTexture());
+		level = m_map->outputMap();
+		map.load("bkrd.png", sf::Vector2u(32, 32), level, width, height);
 
 		// each character takes turns in this update method.
 		// Be nice. Let everyone loot.
@@ -563,8 +539,24 @@ bool Game::update(sf::Event* evt)
 				}
 				else
 				{
+					if (tileX < m_map->getWidth() && tileY < m_map->getLength())
+					{
+						if (m_map->getObject(tileX, tileY)->getObjectType() == OBJ_CHEST)
+						{
+							Chest* chest = static_cast<Chest*>(m_map->getObject(tileX, tileY));
+							//Display Chest contents here
+							enemyStats.setString("Chest");
+							selectedChest = chest;
+							this->drawChest(chest);
+							this->showChest = true;
+						}
+						else
+						{
 					//Don't show enemy stats.
-					enemyStats.setString("Enemy/Friend");
+							enemyStats.setString("Enemy/Friend/Chest");
+							this->showChest = false;
+						}
+					}
 					return true;
 				}
 			}
@@ -874,6 +866,10 @@ void Game::createText()
 	inventoryWindow.setPosition(496, height * 32 + 45);
 	inventoryWindow.setTexture(inventoryTexture);
 
+	//Chest
+	chestWindow.setPosition(186, height * 32 + 45);
+	chestWindow.setTexture(inventoryTexture);
+
 	inventoryBox.setSize(sf::Vector2f(157, 242));
 	inventoryBox.setPosition(480, height * 32 + 5);
 	inventoryBox.setOutlineColor(sf::Color::Green);
@@ -989,6 +985,30 @@ void Game::drawEquips()
 	} // end for loop
 }
 
+
+//! addItems function
+//! loads the items currently in Character's inventory
+void Game::drawChest(Chest* chest)
+{
+	int row = 0;
+	vector<Item> items = chest->getChestContent().getItems();
+	for (int i = 0; i < items.size(); i++)
+	{
+		if (items[i].getID() != 0)
+		{
+			sf::Texture texture;
+			texture.loadFromFile(items[i].getItemPath());
+
+			chestSprite[i].setTexture(texture);
+			chestSprite[i].setPosition(186 + ((i % 4) * 31), height * 32 + 45 + 31 * row);
+			window->draw(chestSprite[i]);
+
+			if ((i + 1) % 4 == 0)
+				row = row + 1;
+		}
+	}
+}
+
 //! isSpriteClicked function
 //! Checks if mouse hovers over sprite
 //! @param : sprite that's checked for hover
@@ -1051,6 +1071,12 @@ void Game::render()
 		window->draw(itemText);
 	}
 
+	if (this->showChest)
+	{
+		window->draw(chestWindow);
+		drawChest(selectedChest);
+	}
+
 	GameLogger::getInstance()->draw(window);
 
 	//window->draw(currentPosition);
@@ -1096,7 +1122,7 @@ void Game::go()
 //! @param map map to go to.
 void Game::goToNewMap(Map* map)
 {
-	map->getPlayer()->levelUp();
+	//map->getPlayer()->levelUp();
 	LevelUpWindow level(map->getPlayer());
 
 	if (map != nullptr)
@@ -1104,11 +1130,10 @@ void Game::goToNewMap(Map* map)
 		FileMapBuilder build(map->getPlayer());
 		build.loadMap(map->getID());
 
-		m_map = nullptr;
 		this->m_map = build.getMap();
 		this->level = map->outputMap();
 
-		loadTextures();
+		loadTextures(true);
 	}
 }
 
