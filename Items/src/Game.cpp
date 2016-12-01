@@ -432,12 +432,15 @@ bool Game::update(sf::Event* evt)
 						{
 							this->m_map->removeEnemy(dynamic_cast<Enemy*>(target));
 
-							//Drop Items
-							Chest* chest = new Chest(target->getBackpack());
-							this->m_map->fillCell(target->getPosition().x, target->getPosition().y, chest);
-							int chestPos = target->getPosition().y*width + target->getPosition().x;
-							level[chestPos] = TileTypes::CHEST;
-							map.load("bkrd.png", sf::Vector2u(32, 32), level, width, height);
+							if (target->getBackpackSize() > 0)
+							{
+								//Drop Items
+								Chest* chest = new Chest(target->getBackpack());
+								this->m_map->fillCell(target->getPosition().x, target->getPosition().y, chest);
+								int chestPos = target->getPosition().y*width + target->getPosition().x;
+								level[chestPos] = TileTypes::CHEST;
+								map.load("bkrd.png", sf::Vector2u(32, 32), level, width, height);
+							}
 							//loadTextures(false);
 						}
 						else if (target->getCharacterType() == CT_FRIEND)
