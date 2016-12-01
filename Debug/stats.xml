@@ -1,6 +1,6 @@
 <stats>
-	<maps>2</maps>
-	<items>227</items>
+	<maps>4</maps>
+	<items>9</items>
 	<campaigns>1</campaigns>
 	<characters>
 		<character>James</character>
@@ -9,5 +9,5 @@
 		<character>Kevin</character>
 		<character>Nguyen</character>
 		<character>Zed</character>
-	</characters>
+</characters>
 </stats>
