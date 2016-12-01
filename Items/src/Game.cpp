@@ -209,9 +209,10 @@ bool Game::update(sf::Event* evt)
 			break;
 		else if (level[currentPos - width] == TileTypes::CHEST) //9 is item/chest
 		{
-			if (!openedChest) 
+			if (!openedChest)
 			{
-				Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
+				// Character picks up chest items (into backpack)
+				m_map->getChest().transferItems(m_map->getPlayer());
 				openedChest = true;
 			}
 			else
@@ -258,7 +259,8 @@ bool Game::update(sf::Event* evt)
 		{
 			if (!openedChest) 
 			{
-				Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
+				// Character picks up chest items (into backpack)
+				m_map->getChest().transferItems(m_map->getPlayer());
 				openedChest = true;
 			}
 			else
@@ -303,9 +305,10 @@ bool Game::update(sf::Event* evt)
 			break;
 		else if (level[currentPos - 1] == TileTypes::CHEST) //9 is item/chest
 		{
-			if (!openedChest) 
+			if (!openedChest)
 			{
-				Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
+				// Character picks up chest items (into backpack)
+				m_map->getChest().transferItems(m_map->getPlayer());
 				openedChest = true;
 			}
 			else
@@ -357,9 +360,10 @@ bool Game::update(sf::Event* evt)
 		}
 		else if (level[currentPos + 1] == TileTypes::CHEST) //9 is item/chest
 		{
-			if (!openedChest) 
+			if (!openedChest)
 			{
-				Chest::displayChest(Item::randommize(m_map->getPlayer()->getLevel()));
+				// Character picks up chest items (into backpack)
+				m_map->getChest().transferItems(m_map->getPlayer());
 				openedChest = true;
 			}
 			else
@@ -472,8 +476,8 @@ bool Game::update(sf::Event* evt)
 							this->m_map->removeEnemy(dynamic_cast<Enemy*>(target));
 
 							//Drop Items
-						//	Chest* chest = new Chest(target->getBackpack());
-						//	this->m_map->fillCell(target->getPosition().x, target->getPosition().y, chest);
+							Chest* chest = new Chest(target->getBackpack());
+							this->m_map->fillCell(target->getPosition().x, target->getPosition().y, chest);
 							level = m_map->outputMap();
 							loadTextures();
 						}
@@ -1105,3 +1109,4 @@ void Game::goToNewMap(Map* map)
 		loadTextures();
 	}
 }
+

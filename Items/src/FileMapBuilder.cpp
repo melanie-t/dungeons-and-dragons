@@ -171,14 +171,10 @@ bool FileMapBuilder::loadMap(int id)
 						xml.IntoElem();
 						int x, y;
 						//Chest object here.
-						Chest* obj = new Chest();
-						
-						///Add Items here
-						///////////////////////////////
-						//////////////////////////////
-						/////////////////////////////
-						////////////////////////////
-						/////////////////////////////
+
+						//Why is this line called twice?
+						//cout << "CHEST CREATED" << endl;
+						Chest* obj = new Chest(/*player->getLevel()*/);
 
 						while (xml.FindElem())
 						{

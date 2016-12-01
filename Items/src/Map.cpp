@@ -45,6 +45,7 @@ Map::Map(const int id, const int length, const int width, Character* player)
 	this->length = length;
 	//Player on the map.
 	this->player = player;
+	//this->itemChest = Chest(player->getLevel());
 	//Creating an array that will serve as our map.
 	map = new GameObject**[width];
 	for (int i = 0; i < width; ++i)
@@ -434,7 +435,7 @@ void Map::printMap()
 {
 	cout << "Map: " << endl << endl;
 	cout << "C: Chest" << endl;
-	cout << "G: Grass" << endl;
+	cout << "-: Grass" << endl;
 	cout << "M: Enemy" << endl;
 	cout << "W: Water" << endl;
 	cout << "T: Tree" << endl;
@@ -481,7 +482,7 @@ void Map::printMap()
 			}
 			else
 			{
-				cout << "G "; //Grass
+				cout << "- "; //Grass
 			}
 		}
 		cout << endl;
