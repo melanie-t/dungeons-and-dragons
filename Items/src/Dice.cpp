@@ -75,6 +75,10 @@ int Dice::roll(string str)
 	{						// parses string and sets values for number/dice/total
 		total = sum(number, type, total);
 		//cout << "Total rolled: " << total << endl;
+		if (total == 0)
+		{
+			total = 1;
+		}
 		DiceLogger::getInstance()->Update(str, total);
 		return total;
 	}

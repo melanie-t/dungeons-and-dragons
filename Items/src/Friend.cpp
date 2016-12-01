@@ -30,15 +30,14 @@ Character(lvl, str, dex, con, intel, wis, cha), GameObject(OBJ_FRIEND)
 Friend* Friend::randomize(Character* player)
 {
 	srand(time(NULL));
-	//For each stat, the enemy will within a range of +/- 5  of that.
+	//For each stat, the enemy will within a range of +/- 1  of that.
 	//The lvl will be the same.
-	//May change in the future.
-	int str = (rand() % 10 - 5) + player->getSTR();
-	int dex = (rand() % 10 - 5) + player->getDEX();
-	int con = (rand() % 10 - 5) + player->getCON();
-	int intel = (rand() % 10 - 5) + player->getINTEL();
-	int wis = (rand() % 10 - 5) + player->getWIS();
-	int cha = (rand() % 10 - 5) + player->getCHA();
+	int str = (rand() % 3 - 1) + player->getSTR();
+	int dex = (rand() % 3 - 1) + player->getDEX();
+	int con = (rand() % 3 - 1) + player->getCON();
+	int intel = (rand() % 3 - 1) + player->getINTEL();
+	int wis = (rand() % 3 - 1) + player->getWIS();
+	int cha = (rand() % 3 - 1) + player->getCHA();
 
 	if (str < 3)
 	{

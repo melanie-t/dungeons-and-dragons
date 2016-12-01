@@ -46,6 +46,7 @@ Character::Character(int lvl, int str, int dex, int con, int intel, int wis, int
 	totalEnhancement();
 	secondaryStatCalc();
 	addBackpack(Item::load(1));
+	this->weaponEquipped = false;
 }
 
 //! Constructor: Used to load characters from saved XML files
@@ -334,7 +335,7 @@ void Character::statGenerator()
 int Character::abilityModifier(int abilityScore)
 {
 	// Proper calculation of abilityMod;
-	int abilityMod = (abilityScore / 2) - 5;
+	int abilityMod = (abilityScore - 10)/5;
 	return abilityMod;
 }
 
@@ -1151,7 +1152,7 @@ void Character::unequip(Item* item)
 }
 
 //! initEnh function
-//! initializes the ability modifier bonus
+//! initializes the  modifier bonus
 void Character::totalEnhancement()
 {
 	enh_str = abilityModifier(abilityScores[Ability::STRENGTH]),
