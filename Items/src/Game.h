@@ -40,6 +40,7 @@ private:
 	sf::Text enemyStats;
 	sf::Text inventoryText;
 	sf::Text equipText;
+	sf::Text enhancementText;
 	sf::Text itemText;
 	sf::Text turnText;
 	sf::Text currentPosition;
@@ -100,6 +101,7 @@ private:
 	//Ends the game
 	void endGame(bool won = true);
 	void goToNewMap(Map* map); // for the future.
+	string enhancementString(string type, int itemIndex);
 
 	//Variables for player to move in the map
 

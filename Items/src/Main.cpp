@@ -9,6 +9,11 @@
 #include "Game.h"
 #include "FileMapBuilder.h"
 #include "SavedMapBuilder.h"
+#include "CharacterBuilder.h"
+#include "CharacterCreater.h"
+#include "Bully.h"
+#include "Tank.h"
+#include "Nimble.h"
 #include "Character.h"
 #include "Fighter.h"
 #include "Enemy.h"
@@ -39,11 +44,11 @@ void runGame(Map* chosenMap)
 
 	Game* game = new Game(chosenMap->getWidth(), chosenMap->getLength(), chosenMap);
 
-	try 
+	try
 	{
 		game->go();
 	}
-	catch (char* e) 
+	catch (char* e)
 	{
 		MessageBoxA(NULL, e, "EXCEPTION OCCURED", MB_OK | MB_ICONERROR);
 	}
@@ -52,7 +57,7 @@ void runGame(Map* chosenMap)
 
 inline void toLower(basic_string<char>& s)
 {
-	for (basic_string<char>::iterator p = s.begin(); p != s.end(); ++p) 
+	for (basic_string<char>::iterator p = s.begin(); p != s.end(); ++p)
 	{
 		*p = tolower(*p);
 	}
@@ -64,10 +69,6 @@ Main function.
 */
 int main()
 {
-	//Test Level Up GUI
-	//Character* character = Character::loadCharacter("Dylan");
-	//LevelUpWindow* window = new LevelUpWindow(character);
-
 	cout << "Welcome To Our Dnd demo!" << endl;
 
 	bool run = true;
@@ -253,7 +254,7 @@ int main()
 							if (created)
 							{
 								int numMap = Statistics::getInstance()->getNumMaps();
-								Statistics::getInstance()->setNumMaps(numMap+1);
+								Statistics::getInstance()->setNumMaps(numMap + 1);
 							}
 						}
 						case 6: //exit without saving.
@@ -298,21 +299,53 @@ int main()
 					cout << "1. Bully" << endl;
 					cout << "2. Nimble" << endl;
 					cout << "3. Tank" << endl;
-					
+
 					do
 					{
 						cin >> charClass;
 					} while (charClass != 1 && charClass != 2 && charClass != 3);
 
-					Fighter newFighter(name, charClass);
-					newFighter.notify();
+					Character* newFighter = nullptr;
+					CharacterCreater creater;
+
+					switch (charClass)
+					{
+					case 1: // bully
+					{
+						CharacterBuilder* BullyFighter = new Bully;
+						creater.setCharacterBuild(BullyFighter);
+						creater.constructCharacter();
+						newFighter = creater.getCharacter();
+						newFighter->setName(name);
+						break;
+					}
+					case 2: //nimble
+					{
+						CharacterBuilder* NimbleFighter = new Nimble;
+						creater.setCharacterBuild(NimbleFighter);
+						creater.constructCharacter();
+						newFighter = creater.getCharacter();
+						newFighter->setName(name);
+						break;
+					}
+					case 3: // tank
+					{
+						CharacterBuilder* TankFighter = new Tank;
+						creater.setCharacterBuild(TankFighter);
+						creater.constructCharacter();
+						newFighter = creater.getCharacter();
+						newFighter->setName(name);
+						break;
+					}
+					}
+					newFighter->notify();
 
 					//Ask if player wants to save this character
 					cout << "Do you want to save this Fighter (Y/N)?" << endl;
 					cin >> decision;
 					if (decision == 'Y' || decision == 'y')
 					{
-						newFighter.saveCharacter();
+						newFighter->saveCharacter();
 						cout << "Fighter " << name << " saved. Returning to menu.\n" << endl;
 						Statistics::getInstance()->addCharacter(name);
 					}
@@ -333,7 +366,7 @@ int main()
 					fighterPointer = Character::loadCharacter(name);
 
 					// Select modifying category
-					while (modifycontinue) 
+					while (modifycontinue)
 					{
 						fighterPointer->notify();
 						cout << "Which category do you wish to modify?"
@@ -455,7 +488,7 @@ int main()
 						} // end modify character switch
 					} //end modify ability while loop
 
-					//Asks user to save stats if change has occured
+					  //Asks user to save stats if change has occured
 					if (change)
 					{
 						cout << "Would you like to save your new stats (Y/N)?" << endl;
@@ -576,10 +609,10 @@ int main()
 								cin >> enhancement_type;
 
 								if ((item->getType() == TYPE_HELMET && (enhancement_type != EN_INTELLIGENCE && enhancement_type != EN_WISDOM
-										&& enhancement_type != EN_ARMOR_CLASS))
+									&& enhancement_type != EN_ARMOR_CLASS))
 									|| ((item->getType() == TYPE_ARMOR || item->getType() == TYPE_SHIELD) && (enhancement_type != EN_ARMOR_CLASS))
 									|| ((item->getType() == TYPE_RING) && (enhancement_type != EN_STRENGTH || enhancement_type != EN_CONSTITUTION
-										|| enhancement_type != EN_WISDOM || enhancement_type != EN_CHARISMA 
+										|| enhancement_type != EN_WISDOM || enhancement_type != EN_CHARISMA
 										|| enhancement_type != EN_ARMOR_CLASS))
 									|| (item->getType() == TYPE_BOOTS && (enhancement_type != EN_DEXTERITY && enhancement_type != EN_ARMOR_CLASS))
 									|| (item->getType() == TYPE_WEAPON && (enhancement_type != EN_ATTACK_BONUS && enhancement_type != EN_DAMAGE_BONUS)))
@@ -596,7 +629,7 @@ int main()
 									enhancement_type = "uyeiug"; //abritrary, just to make this do/while continue to loop.
 								}
 							} while (enhancement_type != EN_STRENGTH && enhancement_type != EN_CONSTITUTION && enhancement_type != EN_WISDOM
-								&& enhancement_type != EN_CHARISMA && enhancement_type != EN_DEXTERITY && enhancement_type != EN_ATTACK_BONUS 
+								&& enhancement_type != EN_CHARISMA && enhancement_type != EN_DEXTERITY && enhancement_type != EN_ATTACK_BONUS
 								&& enhancement_type != EN_DAMAGE_BONUS && enhancement_type != EN_ARMOR_CLASS && enhancement_type != EN_INTELLIGENCE);
 
 							do
@@ -636,7 +669,7 @@ int main()
 							}
 							else
 							{
-								cout << "\nThis item is invalid! These are valid enhancements:" 
+								cout << "\nThis item is invalid! These are valid enhancements:"
 									<< "\nHelmet (intelligence, wisdom, armorclass)"
 									<< "\nArmor (armorclass)"
 									<< "\nShield (armorclass)"
@@ -687,7 +720,7 @@ int main()
 				}
 				case 3:
 				{
-					campEdit = false; 
+					campEdit = false;
 					break;
 				}
 				}

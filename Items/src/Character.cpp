@@ -39,9 +39,11 @@ Character::Character(int lvl, int str, int dex, int con, int intel, int wis, int
 	abilityScores[Ability::INTELLIGENCE] = intel;
 	abilityScores[Ability::WISDOM] = wis;
 	abilityScores[Ability::CHARISMA] = cha;
-	currentHitPoints = 10;
-	secondaryStatCalc();
+	currentHitPoints = 10 + abilityModifier(getCON());
+	attackBonus = lvl;
 	totalEnhancement();
+	secondaryStatCalc();
+	addBackpack(Item::load(1));
 }
 
 //! Constructor: Used to load characters from saved XML files
@@ -57,7 +59,7 @@ Character::Character(int lvl, int str, int dex, int con, int intel, int wis, int
 //! @param backpack contains all items in backpack inventory
 //! @param equips contains all items that are currently worn
 Character::Character(string playerName, int charclass, int lvl, int str, int dex, int con, int intel,
-	int wis, int cha, int hp, ItemContainer bkpack, Item equips[7])
+	int wis, int cha, int hp, ItemContainer bkpack, Item equips[7], int maxhp)
 {
 	name = playerName;
 	level = lvl;
@@ -68,11 +70,13 @@ Character::Character(string playerName, int charclass, int lvl, int str, int dex
 	abilityScores[Ability::INTELLIGENCE] = intel;
 	abilityScores[Ability::WISDOM] = wis;
 	abilityScores[Ability::CHARISMA] = cha;
+	maxHP = maxhp;
 	currentHitPoints = hp;
 	backpack = bkpack;
 	setEquips(equips);
-	secondaryStatCalc();
+	attackBonus = lvl;
 	totalEnhancement();
+	secondaryStatCalc();
 }
 
 //! notify function
@@ -338,8 +342,7 @@ int Character::abilityModifier(int abilityScore)
 void Character::secondaryStatCalc()
 {
 	setArmorClass(10);
-	setAttackBonus(getLevel()*(abilityModifier(getSTR()) + abilityModifier(getDEX())) / 5);
-	setDamageBonus(abilityModifier(getSTR()));
+	setAttackBonus(level);
 }
 
 //! Implementation of fill cell, set any cell to anything it might eventually contain
@@ -530,6 +533,20 @@ void Character::setName(string newName)
 	name = newName;
 }
 
+//! Implementation of a getter method for maxHP
+//! @param newHP : new HP value
+int Character::getMaxHP()
+{
+	return maxHP;
+}
+
+//! Implementation of a getter method for maxHP
+//! @param newHP : new HP value
+void Character::setMaxHP(int newHP)
+{
+	maxHP = newHP;
+}
+
 //! Implementation of getter method for charClass
 //! @return charClass: the class of character in terms of int (Ex: 1 = Fighter)
 int Character::getCharClass()
@@ -555,6 +572,7 @@ void Character::levelUp()
 	//should roll 1d10[constitution]
 	int hpIncrease = dice.roll("1d10[" + constitutionString + "]");
 	currentHitPoints = currentHitPoints + hpIncrease;
+	maxHP = maxHP + hpIncrease;
 	//Sets the enhancement attack bonus as the level
 	this->enh_attackbonus = level;
 
@@ -643,22 +661,41 @@ void Character::displayStats()
 			items = items + equips[i].toString();
 	}
 
+	string STRplus = " ";
+	string DEXplus = " ";
+	string CONplus = " ";
+	string INTELplus = " ";
+	string WISplus = " ";
+	string CHAplus = " ";
+
+	if (enh_str >= 0)
+		STRplus = " +";
+	if (enh_dex >= 0)
+		DEXplus = " +";
+	if (enh_con >= 0)
+		CONplus = " +";
+	if (enh_int >= 0)
+		INTELplus = " +";
+	if (enh_wis >= 0)
+		WISplus = " +";
+	if (enh_cha >= 0)
+		CHAplus = " +";
+
 	cout << "\n= PLAYER STATS ="
 		<< "\nName: " << getName()
 		<< "\nClass: " << classtoString()
 		<< "\nLVL: " << getLevel()
-		<< "\nHP : " << getHitPoints()
-		<< "\nSTR: " << getSTR() << " +" << enh_str
-		<< "\nDEX: " << getDEX() << " +" << enh_dex 
-		<< "\nCON: " << getCON() << " +" << enh_con
-		<< "\nINT: " << getINTEL() << " +" << enh_int
-		<< "\nWIS: " << getWIS() << " +" << enh_wis
-		<< "\nCHA: " << getCHA() << " +" << enh_cha
+		<< "\nHP : " << getHitPoints() << "/" << maxHP
+		<< "\nSTR: " << getSTR() << STRplus << enh_str
+		<< "\nDEX: " << getDEX() << DEXplus << enh_dex
+		<< "\nCON: " << getCON() << CONplus << enh_con
+		<< "\nINT: " << getINTEL() << INTELplus << enh_int
+		<< "\nWIS: " << getWIS() << WISplus << enh_wis
+		<< "\nCHA: " << getCHA() << CHAplus << enh_cha
 		<< "\nArmor Class : " << getArmorClass() << " +" << enh_armorclass
 		<< "\nAttack Bonus: " << getAttackBonus() << " +" << enh_attackbonus
-		<< "\nDamage Bonus: " << getDamageBonus() << " +" << enh_damagebonus
-		<< "\n= Equips =" << items
-		<< "\n= Backpack =" << backpack.toString() << endl;
+		<< "\n= Equips =\n" << items
+		<< "\n= Backpack =\n" << backpack.toString() << endl;
 }
 
 //! statString function
@@ -682,20 +719,39 @@ string Character::statString()
 			items = items + i.toString() + "\n";
 	}
 
+	string STRplus = " ";
+	string DEXplus = " ";
+	string CONplus = " ";
+	string INTELplus = " ";
+	string WISplus = " ";
+	string CHAplus = " ";
+
+	if (enh_str >= 0)
+		STRplus = " +";
+	if (enh_dex >= 0)
+		DEXplus = " +";
+	if (enh_con >= 0)
+		CONplus = " +";
+	if (enh_int >= 0)
+		INTELplus = " +";
+	if (enh_wis >= 0)
+		WISplus = " +";
+	if (enh_cha >= 0)
+		CHAplus = " +";
+
 	std::ostringstream out;
 	out << "\n" << getName()
 		<< "\n" << classtoString()
 		<< "\nLVL: " << getLevel()
-		<< "\nHP : " << getHitPoints()
-		<< "\nSTR: " << getSTR() << " +" << enh_str
-		<< "\nDEX: " << getDEX() << " +" << enh_dex
-		<< "\nCON: " << getCON() << " +" << enh_con
-		<< "\nINT: " << getINTEL() << " +" << enh_int
-		<< "\nWIS: " << getWIS() << " +" << enh_wis
-		<< "\nCHA: " << getCHA() << " +" << enh_cha
+		<< "\nHP : " << getHitPoints() << "/" << maxHP
+		<< "\nSTR: " << getSTR() << STRplus << enh_str
+		<< "\nDEX: " << getDEX() << DEXplus << enh_dex
+		<< "\nCON: " << getCON() << CONplus << enh_con
+		<< "\nINT: " << getINTEL() << INTELplus << enh_int
+		<< "\nWIS: " << getWIS() << WISplus << enh_wis
+		<< "\nCHA: " << getCHA() << CHAplus << enh_cha
 		<< "\nArmor Class : " << getArmorClass() << " +" << enh_armorclass
-		<< "\nAttack Bonus: " << getAttackBonus() << " +" << enh_attackbonus
-		<< "\nDamage Bonus: " << getDamageBonus() << " +" << enh_damagebonus << endl;
+		<< "\nAttack Bonus: " << getAttackBonus() << " +" << enh_attackbonus << endl;
 	return out.str();
 }
 
@@ -740,6 +796,7 @@ void Character::saveCharacter()
 	xml.AddElem("wisdom", getWIS());
 	xml.AddElem("charisma", getCHA());
 	xml.AddElem("hp", getHitPoints());
+	xml.AddElem("maxhp", getMaxHP());
 	xml.AddElem("class", getCharClass());
 	xml.AddElem("backpack");
 	xml.IntoElem();
@@ -785,7 +842,7 @@ Character* Character::loadCharacter(string name)
 		else
 		{
 			xml.IntoElem();
-			int level, charclass, str, dex, con, intel, wis, cha, hp;
+			int level, charclass, str, dex, con, intel, wis, cha, hp, maxhp;
 			ItemContainer backpack;
 			Item equips[7];
 
@@ -828,6 +885,10 @@ Character* Character::loadCharacter(string name)
 				{
 					charclass = atoi(xml.GetData().c_str());
 				}
+				else if (tag == "maxhp")
+				{
+					maxhp = atoi(xml.GetData().c_str());
+				}
 				else if (tag == "backpack")
 				{
 					xml.IntoElem();
@@ -856,7 +917,7 @@ Character* Character::loadCharacter(string name)
 				}
 			}
 			return new Character(name, charclass, level, str, dex, con, intel,
-				wis, cha, hp, backpack, equips);
+				wis, cha, hp, backpack, equips, maxhp);
 		}
 	}
 	return nullptr; //Empty

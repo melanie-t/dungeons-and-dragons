@@ -7,5 +7,16 @@
 <wisdom>13</wisdom>
 <charisma>15</charisma>
 <hp>13</hp>
+<maxhp>13</maxhp>
 <class>1</class>
+<backpack/>
+<equips>
+<equip>0</equip>
+<equip>0</equip>
+<equip>0</equip>
+<equip>0</equip>
+<equip>0</equip>
+<equip>0</equip>
+<equip>1</equip>
+</equips>
 </character>

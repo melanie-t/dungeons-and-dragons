@@ -1,0 +1,11 @@
+<item>
+<id>8</id>
+<type>armor</type>
+<path>res/armor/2.png</path>
+<influence>
+<enhancement>
+<enh_type>armorclass</enh_type>
+<bonus>5</bonus>
+</enhancement>
+</influence>
+</item>

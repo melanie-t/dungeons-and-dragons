@@ -21,14 +21,18 @@ public:
 		sort(abilityScores, abilityScores + 6);
 
 		//Assigns the ability score depending on importance
-		m_character->setSTR(abilityScores[0]);
-		m_character->setCON(abilityScores[1]);
-		m_character->setDEX(abilityScores[2]);
-		m_character->setINTEL(abilityScores[3]);
-		m_character->setCHA(abilityScores[4]);
-		m_character->setWIS(abilityScores[5]);
+		m_character->setSTR(abilityScores[5]);
+		m_character->setCON(abilityScores[4]);
+		m_character->setDEX(abilityScores[3]);
+		m_character->setINTEL(abilityScores[2]);
+		m_character->setCHA(abilityScores[1]);
+		m_character->setWIS(abilityScores[0]);
 
 		//Assigns the charclass
 		m_character->setCharClass(1);
+		m_character->setHitPoints(10 + m_character->abilityModifier(m_character->getCON()));
+		m_character->setMaxHP(10 + m_character->abilityModifier(m_character->getCON()));
+		m_character->secondaryStatCalc();
+		m_character->totalEnhancement();
 	}
 };
